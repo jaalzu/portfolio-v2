@@ -1,0 +1,85 @@
+---
+interface Props {
+  href: string;
+  variant?: "primary" | "ghost" | "icon";
+  target?: "_blank" | "_self";
+  ariaLabel?: string;
+  class?: string;
+}
+
+const {
+  href,
+  variant = "ghost",
+  target = "_self",
+  ariaLabel,
+  class: className = "",
+} = Astro.props;
+
+const rel = target === "_blank" ? "noopener noreferrer" : undefined;
+---
+
+<a
+  href={href}
+  target={target}
+  rel={rel}
+  class:list={["btn", `btn--${variant}`, className]}
+  aria-label={ariaLabel}
+>
+  <slot />
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-family: var(--font-family-base);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), color var(--transition-fast),
+      border-color var(--transition-fast);
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn--primary {
+    background-color: var(--color-secondary-soft);
+    color: var(--color-primary);
+    border: 1px solid transparent;
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-6);
+  }
+
+  .btn--primary:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-surface);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-text);
+    border: none;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+  }
+
+  .btn--ghost:hover {
+    color: var(--color-primary);
+  }
+
+  .btn--icon {
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+  }
+
+  .btn--icon:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+</style>

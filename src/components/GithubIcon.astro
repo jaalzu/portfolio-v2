@@ -1,0 +1,90 @@
+---
+/**
+ * GithubIcon.astro
+ * Ícono de GitHub (gatito). En hover aparecen los ojitos (con rebote)
+ * y los bigotes se van dibujando.
+ */
+---
+<svg class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <rect width="256" height="256" fill="none"/>
+  <path
+    class="gh-head"
+    d="M119.83,56A52,52,0,0,0,76,32a51.92,51.92,0,0,0-3.49,44.7A49.28,49.28,0,0,0,64,104v8a48,48,0,0,0,48,48h48a48,48,0,0,0,48-48v-8a49.28,49.28,0,0,0-8.51-27.3A51.92,51.92,0,0,0,196,32a52,52,0,0,0-43.83,24Z"
+    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"
+  />
+  <path
+    class="gh-legs"
+    d="M104,232V192a32,32,0,0,1,32-32h0a32,32,0,0,1,32,32v40"
+    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"
+  />
+  <path
+    class="gh-tail-base"
+    d="M104,208 H72 A32,32 0 0 1 40,176"
+    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"
+  />
+  <path
+    class="gh-tail-tip"
+    d="M40,176 A32,32 0 0 0 8,144"
+    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"
+  />
+
+  <!-- ojitos -->
+  <circle class="gh-eye gh-eye-left" cx="112" cy="106" r="7" fill="currentColor" stroke="none"/>
+  <circle class="gh-eye gh-eye-right" cx="160" cy="106" r="7" fill="currentColor" stroke="none"/>
+
+  <!-- bigotitos -->
+  <path class="gh-whisker gh-whisker-left" d="M96,132 L36,124" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+  <path class="gh-whisker gh-whisker-right" d="M176,132 L236,124" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+</svg>
+
+<style>
+  .github-icon-svg {
+    overflow: visible;
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+
+  // Largo real de cada bigote (M96,132 L36,124 → dx=60, dy=8)
+  const WHISKER_LEN = Math.hypot(96 - 36, 132 - 124); // ≈ 60.5
+
+  function initGithubIcons() {
+    document
+      .querySelectorAll<SVGElement>(".github-icon-svg:not([data-gsap-ready])")
+      .forEach((svg) => {
+        svg.setAttribute("data-gsap-ready", "1");
+
+        const eyeL = svg.querySelector<SVGCircleElement>(".gh-eye-left");
+        const eyeR = svg.querySelector<SVGCircleElement>(".gh-eye-right");
+        const whiskerL = svg.querySelector<SVGPathElement>(".gh-whisker-left");
+        const whiskerR = svg.querySelector<SVGPathElement>(".gh-whisker-right");
+        if (!eyeL || !eyeR || !whiskerL || !whiskerR) return;
+
+        gsap.set([eyeL, eyeR], { transformOrigin: "50% 50%", scale: 0, opacity: 0 });
+
+        [whiskerL, whiskerR].forEach((w) => {
+          gsap.set(w, {
+            attr: { "stroke-dasharray": WHISKER_LEN, "stroke-dashoffset": WHISKER_LEN },
+            opacity: 1,
+          });
+        });
+
+        // Todo arranca en la posición 0 del timeline → ojos y bigotes a la vez
+        const face = gsap.timeline({ paused: true })
+          .to([eyeL, eyeR], { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 0)
+          .to([whiskerL, whiskerR], { attr: { "stroke-dashoffset": 0 }, duration: 0.3, ease: "power2.out" }, 0);
+
+        // dispara con el hover del botón/link que envuelve al ícono
+        const trigger = svg.closest<HTMLElement>(".tab-btn") ?? svg;
+
+        trigger.addEventListener("mouseenter", () => face.play());
+        trigger.addEventListener("mouseleave", () => face.reverse());
+        trigger.addEventListener("focus", () => face.play());
+        trigger.addEventListener("blur", () => face.reverse());
+      });
+  }
+
+  initGithubIcons();
+  document.addEventListener("astro:page-load", initGithubIcons);
+</script>

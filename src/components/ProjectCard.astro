@@ -1,0 +1,139 @@
+---
+import GithubIcon from "./GithubIcon.astro";
+import ExternalLinkIcon from "./ExternalLinkIcon.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  imageSrc: string;
+  githubUrl: string;
+  liveUrl: string;
+}
+
+const { title, description, imageSrc, githubUrl, liveUrl } = Astro.props;
+---
+
+<div class="card-frame">
+  <article class="card">
+    <div class="card__image">
+      <img src={imageSrc} alt="" loading="lazy" />
+    </div>
+    <div class="card__body">
+      <h3 class="card__title">{title}</h3>
+      <p class="card__description">{description}</p>
+      <div class="card__actions">
+        <a
+          class="tab-btn card__icon-link"
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Repositorio de ${title} en GitHub`}
+        >
+          <GithubIcon />
+        </a>
+        <a
+          class="tab-btn card__icon-link"
+          href={liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Ver ${title} en vivo`}
+        >
+          <ExternalLinkIcon />
+        </a>
+      </div>
+    </div>
+  </article>
+</div>
+
+<style>
+  /* Marco exterior: crea el efecto "card dentro de otra card" (radio concéntrico) */
+  .card-frame {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    padding: var(--card-inset);
+    transition: border-color var(--transition-base);
+  }
+
+  .card-frame:has(.card:hover) {
+    border-color: var(--color-secondary);
+  }
+
+  .card {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-inner);
+    overflow: hidden;
+    background-color: var(--color-surface);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .card:hover {
+    border-color: var(--color-secondary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card__image {
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-secondary-soft);
+  }
+
+  .card__image img {
+    max-height: 56px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .card__body {
+    padding: var(--space-3) var(--space-3) var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    flex: 1;
+  }
+
+  .card__title {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .card__description {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    flex: 1;
+  }
+
+  .card__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .card__icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: var(--color-text);
+    transition: color var(--transition-fast);
+  }
+
+  .card__icon-link :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .card__icon-link:hover,
+  .card__icon-link:focus-visible {
+    color: var(--color-primary);
+  }
+</style>

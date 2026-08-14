@@ -1,0 +1,216 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Banner from "../components/Banner.astro";
+import Button from "../components/Button.astro";
+import Icon from "../components/Icon.astro";
+import GithubIcon from "../components/GithubIcon.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import TechBadge from "../components/TechBadge.astro";
+import Section from "../components/Section.astro";
+
+const projects = [
+  {
+    title: "PickYourColor",
+    description: "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
+    imageSrc: "https://picsum.photos/seed/pickyourcolor/120/120",
+    githubUrl: "#",
+    liveUrl: "#",
+  },
+  {
+    title: "JavaCourses",
+    description: "Un marketplace de artículos nuevos y usados con chat integrado.",
+    imageSrc: "https://picsum.photos/seed/javacourses/120/120",
+    githubUrl: "#",
+    liveUrl: "#",
+  },
+  {
+    title: "TratoLibre",
+    description: "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
+    imageSrc: "https://picsum.photos/seed/tratolibre1/120/120",
+    githubUrl: "#",
+    liveUrl: "#",
+  },
+  {
+    title: "TratoLibre",
+    description: "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
+    imageSrc: "https://picsum.photos/seed/tratolibre2/120/120",
+    githubUrl: "#",
+    liveUrl: "#",
+  },
+  {
+    title: "TratoLibre",
+    description: "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
+    imageSrc: "https://picsum.photos/seed/tratolibre3/120/120",
+    githubUrl: "#",
+    liveUrl: "#",
+  },
+];
+
+const techStack = [
+  "JS",
+  "TypeScript",
+  "React",
+  "Next.js",
+  "CSS",
+  "Tailwind",
+  "Git",
+  "Vitest",
+  "Figma",
+  "Astro",
+];
+---
+
+<BaseLayout title="Javier Alzú — Frontend Developer">
+  <main class="page">
+    <Section>
+      <Banner
+        name="Javier Alzú"
+        role="Frontend Developer"
+        coverSrc="https://picsum.photos/seed/cover/700/200"
+        avatarSrc="https://picsum.photos/seed/avatar/150/150"
+      />
+
+      <div class="about">
+        <p class="about__bio">
+          Software developer enfocado en el <strong>frontend</strong>. Construyo
+          <strong>aplicaciones web</strong>, <strong>landing pages</strong> e
+          <strong>interfaces</strong> para productos digitales dentro del ecosistema
+          moderno de JavaScript. Autodidacta, motivado por la curiosidad y los desafíos.
+        </p>
+        <p class="about__bio">
+          La mayor parte de mi camino lo recorrí solo, así que ahora busco un equipo con
+          quien crecer — escribime por email si querés colaborar.
+        </p>
+
+        <div class="about__actions">
+          <Button href="#" variant="icon" ariaLabel="LinkedIn" target="_blank">
+            <Icon name="linkedin" size={18} />
+          </Button>
+          <Button href="#" variant="icon" class="tab-btn" ariaLabel="GitHub" target="_blank">
+            <GithubIcon />
+          </Button>
+          <Button href="mailto:javieralzuu@gmail.com" variant="ghost">
+            <Icon name="mail" size={18} />
+            Escribime
+          </Button>
+          <Button href="#" variant="primary" ariaLabel="Descargar CV">
+            <Icon name="download" size={16} />
+            Descargar CV
+          </Button>
+        </div>
+      </div>
+    </Section>
+
+    <Section title="Projects" marked class="projects-section">
+      <div class="projects-grid">
+        {
+          projects.map((project) => (
+            <ProjectCard
+              title={project.title}
+              description={project.description}
+              imageSrc={project.imageSrc}
+              githubUrl={project.githubUrl}
+              liveUrl={project.liveUrl}
+            />
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section title="Tech stack" marked class="tech-section">
+      <div class="tech-grid">
+        {techStack.map((tech) => <TechBadge name={tech} />)}
+      </div>
+    </Section>
+
+    <footer class="footer">
+      <a class="footer__email" href="mailto:javieralzuu@gmail.com">javieralzuu@gmail.com</a>
+      <span class="footer__location">Hecho en Argentina.</span>
+    </footer>
+  </main>
+</BaseLayout>
+
+<style>
+  .page {
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+
+  .about {
+    /* Gap avatar → bio (Figma: ~31px) */
+    padding: var(--space-8) var(--space-4) 0;
+  }
+
+  .about__bio {
+    /* Gap entre párrafos de bio (Figma: ~27px) */
+    margin: 0 0 var(--space-6);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text);
+  }
+
+  .about__bio strong {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .about__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    /* Gap bio → botones de contacto (Figma: ~63px) */
+    margin-top: var(--space-12);
+  }
+
+  /* Gap botones de contacto → heading "Projects" (Figma: ~73px) */
+  .projects-section {
+    padding-top: var(--space-16);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    /* Gap entre cards (Figma: ~62px horizontal / ~14px vertical) */
+    column-gap: var(--space-12);
+    row-gap: var(--space-4);
+  }
+
+  /* Gap cards → heading "Tech stack" (Figma: gap generoso, ~espacio de sección completo) */
+  .tech-section {
+    padding-top: var(--space-16);
+  }
+
+  .tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8) var(--space-6);
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding-block: var(--space-16) var(--space-12);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .footer__email {
+    text-decoration: none;
+    color: var(--color-text-muted);
+  }
+
+  .footer__email:hover {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 560px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

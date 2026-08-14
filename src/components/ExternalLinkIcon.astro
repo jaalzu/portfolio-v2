@@ -1,0 +1,79 @@
+---
+/**
+ * ExternalLinkIcon.astro
+ * Ícono típico de "link externo" (flecha + box). En hover, la flecha
+ * dispara hacia afuera (arriba-derecha), se desvanece, y reaparece
+ * desde el lado opuesto (abajo-izquierda) deslizándose a su lugar.
+ */
+---
+<svg
+  class="ext-link-icon-svg"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24" height="24"
+  fill="currentColor"
+  viewBox="0 0 24 24"
+>
+  <g transform="matrix(-1,0,0,1,24,0)">
+    <path
+      class="ext-arrow"
+      d="M11 3H3v8h2V6.41l6.29 6.3 1.42-1.42L6.41 5H11z"
+    ></path>
+    <path
+      class="ext-box"
+      d="M3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-6v2h6v14H5v-6H3z"
+    ></path>
+  </g>
+</svg>
+
+<script>
+  import gsap from "gsap";
+
+  function initExtLinkIcons() {
+    document
+      .querySelectorAll<SVGElement>(".ext-link-icon-svg:not([data-gsap-ready])")
+      .forEach((svg) => {
+        svg.setAttribute("data-gsap-ready", "1");
+
+        const arrow = svg.querySelector<SVGElement>(".ext-arrow");
+        const box = svg.querySelector<SVGElement>(".ext-box");
+        if (!arrow || !box) return;
+
+        gsap.set(arrow, { transformOrigin: "50% 50%" });
+        gsap.set(box, { transformOrigin: "50% 50%" });
+
+        const trigger = svg.closest<HTMLElement>(".tab-btn") ?? svg;
+
+        function play() {
+          const tl = gsap.timeline();
+
+          tl.to(arrow, {
+            x: -4,
+            y: -4,
+            opacity: 0,
+            duration: 0.22,
+            ease: "power2.in",
+          })
+            .set(arrow, { x: 4, y: 4 })
+            .to(arrow, {
+              x: 0,
+              y: 0,
+              opacity: 1,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+            .to(box, {
+              duration: 0.15,
+              ease: "power1.out",
+              yoyo: true,
+              repeat: 1,
+            }, "-=0.15");
+        }
+
+        trigger.addEventListener("mouseenter", play);
+        trigger.addEventListener("focus", play);
+      });
+  }
+
+  initExtLinkIcons();
+  document.addEventListener("astro:page-load", initExtLinkIcons);
+</script>

@@ -1,0 +1,40 @@
+---
+interface Props {
+  title?: string;
+  marked?: boolean;
+  class?: string;
+}
+
+const { title, marked = false, class: className = "" } = Astro.props;
+---
+
+<section class:list={["section", className]}>
+  {
+    title && (
+      <h2 class="section__title">
+        {title}
+        {marked && <span class="section__mark" aria-hidden="true">*</span>}
+      </h2>
+    )
+  }
+  <div class="section__content">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--space-8);
+  }
+
+  .section__title {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .section__mark {
+    color: var(--color-primary);
+    margin-left: 2px;
+  }
+</style>
