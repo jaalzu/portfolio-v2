@@ -43,9 +43,6 @@
   --space-12: 3rem; /* 48px */
   --space-16: 4rem; /* 64px */
 
-  /* ---- Radios concéntricos ----
-     Base = radio de la superficie contenedora (card).
-     Los elementos internos usan base - padding, nunca un valor arbitrario. */
   --radius-base: 12px;
   --radius-inner: 10px; /* --radius-base - 2px de borde */
   --radius-sm: 8px;
@@ -75,8 +72,6 @@
   --color-bg: oklch(0.19 0.014 39.865);
   --color-surface: oklch(0.24 0.016 39.865);
   --color-primary: oklch(0.72 0.13 39.865);
-  --color-primary-hover: oklch(0.77 0.125 39.865);
-  --color-primary-active: oklch(0.67 0.135 39.865);
   --color-secondary: oklch(0.5 0.1 39.865);
   --color-secondary-soft: oklch(0.5 0.1 39.865 / 0.16);
 

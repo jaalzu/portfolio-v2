@@ -5,6 +5,7 @@ interface Props {
   target?: "_blank" | "_self";
   ariaLabel?: string;
   class?: string;
+  download?: string | boolean;
   "data-tooltip"?: string;
 }
 
@@ -14,6 +15,7 @@ const {
   target = "_self",
   ariaLabel,
   class: className = "",
+  download,
   "data-tooltip": tooltip,
 } = Astro.props;
 
@@ -27,6 +29,7 @@ const rel = target === "_blank" ? "noopener noreferrer" : undefined;
   class:list={["btn", `btn--${variant}`, className]}
   aria-label={ariaLabel}
   data-tooltip={tooltip}
+  download={download}
 >
   <slot />
 </a>
@@ -55,7 +58,7 @@ const rel = target === "_blank" ? "noopener noreferrer" : undefined;
     background-color: var(--color-primary-soft);
   }
 
- 
+
 
   .btn--icon {
     background: transparent;
