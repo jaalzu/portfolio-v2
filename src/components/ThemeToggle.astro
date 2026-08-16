@@ -1,0 +1,94 @@
+---
+---
+
+<button
+  id="theme-toggle"
+  class="theme-toggle"
+  type="button"
+  aria-label="Cambiar tema claro/oscuro"
+>
+  <svg
+    class="theme-toggle__icon theme-toggle__icon--sun"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 256 256"
+    aria-hidden="true"
+  >
+    <rect width="256" height="256" fill="none" />
+    <line x1="128" y1="40" x2="128" y2="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+    <circle cx="128" cy="128" r="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+    <line x1="64" y1="64" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+    <line x1="64" y1="192" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+    <line x1="192" y1="64" x2="200" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+    <line x1="192" y1="192" x2="200" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+    <line x1="40" y1="128" x2="32" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+    <line x1="128" y1="216" x2="128" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+    <line x1="216" y1="128" x2="224" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+  </svg>
+
+  <svg
+    class="theme-toggle__icon theme-toggle__icon--moon"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 256 256"
+    aria-hidden="true"
+  >
+    <rect width="256" height="256" fill="none" />
+    <path
+      d="M108.11,28.11A96.09,96.09,0,0,0,227.89,147.89,96,96,0,1,1,108.11,28.11Z"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="16"
+    />
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+
+  .theme-toggle:hover {
+    color: var(--color-primary);
+  }
+
+  .theme-toggle__icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Por defecto (light): mostramos el sol, ocultamos la luna */
+  .theme-toggle__icon--moon {
+    display: none;
+  }
+
+  /* Dark: mostramos la luna, ocultamos el sol */
+  :global([data-theme="dark"]) .theme-toggle__icon--sun {
+    display: none;
+  }
+
+  :global([data-theme="dark"]) .theme-toggle__icon--moon {
+    display: block;
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("theme-toggle");
+  const root = document.documentElement;
+
+  toggle?.addEventListener("click", () => {
+    const isDark = root.getAttribute("data-theme") === "dark";
+    root.setAttribute("data-theme", isDark ? "light" : "dark");
+    localStorage.setItem("theme", isDark ? "light" : "dark");
+  });
+</script>

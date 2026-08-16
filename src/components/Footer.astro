@@ -1,0 +1,49 @@
+---
+interface Props {
+  coverSrc: string;
+  email: string;
+}
+
+const { coverSrc, email } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="site-footer__cover">
+    <img src={coverSrc} alt="" />
+  </div>
+  <a class="site-footer__email" href={`mailto:${email}`}>{email}</a>
+</footer>
+
+<style>
+  .site-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: var(--space-16);
+  }
+
+  .site-footer__cover {
+    width: 100%;
+    height: 35px;
+    overflow: hidden;
+  }
+
+  .site-footer__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30.5%;
+  }
+
+  .site-footer__email {
+    margin-top: var(--space-4);
+    padding-bottom: var(--space-12);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .site-footer__email:hover {
+    color: var(--color-primary);
+  }
+</style>

@@ -5,48 +5,43 @@
 
 :root {
   /* ---- Color: paleta cálida (light mode, hue 39.865°) ---- */
-  --color-bg: oklch(0.95 0.021 39.865);
+  --color-bg: oklch(97.777% 0.0064 16.311);
   --color-surface: oklch(1 0 0);
+  --color-gray-light: oklch(1 0 0);
   --color-primary: oklch(0.597 0.135 39.865);
-  --color-primary-hover: oklch(0.55 0.14 39.865);
-  --color-primary-active: oklch(0.5 0.145 39.865);
-  --color-secondary: oklch(0.774 0.112 39.865);
-  --color-secondary-soft: oklch(0.774 0.112 39.865 / 0.12);
+  --color-primary-soft: oklch(59.867% 0.13428 40.447 / 0.682);
 
   /* ---- Color: neutros estándar (texto, bordes) ---- */
   --color-text: oklch(0.2 0 0);
   --color-text-muted: oklch(0.45 0 0);
-  --color-border: oklch(0.72 0 0);
+  --color-border: oklch(0.72 0 0 / 0.6);
   --color-border-soft: oklch(0.72 0 0 / 0.4);
 
   /* ---- Tipografía ---- */
   --font-family-base: "Figtree", system-ui, -apple-system, sans-serif;
 
-  --text-xs: 0.75rem;   /* 12px — captions */
-  --text-sm: 0.875rem;  /* 14px — body small / card text */
-  --text-base: 1rem;    /* 16px — body */
-  --text-md: 1.125rem;  /* 18px — section headings */
-  --text-lg: 1.5rem;    /* 24px — name / display small */
-  --text-xl: 2rem;      /* 32px — display */
+  --text-xs: 0.675rem; /* 14px — body small / card text */
+  --text-sm: 0.875rem; /* 14px — body small / card text */
+  --text-base: 1rem; /* 16px — body */
+  --text-md: 1.125rem; /* 18px — section headings */
 
-  --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
 
   --leading-tight: 1.2;
   --leading-normal: 1.4;
-  --leading-relaxed: 1.6;
+  --leading-relaxed: 1.63;
 
   /* ---- Espaciado (base 8px) ---- */
-  --space-1: 0.25rem;  /* 4px */
-  --space-2: 0.5rem;   /* 8px */
-  --space-3: 0.75rem;  /* 12px */
-  --space-4: 1rem;     /* 16px */
-  --space-6: 1.5rem;   /* 24px */
-  --space-8: 2rem;     /* 32px */
-  --space-12: 3rem;    /* 48px */
-  --space-16: 4rem;    /* 64px */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
 
   /* ---- Radios concéntricos ----
      Base = radio de la superficie contenedora (card).
@@ -57,14 +52,14 @@
   --radius-full: 999px;
 
   /* Inset entre el marco exterior y la card interior (efecto "card dentro de card") */
-  --card-inset: 6px;
+  --card-inset: 4px;
 
   /* ---- Sombras ---- */
   --shadow-sm: 0 1px 2px oklch(0.2 0 0 / 0.06);
   --shadow-md: 0 4px 12px oklch(0.2 0 0 / 0.08);
 
   /* ---- Layout ---- */
-  --content-max-width: 960px; /* ancho de contenido tomado del Figma real (~1001px) */
+  --content-max-width: 720px;
   --grid-max-width: 1200px;
 
   /* ---- Transiciones ---- */

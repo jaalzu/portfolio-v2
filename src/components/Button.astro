@@ -5,6 +5,7 @@ interface Props {
   target?: "_blank" | "_self";
   ariaLabel?: string;
   class?: string;
+  "data-tooltip"?: string;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   target = "_self",
   ariaLabel,
   class: className = "",
+  "data-tooltip": tooltip,
 } = Astro.props;
 
 const rel = target === "_blank" ? "noopener noreferrer" : undefined;
@@ -24,6 +26,7 @@ const rel = target === "_blank" ? "noopener noreferrer" : undefined;
   rel={rel}
   class:list={["btn", `btn--${variant}`, className]}
   aria-label={ariaLabel}
+  data-tooltip={tooltip}
 >
   <slot />
 </a>
@@ -33,53 +36,32 @@ const rel = target === "_blank" ? "noopener noreferrer" : undefined;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
-    font-family: var(--font-family-base);
+    gap: var(--space-1);
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
     text-decoration: none;
     cursor: pointer;
-    transition: background-color var(--transition-fast), color var(--transition-fast),
-      border-color var(--transition-fast);
     min-height: 44px;
-    min-width: 44px;
+    min-width: 27px;
+    --tooltip-gap: -6px;
   }
 
   .btn--primary {
-    background-color: var(--color-secondary-soft);
-    color: var(--color-primary);
-    border: 1px solid transparent;
     border-radius: var(--radius-full);
-    padding: var(--space-2) var(--space-6);
+    padding: var(--space-2) var(--space-4);
   }
 
   .btn--primary:hover {
-    background-color: var(--color-secondary);
-    color: var(--color-surface);
+    background-color: var(--color-primary-soft);
   }
 
-  .btn--ghost {
-    background: transparent;
-    color: var(--color-text);
-    border: none;
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-sm);
-  }
-
-  .btn--ghost:hover {
-    color: var(--color-primary);
-  }
+ 
 
   .btn--icon {
     background: transparent;
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: var(--space-2);
   }
 
   .btn--icon:hover {
-    border-color: var(--color-primary);
     color: var(--color-primary);
   }
 </style>

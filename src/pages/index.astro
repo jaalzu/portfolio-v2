@@ -7,95 +7,105 @@ import GithubIcon from "../components/GithubIcon.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import TechBadge from "../components/TechBadge.astro";
 import Section from "../components/Section.astro";
+import Footer from "../components/Footer.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
 
 const projects = [
   {
     title: "PickYourColor",
     description: "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
-    imageSrc: "https://picsum.photos/seed/pickyourcolor/120/120",
+    imageSrc: "/projects/pyk.svg",
     githubUrl: "#",
     liveUrl: "#",
   },
   {
     title: "JavaCourses",
     description: "Un marketplace de artículos nuevos y usados con chat integrado.",
-    imageSrc: "https://picsum.photos/seed/javacourses/120/120",
+    imageSrc: "/projects/java.svg",
     githubUrl: "#",
     liveUrl: "#",
   },
   {
     title: "TratoLibre",
     description: "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
-    imageSrc: "https://picsum.photos/seed/tratolibre1/120/120",
+    imageSrc: "/projects/tl.svg",
     githubUrl: "#",
     liveUrl: "#",
   },
-  {
-    title: "TratoLibre",
-    description: "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
-    imageSrc: "https://picsum.photos/seed/tratolibre2/120/120",
-    githubUrl: "#",
-    liveUrl: "#",
-  },
-  {
-    title: "TratoLibre",
-    description: "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
-    imageSrc: "https://picsum.photos/seed/tratolibre3/120/120",
-    githubUrl: "#",
-    liveUrl: "#",
-  },
+
 ];
 
 const techStack = [
-  "JS",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "CSS",
-  "Tailwind",
-  "Git",
-  "Vitest",
-  "Figma",
-  "Astro",
+  { name: "HTML", icon: "html5" },
+  { name: "CSS", icon: "css" },
+  { name: "Javascript", icon: "javascript" },
+  { name: "Git", icon: "git" },
+  { name: "Figma", icon: "figma" },
+  { name: "Tailwind", icon: "tailwind" },
+  { name: "React", icon: "react" },
+  { name: "Next.js", icon: "nextjs" },
+  { name: "TypeScript", icon: "typescript" },
+  { name: "Astro", icon: "astro" },
+];
+
+const journey = [
+  {
+    year: "2021",
+    text: "Started learning programming fundamentals with PSeInt, eventually moving into Python and SQL.",
+  },
+  {
+    year: "2022",
+    text: "I got into web development with HTML and CSS.",
+  },
+{
+  year: "2023",
+  text: "Learned to build interactive experiences with JavaScript while exploring UI/UX principles.",
+},
+{
+  year: "2024",
+  text: "Started building real applications with React, exploring new tools and development practices.",
+},
+  {
+    year: "2025 - ∞",
+    text: "I kept building, breaking, fixing, and learning, constantly pushing myself to become a better software developer.",
+  },
 ];
 ---
 
 <BaseLayout title="Javier Alzú — Frontend Developer">
   <main class="page">
     <Section>
+      <div class="top-bar">
+        <ThemeToggle />
+      </div>
+
       <Banner
         name="Javier Alzú"
-        role="Frontend Developer"
-        coverSrc="https://picsum.photos/seed/cover/700/200"
-        avatarSrc="https://picsum.photos/seed/avatar/150/150"
+        role="Chaco, Argentina"
+        coverSrc="./portft1.webp"
+        avatarSrc="/java.jpg"
       />
 
       <div class="about">
         <p class="about__bio">
-          Software developer enfocado en el <strong>frontend</strong>. Construyo
-          <strong>aplicaciones web</strong>, <strong>landing pages</strong> e
-          <strong>interfaces</strong> para productos digitales dentro del ecosistema
-          moderno de JavaScript. Autodidacta, motivado por la curiosidad y los desafíos.
+        I’m a <strong>Frontend Developer</strong>  with expertise in building web applications,landing pages, and user interfaces. I turn complex <strong>challenges</strong> into <strong>functional</strong> code and user-friendly products, crafting them with solid software principles, great tools, and a strong sense of <strong>design.</strong> 
         </p>
         <p class="about__bio">
-          La mayor parte de mi camino lo recorrí solo, así que ahora busco un equipo con
-          quien crecer — escribime por email si querés colaborar.
+          Most of my journey has been built independently, and now I'm looking to bring that experience into a team, collaborate with great professionals, and build amazing products. <br> You can reach me via {" "} 
+          <a href="mailto:javieralzuu@gmail.com" class="about__email-link">
+            <Icon name="mail-outline" size={14} class="about__at-icon" />email
+          </a>.
         </p>
 
         <div class="about__actions">
-          <Button href="#" variant="icon" ariaLabel="LinkedIn" target="_blank">
-            <Icon name="linkedin" size={18} />
+          <Button href="#" variant="icon" ariaLabel="LinkedIn" target="_blank" data-tooltip="LinkedIn">
+            <Icon name="linkedin" size={28} />
           </Button>
-          <Button href="#" variant="icon" class="tab-btn" ariaLabel="GitHub" target="_blank">
+          <Button href="#" variant="icon" class="tab-btn" ariaLabel="GitHub" target="_blank" data-tooltip="GitHub">
             <GithubIcon />
           </Button>
-          <Button href="mailto:javieralzuu@gmail.com" variant="ghost">
-            <Icon name="mail" size={18} />
-            Escribime
-          </Button>
-          <Button href="#" variant="primary" ariaLabel="Descargar CV">
-            <Icon name="download" size={16} />
-            Descargar CV
+          <Button href="#" variant="icon" ariaLabel="Descargar CV" data-tooltip="CV">
+            <Icon name="document" size={26} />
           </Button>
         </div>
       </div>
@@ -119,14 +129,24 @@ const techStack = [
 
     <Section title="Tech stack" marked class="tech-section">
       <div class="tech-grid">
-        {techStack.map((tech) => <TechBadge name={tech} />)}
+        {techStack.map((tech) => <TechBadge name={tech.name} icon={tech.icon} />)}
       </div>
     </Section>
 
-    <footer class="footer">
-      <a class="footer__email" href="mailto:javieralzuu@gmail.com">javieralzuu@gmail.com</a>
-      <span class="footer__location">Hecho en Argentina.</span>
-    </footer>
+    <Section title="Journey" marked class="journey-section">
+      <ol class="journey">
+        {
+          journey.map((item) => (
+            <li class="journey__item">
+              <span class="journey__year">{item.year}</span>
+              <p class="journey__text">{item.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </Section>
+
+    <Footer coverSrc="./portft1.webp" email="javieralzuu@gmail.com" />
   </main>
 </BaseLayout>
 
@@ -137,13 +157,18 @@ const techStack = [
     padding-inline: var(--space-4);
   }
 
+  .top-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--space-4);
+  }
+
   .about {
-    /* Gap avatar → bio (Figma: ~31px) */
-    padding: var(--space-8) var(--space-4) 0;
+    padding-block: var(--space-8) ;
+
   }
 
   .about__bio {
-    /* Gap entre párrafos de bio (Figma: ~27px) */
     margin: 0 0 var(--space-6);
     font-size: var(--text-base);
     line-height: var(--leading-relaxed);
@@ -155,13 +180,31 @@ const techStack = [
     font-weight: var(--font-weight-semibold);
   }
 
+ .about__email-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    vertical-align: middle;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
+    text-underline-offset: 2px;
+    transition: text-decoration-color var(--transition-fast);
+  }
+ 
+  .about__email-link:hover {
+    text-decoration-color: currentColor;
+  }
+
+
+ 
+
   .about__actions {
     display: flex;
+    justify-content: flex-end;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-4);
-    /* Gap bio → botones de contacto (Figma: ~63px) */
-    margin-top: var(--space-12);
+    gap: var(--space-6);
+    margin-top: var(--space-16);
   }
 
   /* Gap botones de contacto → heading "Projects" (Figma: ~73px) */
@@ -174,43 +217,60 @@ const techStack = [
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     /* Gap entre cards (Figma: ~62px horizontal / ~14px vertical) */
     column-gap: var(--space-12);
-    row-gap: var(--space-4);
+    row-gap: var(--space-6);
+    margin-bottom: 5rem;
   }
 
   /* Gap cards → heading "Tech stack" (Figma: gap generoso, ~espacio de sección completo) */
-  .tech-section {
-    padding-top: var(--space-16);
-  }
+
 
   .tech-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-8) var(--space-6);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-16) var(--space-16);
+    margin-inline: calc(var(--space-4) * -1);
+    margin-bottom: 5rem;
   }
 
-  .footer {
+  .journey {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    padding-block: var(--space-16) var(--space-12);
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+ 
+  .journey__item {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-6);
+  }
+ 
+  .journey__year {
+    flex-shrink: 0;
+    width: 96px;
     font-size: var(--text-sm);
-    color: var(--color-text-muted);
+    font-weight: var(--font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text);
   }
-
-  .footer__email {
-    text-decoration: none;
+ 
+  .journey__text {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
     color: var(--color-text-muted);
-  }
-
-  .footer__email:hover {
-    color: var(--color-primary);
   }
 
   @media (max-width: 560px) {
     .projects-grid {
       grid-template-columns: 1fr;
+    }
+
+    .journey__item {
+      flex-direction: column;
+      gap: var(--space-1);
     }
   }
 </style>

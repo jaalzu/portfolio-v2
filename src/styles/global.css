@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "Figtree";
-  src: url("https://fonts.gstatic.com/s/figtree/v10/_Xmz-HUzqDCFdgfMsYiV4Rc.woff2") format("woff2");
+  src: url("/fonts/figtree-variable.woff2") format("woff2-variations");
   font-weight: 300 900;
   font-style: normal;
   font-display: swap;
@@ -26,11 +26,14 @@ body {
   margin: 0;
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-regular);
+
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
   color: var(--color-text);
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
 }
 
 img {
@@ -40,6 +43,60 @@ img {
 
 a {
   color: inherit;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+/* Tooltip reusable: agregar data-tooltip="texto" a cualquier elemento.
+   --tooltip-gap es configurable por componente: los elementos con padding
+   extra alrededor del contenido (como .btn) necesitan un gap menor para
+   que el tooltip no quede lejos del ícono visual. */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  padding: 4px 8px;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+  z-index: 20;
+}
+
+[data-tooltip]::after {
+  bottom: calc(100% + var(--tooltip-gap, 8px));
+}
+
+/* Elementos del tech stack lo muestran abajo en cambio */
+.tech[data-tooltip]::after {
+  bottom: auto;
+  top: calc(100% + var(--tooltip-gap, 8px));
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (hover: none) {
+  [data-tooltip]::after {
+    display: none;
+  }
 }
 
 /* Focus visible consistente en todo el sistema (better-accessibility) */

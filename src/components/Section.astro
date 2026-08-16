@@ -1,4 +1,6 @@
 ---
+import Icon from "./Icon.astro";
+
 interface Props {
   title?: string;
   marked?: boolean;
@@ -13,7 +15,7 @@ const { title, marked = false, class: className = "" } = Astro.props;
     title && (
       <h2 class="section__title">
         {title}
-        {marked && <span class="section__mark" aria-hidden="true">*</span>}
+        {marked && <Icon name="dot" size={9} class="section__mark" />}
       </h2>
     )
   }
@@ -24,17 +26,27 @@ const { title, marked = false, class: className = "" } = Astro.props;
 
 <style>
   .section {
-    padding-block: var(--space-8);
+    padding-block: var(--space-12);
+  }
+
+  .section:first-child {
+    padding-top: var(--space-6);
+  }
+
+  .section__content {
+    display: flow-root;
   }
 
   .section__title {
-    margin: 0 0 var(--space-4);
+    margin-bottom: 2rem;
     font-size: var(--text-md);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
+    display: inline-flex;
+    align-items: center;
   }
 
-  .section__mark {
+  :global(.section__mark) {
+    align-self: flex-start;
     color: var(--color-primary);
-    margin-left: 2px;
   }
 </style>

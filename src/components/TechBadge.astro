@@ -1,14 +1,15 @@
 ---
 interface Props {
   name: string;
+  icon?: string;
 }
 
-const { name } = Astro.props;
+const { name, icon } = Astro.props;
+const slug = icon ?? name.toLowerCase().replace(/\./g, "").replace(/\s+/g, "-");
 ---
 
-<div class="tech">
-  <span class="tech__glyph" aria-hidden="true">{name.charAt(0)}</span>
-  <span class="tech__name">{name}</span>
+<div class="tech" data-tooltip={name} tabindex="0">
+  <img class="tech__icon" src={`/stack/${slug}.svg`} alt={name} loading="lazy" />
 </div>
 
 <style>
@@ -16,33 +17,14 @@ const { name } = Astro.props;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+
     gap: var(--space-2);
-    width: 72px;
+    --tooltip-gap: 12px;
   }
 
-  .tech__glyph {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border-soft);
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-primary);
-    background-color: var(--color-surface);
-    transition: border-color var(--transition-fast), transform var(--transition-fast);
-  }
-
-  .tech:hover .tech__glyph {
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-  }
-
-  .tech__name {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    text-align: center;
+  .tech__icon {
+    width: 36px;
+    height: 36px;
   }
 </style>
