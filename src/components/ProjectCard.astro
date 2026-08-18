@@ -8,9 +8,10 @@ interface Props {
   imageSrc: string;
   githubUrl: string;
   liveUrl: string;
+  i18nKey?: string;
 }
 
-const { title, description, imageSrc, githubUrl, liveUrl } = Astro.props;
+const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } = Astro.props;
 ---
 
 <div class="card-frame">
@@ -20,7 +21,7 @@ const { title, description, imageSrc, githubUrl, liveUrl } = Astro.props;
     </div>
     <div class="card__body">
       <h3 class="card__title">{title}</h3>
-      <p class="card__description">{description}</p>
+      <p class="card__description" data-i18n={i18nKey}>{description}</p>
       <div class="card__actions">
         <a
           class="tab-btn card__icon-link"
@@ -28,6 +29,7 @@ const { title, description, imageSrc, githubUrl, liveUrl } = Astro.props;
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Repositorio de ${title} en GitHub`}
+          data-tooltip="GitHub"
         >
           <GithubIcon />
         </a>
@@ -37,6 +39,7 @@ const { title, description, imageSrc, githubUrl, liveUrl } = Astro.props;
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Ver ${title} en vivo`}
+          data-tooltip="Live"
         >
           <ExternalLinkIcon />
         </a>
@@ -56,7 +59,6 @@ const { title, description, imageSrc, githubUrl, liveUrl } = Astro.props;
 
   .card-frame:has(.card:hover) {
       border-color: var(--color-border);
-    box-shadow: var(--shadow-sm);
 
   }
 
@@ -64,11 +66,9 @@ const { title, description, imageSrc, githubUrl, liveUrl } = Astro.props;
     border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-inner);
     overflow: hidden;
-    
     display: flex;
     flex-direction: column;
     height: 100%;
-
     transition: border-color var(--transition-base), box-shadow var(--transition-base);
   }
 
@@ -93,28 +93,29 @@ const { title, description, imageSrc, githubUrl, liveUrl } = Astro.props;
     padding: var(--space-3) var(--space-3) var(--space-4);
     display: flex;
     flex-direction: column;
+    gap: var(--space-1);
     flex: 1;
   }
 
   .card__title {
     margin: 0;
-    font-size: var(--text-md);
+    font-size: var(--text-sm);
     font-weight: var(--font-weight-semibold);
   }
 
   .card__description {
     margin: 0;
     font-size: var(--text-sm);
-    color: var(--color-text);
+    color: var(--color-text-muted);
     line-height: var(--leading-normal);
-    padding-right: 2rem;
+    flex: 1;
   }
 
   .card__actions {
     display: flex;
     justify-content: flex-end;
     gap: var(--space-3);
-    margin-top: var(--space-6);
+    margin-top: var(--space-3);
   }
 
   .card__icon-link {
@@ -123,11 +124,13 @@ const { title, description, imageSrc, githubUrl, liveUrl } = Astro.props;
     justify-content: center;
     width: 32px;
     height: 32px;
+    color: var(--color-text);
+    transition: color var(--transition-fast);
   }
 
   .card__icon-link :global(svg) {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
   }
 
   .card__icon-link:hover,

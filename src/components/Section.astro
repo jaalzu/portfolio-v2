@@ -5,16 +5,17 @@ interface Props {
   title?: string;
   marked?: boolean;
   class?: string;
+  i18nKey?: string;
 }
 
-const { title, marked = false, class: className = "" } = Astro.props;
+const { title, marked = false, class: className = "", i18nKey } = Astro.props;
 ---
 
 <section class:list={["section", className]}>
   {
     title && (
       <h2 class="section__title">
-        {title}
+        <span data-i18n={i18nKey}>{title}</span>
         {marked && <Icon name="dot" size={9} class="section__mark" />}
       </h2>
     )
@@ -30,7 +31,7 @@ const { title, marked = false, class: className = "" } = Astro.props;
   }
 
   .section:first-child {
-    padding-top: var(--space-6);
+    padding-top: var(--space-8);
   }
 
   .section__content {
@@ -38,15 +39,16 @@ const { title, marked = false, class: className = "" } = Astro.props;
   }
 
   .section__title {
-    margin-bottom: 2rem;
+    margin: 0 0 var(--space-4);
     font-size: var(--text-md);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-medium);
     display: inline-flex;
     align-items: center;
   }
 
   :global(.section__mark) {
     align-self: flex-start;
+    margin-left: 4px;
     color: var(--color-primary);
   }
 </style>

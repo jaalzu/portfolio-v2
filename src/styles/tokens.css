@@ -67,9 +67,9 @@
      sm: 480px | md: 768px | lg: 1024px */
 }
 
-/* ---- Dark mode (arquitectura contemplada, valores a definir) ---- */
+/* ---- Dark mode ---- */
 [data-theme="dark"] {
-  --color-bg: oklch(0.19 0.014 39.865);
+  --color-bg: oklch(20.607% 0.01595 39.173 / 0.927);
   --color-surface: oklch(0.24 0.016 39.865);
   --color-primary: oklch(0.72 0.13 39.865);
   --color-secondary: oklch(0.5 0.1 39.865);
