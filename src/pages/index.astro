@@ -63,7 +63,7 @@ const techStack = [
   "AI-Assisted Development",
 ];
 
-const journeyYears = ["2021 - 2022", "2023", "2024", "2025 - ∞"];
+const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"];
 ---
 
 <BaseLayout title="Javier Alzú — Frontend Developer">
@@ -79,7 +79,7 @@ const journeyYears = ["2021 - 2022", "2023", "2024", "2025 - ∞"];
         name="Javier Alzú"
         role="Chaco, Argentina"
         coverSrc="./portft1.webp"
-        avatarSrc="/java2.jpg"
+        avatarSrc="/java.webp"
       />
 
       <div class="about">
@@ -89,7 +89,7 @@ const journeyYears = ["2021 - 2022", "2023", "2024", "2025 - ∞"];
           <span data-i18n="bio2Before">{t.bio2Before}</span> <br />
           <span data-i18n="emailIntro">{t.emailIntro}</span>{" "}
           <a href="mailto:javieralzuu@gmail.com" class="about__email-link">
-            <Icon name="mail-outline" size={14} class="about__at-icon" /><span data-i18n="emailWord">{t.emailWord}</span>
+            <Icon name="mail-outline" size={16} class="about__at-icon" /><span data-i18n="emailWord">{t.emailWord}</span>
           </a>.
         </p>
 
@@ -101,11 +101,13 @@ const journeyYears = ["2021 - 2022", "2023", "2024", "2025 - ∞"];
             <GithubIcon />
           </Button>
           <Button
-            href="/cv.pdf"
+            href="/CV-ESP.pdf"
             variant="icon"
             ariaLabel={t.aria.cv}
             data-tooltip="CV"
-            data-i18n-attr="aria-label:aria.cv"
+            data-i18n-attr="aria-label:aria.cv;href:cvHref"
+            data-cv-es="/CV-ESP.pdf"
+            data-cv-en="/CV-ENG.pdf"
             download="Javier-Alzu-CV.pdf"
           >
             <Icon name="document" size={26} />
@@ -183,7 +185,13 @@ const journeyYears = ["2021 - 2022", "2023", "2024", "2025 - ∞"];
 
   .about__bio :global(strong) {
     color: var(--color-primary);
-    font-weight: var(--font-weight-semibold);
+  }
+
+  .about__bio :global(strong):last-of-type {
+    font-family: 'Story Script', cursive, sans-serif;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--color-text);
   }
 
   .about__email-link {
@@ -191,7 +199,6 @@ const journeyYears = ["2021 - 2022", "2023", "2024", "2025 - ∞"];
     align-items: center;
     gap: 5px;
     vertical-align: middle;
-    text-decoration: underline;
     text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
     text-underline-offset: 2px;
     transition: text-decoration-color var(--transition-fast);
@@ -228,7 +235,7 @@ const journeyYears = ["2021 - 2022", "2023", "2024", "2025 - ∞"];
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
 
   .journey {
@@ -243,10 +250,11 @@ const journeyYears = ["2021 - 2022", "2023", "2024", "2025 - ∞"];
   .journey__item {
     display: flex;
     align-items: baseline;
-    gap: var(--space-2);
+    gap: var(--space-8);
   }
 
   .journey__year {
+    width: 110px;
     flex-shrink: 0;
     white-space: nowrap;
     font-size: var(--text-sm);

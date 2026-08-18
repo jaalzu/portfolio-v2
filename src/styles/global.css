@@ -8,6 +8,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Story Script";
+  src: url("/fonts/badscript.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -26,7 +34,6 @@ body {
   margin: 0;
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-regular);
-
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
   color: var(--color-text);

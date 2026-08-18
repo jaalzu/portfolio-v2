@@ -29,7 +29,6 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } = Astro.prop
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Repositorio de ${title} en GitHub`}
-          data-tooltip="GitHub"
         >
           <GithubIcon />
         </a>
@@ -39,7 +38,6 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } = Astro.prop
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Ver ${title} en vivo`}
-          data-tooltip="Live"
         >
           <ExternalLinkIcon />
         </a>
@@ -58,12 +56,11 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } = Astro.prop
   }
 
   .card-frame:has(.card:hover) {
-      border-color: var(--color-border);
-
+    border-color: var(--color-border);
   }
 
   .card {
-    border: 1px solid var(--color-border-soft);
+    border: 1px solid color-mix(in oklch, var(--color-border-soft) 50%, transparent);
     border-radius: var(--radius-inner);
     overflow: hidden;
     display: flex;
@@ -73,6 +70,7 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } = Astro.prop
   }
 
   .card:hover {
+    border-color: var(--color-border-soft);
     box-shadow: var(--shadow-sm);
   }
 
@@ -125,7 +123,12 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } = Astro.prop
     width: 32px;
     height: 32px;
     color: var(--color-text);
-    transition: color var(--transition-fast);
+    opacity: 0.4;
+    transition: color var(--transition-fast), opacity var(--transition-fast);
+  }
+
+  .card:hover .card__icon-link {
+    opacity: 0.9;
   }
 
   .card__icon-link :global(svg) {
@@ -136,5 +139,6 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } = Astro.prop
   .card__icon-link:hover,
   .card__icon-link:focus-visible {
     color: var(--color-primary);
+    opacity: 1;
   }
 </style>

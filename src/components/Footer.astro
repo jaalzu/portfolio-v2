@@ -1,4 +1,7 @@
 ---
+import Icon from "./Icon.astro";
+import GithubIcon from "./GithubIcon.astro";
+
 interface Props {
   coverSrc: string;
   email: string;
@@ -11,14 +14,35 @@ const { coverSrc, email } = Astro.props;
   <div class="site-footer__cover">
     <img src={coverSrc} alt="" />
   </div>
-  <a class="site-footer__email" href={`mailto:${email}`}>{email}</a>
+  <div class="site-footer__content page">
+    <a class="site-footer__email" href={`mailto:${email}`}>{email}</a>
+    <div class="site-footer__socials">
+      <a
+        class="site-footer__icon-link"
+        href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+      >
+        <Icon name="linkedin" size={18} />
+      </a>
+      <a
+        class="site-footer__icon-link tab-btn"
+        href="https://github.com/jaalzu"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+      >
+        <GithubIcon />
+      </a>
+    </div>
+  </div>
 </footer>
 
 <style>
   .site-footer {
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin-top: var(--space-16);
   }
 
@@ -35,15 +59,50 @@ const { coverSrc, email } = Astro.props;
     object-position: center 65.5%;
   }
 
+  .site-footer__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: var(--space-6);
+    padding-bottom: var(--space-16);
+  }
+
   .site-footer__email {
-    margin-top: var(--space-4);
-    padding-bottom: var(--space-12);
     font-size: var(--text-sm);
     color: var(--color-text-muted);
     text-decoration: none;
   }
 
   .site-footer__email:hover {
+    color: var(--color-primary);
+  }
+
+  .site-footer__socials {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .site-footer__icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .site-footer__icon-link :global(svg) {
+    width: 21px;
+    height: 21px;
+    max-width: 21px;
+    max-height: 21px;
+  }
+
+  .site-footer__icon-link:hover,
+  .site-footer__icon-link:focus-visible {
     color: var(--color-primary);
   }
 </style>

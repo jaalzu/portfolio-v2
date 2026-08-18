@@ -20,7 +20,7 @@
   /* ---- Tipografía ---- */
   --font-family-base: "Figtree", system-ui, -apple-system, sans-serif;
 
-  --text-xs: 0.675rem; /* 14px — body small / card text */
+  --text-xs: 0.675rem; /* 12px — xtra small */
   --text-sm: 0.875rem; /* 14px — body small / card text */
   --text-base: 1rem; /* 16px — body */
   --text-md: 1.125rem; /* 18px — section headings */
@@ -70,10 +70,7 @@
 /* ---- Dark mode ---- */
 [data-theme="dark"] {
   --color-bg: oklch(20.607% 0.01595 39.173 / 0.927);
-  --color-surface: oklch(0.24 0.016 39.865);
   --color-primary: oklch(0.72 0.13 39.865);
-  --color-secondary: oklch(0.5 0.1 39.865);
-  --color-secondary-soft: oklch(0.5 0.1 39.865 / 0.16);
 
   --color-text: oklch(0.95 0 0);
   --color-text-muted: oklch(0.7 0 0);
