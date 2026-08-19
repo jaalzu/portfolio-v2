@@ -23,7 +23,7 @@ export const translations = {
       "Comencé con los fundamentos de programación usando PSeInt, Python y SQL.",
       "Pasé al desarrollo web con HTML, CSS y JavaScript, mientras aprendia sobre diseño UI/UX",
       "Empecé a trabajar con React y Next.js, construyendo aplicaciones más grandes y complejas.",
-      "Potencié áreas de mi interés, como arquitectura, testing, diseño y accesibilidad, utilizando IA para mejorar mi proceso de desarrollo mientras exploraba nuevas herramientas y prácticas.",
+      "Evolucioné mi enfoque hacia el desarrollo, aprendiendo continuamente y perfeccionando mi forma de trabajar, mientras transformo ideas y desafíos en experiencias de alta calidad con las que las personas puedan conectar.",
     ],
   },
   en: {
@@ -50,7 +50,7 @@ export const translations = {
       "Started with programming fundamentals using PSeInt, Python, and SQL.",
       "Moved into web development with HTML, CSS, and JavaScript while exploring UI/UX principles.",
       "Started working with React and Next.js, building larger and more complex applications.",
-      "I strengthened areas of interest such as architecture, testing, design, and accessibility, using AI to improve my development process while exploring new tools and practices.",
+      "Evolved my approach to development, continuously learning and refining my craft while turning ideas and challenges into high-quality experiences that people can connect with.",
     ],
   },
 } as const;
