@@ -39,35 +39,6 @@ const projects = [
   },
 ];
 
-const techStack = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Astro",
-  "Tailwind CSS",
-  "Git",
-  "Zod",
-  "Zustand",
-  "Figma",
-  "UI Design",
-  "Design Systems",
-  "Component Architecture",
-  "Responsive Design",
-  "Accessibility",
-  "State Management",
-  "Testing",
-  "Performance",
-  "Debugging",
-  "Frontend Architecture",
-  "API Integration",
-  "Problem Solving",
-  "Communication & Collaboration",
-  "AI-Assisted Development",
-];
-
 const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"];
 ---
 
@@ -140,7 +111,7 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
 
     <Section title={t.sections.techStack} i18nKey="sections.techStack" marked class="tech-section">
       <div class="tech-grid">
-        {techStack.map((tech) => <TechBadge name={tech} />)}
+        {t.techStack.map((tech, i) => <TechBadge name={tech} i18nKey={`techStack.${i}`} />)}
       </div>
     </Section>
 
@@ -230,10 +201,9 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    /* Gap entre cards (Figma: ~62px horizontal / ~14px vertical) */
     column-gap: var(--space-12);
     row-gap: var(--space-6);
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
   }
 
   .tech-grid {

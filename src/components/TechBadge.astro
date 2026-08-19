@@ -1,12 +1,13 @@
 ---
 interface Props {
   name: string;
+  i18nKey?: string;
 }
 
-const { name } = Astro.props;
+const { name, i18nKey } = Astro.props;
 ---
 
-<span class="tech-pill">{name}</span>
+<span class="tech-pill" data-i18n={i18nKey}>{name}</span>
 
 <style>
   .tech-pill {

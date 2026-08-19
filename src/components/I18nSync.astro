@@ -28,19 +28,15 @@
     document.querySelectorAll<HTMLElement>("[data-i18n-attr]").forEach((el) => {
       const raw = el.getAttribute("data-i18n-attr");
       if (!raw) return;
+      // Soporta múltiples pares "attr:key" separados por ";"
+      // ej: "aria-label:aria.cv;href:cvHref"
       raw.split(";").forEach((pair) => {
-        const [attrName, key] = pair.split(":");
+        const [attrName, key] = pair.split(":").map((s) => s.trim());
+        if (!attrName || !key) return;
         const value = getPath(t, key);
         if (typeof value === "string") el.setAttribute(attrName, value);
       });
     });
-
-    // Actualizar href del CV si tiene data-cv-es / data-cv-en
-    const cvBtn = document.querySelector<HTMLAnchorElement>("[data-cv-es]");
-    if (cvBtn) {
-      const cvPath = lang === "en" ? cvBtn.getAttribute("data-cv-en") : cvBtn.getAttribute("data-cv-es");
-      if (cvPath) cvBtn.setAttribute("href", cvPath);
-    }
   }
 
   // Si el usuario ya había elegido inglés en una visita anterior,
