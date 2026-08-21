@@ -62,8 +62,8 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
         <p class="about__bio" data-i18n-html="bio1" set:html={t.bio1} />
 
         <p class="about__bio">
-          <span data-i18n="bio2Before">{t.bio2Before}</span> <br />
-          <span data-i18n="emailIntro">{t.emailIntro}</span>{" "}
+          <span data-i18n="bio2Before">{t.bio2Before}</span> <br /> <br />
+          <span data-i18n="emailIntro">{t.emailIntro}</span>{" "} 
           <a href="mailto:javieralzuu@gmail.com" class="about__email-link">
             <Icon name="mail-outline" size={16} class="about__at-icon" /><span data-i18n="emailWord">{t.emailWord}</span>
           </a>.
@@ -167,6 +167,7 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
     font-family: 'Story Script', cursive, sans-serif;
     font-weight: 400;
     font-size: 1.15rem;
+
     color: var(--color-text);
   }
 

@@ -5,9 +5,9 @@ export const translations = {
       techStack: "Skills",
       journey: "Trayectoria",
     },
-    bio1: "Soy <strong>Frontend Developer</strong>, especializado en construir aplicaciones web, landing pages e interfaces de usuario. Transformo desafíos complejos en código funcional y productos fáciles de usar, combinando sólidos principios de software, buenas herramientas y un fuerte sentido del <strong>diseño</strong>.",
+    bio1: "Soy <strong>Frontend Developer</strong>, especializado en construir aplicaciones web, landing pages e interfaces de usuario. Transformo problemas complejos en productos funcionales, escalables y fáciles de usar fáciles de usar, combinando sólidos principios de software, herramientas modernas y un fuerte sentido del <strong>diseño</strong>.",
     bio2Before:
-      "La mayor parte de mi camino la construí de forma independiente y ahora busco sumar esa experiencia a un equipo, colaborar con grandes profesionales y construir productos increíbles.",
+      "Construí gran parte de mi experiencia de forma independiente, llevando proyectos desde la idea inicial hasta su implementación final. Ahora busco aportar esa experiencia a un equipo, colaborar con profesionales talentosos y crear productos digitales que generen un impacto real.",
     emailIntro: "Podés escribirme a mi",
     emailWord: "correo",
     aria: {
@@ -60,9 +60,9 @@ export const translations = {
       techStack: "Skills",
       journey: "Journey",
     },
-    bio1: "I am a <strong>Frontend Developer</strong> with expertise in building web applications, landing pages, and user interfaces. I turn complex challenges into functional code and user-friendly products, crafting them with solid software principles, excellent tools, and a strong sense of <strong>design</strong>.",
+    bio1: "I am a <strong>Frontend Developer</strong> with expertise in building web applications, landing pages and high-quality user interfaces.  I turn complex problems into reliable, scalable products crafting them with strong software principles, modern tools, and a strong sense of <strong>design</strong>.",
     bio2Before:
-      "Most of my journey has been built independently, and now I'm looking to bring that experience to a team, collaborate with great professionals, and build amazing products.",
+      "I’ve built most of my experience independently, taking projects from initial concept to polished implementation. Now, I’m ready to bring that experience to a collaborative team, contribute to meaningful products, and work alongside people who care deeply about what they build.",
     emailIntro: "You can reach me via",
     emailWord: "email",
     aria: {
