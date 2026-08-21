@@ -5,7 +5,7 @@ export const translations = {
       techStack: "Skills",
       journey: "Trayectoria",
     },
-    bio1: "Soy <strong>Frontend Developer</strong>, especializado en construir aplicaciones web, landing pages e interfaces de usuario. Transformo problemas complejos en productos funcionales, escalables y fáciles de usar fáciles de usar, combinando sólidos principios de software, herramientas modernas y un fuerte sentido del <strong>diseño</strong>.",
+    bio1: "Soy <strong>Frontend Developer & Design Engineer</strong>, especializado en construir aplicaciones web, landing pages e interfaces de usuario. Transformo problemas complejos en productos funcionales, escalables y fáciles de usar fáciles de usar, combinando sólidos principios de software, herramientas modernas y un fuerte sentido del <strong>diseño</strong>.",
     bio2Before:
       "Construí gran parte de mi experiencia de forma independiente, llevando proyectos desde la idea inicial hasta su implementación final. Ahora busco aportar esa experiencia a un equipo, colaborar con profesionales talentosos y crear productos digitales que generen un impacto real.",
     emailIntro: "Podés escribirme a mi",
@@ -60,7 +60,7 @@ export const translations = {
       techStack: "Skills",
       journey: "Journey",
     },
-    bio1: "I am a <strong>Frontend Developer</strong> with expertise in building web applications, landing pages and high-quality user interfaces.  I turn complex problems into reliable, scalable products crafting them with strong software principles, modern tools, and a strong sense of <strong>design</strong>.",
+    bio1: "I am a <strong>Frontend Developer & Design Engineer</strong> with expertise in building web applications, landing pages and high-quality user interfaces.  I turn complex problems into reliable, scalable products crafting them with strong software principles, modern tools, and a strong sense of <strong>design</strong>.",
     bio2Before:
       "I’ve built most of my experience independently, taking projects from initial concept to polished implementation. Now, I’m ready to bring that experience to a collaborative team, contribute to meaningful products, and work alongside people who care deeply about what they build.",
     emailIntro: "You can reach me via",
