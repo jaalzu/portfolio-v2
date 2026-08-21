@@ -53,10 +53,9 @@ a {
 }
 
 ::selection {
-  background-color: var(--color-primary);
-  color: var(--color-bg);
+  background-color: transparent;
+  color: var(--color-primary);
 }
-/* 
 
 [data-tooltip] {
   position: relative;
@@ -100,7 +99,8 @@ a {
   [data-tooltip]::after {
     display: none;
   }
-} */
+}
+*/
 
 /* Focus visible consistente en todo el sistema (better-accessibility) */
 :focus-visible {
