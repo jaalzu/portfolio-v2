@@ -152,24 +152,25 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
 
   }
 
-  .about__bio {
-    margin: 0 0 var(--space-6);
-    font-size: var(--text-base);
-    line-height: var(--leading-relaxed);
-    color: var(--color-text);
-  }
+.about__bio {
+  margin: 0 0 var(--space-6);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+  max-inline-size: 70ch; /* medida legible, controla dónde entra "pretty" */
+}
 
-  .about__bio :global(strong) {
-    color: var(--color-primary);
-  }
+ .about__bio :global(strong) {
+  color: var(--color-primary);
+}
 
-  .about__bio :global(strong):last-of-type {
-    font-family: 'Story Script', cursive, sans-serif;
-    font-weight: 400;
-    font-size: 1.15rem;
+.about__bio :global(strong):not(:first-of-type) {
+  font-family: 'Story Script', cursive, sans-serif;
+  font-weight: 400;
+  font-size: 1.15rem;
 
-    color: var(--color-text);
-  }
+  color: var(--color-text);
+}
 
   .about__email-link {
     display: inline-flex;
@@ -239,12 +240,13 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
     color: var(--color-text);
   }
 
-  .journey__text {
-    margin: 0;
-    font-size: var(--text-base);
-    line-height: var(--leading-relaxed);
-    color: var(--color-text-muted);
-  }
+.journey__text {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+}
 
   @media (max-width: 560px) {
     .projects-grid {

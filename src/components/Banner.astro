@@ -2,7 +2,7 @@
 interface Props {
   name: string;
   role: string;
-  coverSrc: string;
+  coverSrc?: string;
   avatarSrc: string;
 }
 
@@ -10,9 +10,9 @@ const { name, role, coverSrc, avatarSrc } = Astro.props;
 ---
 
 <div class="banner">
-  <div class="banner__cover">
+  <!-- <div class="banner__cover">
     <img src={coverSrc} alt="" />
-  </div>
+  </div> -->
   <div class="banner__identity">
     <img class="banner__avatar" src={avatarSrc} alt={`Foto de ${name}`} />
     <div class="banner__text">

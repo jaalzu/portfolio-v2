@@ -14,6 +14,7 @@ const { title, marked = false, class: className = "", i18nKey } = Astro.props;
 <section class:list={["section", className]}>
   {
     title && (
+     
       <h2 class="section__title">
         <span data-i18n={i18nKey}>{title}</span>
         {marked && <Icon name="dot" size={9} class="section__mark" />}
@@ -43,6 +44,7 @@ const { title, marked = false, class: className = "", i18nKey } = Astro.props;
     font-size: var(--text-md);
     font-weight: var(--font-weight-medium);
     display: inline-flex;
+    
     align-items: center;
   }
 
