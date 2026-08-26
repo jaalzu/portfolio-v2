@@ -5,7 +5,7 @@ export const translations = {
       techStack: "Skills",
       journey: "Trayectoria",
     },
-    bio1: "Como <strong>Design Engineer</strong>, conecto el <strong>diseño</strong> y la ingeniería frontend para convertir ideas en productos de alta calidad y experiencias destacadas accesibles para todos. <br> <strong>Me preocupo mucho</strong> el producto final y los detalles que lo hacen único.",
+    bio1: "Como <strong>Design Engineer</strong>, conecto el <strong>diseño</strong> y la ingeniería frontend para convertir ideas en productos de alta calidad y experiencias destacadas accesibles para todos. <br> <strong>Me preocupo mucho</strong> por el producto final y los detalles que lo hacen único.",
     bio2Before:
       "He llevado proyectos desde el concepto hasta su implementación final de forma independiente, y me entusiasma aportar esa experiencia a un equipo.",
     emailIntro: "Podés escribirme a mi",
