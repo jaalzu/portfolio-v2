@@ -10,7 +10,7 @@ const { title, description = "Portfolio personal" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,15 +19,6 @@ const { title, description = "Portfolio personal" } = Astro.props;
     <meta property="image" content="/og.png" />
     <meta property="og:image" content="/og.png" />
     <title>{title}</title>
-    <script is:inline>
-      (function () {
-        const stored = localStorage.getItem("theme");
-        const theme = stored ?? "dark";
-        if (theme === "dark") {
-          document.documentElement.setAttribute("data-theme", "dark");
-        }
-      })();
-    </script>
   </head>
   <body>
     <slot />

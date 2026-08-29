@@ -5,11 +5,12 @@ export const translations = {
       techStack: "Skills",
       journey: "Trayectoria",
     },
-    bio1: "Como <strong>Design Engineer</strong>, conecto el <strong>diseño</strong> y la ingeniería frontend para convertir ideas en productos de alta calidad y experiencias destacadas accesibles para todos. <br> <strong>Me preocupo mucho</strong> por el producto final y los detalles que lo hacen único.",
+    bio1: 'Combino <strong class="about__design">diseño</strong> e <span class="about__code">ingeniería frontend</span> para convertir ideas en productos de alta calidad y experiencias de usuario cuidadas y accesibles para todos. <br> <strong class="about__care">Me preocupo mucho</strong> por el producto final y los detalles que lo hacen único.',
     bio2Before:
-      "He llevado proyectos desde el concepto hasta su implementación final de forma independiente, y me entusiasma aportar esa experiencia a un equipo.",
-    emailIntro: "Podés escribirme a mi",
+      "Construí la mayor parte de mi experiencia de forma independiente, llevando proyectos desde el concepto inicial hasta la implementación final.",
+    emailIntro: "Podes contactarme por",
     emailWord: "correo",
+    // emailAfter: "gratis!",
     aria: {
       cv: "Descargar CV",
     },
@@ -56,11 +57,12 @@ export const translations = {
       techStack: "Skills",
       journey: "Journey",
     },
-    bio1: "As a <strong>Design Engineer</strong>, I bridge <strong>design</strong> and frontend engineering to turn ideas into high-quality products and thoughtful user experiences that are accessible to everyone. <br> <strong>I care deeply</strong> about the final product and the details that make it unique.",
+    bio1: 'I bring <strong class="about__design">design</strong> and <span class="about__code">frontend engineering</span> together to turn ideas into high-quality products and thoughtful user experiences that are accessible to everyone. <br> <strong class="about__care">I care deeply</strong> about the final product and the details that make it unique.',
     bio2Before:
-      "I’ve built most of my experience independently, taking projects from initial concept to polished implementation. Now, I’m ready to bring that experience to a collaborative team.",
-    emailIntro: "You can reach me via",
+      "I’ve built most of my experience independently, taking projects from initial concept to polished implementation.",
+    emailIntro: "You can reach me by",
     emailWord: "email",
+    emailAfter: "",
     aria: {
       cv: "Download CV",
     },
@@ -72,7 +74,7 @@ export const translations = {
     ],
     journey: [
       "Started with programming fundamentals using PSeInt, Python, and SQL.",
-      "Moved into web development with HTML, CSS, and JavaScript while exploring UI/UX principles.",
+      "Moved into web development with HTML, CSS and JavaScript while exploring UI/UX principles.",
       "Started working with React and Next.js, building larger and more complex applications.",
       "Found a meaningful way to channel my passion through design systems and better web UX",
     ],

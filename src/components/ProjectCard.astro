@@ -57,10 +57,13 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } = Astro.prop
 
   .card-frame:has(.card:hover) {
     border-color: var(--color-border);
+    box-shadow: var(--shadow-sm);
+
+    
   }
 
   .card {
-    border: 1px solid color-mix(in oklch, var(--color-border-soft) 50%, transparent);
+    border: 1px solid color-mix(in oklch, var(--color-border-soft) 100%, transparent);
     border-radius: var(--radius-inner);
     overflow: hidden;
     display: flex;
@@ -70,7 +73,7 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } = Astro.prop
   }
 
   .card:hover {
-    border-color: var(--color-border-soft);
+    border-color: var(--color-border);
     box-shadow: var(--shadow-sm);
   }
 

@@ -24,11 +24,12 @@ const { name, role, coverSrc, avatarSrc } = Astro.props;
 
 <style>
   .banner {
+    margin-top: 5rem;
     position: relative;
   }
 
   .banner__cover {
-    height: 82px;
+    height: 22px;
     border-radius: 1px;
     overflow: hidden;
   }
@@ -48,22 +49,19 @@ const { name, role, coverSrc, avatarSrc } = Astro.props;
   }
 
   .banner__avatar {
-    width: 89px;
-    height: 89px;
+    width: 48px;
+    height: 48px;
     border-radius: var(--radius-full);
-    border: 2px solid var(--color-bg);
-    object-fit: cover;
   }
 
-  .banner__text {
-    padding-top: var(--space-6);
-  }
+
 
   .banner__name {
     margin: 0;
-    font-size: var(--text-md);
+    font-size: var(--text-lg);
     font-weight: var(--font-weight-semibold);
     line-height: var(--leading-tight);
+    color: var(--color-surface);
   }
 
 .banner__role {

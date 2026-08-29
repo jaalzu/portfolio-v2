@@ -4,18 +4,17 @@
    ========================================================================== */
 
 :root {
-  /* ---- Color: paleta cálida (light mode, hue 39.865°) ---- */
-  --color-bg: oklch(97.777% 0.0064 16.311);
-  --color-surface: oklch(1 0 0);
-  --color-gray-light: oklch(1 0 0);
-  --color-primary: oklch(0.597 0.135 39.865);
+  /* ---- Color: dark only ---- */
+  --color-bg: oklch(6.72% 0.00001 271.152);
+  --color-surface: oklch(100% 0.00011 271.152 / 0.953);
+  --color-primary: oklch(0.72 0.13 39.865);
   --color-primary-soft: oklch(59.867% 0.13428 40.447 / 0.682);
 
   /* ---- Color: neutros estándar (texto, bordes) ---- */
-  --color-text: oklch(0.2 0 0);
-  --color-text-muted: oklch(0.45 0 0);
-  --color-border: oklch(0.72 0 0 / 0.6);
-  --color-border-soft: oklch(0.72 0 0 / 0.4);
+  --color-text: oklch(94.912% 0.00011 271.152 / 0.855);
+  --color-text-muted: oklch(0.7 0 0);
+  --color-border: oklch(0.33 0 0);
+  --color-border-soft: oklch(0.4 0 0 / 0.52);
 
   /* ---- Tipografía ---- */
   --font-family-base: "Figtree", system-ui, -apple-system, sans-serif;
@@ -25,7 +24,7 @@
   --text-base: 1rem; /* 16px — body */
   --text-md: 1.125rem; /* 18px — section headings */
 
-  --text-lg: clamp(1.25rem, 1.05rem + 0.9vw, 1.5rem); /* 20 → 24px */
+  --text-lg: clamp(1rem, 1.05rem + 0.9vw, 1.17rem); /* 20 → 24px */
   --text-xl: clamp(1.5rem, 1.1rem + 1.8vw, 2rem); /* 24 → 32px */
   --text-display: clamp(1.75rem, 1rem + 3.5vw, 2.75rem);
 
@@ -56,8 +55,8 @@
   --card-inset: 4px;
 
   /* ---- Sombras ---- */
-  --shadow-sm: 0 1px 2px oklch(0.2 0 0 / 0.06);
-  --shadow-md: 0 4px 12px oklch(0.2 0 0 / 0.08);
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
+  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
 
   /* ---- Layout ---- */
   --content-max-width: 720px;
@@ -73,13 +72,14 @@
 
 /* ---- Dark mode ---- */
 [data-theme="dark"] {
-  --color-bg: oklch(20.607% 0.01595 39.173 / 0.927);
+  --color-bg: oklch(6.72% 0.00001 271.152);
+  /* --color-bg: oklch(20.607% 0.01595 39.173 / 0.927); */
   --color-primary: oklch(0.72 0.13 39.865);
 
-  --color-text: oklch(0.95 0 0);
+  --color-text: oklch(94.912% 0.00011 271.152 / 0.855);
   --color-text-muted: oklch(0.7 0 0);
-  --color-border: oklch(0.4 0 0);
-  --color-border-soft: oklch(0.4 0 0 / 0.4);
+  --color-border: oklch(0.33 0 0);
+  --color-border-soft: oklch(0.4 0 0 / 0.52);
 
   --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
   --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
