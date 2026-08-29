@@ -17,7 +17,7 @@
   --color-border-soft: oklch(0.4 0 0 / 0.52);
 
   /* ---- Tipografía ---- */
-  --font-family-base: "Figtree", system-ui, -apple-system, sans-serif;
+  --font-family-base: "Geist", system-ui, -apple-system, sans-serif;
 
   --text-xs: 0.675rem; /* 12px — xtra small */
   --text-sm: 0.875rem; /* 14px — body small / card text */
