@@ -1,9 +1,9 @@
 @import "./tokens.css";
 
 @font-face {
-  font-family: "Figtree";
-  src: url("/fonts/figtree-variable.woff2") format("woff2-variations");
-  font-weight: 400 500 600;
+  font-family: "Geist";
+  src: url("/fonts/geist-variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
