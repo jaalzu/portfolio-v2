@@ -7,14 +7,10 @@ import ProjectCard from "../components/sections/ProjectCard.astro";
 import SkillItem from "../components/sections/SkillItem.astro";
 import Section from "../components/sections/Section.astro";
 import Footer from "../components/sections/Footer.astro";
-// import ThemeToggle from "../components/ThemeToggle.astro";
 import LanguageToggle from "../components/ui/LanguageToggle.astro";
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
-// El HTML se renderiza en español por defecto (coincide con el estado
-// inicial de data-lang en LanguageToggle). I18nSync.astro se encarga de
-// pasar todo a inglés en el cliente si el usuario ya lo había elegido antes.
 const t = translations.es;
 
 const projects = [
@@ -43,11 +39,10 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
 
 <BaseLayout title="Javier Alzú">
   <I18nSync />
-  <main class="page">
+<main class="page" transition:animate="slide">
     <Section>
       <div class="top-bar">
         <LanguageToggle />
-        <!-- <ThemeToggle /> -->
       </div>
 
       <div class="hero-identity">
