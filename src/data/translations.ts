@@ -50,6 +50,21 @@ export const translations = {
       "Integración de APIs",
       "Desarrollo asistido por IA",
     ],
+    skillsPromo: {
+      title: "Mejora tus interfaces con skills",
+      subtitle: "Skills y agentes para mejorar tus interfaces.",
+    },
+    skillsPage: {
+      subtitle: "Una colección de skills para mejorar tus interfaces.",
+      installTitle: "Instalación",
+      installHint: "Copia el comando e instala la skill que necesites.",
+      github: "GitHub",
+      viewLive: "Ver en vivo",
+      typography: {
+        title: "Typography Foundation — UI & Quality",
+        description: "Tipografía fundamental para interfaces claras, legibles y con buena jerarquía visual. Mejora la experiencia de usuario con buenas prácticas de diseño tipográfico.",
+      },
+    },
   },
   en: {
     sections: {
@@ -102,6 +117,21 @@ export const translations = {
       "API Integration",
       "AI-Assisted Development",
     ],
+    skillsPromo: {
+      title: "Make better interfaces using skills",
+      subtitle: "Skills and agents to improve your interfaces.",
+    },
+    skillsPage: {
+      subtitle: "A collection of skills to improve your interfaces.",
+      installTitle: "Installation",
+      installHint: "Copy the command and install the skill you need.",
+      github: "GitHub",
+      viewLive: "View live",
+      typography: {
+        title: "Typography Foundation — UI & Quality",
+        description: "Foundational typography for clear, legible interfaces with strong visual hierarchy. Improve user experience with typography design best practices.",
+      },
+    },
   },
 } as const;
 

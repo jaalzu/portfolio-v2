@@ -1,0 +1,649 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import GithubIcon from "../components/GithubIcon.astro";
+import { translations } from "../data/translations";
+
+const t = translations.es;
+---
+
+<BaseLayout title="Skills — Javier Alzú">
+  <main class="page">
+    <Section>
+      <a href="/" class="back-link" aria-label="Volver al inicio">
+        <svg class="back-link__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="back-link__text" data-i18n="skills.back">Volver</span>
+      </a>
+
+      <div class="skills-header">
+        <h1 class="skills-header__title">Skills</h1>
+        <p class="skills-header__intro" data-i18n="skillsPage.subtitle">
+          {t.skillsPage.subtitle}
+        </p>
+      </div>
+
+      <div class="install-block">
+        <div class="install-block__head">
+          <code class="install-block__cmd" data-cmd="npx skills add jaalzu/agent-skills"><span class="cmd-npx">npx</span> <span class="cmd-args">skills add jaalzu/agent-skills</span><button class="copy-btn" aria-label="Copiar comando" data-copy="npx skills add jaalzu/agent-skills"><svg class="copy-btn__icon" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5" stroke="currentColor" stroke-width="1.4"/></svg><svg class="copy-btn__check" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></code>
+        </div>
+
+        <div class="install-block__actions">
+          <a class="tab-btn install-action" href="https://github.com/jaalzu/agent-skills" target="_blank" rel="noopener noreferrer" aria-label="Repositorio en GitHub">
+            <GithubIcon />
+            <span>GitHub</span>
+          </a>
+          <a class="tab-btn install-action" href="https://skills.sh" target="_blank" rel="noopener noreferrer" aria-label="Skills">
+            <svg width="18" height="18" viewBox="0 0 76 65" fill="currentColor" aria-hidden="true">
+              <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
+            </svg>
+            <span>Skills</span>
+          </a>
+        </div>
+      </div>
+    </Section>
+
+     <!-- Typography -->
+    <Section>
+      <div class="skill-meta" id="typography">
+        <h2 class="skill-meta__title">
+          <span class="skill-meta__divider" aria-hidden="true"></span>
+          <span class="skill-meta__title-text">{t.skillsPage.typography.title}</span>
+          <span class="skill-meta__divider" aria-hidden="true"></span>
+        </h2>
+        <p class="skill-meta__desc">
+          {t.skillsPage.typography.description}
+        </p>
+      </div>
+      <div class="skill-block-frame">
+        <div class="skill-block">
+         
+
+          <!-- Demo Before / After -->
+          <div class="typo-demo" id="typoDemo" data-mode="after">
+            <div class="typo-demo__toolbar">
+              <div class="typo-demo__control">
+                <button type="button" class="typo-demo__single" id="typoToggle" aria-pressed="true" aria-label="Cambiar entre antes y después">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h12M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 3l5 5-5 5" stroke="currentColor" stroke-width="1.2" opacity="0.35" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <span class="typo-demo__state" id="typoState">Después</span>
+              </div>
+            </div>
+
+            <div class="typo-demo__stage">
+              <p class="demo-label">Mercado cripto · Tiempo real</p>
+              <h3 class="demo-heading">Cifras estables que no saltan cuando el mercado se mueve</h3>
+              <p class="demo-body">Precios de monedas virtuales actualizados en vivo. Con cifras tabulares la columna se mantiene estable; sin ellas, cada tick desplaza el layout.</p>
+
+              <div class="demo-live" aria-live="polite">
+                <div class="demo-live__row"><span class="demo-pair">BTC / USD</span><span class="demo-price-wrap"><strong class="demo-num" data-base="68432">$68,432.00</strong><span class="demo-delta"></span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-meta" id="accesibility">
+        <h2 class="skill-meta__title">
+          <span class="skill-meta__divider" aria-hidden="true"></span>
+          <span class="skill-meta__title-text">Accessibility</span>
+          <span class="skill-meta__divider" aria-hidden="true"></span>
+        </h2>
+        <p class="skill-meta__desc skill-meta__desc--muted">
+          Contraste ≥ 4.5:1, foco visible, semántica y ARIA solo cuando aporta. Validado con teclado y lector de pantalla — próximamente demo interactiva.
+        </p>
+      </div>
+      <div class="skill-block-frame skill-block-frame--muted">
+        <div class="skill-block skill-block--placeholder">
+          <img class="skill-block__icon" src="/skills/accesibility.svg" alt="" width="40" height="40" loading="lazy" />
+          <span class="skill-block__placeholder-text">Demo próximamente</span>
+        </div>
+      </div>
+    </Section>
+  </main>
+</BaseLayout>
+
+<script is:inline>
+  function initTypoDemo() {
+    const demo = document.getElementById('typoDemo');
+    if (!demo || demo.dataset.bound === "1") return;
+    demo.dataset.bound = "1";
+    const btn = document.getElementById('typoToggle');
+    const stage = demo.querySelector('.typo-demo__stage');
+    let fadeTimer = null;
+    function setMode(mode) {
+      if (demo.dataset.mode === mode) return;
+      if (stage) {
+        stage.style.opacity = '0.35';
+        stage.style.transform = 'translateY(2px)';
+        clearTimeout(fadeTimer);
+      }
+      demo.dataset.mode = mode;
+      const stateLabel = document.getElementById('typoState');
+      if (btn) {
+        const isAfter = mode === 'after';
+        btn.setAttribute('aria-pressed', String(isAfter));
+        if (stateLabel) {
+          stateLabel.style.opacity = '0';
+          setTimeout(function() {
+            stateLabel.textContent = isAfter ? 'Después' : 'Antes';
+            stateLabel.style.opacity = '1';
+          }, 90);
+        }
+      }
+      if (stage) {
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            stage.style.opacity = '1';
+            stage.style.transform = 'translateY(0)';
+          });
+        });
+        fadeTimer = setTimeout(function() {
+          stage.style.opacity = '';
+          stage.style.transform = '';
+        }, 200);
+      }
+    }
+    if (btn) {
+      btn.addEventListener('click', function() {
+        const next = demo.dataset.mode === 'after' ? 'before' : 'after';
+        setMode(next);
+      });
+    }
+
+    const nums = demo.querySelectorAll('.demo-num');
+    const deltas = demo.querySelectorAll('.demo-delta');
+    const prevVals = Array.from(nums).map(function(el) { return parseFloat((el.getAttribute('data-base')||'0').replace(',','')); });
+    let tick = 0;
+    setInterval(function() {
+      tick++;
+      nums.forEach(function(el, i) {
+        const base = parseFloat(el.getAttribute('data-base') || '1000');
+        const isBTC = base > 10000;
+        const jitter = isBTC ? (Math.random()*600-300) + Math.sin(tick/3)*120 : (Math.random()*80-40);
+        const val = Math.max(0, base + jitter + Math.sin(tick/5 + i)* (isBTC? 80:20));
+        const formatted = '$' + val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const prev = prevVals[i];
+        const deltaEl = deltas[i];
+        el.textContent = formatted;
+        if (val > prev) {
+          el.classList.remove('down'); el.classList.add('up');
+          if (deltaEl) { deltaEl.textContent = '▲'; deltaEl.className = 'demo-delta up'; }
+        } else if (val < prev) {
+          el.classList.remove('up'); el.classList.add('down');
+          if (deltaEl) { deltaEl.textContent = '▼'; deltaEl.className = 'demo-delta down'; }
+        }
+        prevVals[i] = val;
+      });
+    }, 750);
+  }
+  initTypoDemo();
+  document.addEventListener('astro:page-load', initTypoDemo);
+  document.addEventListener('astro:after-swap', initTypoDemo);
+</script>
+
+<script is:inline>
+  function initCopyButtons() {
+    document.querySelectorAll('.copy-btn:not([data-bound])').forEach(function(btn) {
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', function() {
+        var cmd = btn.getAttribute('data-copy');
+        if (!cmd) return;
+        navigator.clipboard.writeText(cmd).then(function() {
+          btn.classList.add('copied');
+          setTimeout(function() { btn.classList.remove('copied'); }, 1500);
+        });
+      });
+    });
+  }
+  initCopyButtons();
+  document.addEventListener('astro:page-load', initCopyButtons);
+  document.addEventListener('astro:after-swap', initCopyButtons);
+</script>
+
+<style>
+  .page {
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5rem;
+    margin-bottom: var(--space-16);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    transition: color var(--transition-fast);
+  }
+  .back-link__arrow {
+    opacity: 0.38;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    flex-shrink: 0;
+  }
+  .back-link__text {
+    opacity: 1;
+    transition: opacity var(--transition-fast);
+  }
+  .back-link:hover .back-link__arrow,
+  .back-link:focus-visible .back-link__arrow {
+    opacity: 1;
+  }
+  .back-link:hover .back-link__text,
+  .back-link:focus-visible .back-link__text {
+    opacity: 0.32;
+  }
+  .back-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Header — smaller title */
+  .skills-header__title {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    color: var(--color-surface);
+    text-wrap: balance;
+  }
+  .skills-header__intro {
+    margin: 0;
+    max-width: 65ch;
+    font-size: var(--text-md);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-muted);
+    text-wrap: pretty;
+  }
+
+  /* Install section */
+  .install-block {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    margin-top: var(--space-4);
+  }
+  .install-block__head {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: var(--space-1);
+  }
+  .install-block__cmd {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    padding: var(--space-3) var(--space-8) var(--space-3) var(--space-3);
+    border: 1px solid var(--color-border-soft);
+    border-radius: 6px;
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cmd-npx {
+    color: var(--color-blue);
+    font-weight: var(--font-weight-semibold);
+  }
+  .cmd-args {
+    color: var(--color-green);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Copy button */
+  .copy-btn {
+    position: absolute;
+    right: var(--space-2);
+    top: 50%;
+    transform: translateY(-50%);
+    appearance: none;
+    border: none;
+    background: oklch(1 0 0 / 0.04);
+    color: var(--color-text-muted);
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+  }
+  .copy-btn:hover {
+    color: var(--color-surface);
+    background: oklch(1 0 0 / 0.08);
+  }
+  .copy-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .copy-btn__check {
+    display: none;
+  }
+  .copy-btn.copied .copy-btn__icon {
+    display: none;
+  }
+  .copy-btn.copied .copy-btn__check {
+    display: block;
+    color: oklch(74.477% 0.24523 143.023);
+  }
+
+  /* Actions */
+  .install-block__actions {
+    display: flex;
+    width: 100%;
+    padding-inline: var(--space-1);
+    padding-bottom: var(--space-1);
+    gap: 4px;
+  }
+  .install-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+    flex: 1;
+    padding: var(--space-2) var(--space-2);
+    border: 1px solid var(--color-border-soft);
+    border-radius: 8px;
+    color: var(--color-surface);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: color var(--transition-fast), background var(--transition-fast);
+  }
+  .install-action:hover,
+  .install-action:focus-visible {
+    background: oklch(1 0 0 / 0.04);
+  }
+  .install-action:hover,
+  .install-action:focus-visible {
+    border-color: var(--color-border);
+    opacity: 1;
+  }
+  .install-action :global(svg) {
+    width: 17px;
+    height: 17px;
+    opacity:0.60;
+  }
+
+  /* Skill meta — title + divider + subtitle (space-4) */
+  .skill-meta {
+    margin-bottom: var(--space-6);
+  }
+  .skill-meta__title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    font-size: var(--text-md);
+    margin-bottom: var(--space-6);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-surface);
+    line-height: var(--leading-tight);
+    text-align: left;
+  }
+  .skill-meta__title-text {
+    flex-shrink: 0;
+  }
+
+  
+.skill-meta__divider {
+    height: 1px;
+    background: var(--color-border-soft);
+  }
+  
+  .skill-meta__divider:last-child {
+    margin-left: .8rem;
+    flex: 1;
+    min-width: 24px;
+  }
+  
+  .skill-meta__desc {
+    margin: var(--space-4) 0 0;
+    font-size: var(--text-md);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text);
+    max-width: 66ch;
+    text-wrap: pretty;
+  }
+  .skill-meta__desc--muted {
+    opacity: 0.9;
+  }
+  /* keep :has subtitle directly after title without extra gap adjustment */
+  .skill-meta__subtitle + .skill-meta__desc {
+    margin-top: var(--space-2);
+  }
+
+  /* Skill blocks — 2-border pattern (outer frame + inner card) like other components */
+  .skill-block-frame {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    padding: var(--card-inset);
+    margin-bottom: var(--space-8);
+  }
+  .skill-block {
+    border: 1px solid color-mix(in oklch, var(--color-border-soft) 100%, transparent);
+    border-radius: var(--radius-inner);
+    padding: var(--space-6);
+  }
+  .skill-block--placeholder {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 72px;
+  }
+  .skill-block__icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    object-fit: contain;
+    filter: invert(1) brightness(0.95);
+  }
+  .skill-block__placeholder-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  /* legacy selectors kept for backwards compat */
+  .skill-block__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: 10px;
+  }
+  .skill-block__title {
+    margin: 0;
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-surface);
+    line-height: var(--leading-tight);
+  }
+  .skill-block__subtitle {
+    margin: 2px 0 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+  }
+  .skill-block__desc {
+    margin: 0 0 var(--space-6);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-muted);
+    max-width: 66ch;
+    text-wrap: pretty;
+  }
+  .skill-block-frame--muted {
+    opacity: 0.9;
+  }
+  .skill-block-frame--muted .skill-block {
+    border-style: dashed;
+  }
+
+  /* Demo card — inner borders/dividers removed */
+  .typo-demo {
+    border: none;
+    border-radius: var(--radius-base);
+    overflow: hidden;
+    background: transparent;
+  }
+  .typo-demo__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: 10px 12px;
+    border-bottom: none;
+    background: transparent;
+    flex-wrap: wrap;
+  }
+  .typo-demo__control {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .typo-demo__single {
+    appearance: none;
+    border: 1px solid oklch(1 0 0 / 0.12);
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    color: oklch(0.15 0 0);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    transition: transform 120ms cubic-bezier(0.22, 1, 0.36, 1), background 140ms ease, opacity 140ms ease, box-shadow 140ms ease;
+    will-change: transform;
+    flex-shrink: 0;
+  }
+  .typo-demo__single:hover { opacity: 0.92; }
+  .typo-demo__single:active { transform: scale(0.94); box-shadow: none; }
+  .typo-demo__single:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+  .typo-demo__state {
+    display: inline-block;
+    width: 68px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-surface);
+    opacity: 1;
+    transition: opacity 120ms ease;
+  }
+  .typo-demo__stage {
+    padding: var(--space-5) var(--space-6) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: auto;
+    transition: opacity 140ms ease, transform 160ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  /* Demo elements — default is AFTER */
+  .demo-label {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    transition: letter-spacing 140ms ease, opacity 140ms ease, transform 140ms ease;
+  }
+  .demo-heading {
+    margin: 0;
+    max-width: 22ch;
+    font-size: clamp(1.25rem, 1rem + 1.6vw, 1.85rem);
+    font-weight: 700;
+    line-height: 1.20;
+    letter-spacing: -0.02em;
+    color: var(--color-surface);
+    text-wrap: balance;
+    transition: letter-spacing 140ms ease, line-height 140ms ease, max-width 160ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .demo-body {
+    margin: 0;
+    max-width: 35ch;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+    text-wrap: pretty;
+    transition: line-height 140ms ease, max-width 160ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .demo-live {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: none;
+  }
+  .demo-live__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .demo-live__row span:first-child { font-size: var(--text-sm); }
+  .demo-pair {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .demo-num {
+    font-size: var(--text-base);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+    color: var(--color-surface);
+    min-width: 7.5ch;
+    text-align: right;
+    border-radius: 6px;
+    padding: 2px 6px;
+    background: transparent;
+    transition: letter-spacing 140ms ease, font-variant-numeric 140ms ease, color 140ms ease, background 140ms ease;
+  }
+  .demo-num.up { color: oklch(0.72 0.16 145); }
+  .demo-num.down { color: oklch(0.62 0.20 25); }
+  .demo-price-wrap { display: inline-flex; align-items: center; gap: 8px; }
+  .demo-delta { font-size: 11px; font-weight: 700; min-width: 12px; text-align: center; transition: color 140ms ease; }
+  .demo-delta.up { color: oklch(0.72 0.16 145); }
+  .demo-delta.down { color: oklch(0.62 0.20 25); }
+
+  /* BEFORE state — intentionally worse */
+  .typo-demo[data-mode="before"] .demo-label {
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 400;
+  }
+  .typo-demo[data-mode="before"] .demo-heading {
+    text-wrap: initial;
+    line-height: 1.05;
+    letter-spacing: 0;
+    max-width: none;
+  }
+  .typo-demo[data-mode="before"] .demo-body {
+    text-wrap: initial;
+    line-height: 1.22;
+    max-width: none;
+  }
+  .typo-demo[data-mode="before"] .demo-num {
+    font-variant-numeric: proportional-nums;
+    letter-spacing: 0;
+    background: oklch(1 0 0 / 0.035);
+  }
+
+  @media (max-width: 560px) {
+    .back-link { margin-top: 3.5rem; }
+    .typo-demo__toolbar { flex-direction: column; align-items: flex-start; }
+  }
+</style>

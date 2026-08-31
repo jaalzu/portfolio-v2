@@ -24,10 +24,12 @@
 
 html {
   color-scheme: dark;
+  overflow-x: visible;
 }
 
 body {
   margin: 0;
+  overflow-x: visible;
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-regular);
   font-size: var(--text-base);
@@ -51,50 +53,6 @@ a {
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-bg);
-}
-
-[data-tooltip] {
-  position: relative;
-}
-
-[data-tooltip]::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  background-color: var(--color-bg);
-  color: var(--color-primary);
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-semibold);
-  white-space: nowrap;
-  padding: 4px 8px;
-  pointer-events: none;
-  opacity: 0;
-  transition:
-    opacity var(--transition-fast),
-    transform var(--transition-fast);
-  z-index: 20;
-}
-
-[data-tooltip]::after {
-  bottom: calc(100% + var(--tooltip-gap, 8px));
-}
-
-.tech[data-tooltip]::after {
-  bottom: auto;
-  top: calc(100% + var(--tooltip-gap, 8px));
-}
-
-[data-tooltip]:hover::after,
-[data-tooltip]:focus-visible::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-@media (hover: none) {
-  [data-tooltip]::after {
-    display: none;
-  }
 }
 
 /* Focus visible consistente en todo el sistema (better-accessibility) */

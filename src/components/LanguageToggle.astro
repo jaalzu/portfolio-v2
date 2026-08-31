@@ -26,6 +26,12 @@
     font-weight: var(--font-weight-semibold);
   }
 
+  .lang-toggle:focus,
+  .lang-toggle:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
   .lang-toggle__sep {
     color: var(--color-text-muted);
     opacity: 0.6;
@@ -41,10 +47,16 @@
     transition: color var(--transition-fast);
   }
 
-  /* Idioma activo resaltado */
+  /* no hover on text — keep muted */
+  .lang-toggle__option:hover {
+    color: var(--color-text-muted);
+  }
+
+  /* Idioma activo resaltado — more white (no primary) */
   :global(html:not([data-lang="en"])) .lang-toggle__option[data-lang-option="es"],
   :global(html[data-lang="en"]) .lang-toggle__option[data-lang-option="en"] {
-    color: var(--color-primary);
+    color: var(--color-surface);
+    opacity: 1;
   }
 
 

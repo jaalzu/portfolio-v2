@@ -1,11 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Banner from "../components/Banner.astro";
 import Button from "../components/Button.astro";
 import Icon from "../components/Icon.astro";
 import GithubIcon from "../components/GithubIcon.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import TechBadge from "../components/TechBadge.astro";
+import SkillItem from "../components/SkillItem.astro";
 import Section from "../components/Section.astro";
 import Footer from "../components/Footer.astro";
 // import ThemeToggle from "../components/ThemeToggle.astro";
@@ -51,12 +50,13 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
         <!-- <ThemeToggle /> -->
       </div>
 
-      <Banner
-        name="Javier Alzú"
-        role="Design Engineer"
-        coverSrc="./portft1.webp"
-        avatarSrc="/favicon.png"
-      />
+      <div class="hero-identity">
+        <img class="hero-identity__avatar" src="/favicon.png" alt="Foto de Javier Alzú" />
+        <div class="hero-identity__text">
+          <p class="hero-identity__name">Javier Alzú</p>
+          <p class="hero-identity__role">Design Engineer</p>
+        </div>
+      </div>
 
       <div class="about">
         <p class="about__bio" data-i18n-html="bio1" set:html={t.bio1} />
@@ -73,17 +73,16 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
         </p>
 
         <div class="about__actions">
-          <Button href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" variant="icon" ariaLabel="LinkedIn" target="_blank" data-tooltip="LinkedIn">
+          <Button href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" variant="icon" ariaLabel="LinkedIn" target="_blank">
             <Icon name="linkedin" size={28} />
           </Button>
-          <Button href="https://github.com/jaalzu" variant="icon" class="tab-btn" ariaLabel="GitHub" target="_blank" data-tooltip="GitHub">
+          <Button href="https://github.com/jaalzu" variant="icon" class="tab-btn" ariaLabel="GitHub" target="_blank">
             <GithubIcon />
           </Button>
           <Button
             href="/CV-ESP.pdf"
             variant="icon"
             ariaLabel={t.aria.cv}
-            data-tooltip="CV"
             data-i18n-attr="aria-label:aria.cv;href:cvHref"
             data-cv-es="/CV-ESP.pdf"
             data-cv-en="/CV-ENG.pdf"
@@ -113,8 +112,13 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
     </Section>
 
     <Section title={t.sections.techStack} i18nKey="sections.techStack" marked class="tech-section">
-      <div class="tech-grid">
-        {t.techStack.map((tech, i) => <TechBadge name={tech} i18nKey={`techStack.${i}`} />)}
+      <div class="skills-grid">
+        <SkillItem
+          iconSrc="/skills/code.svg"
+          title={t.skillsPromo.title}
+          subtitle={t.skillsPromo.subtitle}
+          href="/skills"
+        />
       </div>
     </Section>
 
@@ -130,9 +134,8 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
         }
       </ol>
     </Section>
-
-    <Footer coverSrc="./portft1.webp" email="javieralzuu@gmail.com" />
   </main>
+  <Footer coverSrc="./portft1.webp" email="javieralzuu@gmail.com" />
 </BaseLayout>
 
 <style>
@@ -148,6 +151,34 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
     align-items: center;
     gap: var(--space-2);
     margin-bottom: var(--space-4);
+  }
+
+  .hero-identity {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: 5rem;
+  }
+
+  .hero-identity__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+  }
+
+  .hero-identity__name {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-tight);
+    color: var(--color-surface);
+  }
+
+  .hero-identity__role {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: var(--leading-tight);
   }
 
   .about {
@@ -225,6 +256,16 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
     margin-top: var(--space-16);
   }
 
+  .about__actions :global(.btn) {
+    opacity: 0.8;
+    transition: opacity var(--transition-fast), color var(--transition-fast);
+  }
+
+  .about__actions :global(.btn:hover),
+  .about__actions :global(.btn:focus-visible) {
+    opacity: 1;
+  }
+
   .projects-section {
     padding-top: var(--space-16);
   }
@@ -232,15 +273,15 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    column-gap: var(--space-12);
-    row-gap: var(--space-6);
+    column-gap: var(--space-4);
+    row-gap: var(--space-4);
     margin-bottom: 4rem;
   }
 
-  .tech-grid {
+  .skills-grid {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    gap: var(--space-4);
     margin-bottom: 2rem;
   }
 

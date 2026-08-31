@@ -5,7 +5,7 @@
 
 :root {
   /* ---- Color: dark only ---- */
-  --color-bg: oklch(6.72% 0.00001 271.152);
+  --color-bg: oklch(6.72% 0.00001 271.152 / 0.972);
   --color-surface: oklch(100% 0.00011 271.152 / 0.953);
   --color-primary: oklch(0.72 0.13 39.865);
   --color-primary-soft: oklch(59.867% 0.13428 40.447 / 0.682);
@@ -16,6 +16,10 @@
   --color-border: oklch(0.33 0 0);
   --color-border-soft: oklch(0.4 0 0 / 0.52);
 
+  /* ---- Color: acentos ---- */
+  --color-blue: oklch(0.65 0.15 250);
+  --color-green: oklch(0.72 0.16 145);
+
   /* ---- Tipografía ---- */
   --font-family-base: "Geist", system-ui, -apple-system, sans-serif;
 
@@ -25,7 +29,7 @@
   --text-md: 1.125rem; /* 18px — section headings */
 
   --text-lg: clamp(1rem, 1.05rem + 0.9vw, 1.17rem); /* 20 → 24px */
-  --text-xl: clamp(1.5rem, 1.1rem + 1.8vw, 2rem); /* 24 → 32px */
+  --text-xl: clamp(1.3rem, 1.1rem + 1.2vw, 1.65rem); /* 24 → 32px */
   --text-display: clamp(1.75rem, 1rem + 3.5vw, 2.75rem);
 
   --font-weight-regular: 400;
@@ -59,7 +63,7 @@
   --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
 
   /* ---- Layout ---- */
-  --content-max-width: 720px;
+  --content-max-width: 680px;
   --grid-max-width: 1200px;
 
   /* ---- Transiciones ---- */
