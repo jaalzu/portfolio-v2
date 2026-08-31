@@ -24,25 +24,113 @@ const { title, description = "Portfolio personal" } = Astro.props;
   </head>
   <body>
     <slot />
+    <script is:inline>
+      (() => {
+        const ORDER = ["/", "/skills", "/skills/"];
+        const normalize = (p) => (p.length > 1 && p.endsWith("/") ? p.slice(0, -1) : p || "/");
+        const getDir = (from, to) => {
+          const a = ORDER.indexOf(normalize(from));
+          const b = ORDER.indexOf(normalize(to));
+          if (a !== -1 && b !== -1) return b > a ? "forward" : "back";
+          return "forward";
+        };
+        const safeSet = (dir) => {
+          document.documentElement.dataset.direction = dir;
+          try { sessionStorage.setItem("vt-direction", dir); } catch {}
+        };
+        try {
+          const saved = sessionStorage.getItem("vt-direction");
+          if (saved) document.documentElement.dataset.direction = saved;
+        } catch {}
+
+        // Captura ANTES que ClientRouter (capture:true es clave)
+        document.addEventListener("click", (e) => {
+          const a = e.target.closest("a[href]");
+          if (!a) return;
+          const href = a.getAttribute("href");
+          if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
+          if (a.target === "_blank" || a.hasAttribute("download")) return;
+          // ignora externos
+          if (/^https?:\/\//.test(href)) {
+            try { if (new URL(href).origin !== location.origin) return; } catch { return; }
+          }
+          let toPath;
+          try { toPath = new URL(href, location.origin).pathname; } catch { return; }
+          if (normalize(toPath) === normalize(location.pathname)) return;
+          const dir = getDir(location.pathname, toPath);
+          safeSet(dir);
+        }, { capture: true });
+
+        // Fallback para navegación por teclado / programática y botón atrás
+        document.addEventListener("astro:before-preparation", (ev) => {
+          const to = ev.to || ev.detail?.to;
+          if (!to) return;
+          let toPath;
+          try { toPath = new URL(to, location.origin).pathname; } catch { return; }
+          safeSet(getDir(location.pathname, toPath));
+        });
+
+        // Botón atrás del navegador (popstate) -> ClientRouter también dispara before-preparation,
+        // pero por si acaso forzamos dirección aquí
+        window.addEventListener("popstate", () => {
+          // si volvemos a "/" desde "/skills", es back
+          const dir = normalize(location.pathname) === "/" ? "back" : "forward";
+          // solo setea si no lo hará before-preparation; no hace daño dejarlo
+          try {
+            const pending = sessionStorage.getItem("vt-direction");
+            if (pending !== dir) safeSet(dir);
+          } catch { safeSet(dir); }
+        });
+      })();
+    </script>
   </body>
   <style is:global>
-    ::view-transition-old(root) {
-      animation: subtle-out 220ms cubic-bezier(0.33, 0, 0.67, 1) both;
+    /* FALLBACK inicial = forward */
+    html:not([data-direction])::view-transition-old(root) {
+      animation: slide-out-left 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
     }
-    ::view-transition-new(root) {
-      animation: subtle-in 380ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    html:not([data-direction])::view-transition-new(root) {
+      animation: slide-in-right 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
     }
-    @keyframes subtle-out {
+    /* FORWARD: home -> skills */
+    html[data-direction="forward"]::view-transition-old(root) {
+      animation: slide-out-left 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
+    }
+    html[data-direction="forward"]::view-transition-new(root) {
+      animation: slide-in-right 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
+    }
+    /* BACK: skills -> home (inversa) */
+    html[data-direction="back"]::view-transition-old(root) {
+      animation: slide-out-right 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
+    }
+    html[data-direction="back"]::view-transition-new(root) {
+      animation: slide-in-left 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
+    }
+
+    @keyframes slide-out-left {
       from { opacity: 1; transform: translateX(0); }
-      to { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 0; transform: translateX(-18px); }
     }
-    @keyframes subtle-in {
-      from { opacity: 0; transform: translateX(10px); }
+    @keyframes slide-in-right {
+      from { opacity: 0; transform: translateX(18px); }
       to { opacity: 1; transform: translateX(0); }
     }
+    @keyframes slide-out-right {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity: 0; transform: translateX(18px); }
+    }
+    @keyframes slide-in-left {
+      from { opacity: 0; transform: translateX(-18px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       ::view-transition-old(root),
-      ::view-transition-new(root) { animation-duration: 0.01ms !important; }
+      ::view-transition-new(root),
+      ::view-transition-group(root) {
+        animation: none !important;
+        animation-duration: 0.01ms !important;
+      }
     }
   </style>
 </html>

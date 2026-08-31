@@ -1,14 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Button from "../components/Button.astro";
-import Icon from "../components/Icon.astro";
-import GithubIcon from "../components/GithubIcon.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import SkillItem from "../components/SkillItem.astro";
-import Section from "../components/Section.astro";
-import Footer from "../components/Footer.astro";
+import Button from "../components/ui/Button.astro";
+import Icon from "../components/icons/Icon.astro";
+import GithubIcon from "../components/icons/GithubIcon.astro";
+import ProjectCard from "../components/sections/ProjectCard.astro";
+import SkillItem from "../components/sections/SkillItem.astro";
+import Section from "../components/sections/Section.astro";
+import Footer from "../components/sections/Footer.astro";
 // import ThemeToggle from "../components/ThemeToggle.astro";
-import LanguageToggle from "../components/LanguageToggle.astro";
+import LanguageToggle from "../components/ui/LanguageToggle.astro";
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
@@ -74,9 +74,9 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
 
         <div class="about__actions">
           <Button href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" variant="icon" ariaLabel="LinkedIn" target="_blank">
-            <Icon name="linkedin" size={28} />
+            <Icon name="linkedin" size={26} />
           </Button>
-          <Button href="https://github.com/jaalzu" variant="icon" class="tab-btn" ariaLabel="GitHub" target="_blank">
+          <Button href="https://github.com/jaalzu" variant="icon" class="tab-btn" ariaLabel="GitHub" target="_blank" >
             <GithubIcon />
           </Button>
           <Button

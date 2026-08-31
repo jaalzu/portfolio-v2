@@ -1,0 +1,87 @@
+---
+export interface Props {
+  text: string;
+  label?: string;
+}
+const { text, label = "Copiar" } = Astro.props;
+---
+<button class="copy-btn" aria-label={label} data-copy={text}>
+  <svg class="copy-btn__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5" stroke="currentColor" stroke-width="1.4"/>
+  </svg>
+  <svg class="copy-btn__check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<script>
+  import { animate } from "motion";
+
+  function initCopyButtons() {
+    document.querySelectorAll<HTMLButtonElement>('.copy-btn:not([data-bound])').forEach((btn) => {
+      btn.dataset.bound = '1';
+      const icon = btn.querySelector<HTMLElement>('.copy-btn__icon');
+      const check = btn.querySelector<HTMLElement>('.copy-btn__check');
+
+      btn.addEventListener('click', () => {
+        const text = btn.getAttribute('data-copy');
+        if (!text || btn.classList.contains('copied')) return;
+
+        navigator.clipboard.writeText(text).then(() => {
+          btn.classList.add('copied');
+          if (icon && check) {
+            animate(icon, { opacity: 0, scale: 0.5 }, { type: 'spring', stiffness: 700, damping: 35, mass: 0.3 });
+            animate(check, { opacity: 1, scale: 1 }, { type: 'spring', stiffness: 600, damping: 22, mass: 0.35, delay: 0.05 });
+          }
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            if (icon && check) {
+              animate(check, { opacity: 0, scale: 0.5 }, { type: 'spring', stiffness: 700, damping: 35, mass: 0.3 });
+              animate(icon, { opacity: 1, scale: 1 }, { type: 'spring', stiffness: 600, damping: 22, mass: 0.35, delay: 0.05 });
+            }
+          }, 1500);
+        });
+      });
+    });
+  }
+
+  initCopyButtons();
+  document.addEventListener('astro:page-load', initCopyButtons);
+  document.addEventListener('astro:after-swap', initCopyButtons);
+</script>
+
+<style>
+  .copy-btn {
+    position: absolute;
+    right: var(--space-2);
+    top: 50%;
+    transform: translateY(-50%);
+    appearance: none;
+    border: none;
+    background: oklch(1 0 0 / 0.04);
+    color: var(--color-text-muted);
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    overflow: hidden;
+    isolation: isolate;
+    transition: color 220ms ease, background 300ms cubic-bezier(0.22, 1, 0.36, 1), transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .copy-btn:hover { color: var(--color-surface); background: oklch(1 0 0 / 0.08); }
+  .copy-btn:active { transform: translateY(-50%) scale(0.92); }
+  .copy-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+  .copy-btn__icon,
+  .copy-btn__check {
+    position: absolute;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+  .copy-btn__check { opacity: 0; color: var(--color-surface); }
+</style>

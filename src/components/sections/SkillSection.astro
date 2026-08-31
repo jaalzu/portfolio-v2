@@ -1,0 +1,72 @@
+---
+export interface Props {
+  id: string;
+  title: string;
+  description: string;
+  mutedDesc?: boolean;
+  mutedFrame?: boolean;
+}
+const { id, title, description, mutedDesc = false, mutedFrame = false } = Astro.props;
+---
+<div class="skill-meta" {id}>
+  <h2 class="skill-meta__title">
+    <span class="skill-meta__title-text"><span class="skill-hash" aria-hidden="true">#</span> {title}</span>
+    <span class="skill-meta__divider" aria-hidden="true"></span>
+  </h2>
+  <p class:list={["skill-meta__desc", { "skill-meta__desc--muted": mutedDesc }]}>
+    {description}
+  </p>
+</div>
+
+<div class:list={["skill-block-frame", { "skill-block-frame--muted": mutedFrame }]}>
+  <div class="skill-block">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .skill-meta { margin-bottom: var(--space-6); }
+  .skill-meta__title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 0 var(--space-6);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-surface);
+    line-height: var(--leading-tight);
+    text-align: left;
+  }
+  .skill-meta__title-text { flex-shrink: 0; }
+  .skill-hash { opacity: 0.6; font-weight: var(--font-weight-regular); margin-right: 0.2em; }
+  .skill-meta__divider {
+    flex: 1;
+    height: 1px;
+    background: var(--color-border-soft);
+    margin-left: .8rem;
+    min-width: 24px;
+  }
+  .skill-meta__desc {
+    margin: var(--space-4) 0 0;
+    font-size: var(--text-md);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text);
+    max-width: 66ch;
+    text-wrap: pretty;
+  }
+  .skill-meta__desc--muted { opacity: 0.9; }
+
+  .skill-block-frame {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    padding: var(--card-inset);
+    margin-bottom: var(--space-8);
+  }
+  .skill-block-frame--muted { opacity: 0.9; }
+  .skill-block-frame--muted .skill-block { border-style: dashed; }
+  .skill-block {
+    border: 1px solid color-mix(in oklch, var(--color-border-soft) 100%, transparent);
+    border-radius: var(--radius-inner);
+    padding: var(--space-6);
+  }
+</style>
