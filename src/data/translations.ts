@@ -5,7 +5,7 @@ export const translations = {
 			techStack: "Skills",
 			journey: "Trayectoria",
 		},
-		bio1: 'Conecto el <span class="about__design">diseño</span> y el <span class="about__code">código</span> para crear productos que se sienten tan bien como funcionan.<br><br>Tengo experiencia construyendo aplicaciones web de principio a fin usando <strong>React, TypeScript, Next.js y CSS</strong>, desde flujos de datos complejos y decisiones de arquitectura hasta una interfaz pulida y esos pequeños detalles que hacen que un producto se sienta bien.',
+		bio1: 'Conecto el <span class="about__design">diseño</span> y el <span class="about__code">código</span> para crear productos digitales que se sienten tan bien como funcionan.<br><br>Tengo experiencia construyendo aplicaciones web de principio a fin usando React, TypeScript, Next.js y CSS, desde flujos de datos complejos y decisiones de arquitectura hasta una interfaz pulida y esos pequeños detalles que hacen que un producto se sienta bien.',
 	
 		emailWord: "Email",
 		// emailAfter: "gratis!",
