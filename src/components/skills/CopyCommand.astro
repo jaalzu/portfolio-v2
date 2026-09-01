@@ -24,7 +24,7 @@ const cmdArgs = cmdRest.join(" ");
       <span>GitHub</span>
     </a>
     <a class="tab-btn install-action" href={skillsUrl} target="_blank" rel="noopener noreferrer" aria-label="Skills">
-      <svg width="18" height="18" viewBox="0 0 76 65" fill="currentColor" aria-hidden="true">
+      <svg width="17" height="17" viewBox="0 0 76 65" fill="currentColor" aria-hidden="true">
         <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
       </svg>
       <span>Skills</span>
@@ -37,20 +37,34 @@ const cmdArgs = cmdRest.join(" ");
     border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-base);
     margin-top: var(--space-6);
+    margin-bottom: var(--space-8);
   }
   .install-block__head { display: flex; align-items: center; width: 100%; padding: var(--space-1); }
   .install-block__cmd {
     position: relative;
     flex: 1;
     min-width: 0;
-    padding: var(--space-3) var(--space-8) var(--space-3) var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: var(--space-3) 44px var(--space-3) var(--space-3);
     border: 1px solid var(--color-border-soft);
     border-radius: 6px;
     font-size: var(--text-md);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-muted);
     overflow: hidden;
+    white-space: nowrap;
+  }
+  .install-block__cmd .cmd-npx,
+  .install-block__cmd .cmd-args {
+    overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  .install-block__cmd .cmd-args {
+    flex: 1;
   }
   .cmd-npx { color: var(--color-blue); font-weight: var(--font-weight-semibold); }
   .cmd-args { color: var(--color-green); font-weight: var(--font-weight-semibold); }
@@ -73,10 +87,17 @@ const cmdArgs = cmdRest.join(" ");
     border-radius: 8px;
     color: var(--color-surface);
     text-decoration: none;
-    font-size: var(--text-md);
+    font-size: var(--text-sm);
     transition: color var(--transition-fast), background var(--transition-fast);
   }
   .install-action:hover,
   .install-action:focus-visible { background: oklch(1 0 0 / 0.04); border-color: var(--color-border); opacity: 1; }
-  .install-action :global(svg) { width: 18px; height: 18px; margin-top: -1px; opacity: 0.70; }
+  .install-action :global(svg) { width: 17px; height: 17px; margin-top: -1px; opacity: 0.70; }
+
+  @media (max-width: 768px) {
+    .install-block__cmd {
+      font-size: var(--text-sm);
+      padding: var(--space-2) 48px var(--space-2) var(--space-2);
+    }
+  }
 </style>

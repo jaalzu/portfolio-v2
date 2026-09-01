@@ -1,0 +1,183 @@
+---
+export interface Props {
+  id?: string;
+  leftLabel?: string;
+  rightLabel?: string;
+  checked?: boolean;
+  class?: string;
+}
+
+const {
+  id = "skillToggle",
+  leftLabel = "bad ui",
+  rightLabel = "good ui",
+  checked = false,
+  class: className = "",
+} = Astro.props;
+
+---
+
+<div
+  class:list={["skill-toggle-container", className]}
+  data-toggle-container={id}
+  data-checked={checked ? "true" : "false"}
+>
+  <span class="skill-toggle__label skill-toggle__label--left">
+    {leftLabel}
+  </span>
+
+  <button
+    type="button"
+    role="switch"
+    id={id}
+    class="skill-toggle__btn"
+    aria-checked={checked ? "true" : "false"}
+    aria-label={`${leftLabel} / ${rightLabel}`}
+  >
+    <!-- Wrench icon from /skills/wrench.svg -->
+    <svg
+      class="skill-toggle__icon"
+      width="22"
+      height="22"
+      viewBox="0 0 256 256"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M226.76,69a8,8,0,0,0-12.84-2.88l-40.3,37.19-17.23-3.7-3.7-17.23,37.19-40.3A8,8,0,0,0,187,29.24,72,72,0,0,0,88,96,72.34,72.34,0,0,0,94,124.94L33.79,177c-.15.12-.29.26-.43.39a32,32,0,0,0,45.26,45.26c.13-.13.27-.28.39-.42L131.06,162A72,72,0,0,0,232,96,71.56,71.56,0,0,0,226.76,69ZM160,152a56.14,56.14,0,0,1-27.07-7,8,8,0,0,0-9.92,1.77L67.11,211.51a16,16,0,0,1-22.62-22.62L109.18,133a8,8,0,0,0,1.77-9.93,56,56,0,0,1,58.36-82.31l-31.2,33.81a8,8,0,0,0-1.94,7.1L141.83,108a8,8,0,0,0,6.14,6.14l26.35,5.66a8,8,0,0,0,7.1-1.94l33.81-31.2A56.06,56.06,0,0,1,160,152Z"></path>
+    </svg>
+  </button>
+
+  <span class="skill-toggle__label skill-toggle__label--right">
+    {rightLabel}
+  </span>
+</div>
+
+<script>
+  function initSkillToggles() {
+    const containers = document.querySelectorAll<HTMLElement>("[data-toggle-container]");
+
+    containers.forEach((container) => {
+      if (container.dataset.bound === "1") return;
+      container.dataset.bound = "1";
+
+      const btn = container.querySelector<HTMLButtonElement>("button[role='switch']");
+      if (!btn) return;
+
+      const setChecked = (isGood: boolean) => {
+        btn.setAttribute("aria-checked", String(isGood));
+        container.setAttribute("data-checked", String(isGood));
+
+        btn.dispatchEvent(
+          new CustomEvent("skill-toggle", {
+            detail: { checked: isGood, id: btn.id },
+            bubbles: true,
+          })
+        );
+      };
+
+      btn.addEventListener("click", () => {
+        const current = btn.getAttribute("aria-checked") === "true";
+        setChecked(!current);
+      });
+
+      btn.addEventListener("keydown", (e: KeyboardEvent) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          const current = btn.getAttribute("aria-checked") === "true";
+          setChecked(!current);
+        }
+      });
+
+      // labels intentionally not clickable — only the tool toggles
+    });
+  }
+
+  initSkillToggles();
+  document.addEventListener("astro:page-load", initSkillToggles);
+  document.addEventListener("astro:after-swap", initSkillToggles);
+</script>
+
+<style>
+  .skill-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+    padding: 6px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    width: fit-content;
+    margin-inline: auto;
+  }
+
+  .skill-toggle__label {
+    font-size: var(--text-base);
+    letter-spacing: 0.02em;
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-regular);
+    user-select: none;
+    cursor: default;
+    pointer-events: none;
+    min-width: 62px;
+    text-align: center;
+  }
+
+  .skill-toggle-container:not([data-checked="true"]) .skill-toggle__label--left {
+    color: var(--color-surface);
+    font-weight: var(--font-weight-semibold);
+    opacity: 1;
+  }
+
+  .skill-toggle-container[data-checked="true"] .skill-toggle__label--right {
+    color: var(--color-surface);
+    font-weight: var(--font-weight-semibold);
+    opacity: 1;
+  }
+
+  /* disabled / inactive side — way less opacity */
+  .skill-toggle-container:not([data-checked="true"]) .skill-toggle__label--right,
+  .skill-toggle-container[data-checked="true"] .skill-toggle__label--left {
+    opacity: 0.28;
+  }
+
+  .skill-toggle__btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.2px solid oklch(100% 0 0 / 0.14);
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+  }
+
+  .skill-toggle__btn:hover {
+    border-color: oklch(100% 0 0 / 0.22);
+    color: var(--color-surface);
+  }
+
+  .skill-toggle__btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .skill-toggle-container[data-checked="true"] .skill-toggle__btn,
+  .skill-toggle__btn[aria-checked="true"] {
+    border-color: oklch(100% 0 0 / 0.14);
+    color: var(--color-surface);
+  }
+
+  .skill-toggle__icon {
+    width: 24px;
+    height: 24px;
+    color: var(--color-surface);
+    opacity: 0.95;
+  }
+</style>

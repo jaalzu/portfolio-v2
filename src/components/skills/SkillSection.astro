@@ -3,17 +3,19 @@ export interface Props {
   id: string;
   title: string;
   description: string;
+  titleKey?: string;
+  descKey?: string;
   mutedDesc?: boolean;
   mutedFrame?: boolean;
 }
-const { id, title, description, mutedDesc = false, mutedFrame = false } = Astro.props;
+const { id, title, description, titleKey, descKey, mutedDesc = false, mutedFrame = false } = Astro.props;
 ---
 <div class="skill-meta" {id}>
   <h2 class="skill-meta__title">
-    <span class="skill-meta__title-text"><span class="skill-hash" aria-hidden="true">#</span> {title}</span>
+    <span class="skill-meta__title-text"><span class="skill-hash" aria-hidden="true">#</span> <span data-i18n={titleKey}>{title}</span></span>
     <span class="skill-meta__divider" aria-hidden="true"></span>
   </h2>
-  <p class:list={["skill-meta__desc", { "skill-meta__desc--muted": mutedDesc }]}>
+  <p class:list={["skill-meta__desc", { "skill-meta__desc--muted": mutedDesc }]} data-i18n={descKey}>
     {description}
   </p>
 </div>
@@ -48,7 +50,7 @@ const { id, title, description, mutedDesc = false, mutedFrame = false } = Astro.
   }
   .skill-meta__desc {
     margin: var(--space-4) 0 0;
-    font-size: var(--text-md);
+    font-size: var(--text-base);
     line-height: var(--leading-relaxed);
     color: var(--color-text);
     max-width: 66ch;
@@ -65,8 +67,12 @@ const { id, title, description, mutedDesc = false, mutedFrame = false } = Astro.
   .skill-block-frame--muted { opacity: 0.9; }
   .skill-block-frame--muted .skill-block { border-style: dashed; }
   .skill-block {
-    border: 1px solid color-mix(in oklch, var(--color-border-soft) 100%, transparent);
+    border: none;
     border-radius: var(--radius-inner);
+    padding: 0;
+    overflow: hidden;
+  }
+  .skill-block:has(.skill-block--placeholder) {
     padding: var(--space-6);
   }
 </style>

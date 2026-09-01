@@ -1,18 +1,20 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Section from "../components/sections/Section.astro";
+import Section from "../components/ui/Section.astro";
 import BackLink from "../components/ui/BackLink.astro";
 import GithubIcon from "../components/icons/GithubIcon.astro";
-import CopyCommand from "../components/sections/CopyCommand.astro";
-import SkillSection from "../components/sections/SkillSection.astro";
-import TypographyDemo from "../components/sections/TypographyDemo.astro";
+import CopyCommand from "../components/skills/CopyCommand.astro";
+import SkillSection from "../components/skills/SkillSection.astro";
+import TypographyDemo from "../components/skills/TypographyDemo.astro";
+import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
 const t = translations.es;
 ---
 
 <BaseLayout title="Skills — Javier Alzú">
- <main class="page" transition:animate="slide">
+  <I18nSync />
+ <main class="page">
     <Section>
       <BackLink />
 
@@ -36,6 +38,8 @@ const t = translations.es;
         id="typography"
         title={t.skillsPage.typography.title}
         description={t.skillsPage.typography.description}
+        titleKey="skillsPage.typography.title"
+        descKey="skillsPage.typography.description"
       >
         <TypographyDemo />
       </SkillSection>
@@ -86,4 +90,12 @@ const t = translations.es;
   }
   .skill-block__icon { width: 40px; height: 40px; flex-shrink: 0; object-fit: contain; filter: invert(1) brightness(0.95); }
   .skill-block__placeholder-text { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+  @media (max-width: 768px) {
+    .page {
+      padding-inline: calc(var(--space-4) + var(--space-1));
+    }
+
+    .skills-header__title { margin-bottom: var(--space-2); }
+  }
 </style>

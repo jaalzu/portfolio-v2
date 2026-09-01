@@ -7,7 +7,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Portfolio personal" } = Astro.props;
+const { title, description = "Portfolio javalzu" } = Astro.props;
 ---
 
 <!doctype html>
@@ -24,7 +24,6 @@ const { title, description = "Portfolio personal" } = Astro.props;
   </head>
   <body>
     <slot />
-<!--     
     <script is:inline>
       (() => {
         const ORDER = ["/", "/skills", "/skills/"];
@@ -44,14 +43,12 @@ const { title, description = "Portfolio personal" } = Astro.props;
           if (saved) document.documentElement.dataset.direction = saved;
         } catch {}
 
-        // Captura ANTES que ClientRouter (capture:true es clave)
         document.addEventListener("click", (e) => {
           const a = e.target.closest("a[href]");
           if (!a) return;
           const href = a.getAttribute("href");
           if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
           if (a.target === "_blank" || a.hasAttribute("download")) return;
-          // ignora externos
           if (/^https?:\/\//.test(href)) {
             try { if (new URL(href).origin !== location.origin) return; } catch { return; }
           }
@@ -62,7 +59,6 @@ const { title, description = "Portfolio personal" } = Astro.props;
           safeSet(dir);
         }, { capture: true });
 
-        // Fallback para navegación por teclado / programática y botón atrás
         document.addEventListener("astro:before-preparation", (ev) => {
           const to = ev.to || ev.detail?.to;
           if (!to) return;
@@ -71,41 +67,71 @@ const { title, description = "Portfolio personal" } = Astro.props;
           safeSet(getDir(location.pathname, toPath));
         });
 
-        // Botón atrás del navegador (popstate) -> ClientRouter también dispara before-preparation,
-        // pero por si acaso forzamos dirección aquí
         window.addEventListener("popstate", () => {
-          // si volvemos a "/" desde "/skills", es back
           const dir = normalize(location.pathname) === "/" ? "back" : "forward";
-          // solo setea si no lo hará before-preparation; no hace daño dejarlo
           try {
             const pending = sessionStorage.getItem("vt-direction");
             if (pending !== dir) safeSet(dir);
           } catch { safeSet(dir); }
         });
       })();
-    </script> -->
+    </script>
   </body>
   <style is:global>
+    /* Evita flash/spark: aisla el par y asegura fondo consistente */
+    ::view-transition-group(root) {
+      animation-duration: 260ms;
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+    }
+    ::view-transition-image-pair(root) {
+      isolation: isolate;
+    }
+    html::view-transition-old(root),
+    html::view-transition-new(root) {
+      mix-blend-mode: normal;
+      background: var(--color-bg);
+      /* evita que browser aplique fade por defecto además del slide */
+      animation-fill-mode: both;
+    }
+
     /* FALLBACK inicial = forward */
     html:not([data-direction])::view-transition-old(root) {
-      animation: slide-out-left 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
+      animation-name: slide-out-left;
+      animation-duration: 260ms;
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+      animation-fill-mode: both;
     }
     html:not([data-direction])::view-transition-new(root) {
-      animation: slide-in-right 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
+      animation-name: slide-in-right;
+      animation-duration: 260ms;
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+      animation-fill-mode: both;
     }
     /* FORWARD: home -> skills */
     html[data-direction="forward"]::view-transition-old(root) {
-      animation: slide-out-left 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
+      animation-name: slide-out-left;
+      animation-duration: 260ms;
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+      animation-fill-mode: both;
     }
     html[data-direction="forward"]::view-transition-new(root) {
-      animation: slide-in-right 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
+      animation-name: slide-in-right;
+      animation-duration: 260ms;
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+      animation-fill-mode: both;
     }
     /* BACK: skills -> home (inversa) */
     html[data-direction="back"]::view-transition-old(root) {
-      animation: slide-out-right 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
+      animation-name: slide-out-right;
+      animation-duration: 260ms;
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+      animation-fill-mode: both;
     }
     html[data-direction="back"]::view-transition-new(root) {
-      animation: slide-in-left 260ms cubic-bezier(0.33, 0, 0.67, 1) both;
+      animation-name: slide-in-left;
+      animation-duration: 260ms;
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+      animation-fill-mode: both;
     }
 
     @keyframes slide-out-left {

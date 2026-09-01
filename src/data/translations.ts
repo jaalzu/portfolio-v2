@@ -54,6 +54,9 @@ export const translations = {
       title: "Mejora tus interfaces con skills",
       subtitle: "Skills y agentes para mejorar tus interfaces.",
     },
+    skills: {
+      back: "Volver",
+    },
     skillsPage: {
       subtitle: "Una colección de skills para mejorar tus interfaces.",
       installTitle: "Instalación",
@@ -62,7 +65,8 @@ export const translations = {
       viewLive: "Ver en vivo",
       typography: {
         title: "Typography Foundation — UI & Quality",
-        description: "Tipografía fundamental para interfaces claras, legibles y con buena jerarquía visual. Mejora la experiencia de usuario con buenas prácticas de diseño tipográfico.",
+        description:
+          "Tipografía fundamental para interfaces claras, legibles y con buena jerarquía visual. Mejora la experiencia de usuario con buenas prácticas de diseño tipográfico.",
       },
     },
   },
@@ -121,15 +125,20 @@ export const translations = {
       title: "Make better interfaces using skills",
       subtitle: "Skills and agents to improve your interfaces.",
     },
+    skills: {
+      back: "Back",
+    },
     skillsPage: {
-      subtitle: "A collection of skills to improve your interfaces.",
+      subtitle:
+        "Two practical agent skills for making interfaces easier to use and read.",
       installTitle: "Installation",
       installHint: "Copy the command and install the skill you need.",
       github: "GitHub",
       viewLive: "View live",
       typography: {
         title: "Typography Foundation — UI & Quality",
-        description: "Foundational typography for clear, legible interfaces with strong visual hierarchy. Improve user experience with typography design best practices.",
+        description:
+          "Text is at the heart of every interface. Build or audit your typography to strengthen legibility, hierarchy, accessibility and visual consistency for better user experiences.",
       },
     },
   },

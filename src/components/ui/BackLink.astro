@@ -18,7 +18,8 @@ const { href = "/", label = "Volver" } = Astro.props;
     align-items: center;
     gap: 6px;
     margin-top: 5rem;
-    margin-bottom: var(--space-17);
+    padding-top: 1rem;
+    margin-bottom: calc(var(--space-17) + var(--space-2));
     text-decoration: none;
     font-size: var(--text-sm);
     color: var(--color-surface);
@@ -42,7 +43,7 @@ const { href = "/", label = "Volver" } = Astro.props;
     outline-offset: 3px;
     border-radius: 4px;
   }
-  @media (max-width: 560px) {
-    .back-link { margin-top: 3.5rem; }
+  @media (max-width: 768px) {
+    .back-link { margin-top: 1.5rem; margin-bottom: calc(var(--space-6) + var(--space-4)); }
   }
 </style>

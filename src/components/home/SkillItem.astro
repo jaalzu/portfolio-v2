@@ -12,7 +12,6 @@ const { iconSrc, title, subtitle, href = "/skills", variant = "default" } = Astr
 
 <div class="skill-frame">
   <a href={href} class:list={["skill", variant === "arrows" && "skill--arrows"]}>
-    <img class="skill__icon" src={iconSrc} alt="" width="40" height="40" loading="lazy" />
     <div class="skill__text">
       <p class="skill__title">{title}</p>
       <p class="skill__subtitle">{subtitle}</p>

@@ -4,8 +4,10 @@
  * Ícono de GitHub (gatito). En hover aparecen los ojitos (con rebote)
  * y los bigotes se van dibujando.
  */
+interface Props { size?: number; }
+const { size = 24 } = Astro.props;
 ---
-<svg class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<svg class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size}>
   <rect width="256" height="256" fill="none"/>
   <path
     class="gh-head"
@@ -40,6 +42,7 @@
 <style>
   .github-icon-svg {
     overflow: visible;
+    display: block;
   }
 </style>
 

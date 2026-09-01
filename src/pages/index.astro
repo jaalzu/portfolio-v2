@@ -1,13 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Button from "../components/ui/Button.astro";
-import Icon from "../components/icons/Icon.astro";
-import GithubIcon from "../components/icons/GithubIcon.astro";
-import ProjectCard from "../components/sections/ProjectCard.astro";
-import SkillItem from "../components/sections/SkillItem.astro";
-import Section from "../components/sections/Section.astro";
-import Footer from "../components/sections/Footer.astro";
-import LanguageToggle from "../components/ui/LanguageToggle.astro";
+import ProjectCard from "../components/home/ProjectCard.astro";
+import SkillItem from "../components/home/SkillItem.astro";
+import Section from "../components/ui/Section.astro";
+import Footer from "../components/home/Footer.astro";
+import Hero from "../components/home/Hero.astro";
+import Journey from "../components/home/Journey.astro";
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
@@ -39,54 +37,9 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
 
 <BaseLayout title="Javier Alzú">
   <I18nSync />
-<main class="page" transition:animate="slide">
+  <main class="page">
     <Section>
-      <div class="top-bar">
-        <LanguageToggle />
-      </div>
-
-      <div class="hero-identity">
-        <img class="hero-identity__avatar" src="/favicon.png" alt="Foto de Javier Alzú" />
-        <div class="hero-identity__text">
-          <p class="hero-identity__name">Javier Alzú</p>
-          <p class="hero-identity__role">Design Engineer</p>
-        </div>
-      </div>
-
-      <div class="about">
-        <p class="about__bio" data-i18n-html="bio1" set:html={t.bio1} />
-
-        <p class="about__bio">
-          <span data-i18n="bio2Before">{t.bio2Before}</span> <br />
-          <span class="about__email-line">
-            <span data-i18n="emailIntro">{t.emailIntro}</span>
-            <a href="mailto:javieralzuu@gmail.com" class="about__email-link">
-              <Icon name="mail-outline" size={16} class="about__at-icon" /><span data-i18n="emailWord">{t.emailWord}</span>
-            </a>
-            <span data-i18n="emailAfter">{(t as any).emailAfter}</span>
-          </span>
-        </p>
-
-        <div class="about__actions">
-          <Button href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" variant="icon" ariaLabel="LinkedIn" target="_blank">
-            <Icon name="linkedin" size={26} />
-          </Button>
-          <Button href="https://github.com/jaalzu" variant="icon" class="tab-btn" ariaLabel="GitHub" target="_blank" >
-            <GithubIcon />
-          </Button>
-          <Button
-            href="/CV-ESP.pdf"
-            variant="icon"
-            ariaLabel={t.aria.cv}
-            data-i18n-attr="aria-label:aria.cv;href:cvHref"
-            data-cv-es="/CV-ESP.pdf"
-            data-cv-en="/CV-ENG.pdf"
-            download="Javier-Alzu-CV.pdf"
-          >
-            <Icon name="document" size={26} />
-          </Button>
-        </div>
-      </div>
+      <Hero t={t} />
     </Section>
 
     <Section title={t.sections.projects} i18nKey="sections.projects" marked class="projects-section">
@@ -118,16 +71,7 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
     </Section>
 
     <Section title={t.sections.journey} i18nKey="sections.journey" marked class="journey-section">
-      <ol class="journey">
-        {
-          journeyYears.map((year, i) => (
-            <li class="journey__item">
-              <span class="journey__year">{year}</span>
-              <p class="journey__text" data-i18n={`journey.${i}`}>{t.journey[i]}</p>
-            </li>
-          ))
-        }
-      </ol>
+      <Journey years={journeyYears} texts={t.journey} />
     </Section>
   </main>
   <Footer coverSrc="./portft1.webp" email="javieralzuu@gmail.com" />
@@ -138,127 +82,6 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
     max-width: var(--content-max-width);
     margin-inline: auto;
     padding-inline: var(--space-4);
-  }
-
-  .top-bar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-  }
-
-  .hero-identity {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    margin-top: 5rem;
-  }
-
-  .hero-identity__avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-full);
-  }
-
-  .hero-identity__name {
-    margin: 0;
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--leading-tight);
-    color: var(--color-surface);
-  }
-
-  .hero-identity__role {
-    margin: 0;
-    font-size: var(--text-base);
-    color: var(--color-text-muted);
-    line-height: var(--leading-tight);
-  }
-
-  .about {
-    padding-block: var(--space-8) ;
-
-  }
-
-.about__bio {
-  margin: 0 0 var(--space-6);
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  color: var(--color-text);
-  max-inline-size: 70ch;
-}
-
-
-.about__bio :global(.about__design) {
-  font-family: 'Story Script', cursive, sans-serif;
-  font-weight: 400;
-  font-size: 1.08rem;
-  color: var(--color-surface);
-  display: inline-block;
-  transform: translateY(-1px);
-}
-
-  .about__bio :global(.about__care) {
-    font-weight: 400;
-    font-family: 'Story Script', cursive, sans-serif;
-    font-size: 1.08rem;
-    color: var(--color-surface);
-    display: inline-block;
-    transform: translateY(-1px);
-  }
-
-  .about__bio :global(.about__code) {
-    font-weight: 400;
-    color: var(--color-surface);
-  }
-
-  
-
-  .about__email-line {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.32em;
-    vertical-align: baseline;
-  }
-
-  .about__email-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
-    text-underline-offset: 2px;
-    transition: text-decoration-color var(--transition-fast);
-    line-height: 1;
-  }
-
-  .about__email-link :global(.about__at-icon) {
-    flex-shrink: 0;
-    display: block;
-  }
-
-  .about__email-link:hover {
-    text-decoration-color: currentColor;
-  }
-
-  .about__actions {
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-6);
-    margin-top: var(--space-16);
-  }
-
-  .about__actions :global(.btn) {
-    opacity: 0.8;
-    transition: opacity var(--transition-fast), color var(--transition-fast);
-  }
-
-  .about__actions :global(.btn:hover),
-  .about__actions :global(.btn:focus-visible) {
-    opacity: 1;
   }
 
   .projects-section {
@@ -280,47 +103,27 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
     margin-bottom: 2rem;
   }
 
-  .journey {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
-  }
+  @media (max-width: 768px) {
+    .page {
+      padding-inline: calc(var(--space-4) + var(--space-1));
+    }
 
-  .journey__item {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-8);
-  }
+    .projects-section {
+      padding-top: var(--space-6);
+    }
 
-  .journey__year {
-    width: 110px;
-    flex-shrink: 0;
-    white-space: nowrap;
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-semibold);
-    font-variant-numeric: tabular-nums;
-    color: var(--color-text);
-  }
+    .projects-grid {
+      margin-bottom: 1.5rem;
+    }
 
-.journey__text {
-  margin: 0;
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  color: var(--color-text-muted);
-  text-wrap: pretty;
-}
+    .skills-grid {
+      margin-bottom: 1rem;
+    }
+  }
 
   @media (max-width: 560px) {
     .projects-grid {
       grid-template-columns: 1fr;
-    }
-
-    .journey__item {
-      flex-direction: column;
-      gap: var(--space-1);
     }
   }
 </style>

@@ -34,6 +34,16 @@ const { title, marked = false, class: className = "", i18nKey } = Astro.props;
     padding-top: var(--space-4);
   }
 
+  @media (max-width: 768px) {
+    .section {
+      padding-block: var(--space-6);
+    }
+
+    .section:first-child {
+      padding-top: var(--space-2);
+    }
+  }
+
   .section__content {
     display: flow-root;
   }

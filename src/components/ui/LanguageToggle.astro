@@ -17,13 +17,24 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    height: 32px;
-    padding: 0 4px;
+    min-height: 32px;
+    padding: 8px 12px;
+    margin: -8px -12px;
     border: none;
     background: transparent;
     cursor: pointer;
     font-size: var(--text-xs);
     font-weight: var(--font-weight-semibold);
+  }
+
+  @media (max-width: 768px) {
+    .lang-toggle {
+      padding: 12px 16px;
+      margin: -12px -16px;
+      min-height: 44px;
+      min-width: 44px;
+      justify-content: center;
+    }
   }
 
   .lang-toggle:focus,
@@ -63,14 +74,20 @@
 </style>
 
 <script>
-  const toggle = document.getElementById("lang-toggle");
-  const root = document.documentElement;
-
-  toggle?.addEventListener("click", () => {
-    const current = root.getAttribute("data-lang") ?? "es";
-    const next = current === "es" ? "en" : "es";
-    root.setAttribute("data-lang", next);
-    localStorage.setItem("lang", next);
-    document.dispatchEvent(new CustomEvent("langchange", { detail: { lang: next } }));
-  });
+  function initLangToggle() {
+    const toggle = document.getElementById("lang-toggle");
+    const root = document.documentElement;
+    if (!toggle || toggle.dataset.bound === "1") return;
+    toggle.dataset.bound = "1";
+    toggle.addEventListener("click", () => {
+      const current = root.getAttribute("data-lang") ?? "es";
+      const next = current === "es" ? "en" : "es";
+      root.setAttribute("data-lang", next);
+      localStorage.setItem("lang", next);
+      document.dispatchEvent(new CustomEvent("langchange", { detail: { lang: next } }));
+    });
+  }
+  initLangToggle();
+  document.addEventListener("astro:page-load", initLangToggle);
+  document.addEventListener("astro:after-swap", initLangToggle);
 </script>
