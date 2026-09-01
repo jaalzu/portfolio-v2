@@ -1,74 +1,72 @@
 @import "./tokens.css";
 
 @font-face {
-  font-family: "Geist";
-  src: url("/fonts/geist-variable.woff2") format("woff2-variations");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
+	font-family: "Geist";
+	src: url("/fonts/geist-variable.woff2") format("woff2-variations");
+	font-weight: 300 700;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: "Story Script";
-  src: url("/fonts/badscript.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+	font-family: "Story Script";
+	src: url("/fonts/badscript.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html {
-  color-scheme: dark;
-  overflow-x: visible;
+	color-scheme: dark;
+	overflow-x: visible;
 }
 
 body {
-  margin: 0;
-  overflow-x: visible;
-  font-family: var(--font-family-base);
-  font-weight: var(--font-weight-regular);
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
+	margin: 0;
+	padding-inline: 3px;
+	overflow-x: visible;
+	font-family: var(--font-family-base);
+	font-weight: var(--font-weight-regular);
+	font-size: var(--text-base);
+	line-height: var(--leading-relaxed);
+	background-color: var(--color-bg);
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
+	text-rendering: optimizeLegibility;
 }
 
 img {
-  max-width: 100%;
-  display: block;
+	max-width: 100%;
+	display: block;
 }
 
 a {
-  color: inherit;
+	color: inherit;
 }
 
 ::selection {
-  background-color: var(--color-primary);
-  color: var(--color-bg);
+	background-color: var(--color-primary);
+	color: var(--color-bg);
 }
 
 /* Focus visible consistente en todo el sistema (better-accessibility) */
 :focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+	border-radius: var(--radius-sm);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+::view-transition-image-pair(root) {
+	isolation: isolate;
+}
+html::view-transition-old(root),
+html::view-transition-new(root) {
+	mix-blend-mode: normal;
+	background: var(--color-bg);
 }

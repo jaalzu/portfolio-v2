@@ -1,8 +1,17 @@
 ---
 interface Props {
-  name: "github" | "linkedin" | "mail" | "mail-outline" | "external-link" | "download" | "document" | "at" | "dot";
-  size?: number;
-  class?: string;
+	name:
+		| "github"
+		| "linkedin"
+		| "mail"
+		| "mail-outline"
+		| "external-link"
+		| "download"
+		| "document"
+		| "at"
+		| "dot";
+	size?: number;
+	class?: string;
 }
 
 const { name, size = 20, class: className = "" } = Astro.props;

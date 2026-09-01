@@ -1,18 +1,26 @@
 ---
 export interface Props {
-  id: string;
-  title: string;
-  description: string;
-  titleKey?: string;
-  descKey?: string;
-  mutedDesc?: boolean;
-  mutedFrame?: boolean;
+	id: string;
+	title: string;
+	description: string;
+	titleKey?: string;
+	descKey?: string;
+	mutedDesc?: boolean;
+	mutedFrame?: boolean;
 }
-const { id, title, description, titleKey, descKey, mutedDesc = false, mutedFrame = false } = Astro.props;
+const {
+	id,
+	title,
+	description,
+	titleKey,
+	descKey,
+	mutedDesc = false,
+	mutedFrame = false,
+} = Astro.props;
 ---
 <div class="skill-meta" {id}>
   <h2 class="skill-meta__title">
-    <span class="skill-meta__title-text"><span class="skill-hash" aria-hidden="true">#</span> <span data-i18n={titleKey}>{title}</span></span>
+    <span class="skill-meta__title-text"><span data-i18n={titleKey}>{title}</span></span>
     <span class="skill-meta__divider" aria-hidden="true"></span>
   </h2>
   <p class:list={["skill-meta__desc", { "skill-meta__desc--muted": mutedDesc }]} data-i18n={descKey}>
@@ -35,7 +43,8 @@ const { id, title, description, titleKey, descKey, mutedDesc = false, mutedFrame
     margin: 0 0 var(--space-6);
     font-size: var(--text-base);
     font-weight: var(--font-weight-semibold);
-    color: var(--color-surface);
+       color: var(--color-text-heading);
+
     line-height: var(--leading-tight);
     text-align: left;
   }
@@ -44,7 +53,7 @@ const { id, title, description, titleKey, descKey, mutedDesc = false, mutedFrame
   .skill-meta__divider {
     flex: 1;
     height: 1px;
-    background: var(--color-border-soft);
+    background: color-mix(in oklch, var(--color-border-soft) 45%, transparent);
     margin-left: .8rem;
     min-width: 24px;
   }

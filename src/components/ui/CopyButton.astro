@@ -1,7 +1,7 @@
 ---
 export interface Props {
-  text: string;
-  label?: string;
+	text: string;
+	label?: string;
 }
 const { text, label = "Copiar" } = Astro.props;
 ---
@@ -16,7 +16,8 @@ const { text, label = "Copiar" } = Astro.props;
 </button>
 
 <script>
-  import { animate } from "motion";
+  import { safeAnimate, springs, swapDelay } from "../../lib/motion-tokens";
+  // ↑ mismo comentario: ajustá la ruta según dónde viva este componente
 
   function initCopyButtons() {
     document.querySelectorAll<HTMLButtonElement>('.copy-btn:not([data-bound])').forEach((btn) => {
@@ -31,14 +32,14 @@ const { text, label = "Copiar" } = Astro.props;
         navigator.clipboard.writeText(text).then(() => {
           btn.classList.add('copied');
           if (icon && check) {
-            animate(icon, { opacity: 0, scale: 0.5 }, { type: 'spring', stiffness: 700, damping: 35, mass: 0.3 });
-            animate(check, { opacity: 1, scale: 1 }, { type: 'spring', stiffness: 600, damping: 22, mass: 0.35, delay: 0.05 });
+            safeAnimate(icon, { opacity: 0, scale: 0.5 }, springs.swap);
+            safeAnimate(check, { opacity: 1, scale: 1 }, { ...springs.swap, delay: swapDelay });
           }
           setTimeout(() => {
             btn.classList.remove('copied');
             if (icon && check) {
-              animate(check, { opacity: 0, scale: 0.5 }, { type: 'spring', stiffness: 700, damping: 35, mass: 0.3 });
-              animate(icon, { opacity: 1, scale: 1 }, { type: 'spring', stiffness: 600, damping: 22, mass: 0.35, delay: 0.05 });
+              safeAnimate(check, { opacity: 0, scale: 0.5 }, springs.swap);
+              safeAnimate(icon, { opacity: 1, scale: 1 }, { ...springs.swap, delay: swapDelay });
             }
           }, 1500);
         });
@@ -60,7 +61,7 @@ const { text, label = "Copiar" } = Astro.props;
     appearance: none;
     border: none;
     border-radius: 6px;
-    background: oklch(1 0 0 / 0.04);
+    background: transparent;
     color: var(--color-text-muted);
     width: 30px;
     height: 30px;
@@ -85,7 +86,7 @@ const { text, label = "Copiar" } = Astro.props;
       right: 4px;
     }
   }
-  .copy-btn:hover { color: var(--color-surface); background: oklch(1 0 0 / 0.08); }
+  .copy-btn:hover { color: var(--color-text-heading); background: transparent; }
   .copy-btn:active { transform: translateY(-50%) scale(0.92); }
   .copy-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
@@ -96,5 +97,5 @@ const { text, label = "Copiar" } = Astro.props;
     backface-visibility: hidden;
     will-change: transform, opacity;
   }
-  .copy-btn__check { opacity: 0; color: var(--color-surface); }
+  .copy-btn__check { opacity: 0; color: var(--color-text-heading); }
 </style>

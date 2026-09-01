@@ -4,88 +4,78 @@
    ========================================================================== */
 
 :root {
-  /* ---- Color: dark only ---- */
-  --color-bg: oklch(6.72% 0.00001 271.152 / 0.972);
-  --color-surface: oklch(100% 0.00011 271.152 / 0.953);
-  --color-primary: oklch(0.72 0.13 39.865);
-  --color-primary-soft: oklch(59.867% 0.13428 40.447 / 0.682);
+	/* ---- Color: dark only ---- */
+	--color-bg: #08090a;
+	--color-bg-warm: #131415;
+	--color-surface: #1c1d1f;
+	--color-primary: oklch(0.72 0.13 39.865);
+	--color-primary-soft: oklch(59.867% 0.13428 40.447 / 0.682);
 
-  /* ---- Color: neutros estándar (texto, bordes) ---- */
-  --color-text: oklch(94.912% 0.00011 271.152 / 0.855);
-  --color-text-muted: oklch(0.7 0 0);
-  --color-border: oklch(0.33 0 0);
-  --color-border-soft: oklch(0.4 0 0 / 0.52);
+	/* ---- Color: neutros estándar (texto, bordes) ---- */
+	--color-text-heading: #f7f8f8; /* Títulos (blanco) */
+	--color-text: #c4c5c5e9; /* Texto normal (gris crema) */
+	--color-text-muted: #8a8f98; /* Subtítulos */
+	--color-text-disabled: #62646c;
+	--color-border: oklch(0.33 0 0);
+	--color-border-soft: oklch(0.4 0 0 / 0.52);
 
-  /* ---- Color: acentos ---- */
-  --color-blue: oklch(0.65 0.15 250);
-  --color-green: oklch(0.72 0.16 145);
+	/* ---- Color: acentos ---- */
+	--color-blue: oklch(0.65 0.15 250);
+	--color-green: oklch(0.72 0.16 145);
 
-  /* ---- Tipografía ---- */
-  --font-family-base: "Geist", system-ui, -apple-system, sans-serif;
+	/* ---- Tipografía ---- */
+	--font-family-base: "Geist", system-ui, -apple-system, sans-serif;
 
-  --text-xs: 0.675rem; /* 12px — xtra small */
-  --text-sm: 0.875rem; /* 14px — body small / card text */
-  --text-base: 1rem; /* 16px — body */
-  --text-md: 1.125rem; /* 18px — section headings */
+	--text-xs: 0.675rem; /* 12px — xtra small */
+	--text-sm: 0.875rem; /* 14px — body small / card text */
+	--text-base: 1rem; /* 16px — body */
+	--text-md: 1.125rem; /* 18px — section headings */
 
-  --text-lg: clamp(1rem, 1.05rem + 0.9vw, 1.17rem); /* 20 → 24px */
-  --text-xl: clamp(1.3rem, 1.1rem + 1.2vw, 1.25rem); /* 24 → 32px */
-  --text-display: clamp(1.75rem, 1rem + 3.5vw, 2.75rem);
+	--text-lg: clamp(1rem, 1.05rem + 0.9vw, 1.17rem); /* 20 → 24px */
+	--text-xl: clamp(1.3rem, 1.1rem + 1.2vw, 1.25rem); /* 24 → 32px */
+	--text-display: clamp(1.75rem, 1rem + 3.5vw, 2.75rem);
 
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
 
-  --leading-tight: 1.2;
-  --leading-normal: 1.4;
-  --leading-relaxed: 1.63;
+	--leading-tight: 1.2;
+	--leading-normal: 1.4;
+	--leading-relaxed: 1.63;
 
-  /* ---- Espaciado (base 8px) ---- */
-  --space-1: 0.25rem; /* 4px */
-  --space-2: 0.5rem; /* 8px */
-  --space-3: 0.75rem; /* 12px */
-  --space-4: 1rem; /* 16px */
-  --space-6: 1.5rem; /* 24px */
-  --space-8: 2rem; /* 32px */
-  --space-12: 3rem; /* 48px */
-  --space-16: 4rem; /* 64px */
-  --space-17: 5rem; /* 64px */
+	/* ---- Espaciado (base 8px) ---- */
+	--space-1: 0.25rem; /* 4px */
+	--space-2: 0.5rem; /* 8px */
+	--space-3: 0.75rem; /* 12px */
+	--space-4: 1rem; /* 16px */
+	--space-6: 1.5rem; /* 24px */
+	--space-8: 2rem; /* 32px */
+	--space-12: 3rem; /* 48px */
+	--space-16: 4rem; /* 64px */
+	--space-17: 5rem; /* 64px */
 
-  --radius-base: 12px;
-  --radius-inner: 10px; /* --radius-base - 2px de borde */
-  --radius-sm: 8px;
-  --radius-full: 999px;
+	--radius-base: 12px;
+	--radius-inner: 10px; /* --radius-base - 2px de borde */
+	--radius-sm: 8px;
+	--radius-full: 999px;
 
-  /* Inset entre el marco exterior y la card interior (efecto "card dentro de card") */
-  --card-inset: 4px;
+	/* Inset entre el marco exterior y la card interior (efecto "card dentro de card") */
+	--card-inset: 4px;
 
-  /* ---- Sombras ---- */
-  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
-  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
+	/* ---- Sombras ---- */
+	--shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
+	--shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
 
-  /* ---- Layout ---- */
-  --content-max-width: 680px;
-  --grid-max-width: 1200px;
+	/* ---- Layout ---- */
+	--content-max-width: 680px;
+	--grid-max-width: 1200px;
 
-  /* ---- Transiciones ---- */
-  --transition-fast: 150ms ease;
-  --transition-base: 200ms ease;
+	/* ---- Transiciones ---- */
+	--transition-fast: 150ms ease;
+	--transition-base: 200ms ease;
 
-  /* ---- Breakpoints (referencia, usados en media queries) ----
+	/* ---- Breakpoints (referencia, usados en media queries) ----
      sm: 480px | md: 768px | lg: 1024px */
 }
 
-/* ---- Dark mode ---- */
-[data-theme="dark"] {
-  --color-bg: oklch(6.72% 0.00001 271.152);
-  /* --color-bg: oklch(20.607% 0.01595 39.173 / 0.927); */
-  --color-primary: oklch(0.72 0.13 39.865);
 
-  --color-text: oklch(94.912% 0.00011 271.152 / 0.855);
-  --color-text-muted: oklch(0.7 0 0);
-  --color-border: oklch(0.33 0 0);
-  --color-border-soft: oklch(0.4 0 0 / 0.52);
-
-  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
-  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
-}

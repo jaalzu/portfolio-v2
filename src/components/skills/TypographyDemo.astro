@@ -38,7 +38,7 @@ import SkillToggle from "./SkillToggle.astro";
   </div>
 
   <div class="typo-demo__toolbar">
-    <SkillToggle id="typoToggle" leftLabel="bad ui" rightLabel="good ui" />
+    <SkillToggle id="typoToggle" leftLabel="before" rightLabel="after" />
   </div>
 </div>
 
@@ -53,7 +53,6 @@ import SkillToggle from "./SkillToggle.astro";
     demo.dataset.bound = "1";
 
     const btn = document.getElementById("typoToggle");
-    const buttonLabel = document.getElementById("typoButtonLabel");
     const stage = demo.querySelector(".typo-demo__stage");
 
     function lockHeight() {
@@ -114,7 +113,11 @@ import SkillToggle from "./SkillToggle.astro";
 
       const isAfter = mode === "after";
 
-      if (btn && btn.getAttribute("aria-checked") !== String(isAfter)) {
+      if (btn) {
+        if (btn.hasAttribute("aria-pressed")) btn.setAttribute("aria-pressed", String(isAfter));
+        if (btn.hasAttribute("aria-checked")) btn.setAttribute("aria-checked", String(isAfter));
+        // keep both for compatibility
+        btn.setAttribute("aria-pressed", String(isAfter));
         btn.setAttribute("aria-checked", String(isAfter));
         const container = btn.closest("[data-toggle-container]");
         if (container) {
@@ -137,7 +140,7 @@ import SkillToggle from "./SkillToggle.astro";
 
     if (btn) {
       btn.addEventListener("skill-toggle", (e) => {
-        const isAfter = e.detail ? e.detail.checked : btn.getAttribute("aria-checked") === "true";
+        const isAfter = e.detail ? e.detail.checked : (btn.getAttribute("aria-pressed") === "true" || btn.getAttribute("aria-checked") === "true");
         setMode(isAfter ? "after" : "before");
       });
     }
@@ -229,26 +232,27 @@ import SkillToggle from "./SkillToggle.astro";
 <style>
   .typo-demo {
     position: relative;
-    border: none;
+    border: var(--color-border-soft);
     border-radius: var(--radius-base);
     overflow: hidden;
-    background: transparent;
-  }
+    }
 
-  .typo-demo__stage {
-    width: min(100%, 560px);
-    margin-inline: auto;
-    min-height: 260px;
-    /* MORE centered — strong inline padding, button untouched */
-    padding: var(--space-2) var(--space-17) var(--space-6);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    text-align: left;
-    transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: opacity;
-  }
+.typo-demo__stage {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  margin-inline: 0;
+  min-height: auto;
+  padding: 0 6.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  /* gap: 10px; ← sacado, ahora cada elemento maneja su propio espacio */
+  text-align: left;
+  transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
+}
 
   .typo-demo__stage.no-transition {
     transition: none !important;
@@ -256,56 +260,51 @@ import SkillToggle from "./SkillToggle.astro";
 
   .typo-demo__toolbar {
     width: 100%;
-    padding: var(--space-3);
-    margin-top: 0;
+    padding: var(--space-2);
     display: flex;
     align-items: center;
     justify-content: center;
     border-top: 1px solid var(--color-border-soft);
+    background: var(--color-bg-warm);
   }
  
 
-  .demo-label {
-    margin: 0;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    transition: font-size 140ms ease, letter-spacing 140ms ease;
-  }
+.demo-label {
+  font-size: 10px;
+  margin: 0 0 12px; 
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: font-size 140ms ease, letter-spacing 140ms ease;
+}
 
-  .demo-heading {
-    margin: 0;
-    font-size: clamp(
-      1.25rem,
-      1rem + 1.6vw,
-      1.85rem
-    );
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--color-surface);
-    text-wrap: balance;
-    transition: letter-spacing 220ms cubic-bezier(0.22, 1, 0.36, 1), line-height 220ms ease, max-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
+.demo-heading {
+  margin: 0 0 14px; /* ya no es un margin:0 fijo — este número es el que ahora controla la distancia real al label de arriba y al body de abajo */
+  font-size: clamp(1.25rem, 1rem + 1.6vw, 1.85rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text-heading);
+  text-wrap: balance;
+  transition: letter-spacing 220ms cubic-bezier(0.22, 1, 0.36, 1), line-height 220ms ease, max-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
 
-  .demo-body {
-    margin: 0;
-    max-width: 42ch;
-    font-size: var(--text-sm);
-    line-height: 1.5;
-    color: var(--color-text-muted);
-    text-wrap: pretty;
-    transition: letter-spacing 220ms cubic-bezier(0.22, 1, 0.36, 1), line-height 220ms ease, max-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
+.demo-body {
+  margin: 0;
+  max-width: 40ch;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+  transition: letter-spacing 220ms cubic-bezier(0.22, 1, 0.36, 1), line-height 220ms ease, max-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
 
-  .demo-live {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: var(--space-3);
-    padding-top: var(--space-3);
-  }
+.demo-live {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: var(--space-3); 
+  padding-top: var(--space-3);
+}
 
   .demo-live__row {
     display: flex;
@@ -395,7 +394,8 @@ import SkillToggle from "./SkillToggle.astro";
     line-height: 1;
     letter-spacing: -0.01em;
     font-variant-numeric: tabular-nums;
-    color: var(--color-surface);
+         color: var(--color-text-heading);
+
     background: transparent;
     contain: layout style;
     transition: letter-spacing 220ms cubic-bezier(0.22, 1, 0.36, 1), background 220ms ease;
@@ -421,15 +421,14 @@ import SkillToggle from "./SkillToggle.astro";
 
   .typo-demo[data-mode="before"]
     .demo-label {
-    font-size: 9px;
     letter-spacing: 0.04em;
+    text-transform: lowercase;
   }
 
   .typo-demo[data-mode="before"]
     .demo-heading {
     max-width: none;
     text-wrap: initial;
-    line-height: 1.05;
     letter-spacing: 0;
   }
 
@@ -437,7 +436,7 @@ import SkillToggle from "./SkillToggle.astro";
     .demo-body {
     max-width: none;
     text-wrap: initial;
-    line-height: 1.22;
+    line-height: 1.25;
   }
 
   .typo-demo[data-mode="before"]
@@ -449,8 +448,8 @@ import SkillToggle from "./SkillToggle.astro";
 
   @media (max-width: 560px) {
     .typo-demo__stage {
-      padding: var(--space-5) var(--space-6);
-      min-height: 240px;
+          padding: 0 1rem 2rem;
     }
   }
+ 
 </style>

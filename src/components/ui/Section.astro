@@ -2,10 +2,10 @@
 import Icon from "../icons/Icon.astro";
 
 interface Props {
-  title?: string;
-  marked?: boolean;
-  class?: string;
-  i18nKey?: string;
+	title?: string;
+	marked?: boolean;
+	class?: string;
+	i18nKey?: string;
 }
 
 const { title, marked = false, class: className = "", i18nKey } = Astro.props;
@@ -14,9 +14,9 @@ const { title, marked = false, class: className = "", i18nKey } = Astro.props;
 <section class:list={["section", className]}>
   {
     title && (
-     
       <h2 class="section__title">
-        <span data-i18n={i18nKey}>{title}</span>
+        <span class="section__title-text" data-i18n={i18nKey}>{title}</span>
+        <span class="section__title-divider" aria-hidden="true"></span>
       </h2>
     )
   }
@@ -46,15 +46,29 @@ const { title, marked = false, class: className = "", i18nKey } = Astro.props;
 
   .section__content {
     display: flow-root;
+    padding-inline: 3px;
   }
 
   .section__title {
-    margin: 0 0 var(--space-8);
+    display: flex;
+    align-items: center;
+    margin: 0 0 var(--space-4);
     font-size: var(--text-md);
     font-weight: var(--font-weight-medium);
-    display: inline-flex;
-    color: var(--color-surface);
-    align-items: center;
+        color: var(--color-text-heading);
+
+  }
+
+  .section__title-text {
+    flex-shrink: 0;
+  }
+
+  .section__title-divider {
+    flex: 1;
+    height: 1px;
+    background: color-mix(in oklch, var(--color-border-soft) 45%, transparent);
+    margin-left: 0.8rem;
+    min-width: 24px;
   }
 
   :global(.section__mark) {

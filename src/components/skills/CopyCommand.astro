@@ -2,9 +2,9 @@
 import CopyButton from "../ui/CopyButton.astro";
 
 export interface Props {
-  command: string;
-  githubUrl: string;
-  skillsUrl?: string;
+	command: string;
+	githubUrl: string;
+	skillsUrl?: string;
 }
 const { command, githubUrl, skillsUrl = "https://skills.sh" } = Astro.props;
 const [cmdBin, ...cmdRest] = command.split(" ");
@@ -85,7 +85,8 @@ const cmdArgs = cmdRest.join(" ");
     padding: var(--space-2);
     border: 1px solid var(--color-border-soft);
     border-radius: 8px;
-    color: var(--color-surface);
+         color: var(--color-text-heading);
+
     text-decoration: none;
     font-size: var(--text-sm);
     transition: color var(--transition-fast), background var(--transition-fast);
