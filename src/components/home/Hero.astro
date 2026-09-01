@@ -1,8 +1,5 @@
 ---
 // src/components/home/Hero.astro
-import Button from "../ui/Button.astro";
-import Icon from "../icons/Icon.astro";
-import GithubIcon from "../icons/GithubIcon.astro";
 import LanguageToggle from "../ui/LanguageToggle.astro";
 
 export interface Props {
@@ -24,35 +21,16 @@ const { t } = Astro.props;
 <div class="about">
   <p class="about__bio" data-i18n-html="bio1" set:html={t.bio1} />
 
-  <p class="about__bio">
-    <span data-i18n="bio2Before">{t.bio2Before}</span> <br />
-    <span class="about__email-line">
-      <span data-i18n="emailIntro">{t.emailIntro}</span>
-      <a href="mailto:javieralzuu@gmail.com" class="about__email-link">
-        <Icon name="mail-outline" size={16} class="about__at-icon" /><span data-i18n="emailWord">{t.emailWord}</span>
-      </a>
-      <span data-i18n="emailAfter">{t.emailAfter}</span>
-    </span>
-  </p>
-
-  <div class="about__actions">
-    <Button href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" variant="icon" ariaLabel="LinkedIn" target="_blank">
-      <Icon name="linkedin" size={24} />
-    </Button>
-    <Button href="https://github.com/jaalzu" variant="icon" class="tab-btn" ariaLabel="GitHub" target="_blank">
-      <GithubIcon size={24} />
-    </Button>
-    <Button
-      href="/CV-ESP.pdf"
-      variant="icon"
-      ariaLabel={t.aria.cv}
-      data-i18n-attr="aria-label:aria.cv;href:cvHref"
-      data-cv-es="/CV-ESP.pdf"
-      data-cv-en="/CV-ENG.pdf"
-      download="Javier-Alzu-CV.pdf"
-    >
-      <Icon name="document" size={24} />
-    </Button>
+  <div class="about__links">
+<a href="https://github.com/jaalzu" class="about__text-link" target="_blank" rel="noopener noreferrer">
+  <span data-i18n="githubWord">{t.githubWord}</span>
+</a>
+<a href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" class="about__text-link" target="_blank" rel="noopener noreferrer">
+  <span data-i18n="linkedinWord">{t.linkedinWord}</span>
+</a>
+<a href="mailto:javieralzuu@gmail.com" class="about__text-link">
+  <span data-i18n="emailWord">{t.emailWord}</span>
+</a>
   </div>
 </div>
 
@@ -62,34 +40,30 @@ const { t } = Astro.props;
     justify-content: flex-end;
     align-items: center;
     gap: var(--space-2);
-    padding-top: var(--space-6);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-6);
   }
 
   .hero-identity {
     display: flex;
     align-items: center;
-    padding-top: var(--space-8);
-    padding-bottom: var(--space-2);
+    padding-bottom: var(--space-6);
+
   }
 
   .hero-identity__name {
     margin: 0;
-    font-size: var(--text-lg);
+    font-size: var(--text-md);
     font-weight: var(--font-weight-semibold);
     line-height: var(--leading-tight);
-    color: var(--color-text-heading);
   }
 
   .hero-identity__role {
     margin: 0;
-    font-size: var(--text-base);
-    color: var(--color-text-muted);
-    margin-bottom: .5rem;
+    font-size: var(--text-sm);
+    letter-spacing: .2px;
+    color: var(--color-text);
     line-height: var(--leading-tighter);
   }
-
- 
 
   .about__bio {
     margin: 0 0 var(--space-4);
@@ -102,78 +76,56 @@ const { t } = Astro.props;
   .about__bio :global(.about__design) {
     font-family: 'Story Script', cursive, sans-serif;
     font-weight: var(--font-weight-regular);
-     color: var(--color-text-heading);
+    color: #fff;
     display: inline-block;
-    transform: translateY(-1px);
-  }
-
-  .about__bio :global(.about__care) {
-    font-weight: var(--font-weight-regular);
-    font-family: 'Story Script', cursive, sans-serif;
-    font-size: 1.08rem;
-        color: var(--color-text-heading);
-
-    display: inline-block;
+    font-size: 1.05em;
+    line-height: 1;
     transform: translateY(-1px);
   }
 
   .about__bio :global(.about__code) {
     font-weight: var(--font-weight-regular);
-        color: var(--color-text-heading);
-
+    color: var(--color-text-heading);
   }
 
-  .about__email-line {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.32em;
-    vertical-align: baseline;
+  .about__bio :global(.about__care) {
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-heading);
+    transform: translateY(-1px);
   }
 
-  .about__email-link {
+  .about__text-link {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
+    color: var(--color-text-heading);
     text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
     text-underline-offset: 2px;
     transition: text-decoration-color var(--transition-fast);
-    line-height: 1;
   }
 
-  .about__email-link :global(.about__at-icon) {
-    flex-shrink: 0;
-    display: block;
-  }
-
-  .about__email-link:hover {
+  .about__text-link:hover,
+  .about__text-link:focus-visible {
     text-decoration-color: currentColor;
   }
 
-  .about__actions {
-    display: flex;
-    justify-content: flex-end;
+  .about__links {
+    padding-top: var(--space-2);
+        display: flex;
+    gap: var(--space-4);
+    font-size: var(--text-sm);
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-6);
   }
 
-  .about__actions :global(.btn) {
-    opacity: 0.8;
-    transition: opacity var(--transition-fast), color var(--transition-fast);
-  }
-
-  .about__actions :global(.btn:hover),
-  .about__actions :global(.btn:focus-visible) {
-    opacity: 1;
-  }
 
   @media (max-width: 768px) {
+    .top-bar{
+    padding-top: var(--space-4);
 
-    .about {
-      padding-block: var(--space-2);
     }
-
-  
+    .about {
+      padding-block: var(--space-1);
+    }
   }
 </style>

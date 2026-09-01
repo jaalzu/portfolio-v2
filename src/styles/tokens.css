@@ -13,7 +13,7 @@
 
 	/* ---- Color: neutros estándar (texto, bordes) ---- */
 	--color-text-heading: #f7f8f8; /* Títulos (blanco) */
-	--color-text: #c4c5c5e9; /* Texto normal (gris crema) */
+	--color-text: #c4c5c5f0; /* Texto normal (gris crema) */
 	--color-text-muted: #8a8f98; /* Subtítulos */
 	--color-text-disabled: #62646c;
 	--color-border: oklch(0.33 0 0);

@@ -7,30 +7,27 @@
   type="button"
   aria-label="Switch language / Cambiar idioma"
 >
-  <span class="lang-toggle__option" data-lang-option="es">ESP</span>
+  <span class="lang-toggle__option" data-lang-option="es">ES</span>
   <span class="lang-toggle__sep">/</span>
-  <span class="lang-toggle__option" data-lang-option="en">ENG</span>
+  <span class="lang-toggle__option" data-lang-option="en">EN</span>
 </button>
 
 <style>
   .lang-toggle {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    min-height: 32px;
-    padding: 8px 12px;
+    gap: 3px;
+    padding: 8px 10px;
     margin: -8px -12px;
-    border: 1px solid var(--color-border-soft);
-    border-radius: var(--radius-full);
+    border: none;
     background: transparent;
     cursor: pointer;
     font-size: var(--text-xs);
-    font-weight: var(--font-weight-semibold);
   }
 
   @media (max-width: 768px) {
     .lang-toggle {
-      padding: 12px 16px;
+      padding: 4px 16px;
       margin: -12px -16px;
       min-height: 44px;
       min-width: 44px;
@@ -67,8 +64,7 @@
   /* Idioma activo resaltado — more white (no primary) */
   :global(html:not([data-lang="en"])) .lang-toggle__option[data-lang-option="es"],
   :global(html[data-lang="en"]) .lang-toggle__option[data-lang-option="en"] {
-         color: var(--color-text-heading);
-
+         color: var(--color-text);
     opacity: 1;
   }
 

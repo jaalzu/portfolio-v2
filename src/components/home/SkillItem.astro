@@ -1,6 +1,5 @@
 ---
 interface Props {
-	iconSrc: string;
 	title: string;
 	subtitle: string;
 	href?: string;
@@ -8,7 +7,6 @@ interface Props {
 }
 
 const {
-	iconSrc,
 	title,
 	subtitle,
 	href = "/skills",
@@ -35,40 +33,21 @@ const {
 </div>
 
 <style>
-  .skill-frame {
-    border: none;
-    border-radius: var(--radius-base);
-    padding: var(--card-inset);
-    background: color-mix(in oklch, var(--color-bg-warm) 55%, transparent);
-    transition: background var(--transition-base);
-  }
+  
 
-  .skill-frame:has(.skill:hover) {
-    background: color-mix(in oklch, var(--color-bg-warm) 75%, transparent);
-  }
+
 
   .skill {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    padding-inline: 0;
-    padding-block: var(--space-6);
-    border: none;
-    border-radius: var(--radius-inner);
+    padding-block: var(--space-1);
     text-decoration: none;
-    background: transparent;
     transition: opacity var(--transition-base), transform var(--transition-base), background var(--transition-base);
   }
 
-  .skill__icon {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    object-fit: contain;
-    filter: invert(1) brightness(0.95);
-    opacity: 0.75;
-  }
+  
 
   .skill__text {
     display: flex;
@@ -84,7 +63,6 @@ const {
     font-weight: var(--font-weight-semibold);
     line-height: var(--leading-tight);
         color: var(--color-text-heading);
-
   }
 
   .skill__subtitle {

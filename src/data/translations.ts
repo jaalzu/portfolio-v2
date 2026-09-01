@@ -5,12 +5,17 @@ export const translations = {
 			techStack: "Skills",
 			journey: "Trayectoria",
 		},
-		bio1: 'Combino <strong class="about__design">diseño</strong> e <span class="about__code">ingeniería frontend</span> para convertir ideas en productos de alta calidad y experiencias de usuario cuidadas y accesibles para todos. <br> <strong class="about__care">Me preocupo mucho</strong> por el producto final y los detalles que lo hacen único.',
-		bio2Before:
-			"Construí la mayor parte de mi experiencia de forma independiente, llevando proyectos desde el concepto inicial hasta la implementación final.",
-		emailIntro: "Podes contactarme por",
-		emailWord: "correo",
+		bio1: 'Conecto el <span class="about__design">diseño</span> y el <span class="about__code">código</span> para crear productos que se sienten tan bien como funcionan.<br><br>Tengo experiencia construyendo aplicaciones web de principio a fin usando <strong>React, TypeScript, Next.js y CSS</strong>, desde flujos de datos complejos y decisiones de arquitectura hasta una interfaz pulida y esos pequeños detalles que hacen que un producto se sienta bien.',
+	
+		emailWord: "Email",
 		// emailAfter: "gratis!",
+		githubIntro: "Podés ver mi código en",
+		githubWord: "GitHub",
+		talkIntro: "contactarme por",
+		linkedinWord: "LinkedIn",
+		orWord: "o",
+		cvIntro: "y consultar mi ",
+		cvWord: "CV",
 		aria: {
 			cv: "Descargar CV",
 		},
@@ -51,7 +56,7 @@ export const translations = {
 			"Desarrollo asistido por IA",
 		],
 		skillsPromo: {
-			title: "Mejora tus interfaces con skills",
+			title: "Mejora tus interfaces con agentes especializados",
 			subtitle: "Skills y agentes para mejorar tus interfaces.",
 		},
 		skills: {
@@ -76,12 +81,12 @@ export const translations = {
 			techStack: "Skills",
 			journey: "Journey",
 		},
-		bio1: 'I bring <strong class="about__design">design</strong> and <span class="about__code">frontend engineering</span> together to turn ideas into high-quality products and thoughtful user experiences that are accessible to everyone. <br> <strong class="about__care">I care deeply</strong> about the final product and the details that make it unique.',
-		bio2Before:
-			"I’ve built most of my experience independently, taking projects from initial concept to polished implementation.",
-		emailIntro: "You can reach me by",
-		emailWord: "email",
-		emailAfter: "",
+		bio1: 'I bridge <span class="about__design">design</span> and <span class="about__code">code</span> to build products that feel as good as they work.<br><br>I have experience building end-to-end web applications using <strong>React, TypeScript, Next.js, and CSS</strong>, from complex data flows and architectural decisions to polished UI and the small details that make a product feel right.',
+	
+		emailWord: "Email",
+		githubWord: "GitHub",
+		linkedinWord: "LinkedIn",
+		cvWord: "CV",
 		aria: {
 			cv: "Download CV",
 		},
@@ -122,7 +127,7 @@ export const translations = {
 			"AI-Assisted Development",
 		],
 		skillsPromo: {
-			title: "Make better interfaces using skills",
+			title: "Improve your interfaces with specialized agents",
 			subtitle: "Skills and agents to improve your interfaces.",
 		},
 		skills: {
