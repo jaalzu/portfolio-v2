@@ -14,59 +14,63 @@ const {
   checked = false,
   class: className = "",
 } = Astro.props;
-
 ---
 
-<div
-  class:list={["skill-toggle-container", className]}
-  data-toggle-container={id}
-  data-checked={checked ? "true" : "false"}
->
-  <span class="skill-toggle__label skill-toggle__label--left">
-    {leftLabel}
-  </span>
+<div class:list={["wrench-toggle", className]} data-toggle-container={id} data-checked={checked ? "true" : "false"}>
+  <span class="wrench-label wrench-label--left">{leftLabel}</span>
 
   <button
     type="button"
-    role="switch"
     id={id}
-    class="skill-toggle__btn"
-    aria-checked={checked ? "true" : "false"}
+    class="wrench-btn"
     aria-label={`${leftLabel} / ${rightLabel}`}
+    aria-pressed={checked ? "true" : "false"}
   >
-    <!-- Wrench icon from /skills/wrench.svg -->
     <svg
-      class="skill-toggle__icon"
-      width="22"
-      height="22"
       viewBox="0 0 256 256"
       fill="currentColor"
       aria-hidden="true"
+      class="wrench-icon"
     >
       <path d="M226.76,69a8,8,0,0,0-12.84-2.88l-40.3,37.19-17.23-3.7-3.7-17.23,37.19-40.3A8,8,0,0,0,187,29.24,72,72,0,0,0,88,96,72.34,72.34,0,0,0,94,124.94L33.79,177c-.15.12-.29.26-.43.39a32,32,0,0,0,45.26,45.26c.13-.13.27-.28.39-.42L131.06,162A72,72,0,0,0,232,96,71.56,71.56,0,0,0,226.76,69ZM160,152a56.14,56.14,0,0,1-27.07-7,8,8,0,0,0-9.92,1.77L67.11,211.51a16,16,0,0,1-22.62-22.62L109.18,133a8,8,0,0,0,1.77-9.93,56,56,0,0,1,58.36-82.31l-31.2,33.81a8,8,0,0,0-1.94,7.1L141.83,108a8,8,0,0,0,6.14,6.14l26.35,5.66a8,8,0,0,0,7.1-1.94l33.81-31.2A56.06,56.06,0,0,1,160,152Z"></path>
     </svg>
   </button>
 
-  <span class="skill-toggle__label skill-toggle__label--right">
-    {rightLabel}
-  </span>
+  <span class="wrench-label wrench-label--right">{rightLabel}</span>
 </div>
-
 <script>
-  function initSkillToggles() {
-    const containers = document.querySelectorAll<HTMLElement>("[data-toggle-container]");
+  import { animate } from "motion";
 
-    containers.forEach((container) => {
-      if (container.dataset.bound === "1") return;
-      container.dataset.bound = "1";
+  function initWrenchToggles() {
+    const wraps = document.querySelectorAll<HTMLElement>("[data-toggle-container]");
+    wraps.forEach((wrap) => {
+      if (wrap.dataset.bound === "1") return;
+      wrap.dataset.bound = "1";
+      const btn = wrap.querySelector<HTMLButtonElement>("button");
+      const leftLabel = wrap.querySelector<HTMLElement>(".wrench-label--left");
+      const rightLabel = wrap.querySelector<HTMLElement>(".wrench-label--right");
+      if (!btn || !leftLabel || !rightLabel) return;
 
-      const btn = container.querySelector<HTMLButtonElement>("button[role='switch']");
-      if (!btn) return;
+      const springConfig = { type: "spring", stiffness: 320, damping: 26, mass: 0.7 };
+      const pressSpring = { type: "spring", stiffness: 500, damping: 22, mass: 0.5 };
+      const releaseSpring = { type: "spring", stiffness: 300, damping: 18, mass: 0.6 };
 
-      const setChecked = (isGood: boolean) => {
-        btn.setAttribute("aria-checked", String(isGood));
-        container.setAttribute("data-checked", String(isGood));
+      const animateLabel = (el: HTMLElement, isActive: boolean) => {
+        animate(
+          el,
+          {
+            opacity: isActive ? 1 : 0.5,
+            y: isActive ? 0 : 2,
+          } as any,
+          springConfig
+        );
+      };
 
+      const sync = (isGood: boolean) => {
+        wrap.setAttribute("data-checked", String(isGood));
+        btn.setAttribute("aria-pressed", String(isGood));
+        animateLabel(leftLabel, !isGood);
+        animateLabel(rightLabel, isGood);
         btn.dispatchEvent(
           new CustomEvent("skill-toggle", {
             detail: { checked: isGood, id: btn.id },
@@ -75,109 +79,120 @@ const {
         );
       };
 
+      let checked = wrap.getAttribute("data-checked") === "true";
+      // estado inicial sin animar
+      leftLabel.style.opacity = checked ? "0.5" : "1";
+      rightLabel.style.opacity = checked ? "1" : "0.5";
+
       btn.addEventListener("click", () => {
-        const current = btn.getAttribute("aria-checked") === "true";
-        setChecked(!current);
+        checked = !checked;
+        sync(checked);
       });
 
       btn.addEventListener("keydown", (e: KeyboardEvent) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          const current = btn.getAttribute("aria-checked") === "true";
-          setChecked(!current);
+          checked = !checked;
+          sync(checked);
         }
       });
 
-      // labels intentionally not clickable — only the tool toggles
+      btn.addEventListener("pointerdown", () => {
+        animate(btn, { scale: 0.98 } as any, pressSpring);
+      });
+
+      btn.addEventListener("pointerup", () => {
+        animate(btn, { scale: 1 } as any, releaseSpring);
+      });
+
+      btn.addEventListener("pointerleave", () => {
+        animate(btn, { scale: 1 } as any, releaseSpring);
+      });
     });
   }
 
-  initSkillToggles();
-  document.addEventListener("astro:page-load", initSkillToggles);
-  document.addEventListener("astro:after-swap", initSkillToggles);
+  initWrenchToggles();
+  document.addEventListener("astro:page-load", initWrenchToggles);
+  document.addEventListener("astro:after-swap", initWrenchToggles);
 </script>
 
-<style>
-  .skill-toggle-container {
+<style is:global>
+  .wrench-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-4);
-    margin-top: var(--space-2);
-    padding: 6px 16px;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    width: fit-content;
+    gap: var(--space-1);
+       border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-full);
+    padding: 0px var(--space-1);
+    width: 268px;
     margin-inline: auto;
   }
+.wrench-label {
+  font-size: var(--text-base);
+  user-select: none;
+  pointer-events: none;
+  text-align: center;
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-3);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .skill-toggle__label {
-    font-size: var(--text-base);
-    letter-spacing: 0.02em;
-    color: var(--color-text-muted);
-    font-weight: var(--font-weight-regular);
-    user-select: none;
-    cursor: default;
-    pointer-events: none;
-    min-width: 62px;
-    text-align: center;
-  }
+.wrench-toggle:not([data-checked="true"]) .wrench-label--left {
+  color: var(--color-surface);
+  font-weight: var(--font-weight-semibold);
+}
 
-  .skill-toggle-container:not([data-checked="true"]) .skill-toggle__label--left {
-    color: var(--color-surface);
-    font-weight: var(--font-weight-semibold);
-    opacity: 1;
-  }
+.wrench-toggle:not([data-checked="true"]) .wrench-label--right {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-regular);
+}
 
-  .skill-toggle-container[data-checked="true"] .skill-toggle__label--right {
-    color: var(--color-surface);
-    font-weight: var(--font-weight-semibold);
-    opacity: 1;
-  }
+.wrench-toggle[data-checked="true"] .wrench-label--left {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-regular);
+}
 
-  /* disabled / inactive side — way less opacity */
-  .skill-toggle-container:not([data-checked="true"]) .skill-toggle__label--right,
-  .skill-toggle-container[data-checked="true"] .skill-toggle__label--left {
-    opacity: 0.28;
-  }
+.wrench-toggle[data-checked="true"] .wrench-label--right {
+  color: var(--color-surface);
+  font-weight: var(--font-weight-semibold);
+}
 
-  .skill-toggle__btn {
-    position: relative;
-    width: 40px;
-    height: 40px;
+  .wrench-btn {
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    border: 1.2px solid oklch(100% 0 0 / 0.14);
-    padding: 0;
-    cursor: pointer;
+    border: 1px solid var(--color-border-soft);
     background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     outline: none;
-    flex-shrink: 0;
-    color: var(--color-text-muted);
-  }
-
-  .skill-toggle__btn:hover {
-    border-color: oklch(100% 0 0 / 0.22);
+    margin-block:3.5px;
     color: var(--color-surface);
+    transition: border-color var(--transition-base);
   }
 
-  .skill-toggle__btn:focus-visible {
+  .wrench-btn:hover {
+    border-color: var(--color-border);
+  }
+
+  .wrench-btn:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
 
-  .skill-toggle-container[data-checked="true"] .skill-toggle__btn,
-  .skill-toggle__btn[aria-checked="true"] {
-    border-color: oklch(100% 0 0 / 0.14);
-    color: var(--color-surface);
-  }
-
-  .skill-toggle__icon {
+  .wrench-icon {
     width: 24px;
     height: 24px;
-    color: var(--color-surface);
-    opacity: 0.95;
+    flex-shrink: 0;
+    transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1);
   }
+
+ 
 </style>
