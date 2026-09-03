@@ -35,7 +35,10 @@ const {
 </div>
 
 <style>
-  .skill-meta { margin-bottom: var(--space-6); }
+ .skill-meta {
+  margin-bottom: var(--space-6);
+  padding-inline: var(--card-inset); /* iguala el inset de skill-block-frame */
+}
   .skill-meta__title {
     display: flex;
     align-items: center;
@@ -44,7 +47,6 @@ const {
     font-size: var(--text-base);
     font-weight: var(--font-weight-semibold);
        color: var(--color-text-heading);
-
     line-height: var(--leading-tight);
     text-align: left;
   }
@@ -67,21 +69,25 @@ const {
   }
   .skill-meta__desc--muted { opacity: 0.9; }
 
-  .skill-block-frame {
-    border: 1px solid var(--color-border-soft);
-    border-radius: var(--radius-base);
-    padding: var(--card-inset);
-    margin-bottom: var(--space-8);
-  }
-  .skill-block-frame--muted { opacity: 0.9; }
-  .skill-block-frame--muted .skill-block { border-style: dashed; }
-  .skill-block {
-    border: none;
-    border-radius: var(--radius-inner);
-    padding: 0;
-    overflow: hidden;
-  }
-  .skill-block:has(.skill-block--placeholder) {
-    padding: var(--space-6);
-  }
+ /* SkillSection.astro */
+.skill-block-frame {
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-base);
+  padding: var(--card-inset);
+  margin-bottom: var(--space-8);
+  overflow: hidden;              /* ← se agrega acá */
+}
+.skill-block-frame--muted { opacity: 0.9; }
+.skill-block-frame--muted .skill-block { border-style: dashed; }
+
+.skill-block {
+  border: none;
+  border-radius: var(--radius-inner);
+  padding: 0;
+  /* overflow: hidden;  ← se saca de acá */
+}
+
+.skill-block:has(.skill-block--placeholder) {
+  padding: var(--space-6);
+}
 </style>

@@ -79,7 +79,7 @@ const {
     justify-content: flex-end;
     flex-shrink: 0;
     margin-left: auto;
-        opacity: 0.38;
+        opacity: var(--opacity-faint);
 
     transform: translateX(0);
     transition: opacity var(--transition-base), transform var(--transition-base);
@@ -93,7 +93,7 @@ const {
 
   .skill:hover .skill__arrow-wrap,
   .skill:focus-visible .skill__arrow-wrap {
-    opacity: 1;
+    opacity: var(--opacity-full);
   }
 
   .skill__arrows {
@@ -102,13 +102,13 @@ const {
     justify-content: flex-end;
     flex-shrink: 0;
     margin-left: auto;
-    opacity: 0.7;
+    opacity: var(--opacity-medium);
     transition: opacity var(--transition-base);
   }
 
   .skill:hover .skill__arrows,
   .skill:focus-visible .skill__arrows {
-    opacity: 1;
+    opacity: var(--opacity-full);
   }
 
   .skill--arrows {

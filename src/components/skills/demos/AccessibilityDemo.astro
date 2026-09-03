@@ -1,0 +1,279 @@
+---
+// AccessibilityDemo.astro
+import ToggleCard from "../ToggleCard.astro";
+---
+
+<ToggleCard id="a11yToggle" leftLabel="before" rightLabel="after" stageClass="a11y-demo__stage">
+  <form class="wd-form" novalidate>
+    <div class="wd-field">
+      <label class="wd-field__label" for="wd-wallet">Wallet</label>
+      <input class="wd-field__input" id="wd-wallet" name="wallet" type="text" autocomplete="off" />
+      <p class="wd-field__error" id="wd-wallet-error"></p>
+    </div>
+
+    <div class="wd-field">
+      <label class="wd-field__label" for="wd-amount">Monto (BTC)</label>
+      <input class="wd-field__input" id="wd-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" />
+      <p class="wd-field__error" id="wd-amount-error"></p>
+    </div>
+
+    <button class="wd-submit" type="submit">Confirmar retiro</button>
+  </form>
+
+  <!--
+    OJO: role="alert" + aria-live="assertive" acá es INTENCIONALMENTE
+    el anti-patrón que mostramos en el modo "before". No copiar este
+    patrón para toasts de validación normales — ver skill de a11y,
+    sección "Dynamic Content & Live Regions".
+  -->
+  <div class="wd-toast" role="alert" aria-live="assertive"></div>
+</ToggleCard>
+
+<script>
+  import { safeAnimate, springs } from "../../../lib/motion-tokens";
+
+  function initWithdrawDemo() {
+    document.querySelectorAll<HTMLElement>(".a11y-demo__stage").forEach((stage) => {
+      if (stage.dataset.bound === "1") return;
+      stage.dataset.bound = "1";
+
+      const card = stage.closest<HTMLElement>("[data-toggle-card]");
+      const form = stage.querySelector<HTMLFormElement>(".wd-form");
+      const toast = stage.querySelector<HTMLElement>(".wd-toast");
+      let toastTimer: ReturnType<typeof setTimeout> | null = null;
+      let toastVisible = false;
+
+      const fields = [
+        {
+          input: "#wd-wallet",
+          error: "#wd-wallet-error",
+          validate: (v: string) => /^(bc1|[13])[a-km-zA-HJ-NP-Z1-9]{25,39}$/.test(v.trim()),
+          fullError: "La dirección debe empezar con \"1\", \"3\" o \"bc1\" y tener entre 26 y 42 caracteres.",
+        },
+        {
+          input: "#wd-amount",
+          error: "#wd-amount-error",
+          validate: (v: string) => {
+            const n = Number(v.trim().replace(",", "."));
+            return !Number.isNaN(n) && n > 0;
+          },
+          fullError: "Ingresá un monto válido mayor a 0.",
+        },
+      ];
+
+      function isAfter() {
+        return card?.dataset.mode === "after";
+      }
+
+      function showToast(message: string) {
+        if (!toast) return;
+        if (toastTimer) clearTimeout(toastTimer);
+
+        toast.textContent = message;
+        toast.classList.add("is-visible");
+
+        if (!toastVisible) {
+          toastVisible = true;
+          safeAnimate(toast, { opacity: [0, 1], y: [-10, 0] }, springs.reveal);
+        }
+
+        toastTimer = setTimeout(() => hideToast(), 2600);
+      }
+
+      function hideToast() {
+        if (!toast || !toastVisible) return;
+        toastVisible = false;
+        safeAnimate(toast, { opacity: 0, y: -10 }, springs.release)?.finished?.then(
+          () => toast.classList.remove("is-visible")
+        );
+      }
+
+      function setFieldError(field: (typeof fields)[number], hasError: boolean) {
+        const input = stage.querySelector<HTMLInputElement>(field.input);
+        const error = stage.querySelector<HTMLElement>(field.error);
+        if (!input || !error) return;
+
+        if (!hasError) {
+          input.classList.remove("is-invalid");
+          error.textContent = "";
+          error.classList.remove("is-visible");
+          input.removeAttribute("aria-invalid");
+          input.removeAttribute("aria-describedby");
+          return;
+        }
+
+        if (isAfter()) {
+          input.classList.add("is-invalid");
+          error.textContent = field.fullError;
+          error.classList.add("is-visible");
+          input.setAttribute("aria-invalid", "true");
+          input.setAttribute("aria-describedby", error.id);
+        }
+        // en "before" no marcamos el input ni mostramos error inline
+      }
+
+ form?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  let allValid = true;
+
+  fields.forEach((field) => {
+    const input = stage.querySelector<HTMLInputElement>(field.input);
+    const valid = input ? field.validate(input.value) : false;
+    if (!valid) allValid = false;
+    setFieldError(field, !valid);
+  });
+
+  if (!allValid) {
+    if (isAfter()) {
+      const invalidInput = stage.querySelector<HTMLInputElement>(".wd-field__input.is-invalid");
+      invalidInput?.focus({ preventScroll: true });
+    } else {
+      showToast("Datos invalidos intente nuevamente.");
+    }
+  }
+});
+
+      fields.forEach((field) => {
+        const input = stage.querySelector<HTMLInputElement>(field.input);
+        input?.addEventListener("input", () => {
+          if (field.validate(input.value)) {
+            setFieldError(field, false);
+          }
+        });
+      });
+
+      card?.addEventListener("toggle-card:mode-change", () => {
+        fields.forEach((field) => setFieldError(field, false));
+        hideToast();
+      });
+    });
+  }
+
+  initWithdrawDemo();
+  document.addEventListener("astro:page-load", initWithdrawDemo);
+  document.addEventListener("astro:after-swap", initWithdrawDemo);
+</script>
+
+<style>
+  :global(.a11y-demo__stage) {
+    padding: var(--space-12) var(--space-17);
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+.wd-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 380px;
+  margin-inline: auto;
+  padding-block: var(--space-12);
+}
+
+  .wd-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .wd-field__label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-heading);
+  }
+
+  .wd-field__input {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-inner);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-base);
+    background: transparent;
+    color: var(--color-text-heading);
+    outline: none;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .wd-field__input:focus-visible {
+    border-color: var(--color-text-heading);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-text-heading) 25%, transparent);
+  }
+
+  /* modo "after": input inválido → borde rojo Y foco rojo */
+  .wd-field__input.is-invalid {
+    border-color: var(--color-red);
+  }
+
+  .wd-field__input.is-invalid:focus-visible {
+    border-color: var(--color-red);
+    box-shadow: 0 0 0 3px var(--color-error-ring);
+  }
+
+  .wd-field__error {
+    margin: 0;
+    height: calc(var(--text-xs) * var(--leading-normal));
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    color: var(--color-text);
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity var(--transition-fast);
+  }
+
+  .wd-field__error.is-visible {
+    opacity: var(--opacity-full);
+  }
+
+  .wd-submit {
+    align-self: flex-start;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-6);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: black;
+    background: white;
+    cursor: pointer;
+    transition: border-color var(--transition-base);
+  }
+
+  .wd-submit:hover{
+    background: rgba(255, 255, 255, 0.87);
+  }
+
+  .wd-submit:hover {
+    border-color: var(--color-border);
+  }
+
+  .wd-submit:focus-visible {
+    outline: 2px solid var(--color-text-heading);
+    outline-offset: 2px;
+  }
+
+ .wd-toast {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-heading);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+}
+
+  .wd-toast.is-visible {
+    pointer-events: auto;
+  }
+
+  @media (max-width: 560px) {
+    :global(.a11y-demo__stage) {
+      padding: var(--space-8) var(--space-4);
+    }
+  }
+</style>

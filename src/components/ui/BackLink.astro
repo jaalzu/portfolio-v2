@@ -16,14 +16,11 @@ const { href = "/", label = "Volver" } = Astro.props;
   .back-link {
     display: inline-flex;
     align-items: center;
+    margin-bottom: 3.5rem;
     gap: 6px;
-    margin-top: 5rem;
-    padding-top: 1rem;
-    margin-bottom: calc(var(--space-17) + var(--space-2));
     text-decoration: none;
     font-size: var(--text-sm);
-        color: var(--color-text-heading);
-
+    color: var(--color-text-heading);
     transition: color var(--transition-fast);
   }
   .back-link__arrow {

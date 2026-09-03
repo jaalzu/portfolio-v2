@@ -35,7 +35,7 @@ body {
 	font-weight: var(--font-weight-regular);
 	font-size: var(--text-base);
 	line-height: var(--leading-relaxed);
-	background-color: var(--color-bg);
+	background-color: var(--color-surface-1);
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-size-adjust: 100%;
 	text-rendering: optimizeLegibility;
@@ -52,14 +52,13 @@ a {
 
 ::selection {
 	background-color: var(--color-primary);
-	color: var(--color-bg);
+	color: var(--color-surface-1);
 }
 
 /* Focus visible consistente en todo el sistema (better-accessibility) */
 :focus-visible {
-	outline: 2px solid var(--color-primary);
-	outline-offset: 2px;
-	border-radius: var(--radius-sm);
+	outline: var(--focus-ring-width) solid var(--color-focus);
+	outline-offset: var(--focus-ring-offset);
 }
 
 ::view-transition-image-pair(root) {
@@ -68,5 +67,5 @@ a {
 html::view-transition-old(root),
 html::view-transition-new(root) {
 	mix-blend-mode: normal;
-	background: var(--color-bg);
+	background: var(--color-surface-1);
 }

@@ -89,23 +89,19 @@ const journeyYears = [
     padding-inline: var(--space-4);
   }
 
-  .projects-section {
-    padding-top: var(--space-16);
-  }
-
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     column-gap: var(--space-4);
     row-gap: var(--space-4);
-    margin-bottom: 4rem;
+    margin-bottom: var(--space-16);
   }
 
   .skills-grid {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-8);
   }
 
   @media (max-width: 768px) {
@@ -113,16 +109,12 @@ const journeyYears = [
       padding-inline: calc(var(--space-4) + var(--space-1));
     }
 
-    .projects-section {
-      padding-top: var(--space-6);
-    }
-
     .projects-grid {
-      margin-bottom: 1.5rem;
+      margin-bottom: var(--space-6);
     }
 
     .skills-grid {
-      margin-bottom: 1rem;
+      margin-bottom: var(--space-4);
     }
   }
 

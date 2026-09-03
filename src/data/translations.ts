@@ -23,7 +23,7 @@ export const translations = {
 		projects: [
 			"Marketplace para comprar y vender artículos nuevos y usados.",
 			"Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
-			"Plataforma educativa privada para gestionar cursos, alumnos y contenido.",
+			"Plataforma privada para la gestión de cursos, alumnos y contenidos.",
 		],
 		journey: [
 			"Comencé con los fundamentos de programación usando PSeInt, Python y SQL.",
@@ -94,7 +94,7 @@ export const translations = {
 		projects: [
 			"Modern marketplace for buying and selling new and second-hand items.",
 			"An interactive way to pick your colors and fonts in real time.",
-			"Private learning platform for managing courses, students, and content.",
+			"Private platform to manage courses, students, and content.",
 		],
 		journey: [
 			"Started with programming fundamentals using PSeInt, Python, and SQL.",

@@ -43,12 +43,12 @@
 
   .lang-toggle__sep {
     color: var(--color-text-muted);
-    opacity: 0.6;
+    opacity: var(--opacity-muted);
     transition: opacity var(--transition-fast);
   }
 
   .lang-toggle:hover .lang-toggle__sep {
-    opacity: 1;
+    opacity: var(--opacity-full);
   }
 
   .lang-toggle__option {
@@ -65,7 +65,7 @@
   :global(html:not([data-lang="en"])) .lang-toggle__option[data-lang-option="es"],
   :global(html[data-lang="en"]) .lang-toggle__option[data-lang-option="en"] {
          color: var(--color-text);
-    opacity: 1;
+    opacity: var(--opacity-full);
   }
 
 
