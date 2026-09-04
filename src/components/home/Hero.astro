@@ -66,33 +66,29 @@ const { t } = Astro.props;
   }
 
   .about__bio {
-    margin: 0 0 var(--space-4);
+    margin: 0 0 var(--space-6);
     font-size: var(--text-base);
     line-height: var(--leading-relaxed);
     color: var(--color-text);
-    max-inline-size: 55ch;
+    max-inline-size: 60ch;
   }
 
   .about__bio :global(.about__design) {
     font-family: 'Story Script', cursive, sans-serif;
-    font-weight: var(--font-weight-regular);
-    color: #fff;
+    color: var(--color-text-heading);
     display: inline-block;
     font-size: 1.05em;
     line-height: 1;
     transform: translateY(-1px);
   }
 
-  .about__bio :global(.about__code) {
-    font-weight: var(--font-weight-regular);
-    color: var(--color-text-heading);
-  }
+ .about__bio :global(.about__code),
+.about__bio :global(.about__unique) {
+  color: var(--color-text-heading);
+  
+}
 
-  .about__bio :global(.about__care) {
-    font-weight: var(--font-weight-regular);
-    color: var(--color-text-heading);
-    transform: translateY(-1px);
-  }
+ 
 
   .about__text-link {
     display: inline-flex;

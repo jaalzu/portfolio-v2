@@ -5,7 +5,7 @@ export const translations = {
 			techStack: "Skills",
 			journey: "Trayectoria",
 		},
-		bio1: 'Conecto el <span class="about__design">diseño</span> y el <span class="about__code">código</span> para crear productos digitales que se sienten tan bien como funcionan.<br><br>Tengo experiencia construyendo aplicaciones web de principio a fin usando React, TypeScript, Next.js y CSS, desde flujos de datos complejos y decisiones de arquitectura hasta una interfaz pulida y esos pequeños detalles que hacen que un producto se sienta bien.',
+	bio1: 'Conecto <span class="about__design">diseño</span> con <span class="about__code">código</span> para crear productos digitales que se sienten tan bien como funcionan.<br><br>Construyo aplicaciones web con React, TypeScript, Next.js y CSS, desde flujos de datos y decisiones de arquitectura hasta sistemas de UI y componentes reutilizables y pulidos, cuidando cada mínimo detalle que hace que una experiencia se sienta  <span class="about__unique">única</span>.',
 	
 		emailWord: "Email",
 		// emailAfter: "gratis!",
@@ -31,30 +31,7 @@ export const translations = {
 			"Empecé a trabajar con React y Next.js, construyendo aplicaciones más grandes y complejas.",
 			"Descubrí una forma de convertir mi pasión en mejores sistemas de diseño y experiencias web.",
 		],
-		techStack: [
-			"HTML",
-			"CSS",
-			"JavaScript",
-			"TypeScript",
-			"React",
-			"Next.js",
-			"Astro",
-			"Tailwind CSS",
-			"Git",
-			"Zod",
-			"Zustand",
-			"Figma",
-			"Sistemas de diseño",
-			"Arquitectura de componentes",
-			"Diseño responsivo",
-			"Accesibilidad",
-			"Manejo de estado",
-			"Testing",
-			"Rendimiento",
-			"DevTools",
-			"Integración de APIs",
-			"Desarrollo asistido por IA",
-		],
+	
 		skillsPromo: {
 			title: "Mejora tus interfaces con agentes especializados",
 			subtitle: "Skills y agentes para mejorar tus interfaces.",
@@ -68,11 +45,16 @@ export const translations = {
 			installHint: "Copia el comando e instala la skill que necesites.",
 			github: "GitHub",
 			viewLive: "Ver en vivo",
-			typography: {
-				title: "Typography Foundation — UI & Quality",
-				description:
-					"Tipografía fundamental para interfaces claras, legibles y con buena jerarquía visual. Mejora la experiencia de usuario con buenas prácticas de diseño tipográfico.",
-			},
+		typography: {
+    title: "Fundamentos de Tipografía — UI y Calidad",
+    description:
+        "El texto es el corazón de cada interfaz. Construye o audita tu tipografía para fortalecer la legibilidad, la jerarquía, la accesibilidad y la consistencia visual, ofreciendo así mejores experiencias de usuario.",
+},
+  accessibility: {
+    title: "Accesibilidad — Foco y Feedback",
+    description:
+      "Tu web tiene que ser accesible para todos, sin excepciones. Construí o auditá el foco visible, los errores anunciados a tiempo y el feedback en vivo de tu interfaz.",
+  },
 		},
 	},
 	en: {
@@ -81,7 +63,8 @@ export const translations = {
 			techStack: "Skills",
 			journey: "Journey",
 		},
-		bio1: 'I bridge <span class="about__design">design</span> and <span class="about__code">code</span> to build products that feel as good as they work.<br><br>I have experience building end-to-end web applications using <strong>React, TypeScript, Next.js, and CSS</strong>, from complex data flows and architectural decisions to polished UI and the small details that make a product feel right.',
+	bio1: 'I bridge <span class="about__design">design</span> and <span class="about__code">code</span> to build products that feel as good as they work.<br><br>I build web applications with React, TypeScript, Next.js, and CSS, from data flows and architectural decisions to UI systems and polished, reusable components, caring about every small detail that makes an experience feel <span class="about__unique">unique</span>.',
+	
 	
 		emailWord: "Email",
 		githubWord: "GitHub",
@@ -102,30 +85,7 @@ export const translations = {
 			"Started working with React and Next.js, building larger and more complex applications.",
 			"Found a meaningful way to channel my passion through design systems and better web UX",
 		],
-		techStack: [
-			"HTML",
-			"CSS",
-			"JavaScript",
-			"TypeScript",
-			"React",
-			"Next.js",
-			"Astro",
-			"Tailwind CSS",
-			"Git",
-			"Zod",
-			"Zustand",
-			"Figma",
-			"Design Systems",
-			"Component Architecture",
-			"Responsive Design",
-			"Accessibility",
-			"State Management",
-			"Testing",
-			"Performance",
-			"DevTools",
-			"API Integration",
-			"AI-Assisted Development",
-		],
+		
 		skillsPromo: {
 			title: "Improve your interfaces with specialized agents",
 			subtitle: "Skills and agents to improve your interfaces.",
@@ -145,6 +105,13 @@ export const translations = {
 				description:
 					"Text is at the heart of every interface. Build or audit your typography to strengthen legibility, hierarchy, accessibility and visual consistency for better user experiences.",
 			},
+			en: {
+ accessibility: {
+    title: "Accessibility — Focus & Feedback",
+    description:
+      "Your site needs to be accessible to everyone, no exceptions. Build or audit visible focus states, timely error announcements, and live feedback across your interface.",
+  },
+},
 		},
 	},
 } as const;

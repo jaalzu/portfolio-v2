@@ -133,10 +133,8 @@ const {
   document.addEventListener("astro:after-swap", initToggleCards);
 </script>
 <style>
-/* ToggleCard.astro */
 .toggle-card {
   position: relative;
-  border: var(--color-border-soft);
   border-radius: var(--radius-base);
   overflow: hidden;
   margin: calc(var(--card-inset) * -1);
@@ -145,6 +143,7 @@ const {
 
   .toggle-card__stage {
     width: 100%;
+
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -161,6 +160,7 @@ const {
   .toggle-card__toolbar {
     width: 100%;
     padding: var(--space-2);
+
     display: flex;
     align-items: center;
     justify-content: center;

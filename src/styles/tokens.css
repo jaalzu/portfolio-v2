@@ -25,7 +25,8 @@
 	/* ---- Color: acentos ---- */
 	--color-blue: oklch(0.65 0.15 250);
 	--color-green: oklch(79.332% 0.23958 143.641);
-	--color-red: oklch(61.648% 0.24793 28.779);
+	--color-red: oklch(63.157% 0.25397 28.776);
+	--color-red-soft: oklch(67.076% 0.21654 25.176);
 	--color-warning: oklch(0.78 0.16 85);
 
 	/* ---- Focus ---- */
@@ -77,6 +78,8 @@
 	--space-12: 3rem; /* 48px */
 	--space-16: 4rem; /* 64px */
 	--space-20: 5rem; /* 80px */
+	--space-22: 6rem; /* 80px */
+	--space-24: 7rem; /* 80px */
 
 	/* ---- Radius ---- */
 	--radius-base: 12px;
