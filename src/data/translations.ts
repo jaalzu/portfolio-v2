@@ -3,7 +3,7 @@ export const translations = {
 		sections: {
 			projects: "Proyectos",
 			techStack: "Skills",
-			journey: "Trayectoria",
+			aboutMe: "Mas sobre mi",
 		},
 	bio1: 'Conecto <span class="about__design">diseño</span> con <span class="about__code">código</span> para crear productos digitales que se sienten tan bien como funcionan.<br><br>Construyo aplicaciones web con React, TypeScript, Next.js y CSS, desde flujos de datos y decisiones de arquitectura hasta sistemas de UI y componentes reutilizables y pulidos, cuidando cada mínimo detalle que hace que una experiencia se sienta  <span class="about__unique">única</span>.',
 	
@@ -25,12 +25,12 @@ export const translations = {
 			"Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
 			"Plataforma privada para la gestión de cursos, alumnos y contenidos.",
 		],
-		journey: [
-			"Comencé con los fundamentos de programación usando PSeInt, Python y SQL.",
-			"Pasé al desarrollo web con HTML, CSS y JavaScript, mientras aprendia sobre diseño UI/UX",
-			"Empecé a trabajar con React y Next.js, construyendo aplicaciones más grandes y complejas.",
-			"Descubrí una forma de convertir mi pasión en mejores sistemas de diseño y experiencias web.",
-		],
+  about: [
+    "Soy del norte argentino, Chaco.",
+    "Tengo 25 años.",
+    "El 80% del tiempo que trabajo estoy escuchando música.",
+    "Soy fan del ",
+  ],
 	
 		skillsPromo: {
 			title: "Mejora tus interfaces con agentes especializados",
@@ -55,13 +55,18 @@ export const translations = {
     description:
       "Tu web tiene que ser accesible para todos, sin excepciones. Construí o auditá el foco visible, los errores anunciados a tiempo y el feedback en vivo de tu interfaz.",
   },
+   designTokens: {
+    title: "Fundamentos de Tokens — Consistencia Real",
+    description:
+      "Un diseño no es consistente porque se vea bien una vez, sino porque todo viene de la misma fuente. Tocá un token y mirá cómo cambian varios componentes a la vez.",
+  },
 		},
 	},
 	en: {
 		sections: {
 			projects: "Projects",
 			techStack: "Skills",
-			journey: "Journey",
+			aboutMe: "About Me",
 		},
 	bio1: 'I bridge <span class="about__design">design</span> and <span class="about__code">code</span> to build products that feel as good as they work.<br><br>I build web applications with React, TypeScript, Next.js, and CSS, from data flows and architectural decisions to UI systems and polished, reusable components, caring about every small detail that makes an experience feel <span class="about__unique">unique</span>.',
 	
@@ -79,12 +84,12 @@ export const translations = {
 			"An interactive way to pick your colors and fonts in real time.",
 			"Private platform to manage courses, students, and content.",
 		],
-		journey: [
-			"Started with programming fundamentals using PSeInt, Python, and SQL.",
-			"Moved into web development with HTML, CSS and JavaScript while exploring UI/UX principles.",
-			"Started working with React and Next.js, building larger and more complex applications.",
-			"Found a meaningful way to channel my passion through design systems and better web UX",
-		],
+	 about: [
+    "I'm from northern Argentina, Chaco.",
+    "I'm 25 years old.",
+    "80% of the time I'm working, I'm listening to music.",
+    "I'm a fan of ",
+  ],
 		
 		skillsPromo: {
 			title: "Improve your interfaces with specialized agents",
@@ -111,6 +116,13 @@ export const translations = {
     description:
       "Your site needs to be accessible to everyone, no exceptions. Build or audit visible focus states, timely error announcements, and live feedback across your interface.",
   },
+  en: {
+  designTokens: {
+    title: "Design Tokens Foundation — Real Consistency",
+    description:
+      "A design isn't consistent because it looks good once — it's consistent because everything comes from the same source. Change one token and watch several components update at once.",
+  },
+},
 },
 		},
 	},

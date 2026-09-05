@@ -6,33 +6,7 @@ interface Props {
 
 const asciiBody = `                                                                                                                              
                                                                                                                                                                    
-                                                                                                                                                                 
-                                                                                                                                                                 
-                                                                                                                                                                 
-                                                                                                                                                                 
-                                                                                                                                                                 
-                                                                                                                                                                 
-                                                                                                                                                                 
-                                                                                                                                                                 
-                                                                                                                                                                                                         
-                                                                                                                                                                                                         
-                                                                                                                                                                                                         
-                                                                                                                                                                                                         
-                                                                                                                                                                                                         
-                                                                                                                                                                                                         
-                                                                                                                                                                                                         
-                                                                                                                                                                                                         
-                                                                                                                                                                                                         
-                                                                                                                                                                                                         
-                                                                                                                                                                                              
-                                                                                                                                                                                              
-                                                                                                                                                                                              
-                                                                                                                                                                                              
-                                                                                                                                                                                              
-                                                                                                                                                                                              
-                                                                                                                                                                                              
-                                                                                                                                                                                              
-                                                                                                                                                                                              
+                                                                                                                                                                            
                                                                                                                                                                                               
                                                                      ....                                                                                                                     
                                                                   -##########+...                                                                                                             
@@ -139,21 +113,21 @@ const asciiHtml = asciiBody
 </footer>
 
 <style>
-  .site-footer {
-    display: flex;
-    flex-direction: column;
-    margin-top: -380px;
-    overflow: visible;
-    overflow-x: visible;
-  }
+ .site-footer {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  overflow-x: visible;
+}
 
-  .site-footer__ascii {
-    width: 100%;
-    overflow: visible;
-    display: flex;
-    justify-content: flex-start;
-  }
-
+.site-footer__ascii {
+  width: 100%;
+  overflow: visible;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: clamp(-380px, -28vw, -120px);
+  pointer-events: none; 
+}
   .site-footer__art {
     margin: 0;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;

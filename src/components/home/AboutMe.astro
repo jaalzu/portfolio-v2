@@ -1,0 +1,49 @@
+---
+export interface Props {
+  texts: readonly string[];
+}
+const { texts } = Astro.props;
+---
+
+<div class="about">
+  <p class="about__line" data-i18n="about.0">{texts[0]}</p>
+  <p class="about__line" data-i18n="about.1">{texts[1]}</p>
+  <p class="about__line" data-i18n="about.2">{texts[2]}</p>
+  <p class="about__line" data-i18n="about.3">
+    {texts[3]}
+    <a class="about__link" href="/ascii-gallery">ASCII art</a>.
+  </p>
+</div>
+
+<style>
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .about__line {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text);
+    text-wrap: pretty;
+  }
+
+  .about__link {
+    color: var(--color-text-heading);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--color-border);
+    transition: text-decoration-color var(--transition-fast);
+  }
+
+  .about__link:hover {
+    text-decoration-color: var(--color-text-heading);
+  }
+
+  .about__link:focus-visible {
+    outline: 2px solid var(--color-text-heading);
+    outline-offset: 2px;
+  }
+</style>

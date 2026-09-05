@@ -7,6 +7,7 @@ import CopyCommand from "../components/skills/CopyCommand.astro";
 import SkillSection from "../components/skills/SkillSection.astro";
 import TypographyDemo from "../components/skills/demos/TypographyDemo.astro";
 import AccessibilityDemo from "../components/skills/demos/AccessibilityDemo.astro";
+import TokenUIDemo from "../components/skills/demos/TokenUIDemo.astro";
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
@@ -53,6 +54,17 @@ const t = translations.es;
   descKey="skillsPage.accessibility.description"
 >
   <AccessibilityDemo />
+</SkillSection>
+
+
+<SkillSection
+  id="design-tokens"
+  title={t.skillsPage.designTokens.title}
+  description={t.skillsPage.designTokens.description}
+  titleKey="skillsPage.designTokens.title"
+  descKey="skillsPage.designTokens.description"
+>
+  <TokenUIDemo />
 </SkillSection>
     </Section>
   </main>

@@ -5,7 +5,8 @@ import SkillItem from "../components/home/SkillItem.astro";
 import Section from "../components/ui/Section.astro";
 import Footer from "../components/home/Footer.astro";
 import Hero from "../components/home/Hero.astro";
-import Journey from "../components/home/Journey.astro";
+import AboutMe from "../components/home/AboutMe.astro";
+
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
@@ -33,12 +34,7 @@ const projects = [
 	},
 ];
 
-const journeyYears = [
-	"2021 - 2022",
-	"2022 - 2024",
-	"2024 - 2026",
-	"2026 - now",
-];
+
 ---
 
 <BaseLayout title="Javier Alzú">
@@ -75,9 +71,10 @@ const journeyYears = [
       </div>
     </Section>
 
-    <Section title={t.sections.journey} i18nKey="sections.journey" marked class="journey-section">
-      <Journey years={journeyYears} texts={t.journey} />
-    </Section>
+   <Section title={t.sections.aboutMe} i18nKey="sections.aboutMe" marked class="about-section">
+  <AboutMe texts={t.about} />
+</Section>
+
   </main>
   <Footer coverSrc="./portft1.webp" email="javieralzuu@gmail.com" />
 </BaseLayout>
