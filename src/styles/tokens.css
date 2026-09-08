@@ -14,13 +14,17 @@
 	--color-primary-soft: oklch(59.867% 0.13428 40.447 / 0.682);
 
 	/* ---- Color: neutros estándar (texto, bordes) ---- */
-	--color-text-heading: #f7f8f8;
-	--color-text: #c4c5c5f0;
-	--color-text-muted: #8a8f98;
+	--color-text-heading: #f2f2f2;
+	/* --color-text-heading: #f7f8f8; */
+	--color-text: #e5e5e5e3;
+	/* --color-text: #c4c5c5f0; */
+	--color-text-muted: #a0a0a0;
+	/* --color-text-muted: #8a8f98; */
 	--color-text-disabled: #62646c;
 
 	--color-border: oklch(0.33 0 0);
 	--color-border-soft: oklch(0.4 0 0 / 0.52);
+	--color-border-softer: oklch(0.4 0 0 / 0.20);
 
 	/* ---- Color: acentos ---- */
 	--color-blue: oklch(0.65 0.15 250);

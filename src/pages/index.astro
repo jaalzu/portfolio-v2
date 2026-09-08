@@ -44,24 +44,25 @@ const projects = [
       <Hero t={t} />
     </Section>
 
-    <Section title={t.sections.projects} i18nKey="sections.projects" marked class="projects-section">
+    <Section title={t.sections.projects} i18nKey="sections.projects" marked class="projects-section" index={0}>
       <div class="projects-grid">
         {
           projects.map((project, i) => (
-            <ProjectCard
-              title={project.title}
-              description={t.projects[i]}
-              i18nKey={`projects.${i}`}
-              imageSrc={project.imageSrc}
-              githubUrl={project.githubUrl}
-              liveUrl={project.liveUrl}
-            />
+   <ProjectCard
+      title={project.title}
+      description={t.projects[i]}
+      i18nKey={`projects.${i}`}
+      imageSrc={project.imageSrc}
+      githubUrl={project.githubUrl}
+      liveUrl={project.liveUrl}
+      index={i}
+    />
           ))
         }
       </div>
     </Section>
 
-    <Section title={t.sections.techStack} i18nKey="sections.techStack" marked class="tech-section">
+    <Section title={t.sections.techStack} i18nKey="sections.techStack" marked class="tech-section" index={1}>
       <div class="skills-grid">
         <SkillItem
           title={t.skillsPromo.title}
@@ -71,12 +72,18 @@ const projects = [
       </div>
     </Section>
 
-   <Section title={t.sections.aboutMe} i18nKey="sections.aboutMe" marked class="about-section">
-  <AboutMe texts={t.about} />
+   <Section title={t.sections.aboutMe} i18nKey="sections.aboutMe" marked class="about-section" index={2}>
+<AboutMe texts={t.about} province={t.province} />
 </Section>
 
   </main>
   <Footer coverSrc="./portft1.webp" email="javieralzuu@gmail.com" />
+
+  <script>
+    document.addEventListener("astro:page-load", () => {
+      sessionStorage.setItem("home-intro-played", "1");
+    });
+  </script>
 </BaseLayout>
 
 <style>

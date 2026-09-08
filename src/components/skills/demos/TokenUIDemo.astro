@@ -1,5 +1,5 @@
 ---
-// DesignTokensDemo.astro
+// TokenUIDemo.astro
 ---
 
 <div class="tk-demo">
@@ -12,110 +12,337 @@
       </svg>
     </button>
 
-    <div class="tk-card" id="tk-card">
-      <span class="tk-card__badge" data-token="badge">Disponible</span>
+    <!-- MOBILE: leyenda — siempre en el flujo, controlada solo por opacity -->
+    <div class="tk-mobile-legend" id="tk-mobile-legend" aria-hidden="true">
+      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">1</span>text-heading</span>
+      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">2</span>text-base</span>
+      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">3</span>primary</span>
+      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">4</span>surface-1</span>
+      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">5</span>radius</span>
+      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">6</span>icon-neutral</span>
+      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">7</span>rating</span>
+    </div>
 
-      <img class="tk-card__image" src="./portft1.webp" alt="" aria-hidden="true" />
+    <div class="tk-card" id="tk-card">
+      <div class="tk-card__media">
+        <div class="tk-card__track" id="tk-track">
+          <img class="tk-card__image" src="./portft1.webp" alt="" aria-hidden="true" />
+          <img class="tk-card__image" src="./sky.png" alt="" aria-hidden="true" />
+          <img class="tk-card__image" src="./train-city.jpg" alt="" aria-hidden="true" />
+        </div>
+
+        <button class="tk-card__arrow tk-card__arrow--prev" type="button" id="tk-prev" aria-label="Foto anterior">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"></path>
+          </svg>
+        </button>
+        <button class="tk-card__arrow tk-card__arrow--next" type="button" id="tk-next" data-token="arrow" aria-label="Foto siguiente">
+          <svg class="tk-card__arrow-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 6l6 6-6 6"></path>
+          </svg>
+        </button>
+
+        <!-- MOBILE: badge del ícono de la flecha — overlay, no ocupa espacio -->
+        <span class="tk-token-badge tk-token-badge--arrow">6</span>
+      </div>
 
       <div class="tk-card__content" data-token="content">
-        <h3 class="tk-card__title" data-token="title">Diseño consistente</h3>
-        <p class="tk-card__text">Cambiá los tokens de abajo y mirá cómo reacciona toda la card a la vez.</p>
+        <!-- MOBILE: badge de surface-1, esquina del content — overlay -->
+        <span class="tk-token-badge tk-token-badge--content">4</span>
+
+        <h3 class="tk-card__title" data-token="title">
+          <span class="tk-token-badge tk-token-badge--title">1</span>
+          <span class="tk-card__title-text">Diseño consistente</span>
+        </h3>
+
+        <p class="tk-card__text" data-token="text-body">
+          <span class="tk-token-badge tk-token-badge--textbody">2</span>
+          Cambiá los tokens de abajo y mirá cómo reacciona toda la card a la vez.
+        </p>
 
         <div class="tk-card__footer">
           <div class="tk-card__profile">
-            <div class="tk-card__avatar" data-token="avatar"></div>
+            <div class="tk-card__avatar" data-token="avatar">
+              <span class="tk-token-badge tk-token-badge--avatar">3</span>
+            </div>
             <div class="tk-card__profile-text">
               <span class="tk-card__name">Javier Alzú</span>
-              <span class="tk-card__rating" aria-label="5 de 5 estrellas">
-                <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
-                <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
-                <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
-                <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
-                <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
+              <span class="tk-card__rating-row">
+                <span class="tk-token-badge tk-token-badge--rating">7</span>
+                <span class="tk-card__rating" data-token="stars" aria-label="5 de 5 estrellas">
+                  <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
+                  <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
+                  <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
+                  <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
+                  <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
+                </span>
               </span>
             </div>
           </div>
 
-          <button class="tk-card__button" type="button" data-token="button">Reservar</button>
+          <button class="tk-card__button" type="button" data-token="button">
+            <span class="tk-token-badge tk-token-badge--button">5</span>
+            Reservar
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- capa de anotaciones: vive en el padre, siempre en el DOM, solo cambia opacity -->
+    <!-- DESKTOP: capa de anotaciones con líneas -->
     <div class="tk-annot-layer" id="tk-annot-layer" aria-hidden="true">
-      <svg class="tk-annot-svg" id="tk-annot-svg">
-        <defs>
-          <marker id="tk-arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
-          </marker>
-        </defs>
-        <line class="tk-annot-line" data-for="content"></line>
-        <line class="tk-annot-line" data-for="title"></line>
-        <line class="tk-annot-line" data-for="avatar"></line>
-        <line class="tk-annot-line" data-for="badge"></line>
-        <line class="tk-annot-line" data-for="button"></line>
-      </svg>
-
-      <span class="tk-annot-label" data-anchor="content" data-side="left">--tk-bg</span>
-      <span class="tk-annot-label" data-anchor="title" data-side="left">--tk-text</span>
-      <span class="tk-annot-label" data-anchor="avatar" data-side="left">--tk-primary</span>
-      <span class="tk-annot-label" data-anchor="badge" data-side="right">--tk-primary</span>
-      <span class="tk-annot-label" data-anchor="button" data-side="right">--tk-primary</span>
+      <svg class="tk-annot-svg" id="tk-annot-svg"></svg>
     </div>
   </div>
 
   <div class="tk-demo__toolbar" id="tk-toolbar">
-    <label class="tk-picker" data-tooltip="bg">
-      <input type="color" class="tk-picker__input" data-token="bg" value="#08090a" aria-label="Elegir color de fondo" />
-      <span class="tk-picker__swatch"></span>
-    </label>
-
-    <label class="tk-picker" data-tooltip="primary">
-      <input type="color" class="tk-picker__input" data-token="primary" value="#e08a5c" aria-label="Elegir color primario" />
-      <span class="tk-picker__swatch"></span>
-    </label>
-
-    <label class="tk-picker" data-tooltip="text">
-      <input type="color" class="tk-picker__input" data-token="text" value="#f7f8f8" aria-label="Elegir color de texto" />
-      <span class="tk-picker__swatch"></span>
-    </label>
-
-    <div class="tk-slider-wrap">
-      <input
-        type="range"
-        class="tk-slider"
-        id="tk-radius-slider"
-        min="0" max="2" step="1" value="1"
-        aria-label="Radio de borde"
-        data-tooltip-prefix="radius"
-      />
+    <div class="tk-toolbar-group">
+      <label class="tk-picker" data-tooltip="surface-1">
+        <input type="color" class="tk-picker__input" data-token="bg" value="#131415" aria-label="Elegir color de superficie" />
+        <span class="tk-picker__swatch"></span>
+      </label>
+      <label class="tk-picker" data-tooltip="primary">
+        <input type="color" class="tk-picker__input" data-token="primary" value="#e08a5c" aria-label="Elegir color primario" />
+        <span class="tk-picker__swatch"></span>
+      </label>
+      <label class="tk-picker" data-tooltip="text-heading">
+        <input type="color" class="tk-picker__input" data-token="text" value="#f7f8f8" aria-label="Elegir color de texto" />
+        <span class="tk-picker__swatch"></span>
+      </label>
     </div>
 
-    <div class="tk-slider-wrap">
-      <input
-        type="range"
-        class="tk-slider"
-        id="tk-fontsize-slider"
-        min="0" max="2" step="1" value="1"
-        aria-label="Tamaño de fuente"
-        data-tooltip-prefix="font"
-      />
+    <div class="tk-toolbar-group">
+      <input type="range" class="tk-slider tk-slider--a" id="tk-radius-slider" min="0" max="2" step="0.01" value="0.375" aria-label="Radio de borde" data-tooltip-prefix="radius" />
     </div>
 
-    <div class="tk-tooltip" id="tk-tooltip"></div>
+    <div class="tk-toolbar-group">
+      <input type="range" class="tk-slider tk-slider--b" id="tk-fontsize-slider" min="0" max="2" step="0.01" value="1" aria-label="Tamaño de fuente" data-tooltip-prefix="font" />
+    </div>
+
+    <div class="tk-tooltip" id="tk-tooltip">
+      <span id="tk-tooltip-text"></span><span class="tk-tooltip__value" id="tk-tooltip-value"></span>
+    </div>
   </div>
 </div>
 
-<script>
-  import { initTokensDemo } from "./TokenUIDemo.client";
+<script is:inline>
+  (function () {
+    function initTokensDemo(demo) {
+      if (demo.dataset.bound === "1") return;
+      demo.dataset.bound = "1";
 
-  function boot() {
-    document.querySelectorAll<HTMLElement>(".tk-demo").forEach(initTokensDemo);
-  }
+      var LINE_SHORTEN = 20;
+      var RADIUS_RANGE = { min: 0, max: 32 };
+      var FONT_RANGE = { min: 0.95, max: 1.4 };
 
-  boot();
-  document.addEventListener("astro:page-load", boot);
-  document.addEventListener("astro:after-swap", boot);
+      function lerp(range, t) {
+        return range.min + (range.max - range.min) * (t / 2);
+      }
+
+      var ANNOTATIONS = [
+        { selector: '[data-token="title"]', side: "left", label: "text-heading" },
+        { selector: '[data-token="text-body"]', side: "left", label: "text-base" },
+        { selector: '[data-token="avatar"]', side: "left", label: "primary" },
+        { selector: '[data-token="content"]', side: "right", label: "surface-1", edgeInset: 30 },
+        { selector: '[data-token="button"]', side: "right", label: "radius" },
+        { selector: '[data-token="arrow"]', side: "right", label: "icon-neutral" },
+        { selector: '[data-token="stars"]', side: "right", label: "rating" }
+      ];
+
+      var card = demo.querySelector("#tk-card");
+      var stage = demo.querySelector("#tk-stage");
+      var infoBtn = demo.querySelector("#tk-info-btn");
+      var layer = demo.querySelector("#tk-annot-layer");
+      var svg = demo.querySelector("#tk-annot-svg");
+      var toolbar = demo.querySelector("#tk-toolbar");
+      var tooltip = demo.querySelector("#tk-tooltip");
+      var tooltipText = demo.querySelector("#tk-tooltip-text");
+      var tooltipValue = demo.querySelector("#tk-tooltip-value");
+      if (!card || !stage || !infoBtn || !layer || !svg || !toolbar || !tooltip || !tooltipText || !tooltipValue) return;
+
+      var built = ANNOTATIONS.map(function (cfg) {
+        var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("class", "tk-annot-line");
+        svg.appendChild(line);
+
+        var label = document.createElement("span");
+        label.className = "tk-annot-label";
+        label.textContent = cfg.label;
+        layer.appendChild(label);
+
+        return { cfg: cfg, line: line, label: label };
+      });
+
+      var annotationsActive = false;
+
+      function positionAnnotations() {
+        var stageRect = stage.getBoundingClientRect();
+        var edgeMargin = 16;
+
+        built.forEach(function (item) {
+          var cfg = item.cfg;
+          var target = card.querySelector(cfg.selector);
+          if (!target) return;
+
+          var t = target.getBoundingClientRect();
+          var targetX;
+          if (cfg.edgeInset != null) {
+            targetX = cfg.side === "right"
+              ? t.right - cfg.edgeInset - stageRect.left
+              : t.left + cfg.edgeInset - stageRect.left;
+          } else {
+            targetX = t.left + t.width / 2 - stageRect.left;
+          }
+          var targetY = t.top + t.height / 2 - stageRect.top;
+
+          var l = item.label.getBoundingClientRect();
+          var labelX = cfg.side === "left" ? edgeMargin : stageRect.width - l.width - edgeMargin;
+          var dyOffset = cfg.dy || 0;
+          var rawY = targetY - l.height / 2 + dyOffset;
+          var labelY = Math.max(0, Math.min(stageRect.height - l.height, rawY));
+
+          item.label.style.left = labelX + "px";
+          item.label.style.top = labelY + "px";
+
+          var startX = cfg.side === "left" ? labelX + l.width : labelX;
+          var startY = labelY + l.height / 2;
+          var dx = targetX - startX;
+          var dy = targetY - startY;
+          var dist = Math.hypot(dx, dy) || 1;
+          var ratio = Math.max(0, (dist - LINE_SHORTEN) / dist);
+
+          item.line.setAttribute("x1", String(startX));
+          item.line.setAttribute("y1", String(startY));
+          item.line.setAttribute("x2", String(startX + dx * ratio));
+          item.line.setAttribute("y2", String(startY + dy * ratio));
+        });
+      }
+
+      infoBtn.addEventListener("click", function () {
+        annotationsActive = !annotationsActive;
+        infoBtn.setAttribute("aria-pressed", String(annotationsActive));
+        stage.classList.toggle("is-annotating", annotationsActive);
+        if (annotationsActive) positionAnnotations();
+      });
+      window.addEventListener("resize", function () {
+        if (annotationsActive) positionAnnotations();
+      });
+
+      var track = demo.querySelector("#tk-track");
+      var slideCount = track ? track.children.length : 1;
+      var slideIndex = 0;
+
+      function goToSlide(i) {
+        slideIndex = (i + slideCount) % slideCount;
+        if (track) track.style.transform = "translateX(-" + (slideIndex * (100 / slideCount)) + "%)";
+      }
+
+      var prevBtn = demo.querySelector("#tk-prev");
+      var nextBtn = demo.querySelector("#tk-next");
+      if (prevBtn) prevBtn.addEventListener("click", function () { goToSlide(slideIndex - 1); });
+      if (nextBtn) nextBtn.addEventListener("click", function () { goToSlide(slideIndex + 1); });
+
+      var tooltipHasAppeared = false;
+
+      function positionTooltip(target) {
+        var tb = toolbar.getBoundingClientRect();
+        var r = target.getBoundingClientRect();
+        tooltip.style.left = (r.left + r.width / 2 - tb.left) + "px";
+        tooltip.style.top = (r.top - tb.top) + "px";
+      }
+
+      function revealTooltip(target) {
+        positionTooltip(target);
+        tooltip.style.transition = tooltipHasAppeared ? "none" : "opacity 0.15s ease";
+        tooltip.style.opacity = tooltipHasAppeared ? "1" : "0.96";
+        tooltip.classList.add("is-visible");
+        if (!tooltipHasAppeared) {
+          requestAnimationFrame(function () { tooltip.style.opacity = "1"; });
+          tooltipHasAppeared = true;
+        }
+      }
+
+      function showStaticTooltip(target, text) {
+        tooltipText.textContent = text;
+        tooltipValue.textContent = "";
+        revealTooltip(target);
+      }
+
+      function showValueTooltip(target, prefix, value) {
+        tooltipText.textContent = prefix;
+        tooltipValue.textContent = value;
+        tooltipValue.classList.remove("tk-pop");
+        void tooltipValue.offsetWidth;
+        tooltipValue.classList.add("tk-pop");
+        revealTooltip(target);
+      }
+
+      function hideTooltip() {
+        tooltip.classList.remove("is-visible");
+      }
+
+      var PICKER_VARS = { bg: "--tk-bg", primary: "--tk-primary", text: "--tk-text" };
+
+      demo.querySelectorAll(".tk-picker").forEach(function (picker) {
+        var input = picker.querySelector(".tk-picker__input");
+        var swatch = picker.querySelector(".tk-picker__swatch");
+        var label = picker.dataset.tooltip || "";
+        var cssVar = PICKER_VARS[input.dataset.token];
+
+        swatch.style.background = input.value;
+
+        input.addEventListener("input", function () {
+          swatch.style.background = input.value;
+          if (cssVar) card.style.setProperty(cssVar, input.value);
+          if (annotationsActive) positionAnnotations();
+          showStaticTooltip(picker, label);
+        });
+
+        picker.addEventListener("pointerenter", function () { showStaticTooltip(picker, label); });
+        picker.addEventListener("focusin", function () { showStaticTooltip(picker, label); });
+        picker.addEventListener("pointerleave", hideTooltip);
+        picker.addEventListener("focusout", hideTooltip);
+      });
+
+      function bindSlider(id, range, cssVar, format) {
+        var slider = demo.querySelector("#" + id);
+        if (!slider) return;
+
+        var prefix = (slider.dataset.tooltipPrefix || "") + ": ";
+
+        function currentValue() {
+          return lerp(range, Number(slider.value));
+        }
+
+        function apply() {
+          card.style.setProperty(cssVar, format(currentValue()));
+          if (annotationsActive) positionAnnotations();
+        }
+        apply();
+
+        slider.addEventListener("input", function () {
+          apply();
+          showValueTooltip(slider, prefix, format(currentValue()));
+        });
+        slider.addEventListener("pointerenter", function () { showValueTooltip(slider, prefix, format(currentValue())); });
+        slider.addEventListener("focusin", function () { showValueTooltip(slider, prefix, format(currentValue())); });
+        slider.addEventListener("pointerleave", hideTooltip);
+        slider.addEventListener("focusout", hideTooltip);
+      }
+
+      bindSlider("tk-radius-slider", RADIUS_RANGE, "--tk-radius", function (v) { return v.toFixed(0) + "px"; });
+      bindSlider("tk-fontsize-slider", FONT_RANGE, "--tk-title-size", function (v) { return v.toFixed(2) + "rem"; });
+    }
+
+    function boot() {
+      document.querySelectorAll(".tk-demo").forEach(function (el) {
+        initTokensDemo(el);
+      });
+    }
+
+    boot();
+    document.addEventListener("astro:page-load", boot);
+    document.addEventListener("astro:after-swap", boot);
+  })();
 </script>
 
 <style>
@@ -125,6 +352,9 @@
     overflow: hidden;
     margin: calc(var(--card-inset) * -1);
     width: calc(100% + var(--card-inset) * 2);
+    --tk-toolbar-control-h: 44px;
+    --tk-slider-gold: #d4a139;
+    --tk-slider-teal: #4fa3a0;
   }
 
   .tk-demo__stage {
@@ -151,48 +381,37 @@
     background: var(--color-surface-1);
     color: var(--color-text-muted);
     cursor: pointer;
+    overflow: visible;
+    transition: transform 0.15s ease-out, color 0.15s ease-out, border-color 0.15s ease-out;
   }
-
-  .tk-info-btn:hover {
-    color: var(--color-text-heading);
-    border-color: var(--color-border);
+  .tk-info-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0;
+    filter: blur(2px);
+    transition: opacity 0.15s ease-out;
+    pointer-events: none;
+    z-index: -1;
   }
-
+  .tk-info-btn:hover { color: var(--color-text-heading); border-color: var(--color-border); }
+  .tk-info-btn:active { transform: scale(0.97); }
+  .tk-info-btn:active::before { opacity: 0.12; }
   .tk-info-btn[aria-pressed="true"] {
     color: var(--color-text-heading);
     border-color: var(--color-border);
     background: var(--color-surface-2);
   }
 
-  /* ---- capa de anotaciones ---- */
-  .tk-annot-layer {
-    position: absolute;
-    inset: 0;
-    z-index: 15;
-    pointer-events: none;
-  }
+  /* =======================================================================
+     DESKTOP — líneas
+     ======================================================================= */
+  :global(.tk-annot-line) { stroke: currentColor; stroke-width: 1.5; opacity: 0; transition: opacity 0.15s ease; }
+  .tk-demo__stage.is-annotating :global(.tk-annot-line) { opacity: 0.5; }
 
-  .tk-annot-svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    color: var(--color-text-muted);
-  }
-
-  .tk-annot-line {
-    stroke: currentColor;
-    stroke-width: 1.5;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-  }
-
-  .tk-demo__stage.is-annotating .tk-annot-line {
-    opacity: 0.85;
-  }
-
-  .tk-annot-label {
+  :global(.tk-annot-label) {
     position: absolute;
     opacity: 0;
     transition: opacity 0.15s ease;
@@ -205,71 +424,113 @@
     color: var(--color-text-heading);
     white-space: nowrap;
   }
+  .tk-demo__stage.is-annotating :global(.tk-annot-label) { opacity: 0.75; }
 
-  .tk-demo__stage.is-annotating .tk-annot-label {
-    opacity: 1;
+  .tk-annot-layer { position: absolute; inset: 0; z-index: 15; pointer-events: none; }
+  .tk-annot-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: var(--color-text-heading); }
+
+  /* =======================================================================
+     MOBILE — badges numerados (overlay puro, cero espacio en el flujo)
+     Ocultos en desktop por defecto (display: none).
+     ======================================================================= */
+  .tk-mobile-legend { display: none; }
+
+  .tk-token-badge {
+    display: none; /* en desktop no existen */
   }
 
   /* ---- Card ---- */
   .tk-card {
-    --tk-bg: #08090a;
+    --tk-bg: #131415;
     --tk-primary: #e08a5c;
     --tk-text: #f7f8f8;
     --tk-radius: 12px;
     --tk-title-size: 1.125rem;
-
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 350px;
+    height: 350px;
     border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-base);
     overflow: hidden;
     background: var(--tk-bg);
   }
 
-  .tk-card__badge {
-    position: absolute;
-    top: var(--space-3);
-    right: var(--space-3);
-    z-index: 1;
-    font-size: var(--text-xs);
-    font-weight: var(--font-weight-medium);
-    padding: 2px var(--space-2);
-    border-radius: var(--tk-radius);
-    color: var(--tk-primary);
-    background: color-mix(in oklch, var(--tk-primary) 20%, oklch(0 0 0 / 0.55));
-    backdrop-filter: blur(4px);
-    white-space: nowrap;
-    transition: border-radius var(--transition-base), color var(--transition-base);
-  }
+  .tk-card__media { position: relative; flex-shrink: 0; height: 150px; overflow: hidden; }
+  .tk-card__track { display: flex; height: 100%; width: 300%; transform: translateX(0%); transition: transform 0.35s ease; }
+  .tk-card__image { display: block; width: 33.333%; height: 100%; object-fit: cover; flex-shrink: 0; }
 
-  .tk-card__image {
-    display: block;
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: var(--radius-base) var(--radius-base) 0 0;
+  .tk-card__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: var(--radius-full);
+    background: color-mix(in oklch, var(--color-surface-2) 70%, transparent);
+    color: var(--color-text-heading);
+    cursor: pointer;
+    overflow: visible;
+    transition: transform 0.15s ease-out, background-color 0.15s ease-out;
   }
+  .tk-card__arrow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0;
+    filter: blur(2px);
+    transition: opacity 0.15s ease-out;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .tk-card__arrow:hover { background: color-mix(in oklch, var(--color-surface-2) 90%, transparent); }
+  .tk-card__arrow:active { transform: translateY(-50%) scale(0.97); }
+  .tk-card__arrow:active::before { opacity: 0.12; }
+  .tk-card__arrow--prev { left: var(--space-2); }
+  .tk-card__arrow--next { right: var(--space-2); }
 
   .tk-card__content {
     position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
     margin-top: -17px;
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-    padding: var(--space-6) var(--space-4);
+    padding: var(--space-6) var(--space-4) var(--space-8);
     background: var(--tk-bg);
   }
 
   .tk-card__title {
+    position: relative;
     margin: 0;
-    font-size: var(--tk-title-size);
+    display: flex;
+    align-items: center;
     font-weight: var(--font-weight-semibold);
-    color: var(--tk-text);
     transition: font-size var(--transition-base), color var(--transition-base);
   }
 
+  .tk-card__title-text {
+    font-size: var(--tk-title-size);
+    color: var(--tk-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
   .tk-card__text {
+    position: relative;
     margin: 0;
     font-size: var(--text-sm);
     color: var(--tk-text);
@@ -279,6 +540,7 @@
   }
 
   .tk-card__footer {
+    margin-top: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -286,44 +548,15 @@
     padding-top: var(--space-6);
   }
 
-  .tk-card__profile {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    min-width: 0;
-  }
-
-  .tk-card__avatar {
-    width: 26px;
-    height: 26px;
-    flex-shrink: 0;
-    border-radius: var(--radius-full);
-    background: var(--tk-primary);
-  }
-
-  .tk-card__profile-text {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    min-width: 0;
-  }
-
-  .tk-card__name {
-    font-size: var(--text-xs);
-    font-weight: var(--font-weight-semibold);
-    color: var(--tk-text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .tk-card__rating {
-    display: inline-flex;
-    gap: 1px;
-    color: var(--color-warning);
-  }
+  .tk-card__profile { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
+  .tk-card__avatar { position: relative; width: 26px; height: 26px; flex-shrink: 0; border-radius: var(--radius-full); background: var(--tk-primary); }
+  .tk-card__profile-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .tk-card__name { font-size: var(--text-xs); font-weight: var(--font-weight-semibold); color: var(--tk-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tk-card__rating-row { position: relative; display: inline-flex; align-items: center; }
+  .tk-card__rating { display: inline-flex; align-items: center; gap: 1px; color: var(--color-warning); }
 
   .tk-card__button {
+    position: relative;
     flex-shrink: 0;
     border: none;
     border-radius: var(--tk-radius);
@@ -335,106 +568,59 @@
     cursor: pointer;
     transition: filter var(--transition-fast), border-radius var(--transition-base);
   }
+  .tk-card__button:hover { filter: brightness(1.1); }
+  .tk-card__button:focus-visible { outline: 2px solid var(--tk-primary); outline-offset: 2px; }
 
-  .tk-card__button:hover {
-    filter: brightness(1.1);
-  }
-
-  .tk-card__button:focus-visible {
-    outline: 2px solid var(--tk-primary);
-    outline-offset: 2px;
-  }
-
-  /* ---- Toolbar ---- */
   .tk-demo__toolbar {
-    position: relative; /* ancla el tooltip */
+    position: relative;
     width: 100%;
-    min-height: 64px;
-    padding: var(--space-2);
+    min-height: 67px;
+    padding: var(--space-3) var(--space-2);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: var(--space-5);
+    gap: var(--space-3);
     border-top: 1px solid var(--color-border-soft);
     background: var(--color-surface-2);
   }
 
-  .tk-picker {
+  .tk-toolbar-group {
     display: flex;
     align-items: center;
-    cursor: pointer;
-  }
-
-  .tk-picker__input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .tk-picker__swatch {
-    width: 22px;
-    height: 22px;
-    border-radius: var(--radius-full);
+    justify-content: center;
+    gap: var(--space-3);
+    height: var(--tk-toolbar-control-h);
+    padding-inline: var(--space-3);
     border: 1px solid var(--color-border-soft);
-    flex-shrink: 0;
-    transition: border-color var(--transition-fast);
+    border-radius: var(--radius-base);
+    background: var(--color-surface-1);
+    box-sizing: border-box;
   }
 
-  .tk-picker:hover .tk-picker__swatch {
-    border-color: var(--color-border);
-  }
+  .tk-picker { display: flex; align-items: center; cursor: pointer; }
+  .tk-picker__input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  .tk-picker__swatch { width: 22px; height: 22px; border-radius: var(--radius-full); border: 1px solid var(--color-border-soft); flex-shrink: 0; transition: border-color var(--transition-fast); }
+  .tk-picker:hover .tk-picker__swatch { border-color: var(--color-border); }
+  .tk-picker__input:focus-visible + .tk-picker__swatch { outline: 2px solid var(--color-text-heading); outline-offset: 2px; }
 
-  .tk-picker__input:focus-visible + .tk-picker__swatch {
-    outline: 2px solid var(--color-text-heading);
-    outline-offset: 2px;
+  .tk-slider { -webkit-appearance: none; appearance: none; width: 84px; height: 4px; border-radius: var(--radius-full); background: var(--color-border-soft); cursor: pointer; }
+  .tk-slider--a { accent-color: var(--tk-slider-gold); }
+  .tk-slider--b { accent-color: var(--tk-slider-teal); }
+  .tk-slider--a::-webkit-slider-thumb, .tk-slider--b::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 14px; height: 14px; border-radius: var(--radius-full);
+    border: 2px solid var(--color-surface-1); box-shadow: 0 0 0 1px var(--color-border-soft); cursor: pointer;
   }
-
-  /* ---- Sliders (reemplazan los botones cíclicos) ---- */
-  .tk-slider-wrap {
-    display: flex;
-    align-items: center;
+  .tk-slider--a::-webkit-slider-thumb { background: var(--tk-slider-gold); }
+  .tk-slider--b::-webkit-slider-thumb { background: var(--tk-slider-teal); }
+  .tk-slider--a::-moz-range-thumb, .tk-slider--b::-moz-range-thumb {
+    width: 14px; height: 14px; border-radius: var(--radius-full);
+    border: 2px solid var(--color-surface-1); box-shadow: 0 0 0 1px var(--color-border-soft); cursor: pointer;
   }
+  .tk-slider--a::-moz-range-thumb { background: var(--tk-slider-gold); }
+  .tk-slider--b::-moz-range-thumb { background: var(--tk-slider-teal); }
+  .tk-slider:focus-visible { outline: 2px solid var(--color-text-heading); outline-offset: 3px; }
 
-  .tk-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 72px;
-    height: 4px;
-    border-radius: var(--radius-full);
-    background: var(--color-border-soft);
-    cursor: pointer;
-  }
-
-  .tk-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    border-radius: var(--radius-full);
-    background: var(--color-text-heading);
-    border: 2px solid var(--color-surface-2);
-    box-shadow: 0 0 0 1px var(--color-border-soft);
-    cursor: pointer;
-  }
-
-  .tk-slider::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border-radius: var(--radius-full);
-    background: var(--color-text-heading);
-    border: 2px solid var(--color-surface-2);
-    box-shadow: 0 0 0 1px var(--color-border-soft);
-    cursor: pointer;
-  }
-
-  .tk-slider:focus-visible {
-    outline: 2px solid var(--color-text-heading);
-    outline-offset: 3px;
-  }
-
-  /* ---- Tooltip compartido ---- */
   .tk-tooltip {
     position: absolute;
     left: 0;
@@ -452,42 +638,100 @@
     pointer-events: none;
     opacity: 0;
   }
+  .tk-tooltip.is-visible { opacity: 1; }
 
-  .tk-tooltip.is-visible {
-    opacity: 1;
+  @keyframes tk-value-pop {
+    from { transform: translateY(-7px); opacity: 0; filter: blur(3px); }
+    to   { transform: translateY(0);    opacity: 1; filter: blur(0); }
+  }
+  .tk-tooltip__value { display: inline-block; }
+  .tk-tooltip__value.tk-pop {
+    animation: tk-value-pop 0.16s cubic-bezier(0.22, 1.15, 0.36, 1);
   }
 
   @media (max-width: 560px) {
-    .tk-demo__stage {
-      padding: var(--space-6) var(--space-4);
-    }
+    .tk-demo__stage { padding: var(--space-6) var(--space-4); }
   }
 
-  /* ---- mobile: sin cálculo de posición para las anotaciones ---- */
+  /* =======================================================================
+     MOBILE — badges como overlay absoluto (cero espacio en flujo) +
+     leyenda con espacio propio + padding extra al activar anotaciones.
+     ======================================================================= */
   @media (max-width: 640px) {
-    .tk-demo__stage.is-annotating {
+    .tk-demo__stage {
       flex-direction: column;
       gap: var(--space-4);
     }
 
-    .tk-annot-svg {
-      display: none;
+    /* padding-top extra SOLO cuando está anotando — pedido explícito */
+    .tk-demo__stage.is-annotating {
+      padding-top: var(--space-12);
     }
 
-    .tk-annot-layer {
-      position: static;
-      display: none;
+    .tk-annot-layer { display: none; }
+
+    .tk-mobile-legend {
+      display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: var(--space-2);
+      gap: var(--space-2) var(--space-4);
+      padding-inline: var(--space-8);
+      min-height: 40px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+    .tk-demo__stage.is-annotating .tk-mobile-legend {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    .tk-demo__stage.is-annotating .tk-annot-layer {
+    .tk-legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--text-xs);
+      font-family: monospace;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+
+    /* base compartida: círculo chico, siempre absolute, nunca reserva espacio */
+    .tk-token-badge {
       display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border-soft);
+      background: var(--color-surface-1);
+      color: var(--color-text-heading);
+      font-size: 6px;
+      font-family: monospace;
+      font-weight: var(--font-weight-semibold);
+      line-height: 1;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+    .tk-demo__stage.is-annotating .tk-token-badge {
+      opacity: 1;
     }
 
-    .tk-annot-label {
-      position: static;
+    /* la leyenda usa el mismo círculo pero SIEMPRE visible (no overlay) */
+    .tk-legend-dot {
+      position: static !important;
+      opacity: 1 !important;
     }
+
+    /* ---- posiciones de cada badge, todas overlay dentro de la gutter ---- */
+    .tk-token-badge--title { position: absolute; left: -14px; top: 50%; transform: translateY(-50%); }
+    .tk-token-badge--textbody { position: absolute; left: -14px; top: 6px; }
+    .tk-token-badge--avatar { position: absolute; left: -12px; top: 50%; transform: translateY(-50%); }
+    .tk-token-badge--rating { position: absolute; left: -14px; top: 50%; transform: translateY(-50%); }
+    .tk-token-badge--button { position: absolute; left: -14px; top: 50%; transform: translateY(-50%); }
+    .tk-token-badge--content { position: absolute; top: 6px; right: 6px; }
+    .tk-token-badge--arrow { position: absolute; top: 50%; right: 38px; transform: translateY(-50%); }
   }
 </style>

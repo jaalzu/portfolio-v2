@@ -9,13 +9,16 @@ interface Props {
 	githubUrl: string;
 	liveUrl: string;
 	i18nKey?: string;
+	index?: number;
 }
 
-const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } =
+const { title, description, imageSrc, githubUrl, liveUrl, i18nKey, index = 0 } =
+
 	Astro.props;
 ---
 
-<div class="card-frame">
+<div class="card-frame reveal" style={`--i: ${index}`}>
+
   <article class="card">
     <div class="card__image">
       <img src={imageSrc} alt="" loading="lazy" />
@@ -48,7 +51,36 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } =
 </div>
 
 <style>
-  /* Marco exterior: crea el efecto "card dentro de otra card" (radio concéntrico) */
+  @keyframes revealUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    animation: revealUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(650ms + var(--i, 0) * 90ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      animation: none;
+      opacity: 1;
+    }
+  }
+ 
+  :global(html.no-home-intro .reveal) {
+  animation: none !important;
+  opacity: 1 !important;
+}
+ 
+ /* Marco exterior: crea el efecto "card dentro de otra card" (radio concéntrico) */
   .card-frame {
     border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-base);
@@ -58,7 +90,6 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } =
 
   .card-frame:has(.card:hover) {
     border-color: var(--color-border);
-    box-shadow: var(--shadow-sm);
   }
 
   .card {
@@ -74,7 +105,6 @@ const { title, description, imageSrc, githubUrl, liveUrl, i18nKey } =
 
   .card:hover {
     border-color: var(--color-border);
-    box-shadow: var(--shadow-md);
   }
 
   .card__image {

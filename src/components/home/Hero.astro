@@ -7,34 +7,68 @@ export interface Props {
 }
 const { t } = Astro.props;
 ---
-<div class="top-bar">
+<div class="top-bar reveal reveal--after" style="--i: 0">
   <LanguageToggle />
 </div>
 
 <div class="hero-identity">
   <div class="hero-identity__text">
-    <p class="hero-identity__name">Javier Alzú</p>
-    <p class="hero-identity__role">Design Engineer</p>
+    <p class="hero-identity__name reveal" style="--i: 0">Javier Alzú</p>
+    <p class="hero-identity__role reveal reveal--after" style="--i: 1">Design Engineer</p>
   </div>
 </div>
 
 <div class="about">
-  <p class="about__bio" data-i18n-html="bio1" set:html={t.bio1} />
+  <p class="about__bio reveal reveal--after" style="--i: 2" data-i18n-html="bio1" set:html={t.bio1} />
 
-  <div class="about__links">
-<a href="https://github.com/jaalzu" class="about__text-link" target="_blank" rel="noopener noreferrer">
-  <span data-i18n="githubWord">{t.githubWord}</span>
-</a>
-<a href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" class="about__text-link" target="_blank" rel="noopener noreferrer">
-  <span data-i18n="linkedinWord">{t.linkedinWord}</span>
-</a>
-<a href="mailto:javieralzuu@gmail.com" class="about__text-link">
-  <span data-i18n="emailWord">{t.emailWord}</span>
-</a>
+  <div class="about__links reveal reveal--after" style="--i: 3">
+    <a href="https://github.com/jaalzu" class="about__text-link" target="_blank" rel="noopener noreferrer">
+      <span data-i18n="githubWord">{t.githubWord}</span>
+    </a>
+    <a href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" class="about__text-link" target="_blank" rel="noopener noreferrer">
+      <span data-i18n="linkedinWord">{t.linkedinWord}</span>
+    </a>
+    <a href="mailto:javieralzuu@gmail.com" class="about__text-link">
+      <span data-i18n="emailWord">{t.emailWord}</span>
+    </a>
   </div>
 </div>
 
+
 <style>
+  @keyframes revealUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    animation: revealUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  .reveal--after {
+    animation-delay: calc(300ms + var(--i, 0) * 110ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  :global(html.no-home-intro .reveal) {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
   .top-bar {
     display: flex;
     justify-content: flex-end;
@@ -46,7 +80,7 @@ const { t } = Astro.props;
   .hero-identity {
     display: flex;
     align-items: center;
-    padding-bottom: var(--space-6);
+    padding-bottom: var(--space-8);
 
   }
 
@@ -70,26 +104,24 @@ const { t } = Astro.props;
     font-size: var(--text-base);
     line-height: var(--leading-relaxed);
     color: var(--color-text);
-    max-inline-size: 60ch;
+    max-inline-size: 59ch;
   }
 
   .about__bio :global(.about__design) {
-    font-family: 'Story Script', cursive, sans-serif;
+    font-family: 'Newsreader', serif;
+    font-style: italic;
     color: var(--color-text-heading);
     display: inline-block;
-    font-size: 1.05em;
-    line-height: 1;
-    transform: translateY(-1px);
+    font-size: 1.07em;
   }
 
- .about__bio :global(.about__code),
+  .about__bio :global(.about__code),
 .about__bio :global(.about__unique) {
-  font-family: 'Story Script', cursive, sans-serif;
+  font-family: 'Newsreader', serif;
+  font-style: italic;
   color: var(--color-text-heading);
   display: inline-block;
-  font-size: 1.05em;
-  line-height: 1;
-  transform: translateY(-1px);
+  font-size: 1.07em;
 }
 
  
@@ -98,7 +130,7 @@ const { t } = Astro.props;
     display: inline-flex;
     align-items: center;
     gap: 3px;
-    color: var(--color-text-heading);
+    color: var(--color-text);
     text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
     text-underline-offset: 2px;
     transition: text-decoration-color var(--transition-fast);

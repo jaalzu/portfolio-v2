@@ -1,185 +1,216 @@
-// DesignTokensDemo.client.ts
-// Lógica del demo: anotaciones de tokens, pickers de color, sliders y tooltip compartido.
+// // DesignTokensDemo.client.ts
+// // Lógica del demo: anotaciones, carrusel, pickers, sliders continuos y tooltip compartido.
 
-type RadiusStep = { label: string; value: string };
-type FontStep = { label: string; value: string };
+// const LINE_SHORTEN = 14;
+// const KICK_THRESHOLD_MS = 60;
 
-const RADIUS_STEPS: RadiusStep[] = [
-  { label: "sm", value: "8px" },
-  { label: "md", value: "12px" },
-  { label: "full", value: "999px" },
-];
+// type Range = { min: number; max: number };
+// const lerp = (r: Range, t: number) => r.min + (r.max - r.min) * (t / 2);
 
-const FONT_STEPS: FontStep[] = [
-  { label: "sm", value: "0.95rem" },
-  { label: "md", value: "1.125rem" },
-  { label: "lg", value: "1.375rem" },
-];
+// const RADIUS_RANGE: Range = { min: 0, max: 32 };
+// const FONT_RANGE: Range = { min: 0.95, max: 1.4 };
 
-// cuánto se acorta cada línea del lado de la card, en px
-const LINE_SHORTEN = 14;
+// export function initTokensDemo(demo: HTMLElement) {
+//   if (demo.dataset.bound === "1") return;
+//   demo.dataset.bound = "1";
 
-export function initTokensDemo(demo: HTMLElement) {
-  if (demo.dataset.bound === "1") return;
-  demo.dataset.bound = "1";
+//   const card = demo.querySelector<HTMLElement>("#tk-card");
+//   const stage = demo.querySelector<HTMLElement>("#tk-stage");
+//   const infoBtn = demo.querySelector<HTMLButtonElement>("#tk-info-btn");
+//   const layer = demo.querySelector<HTMLElement>("#tk-annot-layer");
+//   const toolbar = demo.querySelector<HTMLElement>("#tk-toolbar");
+//   const tooltipEl = demo.querySelector<HTMLElement>("#tk-tooltip");
+//   if (!card || !stage || !infoBtn || !layer || !toolbar || !tooltipEl) return;
 
-  const card = demo.querySelector<HTMLElement>("#tk-card");
-  const stage = demo.querySelector<HTMLElement>("#tk-stage");
-  const infoBtn = demo.querySelector<HTMLButtonElement>("#tk-info-btn");
-  const layer = demo.querySelector<HTMLElement>("#tk-annot-layer");
-  const toolbar = demo.querySelector<HTMLElement>("#tk-toolbar");
-  const tooltip = demo.querySelector<HTMLElement>("#tk-tooltip");
-  if (!card || !stage || !infoBtn || !layer || !toolbar || !tooltip) return;
+//   // ---------------------------------------------------------------------
+//   // Anotaciones de tokens
+//   // ---------------------------------------------------------------------
+//   const labels = Array.from(layer.querySelectorAll<HTMLElement>(".tk-annot-label"));
+//   const lines = new Map<string, SVGLineElement>();
+//   layer.querySelectorAll<SVGLineElement>(".tk-annot-line").forEach((l) => lines.set(l.dataset.for!, l));
 
-  const labels = Array.from(layer.querySelectorAll<HTMLElement>(".tk-annot-label"));
-  const lines = new Map<string, SVGLineElement>();
-  layer.querySelectorAll<SVGLineElement>(".tk-annot-line").forEach((line) => {
-    lines.set(line.dataset.for!, line);
-  });
+//   let annotationsActive = false;
 
-  let annotationsActive = false;
+//   function positionAnnotations() {
+//     if (stage!.getBoundingClientRect().width < 640) return;
+//     const stageRect = stage!.getBoundingClientRect();
+//     const edgeMargin = 16;
 
-  // ---- anotaciones: medir contra el layout real de la card ----
-  function positionAnnotations() {
-    if (stage!.getBoundingClientRect().width < 640) return;
+//     labels.forEach((label) => {
+//       const anchor = label.dataset.anchor!;
+//       const side = label.dataset.side as "left" | "right";
+//       const target = card!.querySelector<HTMLElement>(`[data-token="${anchor}"]`);
+//       const line = lines.get(anchor);
+//       if (!target || !line) return;
 
-    const stageRect = stage!.getBoundingClientRect();
-    const edgeMargin = 16;
+//       const t = target.getBoundingClientRect();
+//       const targetX = t.left + t.width / 2 - stageRect.left;
+//       const targetY = t.top + t.height / 2 - stageRect.top;
 
-    labels.forEach((label) => {
-      const anchorKey = label.dataset.anchor!;
-      const target = card!.querySelector<HTMLElement>(`[data-token="${anchorKey}"]`);
-      const line = lines.get(anchorKey);
-      if (!target || !line) return;
+//       const l = label.getBoundingClientRect();
+//       const labelX = side === "left" ? edgeMargin : stageRect.width - l.width - edgeMargin;
+//       const labelY = Math.max(0, Math.min(stageRect.height - l.height, targetY - l.height / 2));
+//       label.style.left = `${labelX}px`;
+//       label.style.top = `${labelY}px`;
 
-      const tRect = target.getBoundingClientRect();
-      const targetX = tRect.left + tRect.width / 2 - stageRect.left;
-      const targetY = tRect.top + tRect.height / 2 - stageRect.top;
+//       const startX = side === "left" ? labelX + l.width : labelX;
+//       const startY = labelY + l.height / 2;
+//       const dx = targetX - startX;
+//       const dy = targetY - startY;
+//       const dist = Math.hypot(dx, dy) || 1;
+//       const ratio = Math.max(0, (dist - LINE_SHORTEN) / dist);
 
-      const labelRect = label.getBoundingClientRect();
-      const side = label.dataset.side;
-      const labelX = side === "left" ? edgeMargin : stageRect.width - labelRect.width - edgeMargin;
-      const labelY = Math.max(0, Math.min(stageRect.height - labelRect.height, targetY - labelRect.height / 2));
+//       line.setAttribute("x1", String(startX));
+//       line.setAttribute("y1", String(startY));
+//       line.setAttribute("x2", String(startX + dx * ratio));
+//       line.setAttribute("y2", String(startY + dy * ratio));
+//     });
+//   }
 
-      label.style.left = `${labelX}px`;
-      label.style.top = `${labelY}px`;
+//   infoBtn.addEventListener("click", () => {
+//     annotationsActive = !annotationsActive;
+//     infoBtn.setAttribute("aria-pressed", String(annotationsActive));
+//     stage!.classList.toggle("is-annotating", annotationsActive);
+//     if (annotationsActive) positionAnnotations();
+//   });
+//   window.addEventListener("resize", () => annotationsActive && positionAnnotations());
 
-      const lineStartX = side === "left" ? labelX + labelRect.width : labelX;
-      const lineStartY = labelY + labelRect.height / 2;
+//   // ---------------------------------------------------------------------
+//   // Carrusel
+//   // ---------------------------------------------------------------------
+//   const track = demo.querySelector<HTMLElement>("#tk-track");
+//   const dots = Array.from(demo.querySelectorAll<HTMLElement>(".tk-card__dot"));
+//   let slideIndex = 0;
 
-      // acorta la línea del lado de la card (no llega hasta el centro exacto)
-      const dx = targetX - lineStartX;
-      const dy = targetY - lineStartY;
-      const dist = Math.hypot(dx, dy) || 1;
-      const ratio = Math.max(0, (dist - LINE_SHORTEN) / dist);
-      const endX = lineStartX + dx * ratio;
-      const endY = lineStartY + dy * ratio;
+//   function goToSlide(i: number) {
+//     slideIndex = (i + dots.length) % dots.length;
+//     if (track) track.style.transform = `translateX(-${slideIndex * (100 / dots.length)}%)`;
+//     dots.forEach((d, idx) => d.classList.toggle("is-active", idx === slideIndex));
+//   }
 
-      line.setAttribute("x1", String(lineStartX));
-      line.setAttribute("y1", String(lineStartY));
-      line.setAttribute("x2", String(endX));
-      line.setAttribute("y2", String(endY));
-    });
-  }
+//   demo.querySelector("#tk-prev")?.addEventListener("click", () => goToSlide(slideIndex - 1));
+//   demo.querySelector("#tk-next")?.addEventListener("click", () => goToSlide(slideIndex + 1));
+//   dots.forEach((dot, i) => dot.addEventListener("click", () => goToSlide(i)));
 
-  infoBtn.addEventListener("click", () => {
-    annotationsActive = !annotationsActive;
-    infoBtn.setAttribute("aria-pressed", String(annotationsActive));
-    stage!.classList.toggle("is-annotating", annotationsActive);
-    if (annotationsActive) positionAnnotations();
-  });
+//   // ---------------------------------------------------------------------
+//   // Tooltip compartido — micro-interacción "kick + settle" reutilizable
+//   // ---------------------------------------------------------------------
+//   let tooltipHasAppeared = false;
+//   const lastKick = { t: 0 };
 
-  window.addEventListener("resize", () => {
-    if (annotationsActive) positionAnnotations();
-  });
+//   function positionTooltip(target: HTMLElement) {
+//     const tb = toolbar!.getBoundingClientRect();
+//     const r = target.getBoundingClientRect();
+//     tooltipEl!.style.left = `${r.left + r.width / 2 - tb.left}px`;
+//     tooltipEl!.style.top = `${r.top - tb.top}px`;
+//   }
 
-  // ---- tooltip compartido: primera aparición con fade corto desde 0.96,
-  // las siguientes (mientras el flag esté activo) aparecen sin animación ----
-  let tooltipHasAppeared = false;
+//   // Salto instantáneo con blur (sin transición) + vuelta animada (.tk-settle en CSS).
+//   // El "void el.offsetWidth" es la parte crítica: fuerza al navegador a pintar
+//   // el estado "kicked" antes de programar el cambio a "settle" en el próximo frame.
+//   // Sin ese reflow, ambas mutaciones de clase se funden en una sola y no se ve nada.
+//   // Sirve para cualquier valor numérico que cambie rápido, no solo el tooltip.
+//   function kickOrSettle(el: HTMLElement) {
+//     const now = performance.now();
+//     const isFast = now - lastKick.t < KICK_THRESHOLD_MS;
+//     lastKick.t = now;
+//     if (!isFast) return;
 
-  function positionTooltip(target: HTMLElement) {
-    const toolbarRect = toolbar!.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
-    const x = targetRect.left + targetRect.width / 2 - toolbarRect.left;
-    const y = targetRect.top - toolbarRect.top;
-    tooltip!.style.left = `${x}px`;
-    tooltip!.style.top = `${y}px`;
-  }
+//     el.classList.remove("tk-settle");
+//     el.classList.add("tk-kicked");
+//     void el.offsetWidth; // reflow forzado — no borrar
+//     requestAnimationFrame(() => {
+//       el.classList.remove("tk-kicked");
+//       el.classList.add("tk-settle");
+//     });
+//   }
 
-  function showTooltip(target: HTMLElement, text: string) {
-    tooltip!.textContent = text;
-    positionTooltip(target);
+//   function showTooltip(target: HTMLElement, text: string) {
+//     const match = text.match(/^(.*?)([\d.]+.*)$/);
+//     const prefix = match ? match[1] : "";
+//     const value = match ? match[2] : text;
 
-    if (!tooltipHasAppeared) {
-      tooltip!.style.transition = "opacity 0.15s ease";
-      tooltip!.style.opacity = "0.96";
-      tooltip!.classList.add("is-visible");
-      requestAnimationFrame(() => {
-        tooltip!.style.opacity = "1";
-      });
-      tooltipHasAppeared = true;
-    } else {
-      tooltip!.style.transition = "none";
-      tooltip!.style.opacity = "1";
-      tooltip!.classList.add("is-visible");
-    }
-  }
+//     let valueEl = tooltipEl!.querySelector<HTMLElement>(".tk-tooltip__value");
+//     if (!valueEl) {
+//       tooltipEl!.innerHTML = `${prefix}<span class="tk-tooltip__value tk-settle">${value}</span>`;
+//     } else {
+//       const prefixNode = tooltipEl!.firstChild;
+//       if (prefixNode?.nodeType === Node.TEXT_NODE) prefixNode.textContent = prefix;
+//       else tooltipEl!.insertBefore(document.createTextNode(prefix), tooltipEl!.firstChild);
 
-  function hideTooltip() {
-    tooltip!.classList.remove("is-visible");
-  }
+//       valueEl.textContent = value;
+//       kickOrSettle(valueEl);
+//     }
 
-  // ---- color pickers ----
-  demo.querySelectorAll<HTMLLabelElement>(".tk-picker").forEach((picker) => {
-    const input = picker.querySelector<HTMLInputElement>(".tk-picker__input")!;
-    const swatch = picker.querySelector<HTMLElement>(".tk-picker__swatch")!;
-    const tooltipText = picker.dataset.tooltip ?? "";
+//     positionTooltip(target);
 
-    swatch.style.background = input.value;
+//     tooltipEl!.style.transition = tooltipHasAppeared ? "none" : "opacity 0.15s ease";
+//     tooltipEl!.style.opacity = tooltipHasAppeared ? "1" : "0.96";
+//     tooltipEl!.classList.add("is-visible");
+//     if (!tooltipHasAppeared) {
+//       requestAnimationFrame(() => (tooltipEl!.style.opacity = "1"));
+//       tooltipHasAppeared = true;
+//     }
+//   }
 
-    input.addEventListener("input", () => {
-      const token = input.dataset.token;
-      swatch.style.background = input.value;
-      if (token === "bg") card!.style.setProperty("--tk-bg", input.value);
-      if (token === "primary") card!.style.setProperty("--tk-primary", input.value);
-      if (token === "text") card!.style.setProperty("--tk-text", input.value);
-      if (annotationsActive) positionAnnotations();
-      showTooltip(picker, tooltipText);
-    });
+//   function hideTooltip() {
+//     tooltipEl!.classList.remove("is-visible");
+//   }
 
-    picker.addEventListener("pointerenter", () => showTooltip(picker, tooltipText));
-    picker.addEventListener("focusin", () => showTooltip(picker, tooltipText));
-    picker.addEventListener("pointerleave", hideTooltip);
-    picker.addEventListener("focusout", hideTooltip);
-  });
+//   // ---------------------------------------------------------------------
+//   // Pickers de color — un solo binding para los tres
+//   // ---------------------------------------------------------------------
+//   const PICKER_VARS: Record<string, string> = { bg: "--tk-bg", primary: "--tk-primary", text: "--tk-text" };
 
-  // ---- sliders (radius / font) ----
-  function wireSlider(sliderId: string, steps: { label: string; value: string }[], cssVar: string) {
-    const slider = demo.querySelector<HTMLInputElement>(`#${sliderId}`);
-    if (!slider) return;
+//   demo.querySelectorAll<HTMLLabelElement>(".tk-picker").forEach((picker) => {
+//     const input = picker.querySelector<HTMLInputElement>(".tk-picker__input")!;
+//     const swatch = picker.querySelector<HTMLElement>(".tk-picker__swatch")!;
+//     const tooltipText = picker.dataset.tooltip ?? "";
+//     const cssVar = PICKER_VARS[input.dataset.token ?? ""];
 
-    const prefix = slider.dataset.tooltipPrefix ?? "";
-    const tooltipText = (index: number) => `${prefix}: ${steps[index].label}`;
+//     swatch.style.background = input.value;
 
-    function applyStep(index: number) {
-      card!.style.setProperty(cssVar, steps[index].value);
-      if (annotationsActive) positionAnnotations();
-    }
+//     input.addEventListener("input", () => {
+//       swatch.style.background = input.value;
+//       if (cssVar) card!.style.setProperty(cssVar, input.value);
+//       if (annotationsActive) positionAnnotations();
+//       showTooltip(picker, tooltipText);
+//     });
 
-    applyStep(Number(slider.value)); // valor inicial
+//     picker.addEventListener("pointerenter", () => showTooltip(picker, tooltipText));
+//     picker.addEventListener("focusin", () => showTooltip(picker, tooltipText));
+//     picker.addEventListener("pointerleave", hideTooltip);
+//     picker.addEventListener("focusout", hideTooltip);
+//   });
 
-    slider.addEventListener("input", () => {
-      const index = Number(slider.value);
-      applyStep(index);
-      showTooltip(slider, tooltipText(index));
-    });
+//   // ---------------------------------------------------------------------
+//   // Sliders continuos — un binder genérico reemplaza el código duplicado
+//   // que antes tenía radius y font por separado
+//   // ---------------------------------------------------------------------
+//   function bindSlider(id: string, range: Range, cssVar: string, format: (v: number) => string) {
+//     const slider = demo.querySelector<HTMLInputElement>(`#${id}`);
+//     if (!slider) return;
 
-    slider.addEventListener("pointerenter", () => showTooltip(slider, tooltipText(Number(slider.value))));
-    slider.addEventListener("focusin", () => showTooltip(slider, tooltipText(Number(slider.value))));
-    slider.addEventListener("pointerleave", hideTooltip);
-    slider.addEventListener("focusout", hideTooltip);
-  }
+//     const currentValue = () => lerp(range, Number(slider.value));
+//     const tooltipText = () => `${slider.dataset.tooltipPrefix ?? ""}: ${format(currentValue())}`;
 
-  wireSlider("tk-radius-slider", RADIUS_STEPS, "--tk-radius");
-  wireSlider("tk-fontsize-slider", FONT_STEPS, "--tk-title-size");
-}
+//     function apply() {
+//       card!.style.setProperty(cssVar, format(currentValue()));
+//       if (annotationsActive) positionAnnotations();
+//     }
+
+//     apply(); // valor inicial
+
+//     slider.addEventListener("input", () => {
+//       apply();
+//       showTooltip(slider, tooltipText());
+//     });
+//     slider.addEventListener("pointerenter", () => showTooltip(slider, tooltipText()));
+//     slider.addEventListener("focusin", () => showTooltip(slider, tooltipText()));
+//     slider.addEventListener("pointerleave", hideTooltip);
+//     slider.addEventListener("focusout", hideTooltip);
+//   }
+
+//   bindSlider("tk-radius-slider", RADIUS_RANGE, "--tk-radius", (v) => `${v.toFixed(0)}px`);
+//   bindSlider("tk-fontsize-slider", FONT_RANGE, "--tk-title-size", (v) => `${v.toFixed(2)}rem`);
+// }

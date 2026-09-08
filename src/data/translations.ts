@@ -5,7 +5,7 @@ export const translations = {
 			techStack: "Skills",
 			aboutMe: "Mas sobre mi",
 		},
-	bio1: 'Conecto <span class="about__design">diseño</span> con <span class="about__code">código</span> para crear productos digitales que se sienten tan bien como funcionan.<br><br>Construyo aplicaciones web con React, TypeScript, Next.js y CSS, desde flujos de datos y decisiones de arquitectura hasta sistemas de UI y componentes reutilizables y pulidos, cuidando cada mínimo detalle que hace que una experiencia se sienta  <span class="about__unique">única</span>.',
+	bio1: '<span class="about__design">Creando interfaces web</span> en la intersección entre diseño y código, donde la belleza se define por lo bien que funcionan.<br><br>Construyo aplicaciones web usando el ecosistema moderno de Javascript y mucho HTML y CSS, desde flujos de datos y decisiones de arquitectura hasta sistemas de UI y componentes reutilizables y pulidos, cuidando cada mínimo detalle que hace que una experiencia se sienta  <span class="about__unique">única</span>.',
 	
 		emailWord: "Email",
 		// emailAfter: "gratis!",
@@ -25,12 +25,18 @@ export const translations = {
 			"Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
 			"Plataforma privada para la gestión de cursos, alumnos y contenidos.",
 		],
-  about: [
-    "Soy del norte argentino, Chaco.",
-    "Tengo 25 años.",
-    "El 80% del tiempo que trabajo estoy escuchando música.",
-    "Soy fan del ",
-  ],
+// es
+about: [
+  "Soy del norte argentino, ",
+  "Tengo 25 años.",
+  "El 80% del tiempo que trabajo estoy escuchando música.",
+  "Soy fan del ",
+],
+// es
+province: {
+  name: "Chaco",
+  alt: "Foto de Chaco",
+},
 	
 		skillsPromo: {
 			title: "Mejora tus interfaces con agentes especializados",
@@ -68,7 +74,7 @@ export const translations = {
 			techStack: "Skills",
 			aboutMe: "About Me",
 		},
-	bio1: 'I bridge <span class="about__design">design</span> and <span class="about__code">code</span> to build products that feel as good as they work.<br><br>I build web applications with React, TypeScript, Next.js, and CSS, from data flows and architectural decisions to UI systems and polished, reusable components, caring about every small detail that makes an experience feel <span class="about__unique">unique</span>.',
+	bio1: '<span class="about__design">Crafting web interfaces</span> at the intersection of design and code where beauty is defined by how well they work.<br><br>I build web applications using the modern ecosystem of Javascript and a lot of HTML and CSS, from data flows and architectural decisions to UI systems and polished, reusable components, caring about every small detail that makes an experience feel <span class="about__unique">unique</span>.',
 	
 	
 		emailWord: "Email",
@@ -84,12 +90,18 @@ export const translations = {
 			"An interactive way to pick your colors and fonts in real time.",
 			"Private platform to manage courses, students, and content.",
 		],
-	 about: [
-    "I'm from northern Argentina, Chaco.",
-    "I'm 25 years old.",
-    "80% of the time I'm working, I'm listening to music.",
-    "I'm a fan of ",
-  ],
+// en
+about: [
+  "I'm from northern Argentina, ",
+  "I'm 25 years old.",
+  "80% of the time I'm working, I'm listening to music.",
+  "I'm a fan of ",
+],
+// en
+province: {
+  name: "Chaco",
+  alt: "Chaco photo",
+},
 		
 		skillsPromo: {
 			title: "Improve your interfaces with specialized agents",
