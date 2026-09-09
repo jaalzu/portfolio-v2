@@ -57,18 +57,19 @@ const { label, images, altBase, captions } = Astro.props;
 
   .province {
     position: relative;
-    display: inline-block;
-    color: var(--color-text-heading);
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-text);
     text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-color: var(--color-border);
+    text-underline-offset: 2px;
+    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
     cursor: pointer;
     transition: text-decoration-color var(--transition-fast);
   }
 
   .province:hover,
   .province:focus-visible {
-    text-decoration-color: var(--color-text-heading);
+    text-decoration-color: currentColor;
   }
 
   .province:focus-visible {
@@ -116,6 +117,13 @@ const { label, images, altBase, captions } = Astro.props;
     pointer-events: auto !important;
     transition: none !important;
   }
+
+  .province--lightbox-open .province__gallery {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
 
   /* ============================================================
      POLAROID
@@ -230,12 +238,16 @@ const { label, images, altBase, captions } = Astro.props;
   }
 </style>
 
+
 <script>
   import { safeAnimate, springs } from '../../lib/motion-tokens';
 
   const supportsHover = window.matchMedia(
     '(hover: hover) and (pointer: fine)'
   ).matches;
+
+
+ 
 
   // ============================================================
   // POSICIONAMIENTO DE LA GALERÍA
@@ -381,11 +393,15 @@ const { label, images, altBase, captions } = Astro.props;
 
       if (currentIndex === -1) return;
 
-      const province = img.closest('.province');
+     const province = img.closest('.province');
 
-      if (province) {
-        province.classList.add('province--gallery-open');
-      }
+if (province) {
+  if (!supportsHover) {
+    province.classList.add('province--gallery-open');
+  } else {
+    province.classList.add('province--lightbox-open');
+  }
+}
 
       // ========================================================
       // OVERLAY
@@ -701,22 +717,19 @@ card.addEventListener('touchend', handleTouchEnd, {
       // ========================================================
       // CLOSE MODAL
       // ========================================================
+const closeModal = () => {
+  overlay.remove();
 
-      const closeModal = () => {
-        if (province) {
-          province.classList.remove(
-            'province--gallery-open'
-          );
-        }
+  if (province) {
+    if (!supportsHover) {
+      province.classList.remove('province--gallery-open');
+    } else {
+      province.classList.remove('province--lightbox-open');
+    }
+  }
 
-        overlay.remove();
-
-        document.removeEventListener(
-          'keydown',
-          keyHandler
-        );
-      };
-
+  document.removeEventListener('keydown', keyHandler);
+};
       // ========================================================
       // CLOSE BY CLICKING OUTSIDE
       // ========================================================

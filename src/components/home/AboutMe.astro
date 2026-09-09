@@ -23,9 +23,10 @@ const { texts, province } = Astro.props;
   ]}
       />
     )}.{" "}
-    <span class="about__line" data-i18n="about.1">{texts[1]}</span>{" "}
-    <span class="about__line" data-i18n="about.2">{texts[2]}</span>{" "}
-    <span class="about__line" data-i18n="about.3">{texts[3]}</span>
-    <a class="about__link" href="/ascii-gallery">ASCII art</a>.
+    <span class="about__line" data-i18n="about.1">{texts[1]}</span>{texts[2] && (
+      <><span class="about__line" data-i18n="about.2"> {texts[2]}</span></>
+    )}{texts[3] && (
+      <><span class="about__line" data-i18n="about.3"> {texts[3]}</span><a class="about__link" href="/ascii-gallery">ASCII art</a>.</>
+    )}
   </p>
 </div>

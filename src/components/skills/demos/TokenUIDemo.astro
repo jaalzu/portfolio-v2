@@ -42,12 +42,10 @@
           </svg>
         </button>
 
-        <!-- MOBILE: badge del ícono de la flecha — overlay, no ocupa espacio -->
         <span class="tk-token-badge tk-token-badge--arrow">6</span>
       </div>
 
       <div class="tk-card__content" data-token="content">
-        <!-- MOBILE: badge de surface-1, esquina del content — overlay -->
         <span class="tk-token-badge tk-token-badge--content">4</span>
 
         <h3 class="tk-card__title" data-token="title">
@@ -88,7 +86,6 @@
       </div>
     </div>
 
-    <!-- DESKTOP: capa de anotaciones con líneas -->
     <div class="tk-annot-layer" id="tk-annot-layer" aria-hidden="true">
       <svg class="tk-annot-svg" id="tk-annot-svg"></svg>
     </div>
@@ -130,7 +127,7 @@
       if (demo.dataset.bound === "1") return;
       demo.dataset.bound = "1";
 
-      var LINE_SHORTEN = 20;
+      var LINE_SHORTEN = 30;
       var RADIUS_RANGE = { min: 0, max: 32 };
       var FONT_RANGE = { min: 0.95, max: 1.4 };
 
@@ -138,14 +135,15 @@
         return range.min + (range.max - range.min) * (t / 2);
       }
 
+      // "shorten" opcional: sobreescribe LINE_SHORTEN para esa anotación puntual
       var ANNOTATIONS = [
-        { selector: '[data-token="title"]', side: "left", label: "text-heading" },
-        { selector: '[data-token="text-body"]', side: "left", label: "text-base" },
+        { selector: '[data-token="title"]', side: "left", label: "text-heading", shorten: 46 },
+        { selector: '[data-token="text-body"]', side: "left", label: "text-base", shorten: 46 },
         { selector: '[data-token="avatar"]', side: "left", label: "primary" },
         { selector: '[data-token="content"]', side: "right", label: "surface-1", edgeInset: 30 },
         { selector: '[data-token="button"]', side: "right", label: "radius" },
         { selector: '[data-token="arrow"]', side: "right", label: "icon-neutral" },
-        { selector: '[data-token="stars"]', side: "right", label: "rating" }
+        { selector: '[data-token="stars"]', side: "left", label: "rating" }
       ];
 
       var card = demo.querySelector("#tk-card");
@@ -208,7 +206,8 @@
           var dx = targetX - startX;
           var dy = targetY - startY;
           var dist = Math.hypot(dx, dy) || 1;
-          var ratio = Math.max(0, (dist - LINE_SHORTEN) / dist);
+          var shorten = cfg.shorten != null ? cfg.shorten : LINE_SHORTEN;
+          var ratio = Math.max(0, (dist - shorten) / dist);
 
           item.line.setAttribute("x1", String(startX));
           item.line.setAttribute("y1", String(startY));
@@ -405,9 +404,6 @@
     background: var(--color-surface-2);
   }
 
-  /* =======================================================================
-     DESKTOP — líneas
-     ======================================================================= */
   :global(.tk-annot-line) { stroke: currentColor; stroke-width: 1.5; opacity: 0; transition: opacity 0.15s ease; }
   .tk-demo__stage.is-annotating :global(.tk-annot-line) { opacity: 0.5; }
 
@@ -429,15 +425,8 @@
   .tk-annot-layer { position: absolute; inset: 0; z-index: 15; pointer-events: none; }
   .tk-annot-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: var(--color-text-heading); }
 
-  /* =======================================================================
-     MOBILE — badges numerados (overlay puro, cero espacio en el flujo)
-     Ocultos en desktop por defecto (display: none).
-     ======================================================================= */
   .tk-mobile-legend { display: none; }
-
-  .tk-token-badge {
-    display: none; /* en desktop no existen */
-  }
+  .tk-token-badge { display: none; }
 
   /* ---- Card ---- */
   .tk-card {
@@ -460,7 +449,18 @@
 
   .tk-card__media { position: relative; flex-shrink: 0; height: 150px; overflow: hidden; }
   .tk-card__track { display: flex; height: 100%; width: 300%; transform: translateX(0%); transition: transform 0.35s ease; }
-  .tk-card__image { display: block; width: 33.333%; height: 100%; object-fit: cover; flex-shrink: 0; }
+
+  /* imagen ligeramente más ancha + margen negativo: elimina la rendija
+     de subpíxel entre slides causada por el redondeo de 33.333% */
+  .tk-card__image {
+    display: block;
+    width: calc(33.334% + 1px);
+    margin-right: -1px;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+    transform: translateZ(0);
+  }
 
   .tk-card__arrow {
     position: absolute;
@@ -653,18 +653,11 @@
     .tk-demo__stage { padding: var(--space-6) var(--space-4); }
   }
 
-  /* =======================================================================
-     MOBILE — badges como overlay absoluto (cero espacio en flujo) +
-     leyenda con espacio propio + padding extra al activar anotaciones.
-     ======================================================================= */
   @media (max-width: 640px) {
     .tk-demo__stage {
       flex-direction: column;
       gap: var(--space-4);
-    }
-
-    /* padding-top extra SOLO cuando está anotando — pedido explícito */
-    .tk-demo__stage.is-annotating {
+      /* fijo siempre, no condicionado a is-annotating — evita el salto al togglear */
       padding-top: var(--space-12);
     }
 
@@ -696,7 +689,6 @@
       white-space: nowrap;
     }
 
-    /* base compartida: círculo chico, siempre absolute, nunca reserva espacio */
     .tk-token-badge {
       display: flex;
       align-items: center;
@@ -719,13 +711,11 @@
       opacity: 1;
     }
 
-    /* la leyenda usa el mismo círculo pero SIEMPRE visible (no overlay) */
     .tk-legend-dot {
       position: static !important;
       opacity: 1 !important;
     }
 
-    /* ---- posiciones de cada badge, todas overlay dentro de la gutter ---- */
     .tk-token-badge--title { position: absolute; left: -14px; top: 50%; transform: translateY(-50%); }
     .tk-token-badge--textbody { position: absolute; left: -14px; top: 6px; }
     .tk-token-badge--avatar { position: absolute; left: -12px; top: 50%; transform: translateY(-50%); }

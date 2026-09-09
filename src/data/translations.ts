@@ -5,7 +5,7 @@ export const translations = {
 			techStack: "Skills",
 			aboutMe: "Mas sobre mi",
 		},
-	bio1: '<span class="about__design">Creando interfaces web</span> en la intersección entre diseño y código, donde la belleza se define por lo bien que funcionan.<br><br>Construyo aplicaciones web usando el ecosistema moderno de Javascript y mucho HTML y CSS, desde flujos de datos y decisiones de arquitectura hasta sistemas de UI y componentes reutilizables y pulidos, cuidando cada mínimo detalle que hace que una experiencia se sienta  <span class="about__unique">única</span>.',
+	bio1: '<span class="about__design">Creando interfaces web</span> en la intersección entre diseño y código, donde la belleza se define por lo bien que funcionan.<br><br>Construyo aplicaciones web usando React, Next.js, TypeScript y CSS, desde flujos de datos y decisiones de arquitectura hasta sistemas de UI y componentes reutilizables y pulidos, cuidando cada mínimo detalle que hace cada experiencia <span class="about__unique">única.</span>',
 	
 		emailWord: "Email",
 		// emailAfter: "gratis!",
@@ -27,14 +27,14 @@ export const translations = {
 		],
 // es
 about: [
-  "Soy del norte argentino, ",
-  "Tengo 25 años.",
-  "El 80% del tiempo que trabajo estoy escuchando música.",
-  "Soy fan del ",
+  "Soy de ",
+  "Tengo 25 años y 4 años de experiencia como desarrollador web. La mayor parte del tiempo estoy escuchando música o aprendiendo cosas que probablemente jamás use.",
+  "",
+  "",
 ],
 // es
 province: {
-  name: "Chaco",
+  name: "Chaco, Argentina",
   alt: "Foto de Chaco",
 },
 	
@@ -74,7 +74,7 @@ province: {
 			techStack: "Skills",
 			aboutMe: "About Me",
 		},
-	bio1: '<span class="about__design">Crafting web interfaces</span> at the intersection of design and code where beauty is defined by how well they work.<br><br>I build web applications using the modern ecosystem of Javascript and a lot of HTML and CSS, from data flows and architectural decisions to UI systems and polished, reusable components, caring about every small detail that makes an experience feel <span class="about__unique">unique</span>.',
+	bio1: '<span class="about__design">Crafting web interfaces</span> at the intersection of design and code where beauty is defined by how well they work.<br><br>I build web applications using React, Next.js, TypeScript, and CSS, from data flows and architectural decisions to UI systems and polished, reusable components, caring about every small detail that makes an experience feel <span class="about__unique">unique</span>.',
 	
 	
 		emailWord: "Email",
@@ -92,14 +92,14 @@ province: {
 		],
 // en
 about: [
-  "I'm from northern Argentina, ",
-  "I'm 25 years old.",
-  "80% of the time I'm working, I'm listening to music.",
-  "I'm a fan of ",
+  "I'm from ",
+  "I'm 25 years old with 4 years of experience as a web developer. Most of the time, you'll find me listening to music or learning things I'll probably never use.",
+  "",
+  "",
 ],
 // en
 province: {
-  name: "Chaco",
+  name: "Chaco, Argentina",
   alt: "Chaco photo",
 },
 		
