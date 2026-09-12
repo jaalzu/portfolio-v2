@@ -1,27 +1,33 @@
-import { safeAnimate, springs } from '../../../lib/motion-tokens';
+import { safeAnimate, springs } from "../../../lib/motion-tokens";
 
 function getLang() {
-  return document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'es';
+  return document.documentElement.getAttribute("data-lang") === "en"
+    ? "en"
+    : "es";
 }
 
 function createArrowButton(direction, supportsHover) {
-  const button = document.createElement('button');
+  const button = document.createElement("button");
 
-  button.type = 'button';
-  button.className = 'lightbox-arrow';
+  button.type = "button";
+  button.className = "lightbox-arrow";
 
   const lang = getLang();
   button.setAttribute(
-    'aria-label',
-    lang === 'en'
-      ? direction === 'prev' ? 'Previous image' : 'Next image'
-      : direction === 'prev' ? 'Imagen anterior' : 'Imagen siguiente'
+    "aria-label",
+    lang === "en"
+      ? direction === "prev"
+        ? "Previous image"
+        : "Next image"
+      : direction === "prev"
+        ? "Imagen anterior"
+        : "Imagen siguiente",
   );
 
   button.style.cssText = `
     position: absolute;
     top: 50%;
-    ${direction === 'prev' ? 'left: -46px;' : 'right: -46px;'}
+    ${direction === "prev" ? "left: -46px;" : "right: -46px;"}
     transform: translateY(-50%);
     width: 44px;
     height: 44px;
@@ -37,21 +43,21 @@ function createArrowButton(direction, supportsHover) {
   `;
 
   if (!supportsHover) {
-    button.style.display = 'none';
+    button.style.display = "none";
   }
 
-  const icon = document.createElement('img');
+  const icon = document.createElement("img");
 
-  icon.src = '/skills/arrow.svg';
-  icon.alt = '';
-  icon.setAttribute('aria-hidden', 'true');
+  icon.src = "/skills/arrow.svg";
+  icon.alt = "";
+  icon.setAttribute("aria-hidden", "true");
 
   icon.style.cssText = `
     width: 100%;
     height: 100%;
     display: block;
     filter: invert(1);
-    ${direction === 'prev' ? 'transform: rotate(180deg);' : ''}
+    ${direction === "prev" ? "transform: rotate(180deg);" : ""}
   `;
 
   button.appendChild(icon);
@@ -62,32 +68,32 @@ function createArrowButton(direction, supportsHover) {
 function killAnimations(el) {
   try {
     el.getAnimations?.().forEach((a) => a.cancel());
-  } catch (err) {
+  } catch (_err) {
     // noop
   }
 }
 
 function openLightbox(img, supportsHover) {
-  const gallery = img.closest('.province__gallery');
+  const gallery = img.closest(".province__gallery");
   if (!gallery) return;
 
   const startRect = img.getBoundingClientRect();
 
-  const allPhotos = gallery.querySelectorAll('.province__photo');
+  const allPhotos = gallery.querySelectorAll(".province__photo");
 
-  const photoSrcs = Array.from(allPhotos).map((el) => el.getAttribute('src'));
+  const photoSrcs = Array.from(allPhotos).map((el) => el.getAttribute("src"));
 
   const photoCaptions = Array.from(allPhotos).map(
-    (el) => el.getAttribute('data-caption') || el.getAttribute('alt') || ''
+    (el) => el.getAttribute("data-caption") || el.getAttribute("alt") || "",
   );
 
-  const currentIndex = photoSrcs.indexOf(img.getAttribute('src'));
+  const currentIndex = photoSrcs.indexOf(img.getAttribute("src"));
   if (currentIndex === -1) return;
 
-  const province = img.closest('.province');
+  const province = img.closest(".province");
 
   if (province) {
-    province.classList.add('province--gallery-open');
+    province.classList.add("province--gallery-open");
   }
 
   // ... overlay, card, etc. (sin cambios) ...
@@ -96,7 +102,7 @@ function openLightbox(img, supportsHover) {
   // OVERLAY
   // ============================================================
 
-  const overlay = document.createElement('div');
+  const overlay = document.createElement("div");
 
   overlay.style.cssText = `
     position: fixed;
@@ -119,7 +125,7 @@ function openLightbox(img, supportsHover) {
   // CARD
   // ============================================================
 
-  const card = document.createElement('div');
+  const card = document.createElement("div");
 
   card.style.cssText = `
     position: relative;
@@ -140,10 +146,11 @@ function openLightbox(img, supportsHover) {
   // BIG IMAGE
   // ============================================================
 
-  const bigImg = document.createElement('img');
+  const bigImg = document.createElement("img");
 
   bigImg.src = photoSrcs[currentIndex];
-  bigImg.alt = img.alt || (getLang() === 'en' ? 'Enlarged image' : 'Imagen ampliada');
+  bigImg.alt =
+    img.alt || (getLang() === "en" ? "Enlarged image" : "Imagen ampliada");
 
   bigImg.style.cssText = `
     width: 100%;
@@ -160,7 +167,7 @@ function openLightbox(img, supportsHover) {
   // CAPTION
   // ============================================================
 
-  const captionEl = document.createElement('div');
+  const captionEl = document.createElement("div");
 
   captionEl.style.cssText = `
     margin-top: var(--space-4);
@@ -181,11 +188,11 @@ function openLightbox(img, supportsHover) {
   // CLOSE BUTTON
   // ============================================================
 
-  const closeBtn = document.createElement('button');
+  const closeBtn = document.createElement("button");
 
-  closeBtn.type = 'button';
-  closeBtn.innerHTML = '✕';
-  closeBtn.setAttribute('aria-label', getLang() === 'en' ? 'Close' : 'Cerrar');
+  closeBtn.type = "button";
+  closeBtn.innerHTML = "✕";
+  closeBtn.setAttribute("aria-label", getLang() === "en" ? "Close" : "Cerrar");
 
   closeBtn.style.cssText = `
     position: absolute;
@@ -213,8 +220,8 @@ function openLightbox(img, supportsHover) {
   // ARROWS
   // ============================================================
 
-  const prevBtn = createArrowButton('prev', supportsHover);
-  const nextBtn = createArrowButton('next', supportsHover);
+  const prevBtn = createArrowButton("prev", supportsHover);
+  const nextBtn = createArrowButton("next", supportsHover);
 
   card.appendChild(prevBtn);
   card.appendChild(nextBtn);
@@ -231,11 +238,11 @@ function openLightbox(img, supportsHover) {
   // botón de cerrar en touch no dispare el listener global de
   // interactions.js).
   overlay.addEventListener(
-    'touchstart',
+    "touchstart",
     (e) => {
       e.stopPropagation();
     },
-    { capture: true, passive: true }
+    { capture: true, passive: true },
   );
 
   // ============================================================
@@ -251,7 +258,7 @@ function openLightbox(img, supportsHover) {
     startRect.top + startRect.height / 2 - (endRect.top + endRect.height / 2);
 
   const startTransform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
-  const endTransform = 'translate(0px, 0px) scale(1)';
+  const endTransform = "translate(0px, 0px) scale(1)";
 
   card.style.transform = startTransform;
 
@@ -285,17 +292,17 @@ function openLightbox(img, supportsHover) {
     }
   };
 
-  card.addEventListener('touchstart', handleTouchStart, { passive: true });
-  card.addEventListener('touchend', handleTouchEnd, { passive: true });
+  card.addEventListener("touchstart", handleTouchStart, { passive: true });
+  card.addEventListener("touchend", handleTouchEnd, { passive: true });
 
   // ============================================================
   // ARROW VISIBILITY
   // ============================================================
 
   const updateArrows = () => {
-    prevBtn.style.visibility = currentIdx > 0 ? 'visible' : 'hidden';
+    prevBtn.style.visibility = currentIdx > 0 ? "visible" : "hidden";
     nextBtn.style.visibility =
-      currentIdx < photoSrcs.length - 1 ? 'visible' : 'hidden';
+      currentIdx < photoSrcs.length - 1 ? "visible" : "hidden";
   };
 
   // ============================================================
@@ -307,23 +314,29 @@ function openLightbox(img, supportsHover) {
 
     currentIdx = newIndex;
 
-    safeAnimate(bigImg, { opacity: 0 }, { duration: 0.15, easing: 'ease-out' })
+    safeAnimate(bigImg, { opacity: 0 }, { duration: 0.15, easing: "ease-out" })
       .then(() => {
-        bigImg.style.opacity = '0';
+        bigImg.style.opacity = "0";
         bigImg.src = photoSrcs[currentIdx];
-        bigImg.alt = allPhotos[currentIdx].getAttribute('alt') || (getLang() === 'en' ? 'Enlarged image' : 'Imagen ampliada');
+        bigImg.alt =
+          allPhotos[currentIdx].getAttribute("alt") ||
+          (getLang() === "en" ? "Enlarged image" : "Imagen ampliada");
         captionEl.textContent = photoCaptions[currentIdx];
 
         updateArrows();
 
-        return safeAnimate(bigImg, { opacity: 1 }, { duration: 0.15, easing: 'ease-in' });
+        return safeAnimate(
+          bigImg,
+          { opacity: 1 },
+          { duration: 0.15, easing: "ease-in" },
+        );
       })
       .then(() => {
-        bigImg.style.opacity = '1';
+        bigImg.style.opacity = "1";
       })
       .catch((err) => {
-        console.error('[lightbox] updateImage error', err);
-        bigImg.style.opacity = '1';
+        console.error("[lightbox] updateImage error", err);
+        bigImg.style.opacity = "1";
       });
   };
 
@@ -331,12 +344,12 @@ function openLightbox(img, supportsHover) {
   // ARROW EVENTS
   // ============================================================
 
-  prevBtn.addEventListener('click', (e) => {
+  prevBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     updateImage(currentIdx - 1);
   });
 
-  nextBtn.addEventListener('click', (e) => {
+  nextBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     updateImage(currentIdx + 1);
   });
@@ -351,7 +364,7 @@ function openLightbox(img, supportsHover) {
     if (isClosing) return;
     isClosing = true;
 
-    document.removeEventListener('keydown', keyHandler);
+    document.removeEventListener("keydown", keyHandler);
 
     killAnimations(card);
     killAnimations(overlay);
@@ -364,27 +377,24 @@ function openLightbox(img, supportsHover) {
 
     const closeScale = targetRect.width / cardRect.width;
     const closeDeltaX =
-      targetRect.left + targetRect.width / 2 - (cardRect.left + cardRect.width / 2);
+      targetRect.left +
+      targetRect.width / 2 -
+      (cardRect.left + cardRect.width / 2);
     const closeDeltaY =
-      targetRect.top + targetRect.height / 2 - (cardRect.top + cardRect.height / 2);
+      targetRect.top +
+      targetRect.height / 2 -
+      (cardRect.top + cardRect.height / 2);
 
     const closeTransform = `translate(${closeDeltaX}px, ${closeDeltaY}px) scale(${closeScale})`;
 
     let finished = false;
 
-       const finishClose = () => {
+    const finishClose = () => {
       if (finished) return;
       finished = true;
 
       overlay.remove();
 
-      // En desktop NO sacamos la clase acá. El usuario recién cerró
-      // desde el botón X, que suele estar lejos del polaroid real —
-      // si soltáramos la galería ahora, el CSS :hover miraría dónde
-      // está el mouse en este instante (casi seguro afuera) y la
-      // cerraría de una. En cambio, la dejamos abierta y la sacamos
-      // recién cuando el mouse realmente abandona la zona de
-      // .province, o si el usuario clickea en otro lado.
       if (supportsHover && province) {
         let released = false;
 
@@ -392,28 +402,36 @@ function openLightbox(img, supportsHover) {
           if (released) return;
           released = true;
 
-          province.classList.remove('province--gallery-open');
-          province.removeEventListener('mouseleave', release);
-          document.removeEventListener('click', handleOutsideClick);
+          province.classList.remove("province--gallery-open");
+          province.removeEventListener("mouseleave", release);
+          document.removeEventListener("click", handleOutsideClick);
         };
 
         const handleOutsideClick = (e) => {
           if (!province.contains(e.target)) release();
         };
 
-        province.addEventListener('mouseleave', release, { once: true });
-        document.addEventListener('click', handleOutsideClick);
+        province.addEventListener("mouseleave", release, { once: true });
+        document.addEventListener("click", handleOutsideClick);
       }
     };
 
     const fallbackTimer = setTimeout(finishClose, 350);
 
     Promise.all([
-      safeAnimate(card, { transform: closeTransform }, { duration: 0.22, easing: 'ease-in' }),
-      safeAnimate(overlay, { opacity: 0 }, { duration: 0.2, easing: 'ease-in' }),
+      safeAnimate(
+        card,
+        { transform: closeTransform },
+        { duration: 0.22, easing: "ease-in" },
+      ),
+      safeAnimate(
+        overlay,
+        { opacity: 0 },
+        { duration: 0.2, easing: "ease-in" },
+      ),
     ])
       .catch((err) => {
-        console.error('[lightbox] close animation error', err);
+        console.error("[lightbox] close animation error", err);
       })
       .then(() => {
         clearTimeout(fallbackTimer);
@@ -421,34 +439,34 @@ function openLightbox(img, supportsHover) {
       });
   };
 
-  overlay.addEventListener('click', (e) => {
+  overlay.addEventListener("click", (e) => {
     if (e.target === overlay) closeModal();
   });
 
   overlay.addEventListener(
-    'touchstart',
+    "touchstart",
     (e) => {
       if (e.target === overlay) closeModal();
     },
-    { passive: true }
+    { passive: true },
   );
 
-  closeBtn.addEventListener('click', (e) => {
+  closeBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     closeModal();
   });
 
-  card.addEventListener('click', (e) => {
+  card.addEventListener("click", (e) => {
     e.stopPropagation();
   });
 
   const keyHandler = (e) => {
-    if (e.key === 'Escape') closeModal();
-    if (e.key === 'ArrowLeft') updateImage(currentIdx - 1);
-    if (e.key === 'ArrowRight') updateImage(currentIdx + 1);
+    if (e.key === "Escape") closeModal();
+    if (e.key === "ArrowLeft") updateImage(currentIdx - 1);
+    if (e.key === "ArrowRight") updateImage(currentIdx + 1);
   };
 
-  document.addEventListener('keydown', keyHandler);
+  document.addEventListener("keydown", keyHandler);
 
   // ============================================================
   // ENTRY ANIMATION
@@ -456,21 +474,29 @@ function openLightbox(img, supportsHover) {
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      safeAnimate(overlay, { opacity: 1 }, { duration: 0.18, easing: 'ease-out' })
+      safeAnimate(
+        overlay,
+        { opacity: 1 },
+        { duration: 0.18, easing: "ease-out" },
+      )
         .then(() => {
-          overlay.style.opacity = '1';
+          overlay.style.opacity = "1";
         })
         .catch((err) => {
-          console.error('[lightbox] overlay entry animation error', err);
-          overlay.style.opacity = '1';
+          console.error("[lightbox] overlay entry animation error", err);
+          overlay.style.opacity = "1";
         });
 
-      safeAnimate(card, { transform: endTransform }, { ...springs.swap, duration: 0.32 })
+      safeAnimate(
+        card,
+        { transform: endTransform },
+        { ...springs.swap, duration: 0.32 },
+      )
         .then(() => {
           card.style.transform = endTransform;
         })
         .catch((err) => {
-          console.error('[lightbox] card entry animation error', err);
+          console.error("[lightbox] card entry animation error", err);
           card.style.transform = endTransform;
         });
     });
@@ -478,8 +504,8 @@ function openLightbox(img, supportsHover) {
 }
 
 export function initLightboxes({ supportsHover }) {
-  document.querySelectorAll('.province__photo').forEach((img) => {
-    img.addEventListener('click', (e) => {
+  document.querySelectorAll(".province__photo").forEach((img) => {
+    img.addEventListener("click", (e) => {
       e.stopPropagation();
       openLightbox(img, supportsHover);
     });

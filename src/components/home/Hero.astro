@@ -3,29 +3,54 @@
 import LanguageToggle from "../ui/LanguageToggle.astro";
 
 export interface Props {
-	t: any;
+  t: {
+    bio1: string;
+    githubWord: string;
+    linkedinWord: string;
+    emailWord: string;
+  };
 }
 const { t } = Astro.props;
 ---
+
 <div class="top-bar reveal reveal--after" style="--i: 0">
   <LanguageToggle />
 </div>
 
 <div class="hero-identity">
   <div class="hero-identity__text">
-    <p class="hero-identity__name reveal" style="--i: 0">Javier Alzú</p>
-    <p class="hero-identity__role reveal reveal--after" style="--i: 1">Design Engineer</p>
+    <p class="hero-identity__name reveal" style="--i: 0">
+      Javier Alzú
+    </p>
+    <p class="hero-identity__role reveal reveal--after" style="--i: 1">
+      Design Engineer
+    </p>
   </div>
 </div>
 
 <div class="about">
-  <p class="about__bio reveal reveal--after" style="--i: 2" data-i18n-html="bio1" set:html={t.bio1} />
+  <p
+    class="about__bio reveal reveal--after"
+    style="--i: 2"
+    data-i18n-html="bio1"
+    set:html={t.bio1}
+  />
 
   <div class="about__links reveal reveal--after" style="--i: 3">
-    <a href="https://github.com/jaalzu" class="about__text-link" target="_blank" rel="noopener noreferrer">
+    <a
+      href="https://github.com/jaalzu"
+      class="about__text-link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <span data-i18n="githubWord">{t.githubWord}</span>
     </a>
-    <a href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" class="about__text-link" target="_blank" rel="noopener noreferrer">
+    <a
+      href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/"
+      class="about__text-link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <span data-i18n="linkedinWord">{t.linkedinWord}</span>
     </a>
     <a href="mailto:javieralzuu@gmail.com" class="about__text-link">
@@ -33,7 +58,6 @@ const { t } = Astro.props;
     </a>
   </div>
 </div>
-
 
 <style>
   @keyframes revealUp {
@@ -65,9 +89,9 @@ const { t } = Astro.props;
   }
 
   :global(html.no-home-intro .reveal) {
-  animation: none !important;
-  opacity: 1 !important;
-}
+    animation: none !important;
+    opacity: 1 !important;
+  }
 
   .top-bar {
     display: flex;
@@ -81,7 +105,6 @@ const { t } = Astro.props;
     display: flex;
     align-items: center;
     padding-bottom: var(--space-8);
-
   }
 
   .hero-identity__name {
@@ -94,7 +117,7 @@ const { t } = Astro.props;
   .hero-identity__role {
     margin: 0;
     font-size: var(--text-sm);
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     color: var(--color-text);
     line-height: var(--leading-tighter);
   }
@@ -108,7 +131,7 @@ const { t } = Astro.props;
   }
 
   .about__bio :global(.about__design) {
-    font-family: 'Newsreader', serif;
+    font-family: "Newsreader", serif;
     font-style: italic;
     color: var(--color-text-heading);
     display: inline-block;
@@ -116,15 +139,13 @@ const { t } = Astro.props;
   }
 
   .about__bio :global(.about__code),
-.about__bio :global(.about__unique) {
-  font-family: 'Newsreader', serif;
-  font-style: italic;
-  color: var(--color-text-heading);
-  display: inline-block;
-  font-size: 1.07em;
-}
-
- 
+  .about__bio :global(.about__unique) {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    color: var(--color-text-heading);
+    display: inline-block;
+    font-size: 1.07em;
+  }
 
   .about__text-link {
     display: inline-flex;
@@ -143,18 +164,16 @@ const { t } = Astro.props;
 
   .about__links {
     padding-top: var(--space-2);
-        display: flex;
+    display: flex;
     gap: var(--space-4);
     font-size: var(--text-sm);
     flex-wrap: wrap;
     align-items: center;
   }
 
-
   @media (max-width: 768px) {
-    .top-bar{
-    padding-top: var(--space-4);
-
+    .top-bar {
+      padding-top: var(--space-4);
     }
     .about {
       padding-block: var(--space-1);

@@ -1,7 +1,12 @@
 {
 	"name": "portfolio",
-	"type": "module",
 	"version": "0.0.1",
+	"dependencies": {
+		"@astrojs/check": "^0.9.10",
+		"astro": "^7.2.2",
+		"gsap": "^3.15.0",
+		"motion": "^13.1.1"
+	},
 	"engines": {
 		"node": ">=22.12.0"
 	},
@@ -10,18 +15,19 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"format": "biome format --write .",
-		"format:check": "biome format .",
-		"lint": "biome lint .",
-		"check": "biome check .",
-		"check:fix": "biome check --write ."
+		"lint": "eslint .",
+		"format": "prettier --write ."
 	},
-	"dependencies": {
-		"astro": "^7.2.2",
-		"gsap": "^3.15.0",
-		"motion": "^13.1.1"
-	},
+	"type": "module",
 	"devDependencies": {
-		"@biomejs/biome": "2.5.11"
+		"@eslint/js": "^10.0.1",
+		"eslint": "^10.10.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-astro": "^3.1.0",
+		"globals": "^17.12.0",
+		"prettier": "^3.9.6",
+		"prettier-plugin-astro": "^1.0.0",
+		"typescript": "5.7.3",
+		"typescript-eslint": "^8.70.0"
 	}
 }

@@ -1,5 +1,5 @@
 ---
- // TokenUIDemo.astro
+// TokenUIDemo.astro
 import TokenUICard from "./TokenUICard.astro";
 import TokenUIToolbar from "./TokenUIToolbar.astro";
 import { translations } from "../../../../data/translations";
@@ -8,23 +8,59 @@ const t = translations.es;
 
 <div class="tk-demo">
   <div class="tk-demo__stage" id="tk-stage">
-    <button class="tk-info-btn" type="button" id="tk-info-btn" aria-pressed="false" aria-label={t.skillsPage.tokenDemo.infoLabel} data-i18n-attr="aria-label:skillsPage.tokenDemo.infoLabel">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <button
+      class="tk-info-btn"
+      type="button"
+      id="tk-info-btn"
+      aria-pressed="false"
+      aria-label={t.skillsPage.tokenDemo.infoLabel}
+      data-i18n-attr="aria-label:skillsPage.tokenDemo.infoLabel"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="16"
+        height="16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <circle cx="12" cy="12" r="9"></circle>
         <line x1="12" y1="11" x2="12" y2="16"></line>
-        <circle cx="12" cy="7.5" r="0.5" fill="currentColor" stroke="none"></circle>
+        <circle
+          cx="12"
+          cy="7.5"
+          r="0.5"
+          fill="currentColor"
+          stroke="none"
+        ></circle>
       </svg>
     </button>
 
     <!-- MOBILE: leyenda — siempre en el flujo, controlada solo por opacity -->
     <div class="tk-mobile-legend" id="tk-mobile-legend" aria-hidden="true">
-      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">1</span>text-heading</span>
-      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">2</span>text-body</span>
-      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">3</span>primary-color</span>
-      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">4</span>surface-1</span>
-      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">5</span>radius-base</span>
-      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">6</span>icon-neutral</span>
-      <span class="tk-legend-item"><span class="tk-token-badge tk-legend-dot">7</span>rating</span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">1</span>text-heading
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">2</span>text-body
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">3</span>primary-color
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">4</span>surface-1
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">5</span>radius-base
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">6</span>icon-neutral
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">7</span>rating
+      </span>
     </div>
 
     <TokenUICard />
@@ -44,9 +80,9 @@ const t = translations.es;
       if (demo.dataset.bound === "1") return;
       demo.dataset.bound = "1";
 
-      var LINE_SHORTEN = 30;
-      var RADIUS_RANGE = { min: 0, max: 32 };
-      var FONT_RANGE = { min: 0.95, max: 1.4 };
+      const LINE_SHORTEN = 30;
+      const RADIUS_RANGE = { min: 0, max: 32 };
+      const FONT_RANGE = { min: 0.95, max: 1.4 };
 
       function lerp(range, t) {
         return range.min + (range.max - range.min) * (t / 2);
@@ -58,44 +94,109 @@ const t = translations.es;
       // "edgeInset": en vez de apuntar al centro del elemento, apunta a X px de su borde.
       // "dy": corre el label hacia abajo (+) o arriba (-) en px, sin mover la línea real.
       // ---------------------------------------------------------------
-var ANNOTATIONS = [
-  { selector: '[data-token="title"]', side: "left", label: "text-heading", shorten: 161,lift:1,  labelGap: 41, },
-  { selector: '[data-token="text-body"]', side: "left", label: "text-body", shorten: 161, lift: 1, labelGap: 32 },
-  { selector: '[data-token="content"]', side: "right", label: "surface-1", edgeInset: 35,  labelGap: 32 , lift:.5 },
-  { selector: '[data-token="button"]', side: "right", label: "radius-base", edgeInset: 28, lift: 0, labelGap: 38 },
-  { selector: '[data-token="arrow"]', side: "right", label: "icon-neutral", edgeInset: 41, lift: 0, labelGap: 41 },
-  { selector: '[data-token="avatar"]', side: "left", label: "primary-color",shorten: 8,lift: 10, labelGap: 45, shiftY: -10   },
-  { selector: '[data-token="stars"]', side: "left", label: "feedback-rating", shorten: 31,lift: -2, labelGap: 51,shiftY: 2.5 }
-];
+      const ANNOTATIONS = [
+        {
+          selector: '[data-token="title"]',
+          side: "left",
+          label: "text-heading",
+          shorten: 161,
+          lift: 1,
+          labelGap: 41,
+        },
+        {
+          selector: '[data-token="text-body"]',
+          side: "left",
+          label: "text-body",
+          shorten: 161,
+          lift: 1,
+          labelGap: 32,
+        },
+        {
+          selector: '[data-token="content"]',
+          side: "right",
+          label: "surface-1",
+          edgeInset: 35,
+          labelGap: 32,
+          lift: 0.5,
+        },
+        {
+          selector: '[data-token="button"]',
+          side: "right",
+          label: "radius-base",
+          edgeInset: 28,
+          lift: 0,
+          labelGap: 38,
+        },
+        {
+          selector: '[data-token="arrow"]',
+          side: "right",
+          label: "icon-neutral",
+          edgeInset: 41,
+          lift: 0,
+          labelGap: 41,
+        },
+        {
+          selector: '[data-token="avatar"]',
+          side: "left",
+          label: "primary-color",
+          shorten: 8,
+          lift: 10,
+          labelGap: 45,
+          shiftY: -10,
+        },
+        {
+          selector: '[data-token="stars"]',
+          side: "left",
+          label: "feedback-rating",
+          shorten: 31,
+          lift: -2,
+          labelGap: 51,
+          shiftY: 2.5,
+        },
+      ];
 
-      var card = demo.querySelector("#tk-card");
-      var stage = demo.querySelector("#tk-stage");
-      var infoBtn = demo.querySelector("#tk-info-btn");
-      var layer = demo.querySelector("#tk-annot-layer");
-            var svg = demo.querySelector("#tk-annot-svg");
-          svg.insertAdjacentHTML(
+      const card = demo.querySelector("#tk-card");
+      const stage = demo.querySelector("#tk-stage");
+      const infoBtn = demo.querySelector("#tk-info-btn");
+      const layer = demo.querySelector("#tk-annot-layer");
+      const svg = demo.querySelector("#tk-annot-svg");
+      svg.insertAdjacentHTML(
         "afterbegin",
         '<defs><marker id="tk-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto">' +
-        '<path d="M3,1.5 L7,5 L3,8.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></marker></defs>'
+          '<path d="M3,1.5 L7,5 L3,8.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></marker></defs>',
       );
-      var toolbar = demo.querySelector("#tk-toolbar");
-      var tooltip = demo.querySelector("#tk-tooltip");
-      var tooltipText = demo.querySelector("#tk-tooltip-text");
-      var tooltipValue = demo.querySelector("#tk-tooltip-value");
-      if (!card || !stage || !infoBtn || !layer || !svg || !toolbar || !tooltip || !tooltipText || !tooltipValue) return;
+      const toolbar = demo.querySelector("#tk-toolbar");
+      const tooltip = demo.querySelector("#tk-tooltip");
+      const tooltipText = demo.querySelector("#tk-tooltip-text");
+      const tooltipValue = demo.querySelector("#tk-tooltip-value");
+      if (
+        !card ||
+        !stage ||
+        !infoBtn ||
+        !layer ||
+        !svg ||
+        !toolbar ||
+        !tooltip ||
+        !tooltipText ||
+        !tooltipValue
+      )
+        return;
 
-      var built = ANNOTATIONS.map(function (cfg) {
-                    var line = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      const built = ANNOTATIONS.map(function (cfg) {
+        const line = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path",
+        );
         line.setAttribute("class", "tk-annot-line");
         line.setAttribute("fill", "none");
         line.setAttribute("stroke", "currentColor");
         line.setAttribute("stroke-width", "1");
         line.setAttribute("vector-effect", "non-scaling-stroke");
         line.setAttribute("marker-end", "url(#tk-arrow)");
-       line.setAttribute("shape-rendering", "geometricPrecision");
+        line.setAttribute("shape-rendering", "geometricPrecision");
         svg.appendChild(line);
 
-        var label = document.createElement("span");
+        const label = document.createElement("span");
         label.className = "tk-annot-label";
         label.textContent = cfg.label;
         layer.appendChild(label);
@@ -103,86 +204,88 @@ var ANNOTATIONS = [
         return { cfg: cfg, line: line, label: label };
       });
 
-      var annotationsActive = false;
+      let annotationsActive = false;
 
-       infoBtn.setAttribute("aria-pressed", "true");
-      stage.classList.add("is-annotating");
+      function positionAnnotations() {
+        const stageRect = stage.getBoundingClientRect();
+        const edgeMargin = 16;
 
-  function positionAnnotations() {
-  var stageRect = stage.getBoundingClientRect();
-  var edgeMargin = 16;
+        built.forEach(function (item) {
+          const cfg = item.cfg;
+          const target = card.querySelector(cfg.selector);
+          if (!target) return;
 
-  built.forEach(function (item) {
-    var cfg = item.cfg;
-    var target = card.querySelector(cfg.selector);
-    if (!target) return;
+          const t = target.getBoundingClientRect();
+          let targetX;
+          if (cfg.edgeInset != null) {
+            targetX =
+              cfg.side === "right"
+                ? t.right - cfg.edgeInset - stageRect.left
+                : t.left + cfg.edgeInset - stageRect.left;
+          } else {
+            targetX = t.left + t.width / 2 - stageRect.left;
+          }
+          const targetY = t.top + t.height / 2 - stageRect.top;
 
-    var t = target.getBoundingClientRect();
-    var targetX;
-    if (cfg.edgeInset != null) {
-      targetX = cfg.side === "right"
-        ? t.right - cfg.edgeInset - stageRect.left
-        : t.left + cfg.edgeInset - stageRect.left;
-    } else {
-      targetX = t.left + t.width / 2 - stageRect.left;
-    }
-    var targetY = t.top + t.height / 2 - stageRect.top;
+          const l = item.label.getBoundingClientRect();
+          const labelX =
+            cfg.side === "left"
+              ? edgeMargin
+              : stageRect.width - l.width - edgeMargin;
+          const dyOffset = cfg.dy || 0;
+          const rawY = targetY - l.height / 2 + dyOffset;
+          const labelY = Math.max(
+            0,
+            Math.min(stageRect.height - l.height, rawY),
+          );
 
-    var l = item.label.getBoundingClientRect();
-    var labelX = cfg.side === "left" ? edgeMargin : stageRect.width - l.width - edgeMargin;
-    var dyOffset = cfg.dy || 0;
-    var rawY = targetY - l.height / 2 + dyOffset;
-    var labelY = Math.max(0, Math.min(stageRect.height - l.height, rawY));
+          // ancla real (sin el "lift") — de acá sale la línea, igual que siempre
+          const anchorX = labelX + l.width / 2;
+          const anchorY = labelY + l.height / 2;
 
-    // ancla real (sin el "lift") — de acá sale la línea, igual que siempre
-    var anchorX = labelX + l.width / 2;
-    var anchorY = labelY + l.height / 2;
+          // el label se dibuja levantado, pero la línea sigue naciendo del ancla real
+          const lift = cfg.lift || 0;
+          const liftX = cfg.liftX || 0;
+          item.label.style.left = labelX + liftX + "px";
+          item.label.style.top = labelY - lift + "px";
 
-    // el label se dibuja levantado, pero la línea sigue naciendo del ancla real
-     var lift = cfg.lift || 0;
-    var liftX = cfg.liftX || 0;
-    item.label.style.left = (labelX + liftX) + "px";
-    item.label.style.top = (labelY - lift) + "px";
+          const dx = targetX - anchorX;
+          const dy = targetY - anchorY;
+          const dist = Math.hypot(dx, dy) || 1;
 
-    var dx = targetX - anchorX;
-    var dy = targetY - anchorY;
-    var dist = Math.hypot(dx, dy) || 1;
+          // recorte del lado de la card (COMO ANTES, sin tocar)
+          const shorten = cfg.shorten != null ? cfg.shorten : LINE_SHORTEN;
+          const endRatio = Math.max(0, (dist - shorten) / dist);
 
-    // recorte del lado de la card (COMO ANTES, sin tocar)
-    var shorten = cfg.shorten != null ? cfg.shorten : LINE_SHORTEN;
-    var endRatio = Math.max(0, (dist - shorten) / dist);
+          // recorte chiquito y nuevo, solo del lado del label
+          const labelGap = cfg.labelGap || 0;
+          const startRatio = Math.min(endRatio, labelGap / dist);
 
-    // recorte chiquito y nuevo, solo del lado del label
-    var labelGap = cfg.labelGap || 0;
-    var startRatio = Math.min(endRatio, labelGap / dist);
+          const shiftY = cfg.shiftY || 0;
+          const shiftX = cfg.shiftX || 0;
 
+          const cardPt = {
+            x: anchorX + dx * endRatio + shiftX,
+            y: anchorY + dy * endRatio + shiftY,
+          };
+          const labelPt = {
+            x: anchorX + dx * startRatio + shiftX,
+            y: anchorY + dy * startRatio + shiftY,
+          };
 
-          var shiftY = cfg.shiftY || 0;
-    var shiftX = cfg.shiftX || 0;
-
-    var cardPt = { x: anchorX + dx * endRatio + shiftX, y: anchorY + dy * endRatio + shiftY };
-    var labelPt = { x: anchorX + dx * startRatio + shiftX, y: anchorY + dy * startRatio + shiftY };
-
-    var segDx = labelPt.x - cardPt.x;
-    var segDy = labelPt.y - cardPt.y;
-    var segLen = Math.hypot(segDx, segDy) || 1;
-
-    // curve: positivo = se curva hacia abajo, negativo = hacia arriba. 0 = recta.
-    var curveAmount = cfg.curve || 0;
-    var perpX = -segDy / segLen;
-    var perpY = segDx / segLen;
-
-    // el control point va cerca del extremo del label (90% del camino),
-    // así el grueso de la línea queda recta y el doblez se concentra al final
-    var ctrlX = cardPt.x + segDx * 0.9 + perpX * curveAmount;
-    var ctrlY = cardPt.y + segDy * 0.9 + perpY * curveAmount;
-
-        item.line.setAttribute(
-      "d",
-      "M" + Math.round(cardPt.x) + "," + Math.round(cardPt.y) + " L" + Math.round(labelPt.x) + "," + Math.round(labelPt.y)
-    );
-  });
-}
+          item.line.setAttribute(
+            "d",
+            "M" +
+              Math.round(cardPt.x) +
+              "," +
+              Math.round(cardPt.y) +
+              " L" +
+              Math.round(labelPt.x) +
+              "," +
+              Math.round(labelPt.y),
+          );
+        });
+      }
 
       infoBtn.addEventListener("click", function () {
         annotationsActive = !annotationsActive;
@@ -195,37 +298,49 @@ var ANNOTATIONS = [
       });
 
       // ---- carrusel ----
-      var track = demo.querySelector("#tk-track");
-      var slideCount = track ? track.children.length : 1;
-      var slideIndex = 0;
+      const track = demo.querySelector("#tk-track");
+      const slideCount = track ? track.children.length : 1;
+      let slideIndex = 0;
 
       function goToSlide(i) {
         slideIndex = (i + slideCount) % slideCount;
-        if (track) track.style.transform = "translateX(-" + (slideIndex * (100 / slideCount)) + "%)";
+        if (track)
+          track.style.transform =
+            "translateX(-" + slideIndex * (100 / slideCount) + "%)";
       }
 
-      var prevBtn = demo.querySelector("#tk-prev");
-      var nextBtn = demo.querySelector("#tk-next");
-      if (prevBtn) prevBtn.addEventListener("click", function () { goToSlide(slideIndex - 1); });
-      if (nextBtn) nextBtn.addEventListener("click", function () { goToSlide(slideIndex + 1); });
+      const prevBtn = demo.querySelector("#tk-prev");
+      const nextBtn = demo.querySelector("#tk-next");
+      if (prevBtn)
+        prevBtn.addEventListener("click", function () {
+          goToSlide(slideIndex - 1);
+        });
+      if (nextBtn)
+        nextBtn.addEventListener("click", function () {
+          goToSlide(slideIndex + 1);
+        });
 
       // ---- tooltip ----
-      var tooltipHasAppeared = false;
+      let tooltipHasAppeared = false;
 
       function positionTooltip(target) {
-        var tb = toolbar.getBoundingClientRect();
-        var r = target.getBoundingClientRect();
-        tooltip.style.left = (r.left + r.width / 2 - tb.left) + "px";
-        tooltip.style.top = (r.top - tb.top) + "px";
+        const tb = toolbar.getBoundingClientRect();
+        const r = target.getBoundingClientRect();
+        tooltip.style.left = r.left + r.width / 2 - tb.left + "px";
+        tooltip.style.top = r.top - tb.top + "px";
       }
 
       function revealTooltip(target) {
         positionTooltip(target);
-        tooltip.style.transition = tooltipHasAppeared ? "none" : "opacity 0.15s ease";
+        tooltip.style.transition = tooltipHasAppeared
+          ? "none"
+          : "opacity 0.15s ease";
         tooltip.style.opacity = tooltipHasAppeared ? "1" : "0.96";
         tooltip.classList.add("is-visible");
         if (!tooltipHasAppeared) {
-          requestAnimationFrame(function () { tooltip.style.opacity = "1"; });
+          requestAnimationFrame(function () {
+            tooltip.style.opacity = "1";
+          });
           tooltipHasAppeared = true;
         }
       }
@@ -250,13 +365,17 @@ var ANNOTATIONS = [
       }
 
       // ---- pickers de color ----
-      var PICKER_VARS = { bg: "--tk-bg", primary: "--tk-primary", text: "--tk-text" };
+      const PICKER_VARS = {
+        bg: "--tk-bg",
+        primary: "--tk-primary",
+        text: "--tk-text",
+      };
 
       demo.querySelectorAll(".tk-picker").forEach(function (picker) {
-        var input = picker.querySelector(".tk-picker__input");
-        var swatch = picker.querySelector(".tk-picker__swatch");
-        var label = picker.dataset.tooltip || "";
-        var cssVar = PICKER_VARS[input.dataset.token];
+        const input = picker.querySelector(".tk-picker__input");
+        const swatch = picker.querySelector(".tk-picker__swatch");
+        const label = picker.dataset.tooltip || "";
+        const cssVar = PICKER_VARS[input.dataset.token];
 
         swatch.style.background = input.value;
 
@@ -267,18 +386,22 @@ var ANNOTATIONS = [
           showStaticTooltip(picker, label);
         });
 
-        picker.addEventListener("pointerenter", function () { showStaticTooltip(picker, label); });
-        picker.addEventListener("focusin", function () { showStaticTooltip(picker, label); });
+        picker.addEventListener("pointerenter", function () {
+          showStaticTooltip(picker, label);
+        });
+        picker.addEventListener("focusin", function () {
+          showStaticTooltip(picker, label);
+        });
         picker.addEventListener("pointerleave", hideTooltip);
         picker.addEventListener("focusout", hideTooltip);
       });
 
       // ---- sliders ----
       function bindSlider(id, range, cssVar, format) {
-        var slider = demo.querySelector("#" + id);
+        const slider = demo.querySelector("#" + id);
         if (!slider) return;
 
-        var prefix = (slider.dataset.tooltipPrefix || "") + ": ";
+        const prefix = (slider.dataset.tooltipPrefix || "") + ": ";
 
         function currentValue() {
           return lerp(range, Number(slider.value));
@@ -294,14 +417,29 @@ var ANNOTATIONS = [
           apply();
           showValueTooltip(slider, prefix, format(currentValue()));
         });
-        slider.addEventListener("pointerenter", function () { showValueTooltip(slider, prefix, format(currentValue())); });
-        slider.addEventListener("focusin", function () { showValueTooltip(slider, prefix, format(currentValue())); });
+        slider.addEventListener("pointerenter", function () {
+          showValueTooltip(slider, prefix, format(currentValue()));
+        });
+        slider.addEventListener("focusin", function () {
+          showValueTooltip(slider, prefix, format(currentValue()));
+        });
         slider.addEventListener("pointerleave", hideTooltip);
         slider.addEventListener("focusout", hideTooltip);
       }
-      requestAnimationFrame(function () { positionAnnotations(); });
-      bindSlider("tk-radius-slider", RADIUS_RANGE, "--tk-radius", function (v) { return v.toFixed(0) + "px"; });
-      bindSlider("tk-fontsize-slider", FONT_RANGE, "--tk-title-size", function (v) { return v.toFixed(2) + "rem"; });
+      requestAnimationFrame(function () {
+        positionAnnotations();
+      });
+      bindSlider("tk-radius-slider", RADIUS_RANGE, "--tk-radius", function (v) {
+        return v.toFixed(0) + "px";
+      });
+      bindSlider(
+        "tk-fontsize-slider",
+        FONT_RANGE,
+        "--tk-title-size",
+        function (v) {
+          return v.toFixed(2) + "rem";
+        },
+      );
     }
 
     function boot() {
@@ -353,7 +491,10 @@ var ANNOTATIONS = [
     color: var(--color-text-muted);
     cursor: pointer;
     overflow: visible;
-    transition: transform 0.15s ease-out, color 0.15s ease-out, border-color 0.15s ease-out;
+    transition:
+      transform 0.15s ease-out,
+      color 0.15s ease-out,
+      border-color 0.15s ease-out;
   }
   .tk-info-btn::before {
     content: "";
@@ -367,9 +508,16 @@ var ANNOTATIONS = [
     pointer-events: none;
     z-index: -1;
   }
-  .tk-info-btn:hover { color: var(--color-text-heading); border-color: var(--color-border); }
-  .tk-info-btn:active { transform: scale(0.97); }
-  .tk-info-btn:active::before { opacity: 0.12; }
+  .tk-info-btn:hover {
+    color: var(--color-text-heading);
+    border-color: var(--color-border);
+  }
+  .tk-info-btn:active {
+    transform: scale(0.97);
+  }
+  .tk-info-btn:active::before {
+    opacity: 0.12;
+  }
   .tk-info-btn[aria-pressed="true"] {
     color: var(--color-text-heading);
     border-color: var(--color-border);
@@ -379,8 +527,15 @@ var ANNOTATIONS = [
   /* =======================================================================
      DESKTOP — líneas y labels de anotación
      ======================================================================= */
-  :global(.tk-annot-line) { stroke: currentColor; stroke-width: 1; opacity: 0; transition: opacity 0.15s ease; }
-  .tk-demo__stage.is-annotating :global(.tk-annot-line) { opacity: 0.5; }
+  :global(.tk-annot-line) {
+    stroke: currentColor;
+    stroke-width: 1;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  .tk-demo__stage.is-annotating :global(.tk-annot-line) {
+    opacity: 0.5;
+  }
 
   :global(.tk-annot-label) {
     position: absolute;
@@ -391,30 +546,50 @@ var ANNOTATIONS = [
     color: var(--color-text-heading);
     white-space: nowrap;
   }
-  .tk-demo__stage.is-annotating :global(.tk-annot-label) { opacity: 0.75; }
+  .tk-demo__stage.is-annotating :global(.tk-annot-label) {
+    opacity: 0.75;
+  }
 
-  .tk-annot-layer { position: absolute; inset: 0; z-index: 15; pointer-events: none; }
-  .tk-annot-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: var(--color-text-heading); }
+  .tk-annot-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 15;
+    pointer-events: none;
+  }
+  .tk-annot-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    color: var(--color-text-heading);
+  }
 
   /* =======================================================================
      MOBILE — leyenda numerada de arriba de la card
      ======================================================================= */
-  .tk-mobile-legend { display: none; }
+  .tk-mobile-legend {
+    display: none;
+  }
 
   @media (max-width: 560px) {
-    .tk-demo__stage { padding: var(--space-6) var(--space-4); }
+    .tk-demo__stage {
+      padding: var(--space-6) var(--space-4);
+    }
   }
 
   @media (max-width: 640px) {
     .tk-demo__stage {
       flex-direction: column;
       gap: var(--space-4);
-            align-items: center;
+      align-items: center;
 
       padding-top: var(--space-4);
     }
 
-    .tk-annot-layer { display: none; }
+    .tk-annot-layer {
+      display: none;
+    }
 
     .tk-mobile-legend {
       display: flex;

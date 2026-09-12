@@ -1,41 +1,47 @@
 ---
 interface Props {
-	title: string;
-	subtitle: string;
-	href?: string;
-	variant?: "default" | "arrows";
+  title: string;
+  subtitle: string;
+  href?: string;
+  variant?: "default" | "arrows";
 }
 
-const {
-	title,
-	subtitle,
-	href = "/skills",
-	variant = "default",
-} = Astro.props;
+const { title, href = "/skills", variant = "default" } = Astro.props;
 ---
 
 <div class="skill-frame">
-  <a href={href} class:list={["skill", variant === "arrows" && "skill--arrows"]}>
+  <a
+    href={href}
+    class:list={["skill", variant === "arrows" && "skill--arrows"]}
+  >
     <div class="skill__text">
       <p class="skill__title">{title}</p>
     </div>
     {variant === "arrows" ? (
       <span class="skill__arrows" aria-hidden="true">
-        <img src="/skills/arrow.svg" alt="" width="16" height="16" class="skill__arrow" />
+        <img
+          src="/skills/arrow.svg"
+          alt=""
+          width="16"
+          height="16"
+          class="skill__arrow"
+        />
       </span>
     ) : (
       <span class="skill__arrow-wrap" aria-hidden="true">
-        <img src="/skills/arrow.svg" alt="" width="16" height="16" class="skill__arrow" />
+        <img
+          src="/skills/arrow.svg"
+          alt=""
+          width="16"
+          height="16"
+          class="skill__arrow"
+        />
       </span>
     )}
   </a>
 </div>
 
 <style>
-  
-
-
-
   .skill {
     display: flex;
     align-items: center;
@@ -46,11 +52,12 @@ const {
     text-decoration: none;
     border: 1px solid var(--color-border-softer);
     padding-block: var(--space-6);
-     box-shadow: var(--shadow-inset-highlight);
-    transition: opacity var(--transition-base), transform var(--transition-base), background var(--transition-base);
+    box-shadow: var(--shadow-inset-highlight);
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base),
+      background var(--transition-base);
   }
-
-  
 
   .skill__text {
     display: flex;
@@ -65,7 +72,7 @@ const {
     font-size: var(--text-base);
     font-weight: var(--font-weight-semibold);
     line-height: var(--leading-tight);
-        color: var(--color-text-heading);
+    color: var(--color-text-heading);
   }
 
   .skill__subtitle {
@@ -82,10 +89,12 @@ const {
     justify-content: flex-end;
     flex-shrink: 0;
     margin-left: auto;
-        opacity: var(--opacity-faint);
+    opacity: var(--opacity-faint);
 
     transform: translateX(0);
-    transition: opacity var(--transition-base), transform var(--transition-base);
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
   }
 
   .skill__arrow {
@@ -94,15 +103,13 @@ const {
     filter: invert(1) brightness(1);
   }
 
-  .skill:hover{
+  .skill:hover {
     border: 1px solid black;
-
   }
 
   .skill:hover .skill__arrow-wrap,
   .skill:focus-visible .skill__arrow-wrap {
     opacity: var(--opacity-full);
-
   }
 
   .skill__arrows {
@@ -123,5 +130,4 @@ const {
   .skill--arrows {
     border: none;
   }
-
 </style>

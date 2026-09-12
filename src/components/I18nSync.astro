@@ -4,8 +4,11 @@
 <script>
   import { translations } from "../data/translations";
 
-  function getPath(obj: any, path: string): unknown {
-    return path.split(".").reduce((acc, key) => (acc == null ? acc : acc[key]), obj);
+  function getPath(obj: unknown, path: string): unknown {
+    return path.split(".").reduce<unknown>((acc, key) => {
+      if (acc == null || typeof acc !== "object") return undefined;
+      return (acc as Record<string, unknown>)[key];
+    }, obj);
   }
 
   function applyLang(lang: "es" | "en") {
@@ -42,7 +45,14 @@
   function syncFromStorage() {
     const root = document.documentElement;
     const stored = localStorage.getItem("lang");
-    const current = stored === "en" ? "en" : stored === "es" ? "es" : root.getAttribute("data-lang") === "en" ? "en" : "es";
+    const current =
+      stored === "en"
+        ? "en"
+        : stored === "es"
+          ? "es"
+          : root.getAttribute("data-lang") === "en"
+            ? "en"
+            : "es";
     if (current === "en") root.setAttribute("data-lang", "en");
     else root.setAttribute("data-lang", "es");
     applyLang(current as "es" | "en");
