@@ -1,8 +1,5 @@
 ---
- // TokenUICard.astro
-// Markup de la card + carrusel + badges numerados de mobile.
-// Los data-token="..." son los anchors que usa el script de TokenUIDemo.astro
-// para posicionar las líneas de desktop.
+// TokenUICard.astro
 import { translations } from "../../../../data/translations";
 const t = translations.es;
 ---
@@ -10,18 +7,65 @@ const t = translations.es;
 <div class="tk-card" id="tk-card">
   <div class="tk-card__media">
     <div class="tk-card__track" id="tk-track">
-      <img class="tk-card__image" src="./skills/demo/portft1.webp" alt="" aria-hidden="true" />
-      <img class="tk-card__image" src="./skills/demo/win50.webp" alt="" aria-hidden="true" />
-      <img class="tk-card__image" src="./skills/demo/windows_xp_35.webp" alt="" aria-hidden="true" />
+      <img
+        class="tk-card__image"
+        src="./skills/demo/portft1.webp"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="tk-card__image"
+        src="./skills/demo/win50.webp"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="tk-card__image"
+        src="./skills/demo/windows_xp_35.webp"
+        alt=""
+        aria-hidden="true"
+      />
     </div>
 
-    <button class="tk-card__arrow tk-card__arrow--prev" type="button" id="tk-prev" aria-label={t.skillsPage.tokenDemo.prevLabel} data-i18n-attr="aria-label:skillsPage.tokenDemo.prevLabel">
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <button
+      class="tk-card__arrow tk-card__arrow--prev"
+      type="button"
+      id="tk-prev"
+      aria-label={t.skillsPage.tokenDemo.prevLabel}
+      data-i18n-attr="aria-label:skillsPage.tokenDemo.prevLabel"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="14"
+        height="14"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <path d="M15 18l-6-6 6-6"></path>
       </svg>
     </button>
-    <button class="tk-card__arrow tk-card__arrow--next" type="button" id="tk-next" data-token="arrow" aria-label={t.skillsPage.tokenDemo.nextLabel} data-i18n-attr="aria-label:skillsPage.tokenDemo.nextLabel">
-      <svg class="tk-card__arrow-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <button
+      class="tk-card__arrow tk-card__arrow--next"
+      type="button"
+      id="tk-next"
+      data-token="arrow"
+      aria-label={t.skillsPage.tokenDemo.nextLabel}
+      data-i18n-attr="aria-label:skillsPage.tokenDemo.nextLabel"
+    >
+      <svg
+        class="tk-card__arrow-icon"
+        viewBox="0 0 24 24"
+        width="14"
+        height="14"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <path d="M9 6l6 6-6 6"></path>
       </svg>
     </button>
@@ -34,12 +78,19 @@ const t = translations.es;
 
     <h3 class="tk-card__title" data-token="title">
       <span class="tk-token-badge tk-token-badge--title">1</span>
-      <span class="tk-card__title-text" data-i18n="skillsPage.tokenDemo.cardTitle">{t.skillsPage.tokenDemo.cardTitle}</span>
+      <span
+        class="tk-card__title-text"
+        data-i18n="skillsPage.tokenDemo.cardTitle"
+      >
+        {t.skillsPage.tokenDemo.cardTitle}
+      </span>
     </h3>
 
     <p class="tk-card__text" data-token="text-body">
       <span class="tk-token-badge tk-token-badge--textbody">2</span>
-      <span data-i18n="skillsPage.tokenDemo.cardText">{t.skillsPage.tokenDemo.cardText}</span>
+      <span data-i18n="skillsPage.tokenDemo.cardText">
+        {t.skillsPage.tokenDemo.cardText}
+      </span>
     </p>
 
     <div class="tk-card__footer">
@@ -51,12 +102,42 @@ const t = translations.es;
           <span class="tk-card__name">Javier Alzú</span>
           <span class="tk-card__rating-row">
             <span class="tk-token-badge tk-token-badge--rating">7</span>
-            <span class="tk-card__rating" data-token="stars" aria-label={t.skillsPage.tokenDemo.ratingLabel} data-i18n-attr="aria-label:skillsPage.tokenDemo.ratingLabel">
-              <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
-              <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
-              <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
-              <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
-              <svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"/></svg>
+            <span
+              class="tk-card__rating"
+              data-token="stars"
+              aria-label={t.skillsPage.tokenDemo.ratingLabel}
+              data-i18n-attr="aria-label:skillsPage.tokenDemo.ratingLabel"
+            >
+              <svg viewBox="0 0 20 20" width="12" height="12">
+                <path
+                  fill="currentColor"
+                  d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"
+                />
+              </svg>
+              <svg viewBox="0 0 20 20" width="12" height="12">
+                <path
+                  fill="currentColor"
+                  d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"
+                />
+              </svg>
+              <svg viewBox="0 0 20 20" width="12" height="12">
+                <path
+                  fill="currentColor"
+                  d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"
+                />
+              </svg>
+              <svg viewBox="0 0 20 20" width="12" height="12">
+                <path
+                  fill="currentColor"
+                  d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"
+                />
+              </svg>
+              <svg viewBox="0 0 20 20" width="12" height="12">
+                <path
+                  fill="currentColor"
+                  d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3.1-5.4 3.1 1.3-6L1.3 7.7l6.1-.6z"
+                />
+              </svg>
             </span>
           </span>
         </div>
@@ -64,7 +145,9 @@ const t = translations.es;
 
       <button class="tk-card__button" type="button" data-token="button">
         <span class="tk-token-badge tk-token-badge--button">5</span>
-        <span data-i18n="skillsPage.tokenDemo.button">{t.skillsPage.tokenDemo.button}</span>
+        <span data-i18n="skillsPage.tokenDemo.button">
+          {t.skillsPage.tokenDemo.button}
+        </span>
       </button>
     </div>
   </div>
@@ -90,8 +173,19 @@ const t = translations.es;
     background: var(--tk-bg);
   }
 
-  .tk-card__media { position: relative; flex-shrink: 0; height: 150px; overflow: hidden; }
-  .tk-card__track { display: flex; height: 100%; width: 300%; transform: translateX(0%); transition: transform 0.35s ease; }
+  .tk-card__media {
+    position: relative;
+    flex-shrink: 0;
+    height: 150px;
+    overflow: hidden;
+  }
+  .tk-card__track {
+    display: flex;
+    height: 100%;
+    width: 300%;
+    transform: translateX(0%);
+    transition: transform 0.35s ease;
+  }
 
   /* imagen ligeramente más ancha + margen negativo: elimina la rendija
      de subpíxel entre slides causada por el redondeo de 33.333% */
@@ -121,7 +215,9 @@ const t = translations.es;
     color: var(--color-text-heading);
     cursor: pointer;
     overflow: visible;
-    transition: transform 0.15s ease-out, background-color 0.15s ease-out;
+    transition:
+      transform 0.15s ease-out,
+      background-color 0.15s ease-out;
   }
   .tk-card__arrow::before {
     content: "";
@@ -135,11 +231,21 @@ const t = translations.es;
     pointer-events: none;
     z-index: -1;
   }
-  .tk-card__arrow:hover { background: color-mix(in oklch, var(--color-surface-2) 90%, transparent); }
-  .tk-card__arrow:active { transform: translateY(-50%) scale(0.97); }
-  .tk-card__arrow:active::before { opacity: 0.12; }
-  .tk-card__arrow--prev { left: var(--space-2); }
-  .tk-card__arrow--next { right: var(--space-2); }
+  .tk-card__arrow:hover {
+    background: color-mix(in oklch, var(--color-surface-2) 90%, transparent);
+  }
+  .tk-card__arrow:active {
+    transform: translateY(-50%) scale(0.97);
+  }
+  .tk-card__arrow:active::before {
+    opacity: 0.12;
+  }
+  .tk-card__arrow--prev {
+    left: var(--space-2);
+  }
+  .tk-card__arrow--next {
+    right: var(--space-2);
+  }
 
   .tk-card__content {
     position: relative;
@@ -160,7 +266,9 @@ const t = translations.es;
     display: flex;
     align-items: center;
     font-weight: var(--font-weight-semibold);
-    transition: font-size var(--transition-base), color var(--transition-base);
+    transition:
+      font-size var(--transition-base),
+      color var(--transition-base);
   }
 
   .tk-card__title-text {
@@ -178,7 +286,7 @@ const t = translations.es;
     font-size: var(--text-sm);
     color: var(--tk-text);
     opacity: var(--opacity-medium);
-    padding-bottom: .5rem;
+    padding-bottom: 0.5rem;
     line-height: var(--leading-normal);
   }
 
@@ -191,12 +299,45 @@ const t = translations.es;
     padding-top: var(--space-6);
   }
 
-  .tk-card__profile { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
-  .tk-card__avatar { position: relative; width: 26px; height: 26px; flex-shrink: 0; border-radius: var(--radius-full); background: var(--tk-primary); }
-  .tk-card__profile-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-  .tk-card__name { font-size: var(--text-xs); font-weight: var(--font-weight-semibold); color: var(--tk-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tk-card__rating-row { position: relative; display: inline-flex; align-items: center; }
-  .tk-card__rating { display: inline-flex; align-items: center; gap: 1px; color: var(--color-warning); }
+  .tk-card__profile {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+  }
+  .tk-card__avatar {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    border-radius: var(--radius-full);
+    background: var(--tk-primary);
+  }
+  .tk-card__profile-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+  .tk-card__name {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--tk-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tk-card__rating-row {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  .tk-card__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+    color: var(--color-warning);
+  }
 
   .tk-card__button {
     position: relative;
@@ -209,16 +350,25 @@ const t = translations.es;
     color: var(--color-surface-1);
     background: var(--tk-primary);
     cursor: pointer;
-    transition: filter var(--transition-fast), border-radius var(--transition-base);
+    transition:
+      filter var(--transition-fast),
+      border-radius var(--transition-base);
   }
-  .tk-card__button:hover { filter: brightness(1.1); }
-  .tk-card__button:focus-visible { outline: 2px solid var(--tk-primary); outline-offset: 2px; }
+  .tk-card__button:hover {
+    filter: brightness(1.1);
+  }
+  .tk-card__button:focus-visible {
+    outline: 2px solid var(--tk-primary);
+    outline-offset: 2px;
+  }
 
   /* =======================================================================
      MOBILE — badges numerados (overlay, cero espacio en el flujo)
      Ocultos en desktop por defecto.
      ======================================================================= */
-  .tk-token-badge { display: none; }
+  .tk-token-badge {
+    display: none;
+  }
 
   @media (max-width: 640px) {
     .tk-token-badge {
@@ -228,7 +378,7 @@ const t = translations.es;
       width: 15px;
       height: 9px;
       border-radius: 50%;
-      color: var(--color-text-heading) ;
+      color: var(--color-text-heading);
       font-size: 8px;
       font-family: monospace;
       font-weight: var(--font-weight-semibold);
@@ -247,12 +397,45 @@ const t = translations.es;
     /* ---- Posición Y/X de cada badge — TOCÁ ACÁ para moverlos ----
        "top" en px o % mueve verticalmente. Si usa transform: translateY(-50%),
        el punto de referencia es el centro — sumale/restale ahí en vez de "top". */
-    .tk-token-badge--title    { position: absolute; left: -14px; top: 50%; transform: translateY(-50%); }
-    .tk-token-badge--textbody { position: absolute; left: -14px; top: 6px; }
-    .tk-token-badge--avatar   { position: absolute; left: -12px; top: 20%; transform: translateY(-50%); }
-    .tk-token-badge--rating   { position: absolute; left: -12px; top: 60%; transform: translateY(-50%); }
-    .tk-token-badge--button   { position: absolute; left: -14px; top: 50%; transform: translateY(-50%); }
-    .tk-token-badge--content  { position: absolute; top: 6px; right: 6px; }
-    .tk-token-badge--arrow    { position: absolute; top: 50%; right: 32px; transform: translateY(-50%); }
+    .tk-token-badge--title {
+      position: absolute;
+      left: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .tk-token-badge--textbody {
+      position: absolute;
+      left: -14px;
+      top: 6px;
+    }
+    .tk-token-badge--avatar {
+      position: absolute;
+      left: -12px;
+      top: 20%;
+      transform: translateY(-50%);
+    }
+    .tk-token-badge--rating {
+      position: absolute;
+      left: -12px;
+      top: 60%;
+      transform: translateY(-50%);
+    }
+    .tk-token-badge--button {
+      position: absolute;
+      left: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .tk-token-badge--content {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+    }
+    .tk-token-badge--arrow {
+      position: absolute;
+      top: 50%;
+      right: 32px;
+      transform: translateY(-50%);
+    }
   }
 </style>
