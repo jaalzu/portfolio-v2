@@ -1,15 +1,15 @@
 ---
 import ToggleCard from "../ToggleCard.astro";
+import { translations } from "../../../data/translations";
+const t = translations.es;
 ---
 
 <ToggleCard id="typoToggle" stageClass="typo-demo__stage">
-  <p class="demo-label">LIVE MARKET DATA</p>
+  <p class="demo-label" data-i18n="skillsPage.typographyDemo.label">{t.skillsPage.typographyDemo.label}</p>
 
-  <h3 class="demo-heading">Real-time data without the visual noise</h3>
+  <h3 class="demo-heading" data-i18n="skillsPage.typographyDemo.heading">{t.skillsPage.typographyDemo.heading}</h3>
 
-  <p class="demo-body">
-    Prices update live. Good typography keeps the hierarchy clear and numbers steady.
-  </p>
+  <p class="demo-body" data-i18n="skillsPage.typographyDemo.body">{t.skillsPage.typographyDemo.body}</p>
 
   <div class="demo-live" aria-live="polite">
     <div class="demo-live__row">

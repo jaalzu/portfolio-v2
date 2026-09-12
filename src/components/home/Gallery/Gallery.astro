@@ -1,0 +1,110 @@
+---
+import { Image } from "astro:assets";
+import "./gallery.css";
+
+export interface Props {
+  label: string;
+  images: ImageMetadata[];
+  altBase: string;
+  captions?: string[];
+}
+
+const { label, images, altBase, captions } = Astro.props;
+---
+
+<span class="province" tabindex="0" data-province-label={label}>
+  {label}
+
+  <span class="province__gallery" role="group" aria-label={`Fotos de ${label}`}>
+    {images.map((img, i) => {
+      const caption = captions?.[i] ?? `${altBase} ${i + 1}`;
+
+      return (
+        <span class="province__polaroid" data-index={i}>
+          <Image
+            class="province__photo"
+            src={img}
+            alt={`${altBase} ${i + 1}`}
+            width={480}
+            height={480}
+            quality={100}
+            loading="lazy"
+            decoding="async"
+            data-caption={caption}
+            data-caption-index={i}
+            data-alt-index={i}
+          />
+
+          <span class="province__caption" aria-hidden="true" data-caption-index={i}>
+            {caption}
+          </span>
+        </span>
+      );
+    })}
+  </span>
+</span>
+
+<script>
+  import { initGalleryInteractions } from './interactions';
+  import { initLightboxes } from './lightbox';
+  import { translations } from '../../../data/translations';
+
+  const supportsHover = window.matchMedia(
+    '(hover: hover) and (pointer: fine)'
+  ).matches;
+
+  initGalleryInteractions({ supportsHover });
+  initLightboxes({ supportsHover });
+
+  function syncGalleryLang(lang) {
+    const t = translations[lang] ?? translations.es;
+    const province = t.province;
+    if (!province) return;
+
+    // Update gallery aria-label (Fotos de / Photos of)
+    document.querySelectorAll('.province__gallery').forEach((el) => {
+      const prefix = lang === 'en' ? 'Photos of' : 'Fotos de';
+      el.setAttribute('aria-label', `${prefix} ${province.name}`);
+    });
+
+    // Update captions + data-caption + alt (keep index suffix for alt)
+    document.querySelectorAll('.province__photo').forEach((img) => {
+      const idx = Number(img.getAttribute('data-caption-index'));
+      if (Number.isNaN(idx)) return;
+      const caption = province.captions?.[idx];
+      if (caption) {
+        img.setAttribute('data-caption', caption);
+        // alt keeps number suffix for accessibility (e.g. "Foto de Chaco 1")
+        img.setAttribute('alt', `${province.alt} ${idx + 1}`);
+      }
+    });
+
+    document.querySelectorAll('.province__caption').forEach((el) => {
+      const idx = Number(el.getAttribute('data-caption-index'));
+      if (Number.isNaN(idx)) return;
+      const caption = province.captions?.[idx];
+      if (caption) el.textContent = caption;
+    });
+  }
+
+  // Initial sync from stored lang
+  {
+    const stored = localStorage.getItem('lang');
+    const rootLang = document.documentElement.getAttribute('data-lang');
+    const initial = stored === 'en' || stored === 'es' ? stored : rootLang === 'en' ? 'en' : 'es';
+    syncGalleryLang(initial);
+  }
+
+  document.addEventListener('langchange', (e) => {
+    const lang = e.detail.lang;
+    syncGalleryLang(lang);
+  });
+  document.addEventListener('astro:page-load', () => {
+    const lang = document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'es';
+    syncGalleryLang(lang);
+  });
+  document.addEventListener('astro:after-swap', () => {
+    const lang = document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'es';
+    syncGalleryLang(lang);
+  });
+</script>

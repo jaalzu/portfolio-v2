@@ -16,10 +16,10 @@ const { href = "/", label = "Volver" } = Astro.props;
   .back-link {
     display: inline-flex;
     align-items: center;
-    margin-bottom: 3.5rem;
+    margin-bottom: 4rem;
     gap: 6px;
     text-decoration: none;
-    font-size: var(--text-sm);
+    font-size: var(--text-base);
     color: var(--color-text-heading);
     transition: color var(--transition-fast);
   }
@@ -27,11 +27,11 @@ const { href = "/", label = "Volver" } = Astro.props;
     opacity: 0.38;
     transition: opacity var(--transition-fast), transform var(--transition-fast);
     flex-shrink: 0;
+    margin-top: -3px;
   }
   .back-link__text {
     font-family: 'Newsreader', serif;
     font-style: italic;
-    font-size: 1.05em;
     line-height: 1;
     opacity: 1;
     transition: opacity var(--transition-fast);
@@ -39,7 +39,7 @@ const { href = "/", label = "Volver" } = Astro.props;
   .back-link:hover .back-link__arrow,
   .back-link:focus-visible .back-link__arrow { opacity: 1; }
   .back-link:hover .back-link__text,
-  .back-link:focus-visible .back-link__text { opacity: 0.52; }
+  .back-link:focus-visible .back-link__text { opacity: 0.42; }
   .back-link:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 3px;

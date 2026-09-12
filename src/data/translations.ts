@@ -36,6 +36,11 @@ about: [
 province: {
   name: "Chaco, Argentina",
   alt: "Foto de Chaco",
+  captions: [
+    "pero que rico mate",
+    "¡que vista!",
+    "no es Japón, es Chaco.",
+  ],
 },
 	
 		skillsPromo: {
@@ -51,21 +56,62 @@ province: {
 			installHint: "Copia el comando e instala la skill que necesites.",
 			github: "GitHub",
 			viewLive: "Ver en vivo",
-		typography: {
-    title: "Fundamentos de Tipografía — UI y Calidad",
-    description:
-        "El texto es el corazón de cada interfaz. Construye o audita tu tipografía para fortalecer la legibilidad, la jerarquía, la accesibilidad y la consistencia visual, ofreciendo así mejores experiencias de usuario.",
-},
-  accessibility: {
-    title: "Accesibilidad — Foco y Feedback",
-    description:
-      "Tu web tiene que ser accesible para todos, sin excepciones. Construí o auditá el foco visible, los errores anunciados a tiempo y el feedback en vivo de tu interfaz.",
-  },
-   designTokens: {
-    title: "Fundamentos de Tokens — Consistencia Real",
-    description:
-      "Un diseño no es consistente porque se vea bien una vez, sino porque todo viene de la misma fuente. Tocá un token y mirá cómo cambian varios componentes a la vez.",
-  },
+			typography: {
+				title: "Fundamentos de Tipografía — UI y Calidad",
+				description:
+					"El texto es el corazón de cada interfaz. Construye o audita tu tipografía para fortalecer la legibilidad, la jerarquía, la accesibilidad y la consistencia visual, ofreciendo así mejores experiencias de usuario.",
+			},
+			accessibility: {
+				title: "Accesibilidad — Foco y Feedback",
+				description:
+					"Tu web tiene que ser accesible para todos, sin excepciones. Construí o auditá el foco visible, los errores anunciados a tiempo y el feedback en vivo de tu interfaz.",
+			},
+			designTokens: {
+				title: "Fundamentos de Tokens — Consistencia Real",
+				description:
+					"Un diseño no es consistente porque se vea bien una vez, sino porque todo viene de la misma fuente. Tocá un token y mirá cómo cambian varios componentes a la vez.",
+			},
+			upcoming: {
+				title: "Working in progress...",
+				hint: "Seguime en mis redes para no perdertelo",
+			},
+			copyLabel: "Copiar comando",
+			typographyDemo: {
+				label: "DATOS DE MERCADO EN VIVO",
+				heading: "Datos en tiempo real sin ruido visual",
+				body: "Los precios se actualizan en vivo. Una buena tipografía mantiene la jerarquía clara y los números estables.",
+			},
+			a11yDemo: {
+				walletLabel: "Wallet",
+				amountLabel: "Monto (BTC)",
+				walletPlaceholder: "wallet01",
+				amountPlaceholder: "0",
+				submit: "Confirmar retiro",
+				errors: {
+					wallet: "La wallet debe tener al menos 6 caracteres.",
+					amount: "Ingresá un monto válido mayor a 0.",
+				},
+				toasts: {
+					invalid: "Datos inválidos, intente nuevamente.",
+					success: "Retiro enviado con éxito.",
+				},
+			},
+			tokenDemo: {
+				cardTitle: "Diseño consistente",
+				cardText: "Cambiá los tokens de abajo y mirá cómo reacciona toda la card a la vez.",
+				button: "Reservar",
+				ratingLabel: "5 de 5 estrellas",
+				prevLabel: "Foto anterior",
+				nextLabel: "Foto siguiente",
+				infoLabel: "Mostrar tokens",
+				toolbar: {
+					surface: "Elegir color de superficie",
+					primary: "Elegir color primario",
+					textHeading: "Elegir color de texto",
+					radius: "Radio de borde",
+					fontSize: "Tamaño de fuente",
+				},
+			},
 		},
 	},
 	en: {
@@ -101,6 +147,11 @@ about: [
 province: {
   name: "Chaco, Argentina",
   alt: "Chaco photo",
+  captions: [
+    "Capybaras love mate",
+    "¡what a view!",
+    "it's not Japan, it's Chaco.",
+  ],
 },
 		
 		skillsPromo: {
@@ -122,20 +173,57 @@ province: {
 				description:
 					"Text is at the heart of every interface. Build or audit your typography to strengthen legibility, hierarchy, accessibility and visual consistency for better user experiences.",
 			},
-			en: {
- accessibility: {
-    title: "Accessibility — Focus & Feedback",
-    description:
-      "Your site needs to be accessible to everyone, no exceptions. Build or audit visible focus states, timely error announcements, and live feedback across your interface.",
-  },
-  en: {
-  designTokens: {
-    title: "Design Tokens Foundation — Real Consistency",
-    description:
-      "A design isn't consistent because it looks good once — it's consistent because everything comes from the same source. Change one token and watch several components update at once.",
-  },
-},
-},
+			accessibility: {
+				title: "Accessibility — Focus & Feedback",
+				description:
+					"Your site needs to be accessible to everyone, no exceptions. Build or audit visible focus states, timely error announcements, and live feedback across your interface.",
+			},
+			designTokens: {
+				title: "Design Tokens Foundation — Real Consistency",
+				description:
+					"A design isn't consistent because it looks good once — it's consistent because everything comes from the same source. Change one token and watch several components update at once.",
+			},
+			upcoming: {
+				title: "More to come...",
+				hint: "More skills on the way. Follow me on socials to stay updated.",
+			},
+			copyLabel: "Copy command",
+			typographyDemo: {
+				label: "LIVE MARKET DATA",
+				heading: "Real-time data without the visual noise",
+				body: "Prices update live. Good typography keeps the hierarchy clear and numbers steady.",
+			},
+			a11yDemo: {
+				walletLabel: "Wallet",
+				amountLabel: "Amount (BTC)",
+				walletPlaceholder: "wallet01",
+				amountPlaceholder: "0",
+				submit: "Confirm withdrawal",
+				errors: {
+					wallet: "Wallet must be at least 6 characters.",
+					amount: "Enter a valid amount greater than 0.",
+				},
+				toasts: {
+					invalid: "Invalid data, please try again.",
+					success: "Withdrawal sent successfully.",
+				},
+			},
+			tokenDemo: {
+				cardTitle: "Consistent design",
+				cardText: "Change the tokens below and watch the whole card react at once.",
+				button: "Reserve",
+				ratingLabel: "5 out of 5 stars",
+				prevLabel: "Previous photo",
+				nextLabel: "Next photo",
+				infoLabel: "Show tokens",
+				toolbar: {
+					surface: "Pick surface color",
+					primary: "Pick primary color",
+					textHeading: "Pick text color",
+					radius: "Border radius",
+					fontSize: "Font size",
+				},
+			},
 		},
 	},
 } as const;

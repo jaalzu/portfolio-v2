@@ -1,10 +1,10 @@
 ---
-import Gallery from "./Gallery.astro";
+import Gallery from "./Gallery/Gallery.astro";
 import { provinceImages } from "../../data/chaco";
 
 export interface Props {
   texts: readonly string[];
-  province?: { name: string; alt: string };
+  province?: { name: string; alt: string; captions?: readonly string[] };
 }
 const { texts, province } = Astro.props;
 ---
@@ -16,11 +16,7 @@ const { texts, province } = Astro.props;
         label={province.name}
         images={[...provinceImages]}
         altBase={province.alt}
-        captions={[
-    "what a tasteful mate!",
-    "really representative art",
-    "it's not japan, it's chaco!"
-  ]}
+        captions={province.captions ? [...province.captions] : undefined}
       />
     )}.{" "}
     <span class="about__line" data-i18n="about.1">{texts[1]}</span>{texts[2] && (
@@ -30,3 +26,11 @@ const { texts, province } = Astro.props;
     )}
   </p>
 </div>
+
+<style>
+
+  
+  .about__line{
+    color: var(--color-text);
+}
+</style>

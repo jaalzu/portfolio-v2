@@ -24,13 +24,13 @@
 
 html {
 	color-scheme: dark;
-	overflow-x: visible;
+	overflow-x: clip;
 }
 
 body {
 	margin: 0;
 	padding-inline: 3px;
-	overflow-x: visible;
+	overflow-x: clip;
 	font-family: var(--font-family-base);
 	font-weight: var(--font-weight-regular);
 	font-size: var(--text-base);

@@ -7,7 +7,7 @@ import CopyCommand from "../components/skills/CopyCommand.astro";
 import SkillSection from "../components/skills/SkillSection.astro";
 import TypographyDemo from "../components/skills/demos/TypographyDemo.astro";
 import AccessibilityDemo from "../components/skills/demos/AccessibilityDemo.astro";
-import TokenUIDemo from "../components/skills/demos/TokenUIDemo.astro";
+import TokenUIDemo from "../components/skills/demos/token/TokenUIDemo.astro";
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
@@ -66,6 +66,21 @@ const t = translations.es;
 >
   <TokenUIDemo />
 </SkillSection>
+
+      <!-- Placeholder — mismo tamaño que accesibilidad, vacía -->
+      <div class="skill-block-frame">
+        <div class="toggle-card upcoming-card">
+          <div class="toggle-card__stage upcoming-card__stage">
+            <p class="upcoming-card__title" data-i18n="skillsPage.upcoming.title">{t.skillsPage.upcoming.title}</p>
+            <p class="upcoming-card__hint" data-i18n="skillsPage.upcoming.hint">{t.skillsPage.upcoming.hint}</p>
+            <div class="upcoming-card__links">
+              <a href="https://github.com/jaalzu" class="upcoming-card__link" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" class="upcoming-card__link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+          </div>
+          <div class="toggle-card__toolbar upcoming-card__toolbar" aria-hidden="true"></div>
+        </div>
+      </div>
     </Section>
   </main>
 </BaseLayout>
@@ -102,6 +117,87 @@ const t = translations.es;
   }
   .skill-block__icon { width: 40px; height: 40px; flex-shrink: 0; object-fit: contain; filter: invert(1) brightness(0.95); }
   .skill-block__placeholder-text { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+  /* Placeholder upcoming — replica estructura de ToggleCard + SkillSection */
+  .skill-block-frame {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    padding: var(--card-inset);
+    margin-bottom: var(--space-24);
+    overflow: hidden;
+  }
+  .toggle-card {
+    position: relative;
+    border-radius: var(--radius-base);
+    overflow: hidden;
+    margin: calc(var(--card-inset) * -1);
+    width: calc(100% + var(--card-inset) * 2);
+  }
+  .toggle-card__stage {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+  }
+  .toggle-card__toolbar {
+    width: 100%;
+    padding: var(--space-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid var(--color-border-soft);
+    background: var(--color-surface-2);
+  }
+  .upcoming-card__stage {
+    min-height: 320px;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-12) var(--space-6);
+    gap: var(--space-3);
+  }
+  .upcoming-card__title {
+    margin: 0;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-heading);
+    line-height: var(--leading-tight);
+  }
+  .upcoming-card__hint {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    max-width: 36ch;
+    text-wrap: pretty;
+  }
+  .upcoming-card__links {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+  }
+  .upcoming-card__link {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--transition-fast);
+  }
+  .upcoming-card__link:hover,
+  .upcoming-card__link:focus-visible {
+    text-decoration-color: currentColor;
+  }
+  .upcoming-card__toolbar {
+    min-height: 44px;
+  }
+  @media (max-width: 560px) {
+    .upcoming-card__stage {
+      min-height: 280px;
+      padding: var(--space-8) var(--space-4);
+    }
+  }
 
   @media (max-width: 768px) {
     .page {

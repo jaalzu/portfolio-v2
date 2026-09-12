@@ -5,22 +5,22 @@
 
 :root {
 	/* ---- Color: surfaces ---- */
-	--color-surface-1: #08090a; /* Fondo general */
-	--color-surface-2: #131415; /* Superficie secundaria */
-	--color-surface-3: #1c1d1f; /* Cards / elementos elevados */
+	--color-surface-1: oklch(0.139 0.003 246.3); /* Fondo general */
+--color-surface-2: oklch(0.191 0.0026 248);  /* Superficie secundaria */
+--color-surface-3: oklch(0.231 0.004 264.5); /* Cards / elementos elevados */
+
 
 	/* ---- Color: primario ---- */
 	--color-primary: oklch(0.72 0.13 39.865);
 	--color-primary-soft: oklch(59.867% 0.13428 40.447 / 0.682);
 
 	/* ---- Color: neutros estándar (texto, bordes) ---- */
-	--color-text-heading: #f2f2f2;
-	/* --color-text-heading: #f7f8f8; */
-	--color-text: #e5e5e5e3;
-	/* --color-text: #c4c5c5f0; */
-	--color-text-muted: #a0a0a0;
-	/* --color-text-muted: #8a8f98; */
-	--color-text-disabled: #62646c;
+--color-text-heading: oklch(0.961 0 0);
+/* --color-text-heading: oklch(0.978 0.001 197); */
+--color-text: oklch(0.922 0 0 / 0.89);
+/* --color-text: oklch(0.823 0.001 197 / 0.941); */
+--color-text-muted: oklch(0.706 0 0);
+--color-text-disabled: oklch(0.504 0.013 274.7);
 
 	--color-border: oklch(0.33 0 0);
 	--color-border-soft: oklch(0.4 0 0 / 0.52);
@@ -94,6 +94,11 @@
 	/* Inset entre el marco exterior y la card interior
 	   (efecto "card dentro de card") */
 	--card-inset: 4px;
+
+	
+	--shadow-inset-highlight:
+  inset 0 8px 20px oklch(1 0 0 / 0.035),
+  inset 0 1px 0 oklch(1 0 0 / 0.06);
 
 	/* ---- Sombras ---- */
 	--shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
