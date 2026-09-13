@@ -71,13 +71,36 @@ const {
       const getChecked = () => wrap.getAttribute("data-checked") === "true";
 
       btn.addEventListener("click", () => {
-        sync(!getChecked());
+        const next = !getChecked();
+        sync(next);
+
+        const icon = btn.querySelector<SVGSVGElement>(".wrench-icon");
+        if (!icon) return;
+
+        if (next) {
+          safeAnimate(
+            icon,
+            { rotate: -12, rotateX: -5, scale: 0.97 },
+            springs.press,
+          ).then(() => {
+            safeAnimate(
+              icon,
+              { rotate: 0, rotateX: 0, scale: 1 },
+              springs.release,
+            );
+          });
+        } else {
+          // volviendo a "before" — solo un press sutil, sin rotación
+          safeAnimate(icon, { scale: 0.97 }, springs.press).then(() => {
+            safeAnimate(icon, { scale: 1 }, springs.release);
+          });
+        }
       });
 
       btn.addEventListener("keydown", (e: KeyboardEvent) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          sync(!getChecked());
+          btn.click();
         }
       });
 
@@ -164,6 +187,7 @@ const {
     outline: none;
     flex-shrink: 0;
     color: var(--color-text-heading);
+    perspective: 300px;
     transition:
       border-color var(--transition-base),
       color var(--transition-base);
@@ -182,6 +206,7 @@ const {
     width: 22px;
     height: 22px;
     flex-shrink: 0;
-    transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform-style: preserve-3d;
+    transform-origin: 76% 24%;
   }
 </style>

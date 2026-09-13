@@ -7,7 +7,7 @@ import CopyCommand from "../components/skills/CopyCommand.astro";
 import SkillSection from "../components/skills/SkillSection.astro";
 import TypographyDemo from "../components/skills/demos/typography/TypographyDemo.astro";
 import AccessibilityDemo from "../components/skills/demos/accesibility/AccessibilityDemo.astro";
-import TokenUIDemo from "../components/skills/demos/token/TokenUIDemo.astro";
+import TokenDemo from "../components/skills/demos/token/TokenDemo.astro";
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
@@ -16,7 +16,7 @@ const t = translations.es;
 
 <BaseLayout title="Skills — Javier Alzú">
   <I18nSync />
- <main class="page">
+  <main class="page">
     <Section>
       <BackLink />
 
@@ -46,39 +46,62 @@ const t = translations.es;
         <TypographyDemo />
       </SkillSection>
 
-  <SkillSection
-  id="accesibility"
-  title={t.skillsPage.accessibility.title}
-  description={t.skillsPage.accessibility.description}
-  titleKey="skillsPage.accessibility.title"
-  descKey="skillsPage.accessibility.description"
->
-  <AccessibilityDemo />
-</SkillSection>
+      <SkillSection
+        id="accesibility"
+        title={t.skillsPage.accessibility.title}
+        description={t.skillsPage.accessibility.description}
+        titleKey="skillsPage.accessibility.title"
+        descKey="skillsPage.accessibility.description"
+      >
+        <AccessibilityDemo />
+      </SkillSection>
 
-
-<SkillSection
-  id="design-tokens"
-  title={t.skillsPage.designTokens.title}
-  description={t.skillsPage.designTokens.description}
-  titleKey="skillsPage.designTokens.title"
-  descKey="skillsPage.designTokens.description"
->
-  <TokenUIDemo />
-</SkillSection>
+      <SkillSection
+        id="design-tokens"
+        title={t.skillsPage.designTokens.title}
+        description={t.skillsPage.designTokens.description}
+        titleKey="skillsPage.designTokens.title"
+        descKey="skillsPage.designTokens.description"
+      >
+        <TokenDemo />
+      </SkillSection>
 
       <!-- Placeholder — mismo tamaño que accesibilidad, vacía -->
       <div class="skill-block-frame">
         <div class="toggle-card upcoming-card">
           <div class="toggle-card__stage upcoming-card__stage">
-            <p class="upcoming-card__title" data-i18n="skillsPage.upcoming.title">{t.skillsPage.upcoming.title}</p>
-            <p class="upcoming-card__hint" data-i18n="skillsPage.upcoming.hint">{t.skillsPage.upcoming.hint}</p>
+            <p
+              class="upcoming-card__title"
+              data-i18n="skillsPage.upcoming.title"
+            >
+              {t.skillsPage.upcoming.title}
+            </p>
+            <p class="upcoming-card__hint" data-i18n="skillsPage.upcoming.hint">
+              {t.skillsPage.upcoming.hint}
+            </p>
             <div class="upcoming-card__links">
-              <a href="https://github.com/jaalzu" class="upcoming-card__link" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" class="upcoming-card__link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a
+                href="https://github.com/jaalzu"
+                class="upcoming-card__link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/"
+                class="upcoming-card__link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
+              </a>
             </div>
           </div>
-          <div class="toggle-card__toolbar upcoming-card__toolbar" aria-hidden="true"></div>
+          <div
+            class="toggle-card__toolbar upcoming-card__toolbar"
+            aria-hidden="true"
+          ></div>
         </div>
       </div>
     </Section>
@@ -86,8 +109,12 @@ const t = translations.es;
 </BaseLayout>
 
 <style>
-  .page { max-width: var(--content-max-width); margin-inline: auto; padding-inline: var(--space-4); 
-  overflow: hidden;}
+  .page {
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+    overflow: hidden;
+  }
 
   .skills-header__title {
     margin: 0 0 var(--space-2);
@@ -95,11 +122,10 @@ const t = translations.es;
     font-weight: var(--font-weight-semibold);
     line-height: var(--leading-tight);
     letter-spacing: -0.03em;
-         color: var(--color-text-heading);
+    color: var(--color-text-heading);
 
     text-wrap: balance;
   }
-
 
   .skills-header__intro {
     margin: 0;
@@ -115,8 +141,17 @@ const t = translations.es;
     gap: var(--space-4);
     min-height: 72px;
   }
-  .skill-block__icon { width: 40px; height: 40px; flex-shrink: 0; object-fit: contain; filter: invert(1) brightness(0.95); }
-  .skill-block__placeholder-text { font-size: var(--text-sm); color: var(--color-text-muted); }
+  .skill-block__icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    object-fit: contain;
+    filter: invert(1) brightness(0.95);
+  }
+  .skill-block__placeholder-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
 
   /* Placeholder upcoming — replica estructura de ToggleCard + SkillSection */
   .skill-block-frame {
@@ -159,6 +194,7 @@ const t = translations.es;
   }
   .upcoming-card__title {
     margin: 0;
+    padding-bottom: 3rem;
     font-size: var(--text-base);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-heading);
@@ -204,6 +240,8 @@ const t = translations.es;
       padding-inline: calc(var(--space-4) + var(--space-1));
     }
 
-    .skills-header__title { margin-bottom: var(--space-2); }
+    .skills-header__title {
+      margin-bottom: var(--space-2);
+    }
   }
 </style>
