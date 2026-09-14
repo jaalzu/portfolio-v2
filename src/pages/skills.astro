@@ -8,6 +8,7 @@ import SkillSection from "../components/skills/SkillSection.astro";
 import TypographyDemo from "../components/skills/demos/typography/TypographyDemo.astro";
 import AccessibilityDemo from "../components/skills/demos/accesibility/AccessibilityDemo.astro";
 import TokenDemo from "../components/skills/demos/token/TokenDemo.astro";
+import MorphingDemo from "../components/skills/demos/morph/MorphingDemo.astro";
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
@@ -66,42 +67,13 @@ const t = translations.es;
         <TokenDemo />
       </SkillSection>
 
-      <!-- Placeholder — mismo tamaño que accesibilidad, vacía -->
+      <!-- Morphing icon — reemplaza placeholder vacío -->
       <div class="skill-block-frame">
-        <div class="toggle-card upcoming-card">
-          <div class="toggle-card__stage upcoming-card__stage">
-            <p
-              class="upcoming-card__title"
-              data-i18n="skillsPage.upcoming.title"
-            >
-              {t.skillsPage.upcoming.title}
-            </p>
-            <p class="upcoming-card__hint" data-i18n="skillsPage.upcoming.hint">
-              {t.skillsPage.upcoming.hint}
-            </p>
-            <div class="upcoming-card__links">
-              <a
-                href="https://github.com/jaalzu"
-                class="upcoming-card__link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/"
-                class="upcoming-card__link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-            </div>
+        <div class="toggle-card">
+          <div class="toggle-card__stage morph-card__stage">
+            <MorphingDemo />
           </div>
-          <div
-            class="toggle-card__toolbar upcoming-card__toolbar"
-            aria-hidden="true"
-          ></div>
+          <div class="toggle-card__toolbar morph-toolbar-spacer" aria-hidden="true"></div>
         </div>
       </div>
     </Section>

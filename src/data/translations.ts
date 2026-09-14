@@ -28,9 +28,11 @@ export const translations = {
 // es
 about: [
   "Soy de ",
-  "Tengo 25 años y 4 años de experiencia como desarrollador web. La mayor parte del tiempo estoy escuchando música o aprendiendo cosas que probablemente jamás use.",
-  "",
-  "",
+  "La mayor parte del tiempo estoy escuchando música, haciendo cosas en la computadora o aprendiendo algo que probablemente jamás use.",
+  "Me gusta el ASCII art, y tengo una galería muy cool que podés ",
+  "visitar",
+  ".",
+  "Me gusta aprender haciendo, seguir mi curiosidad y dedicar tiempo a esos pequeños detalles que hacen que algo se sienta realmente bien. Vivimos en un momento increíble para crear casi cualquier cosa que podamos imaginar, y estoy muy emocionado de ser parte.",
 ],
 // es
 province: {
@@ -112,6 +114,9 @@ province: {
 					fontSize: "Tamaño de fuente",
 				},
 			},
+			morphDemo: {
+				labels: ["Escrutando...", "Cavilando...", "Redactando...", "Cocinando...", "Compilando..."],
+			},
 		},
 	},
 	en: {
@@ -139,9 +144,11 @@ province: {
 // en
 about: [
   "I'm from ",
-  "I'm 25 years old with 4 years of experience as a web developer. Most of the time, you'll find me listening to music or learning things I'll probably never use.",
-  "",
-  "",
+  "Most of the time, I'm listening to music, messing around on my computer, or learning something I'll probably never use.",
+  "I like ASCII art, and I have a pretty cool gallery you can ",
+  "check out",
+  ".",
+  "I like learning by doing, following my curiosity, and spending time on those small details that make something feel truly right. We live in an amazing time to create almost anything we can imagine, and I'm really excited to be a part of it.",
 ],
 // en
 province: {
@@ -223,6 +230,9 @@ province: {
 					radius: "Border radius",
 					fontSize: "Font size",
 				},
+			},
+			morphDemo: {
+				labels: ["Scrutinizing", "Cogitating", "Penning", "Cooking", "Compiling"],
 			},
 		},
 	},

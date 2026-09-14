@@ -19,12 +19,17 @@ const { texts, province } = Astro.props;
         captions={province.captions ? [...province.captions] : undefined}
       />
     )}.{" "}
-    <span class="about__line" data-i18n="about.1">{texts[1]}</span>{texts[2] && (
-      <><span class="about__line" data-i18n="about.2"> {texts[2]}</span></>
-    )}{texts[3] && (
-      <><span class="about__line" data-i18n="about.3"> {texts[3]}</span><a class="about__link" href="/ascii-gallery">ASCII art</a>.</>
-    )}
+    <span class="about__line" data-i18n="about.1">{texts[1]}</span>
+    <span class="about__breakline">
+      <span class="about__line" data-i18n="about.2">{texts[2]}</span><a
+        class="about__link"
+        href="https://asciiart-seven.vercel.app/"
+        target="_blank"
+        rel="noopener noreferrer" data-i18n="about.3">{texts[3]}</a
+      ><span class="about__line" data-i18n="about.4">{texts[4] ?? ""}</span>
+    </span>
   </p>
+  {texts[5] && <p class="about__text about__text--extra" data-i18n="about.5">{texts[5]}</p>}
 </div>
 
 <style>
@@ -33,4 +38,30 @@ const { texts, province } = Astro.props;
   .about__line{
     color: var(--color-text);
 }
+
+  .about__breakline{
+    display: block;
+    margin-top: var(--space-4);
+  }
+
+  .about__text{
+    color: var(--color-text);
+  }
+
+  .about__text--extra{
+    margin-top: var(--space-4);
+    color: var(--color-text);
+  }
+
+  .about__link {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--transition-fast);
+  }
+  .about__link:hover,
+  .about__link:focus-visible {
+    text-decoration-color: currentColor;
+  }
 </style>
