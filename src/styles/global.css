@@ -1,6 +1,17 @@
 @import "./tokens.css";
 
 @font-face {
+  font-family: "Wotfard";
+  src:
+    url("/fonts/wotfard-variable.woff2") format("woff2-variations"),
+    url("/fonts/wotfard-regular.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback: Geist por si Wotfard no está disponible / por las dudas */
+@font-face {
   font-family: "Geist";
   src: url("/fonts/geist-variable.woff2") format("woff2-variations");
   font-weight: 300 700;
@@ -72,6 +83,7 @@ html::view-transition-new(root) {
 
 .enfasis-text {
   font-family: "Newsreader", serif;
+  font-style: italic;
   font-weight: 500;
   display: inline-block;
   font-size: 1.15em;

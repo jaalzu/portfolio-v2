@@ -2,6 +2,7 @@
 import "./morphing-demo.css";
 import GithubIcon from "../../../icons/GithubIcon.astro";
 import Icon from "../../../icons/Icon.astro";
+import SpinnerCycler from "./SpinnerCycler.tsx";
 ---
 
 <div class="morph-wrap" id="morph-root">
@@ -30,26 +31,5 @@ import Icon from "../../../icons/Icon.astro";
     </div>
   </div>
 
-  <div class="morph-main">
-    <svg
-      id="morph-svg"
-      viewBox="0 0 256 256"
-      width="36"
-      height="36"
-      fill="currentColor"
-      class="morph-icon"
-      aria-hidden="true"
-    >
-      <path id="morph-path" fill-rule="nonzero"></path>
-    </svg>
-    <span
-      id="morph-label"
-      class="morph-label morph-label--in"
-      aria-live="polite"
-    ></span>
-  </div>
+  <SpinnerCycler client:load />
 </div>
-
-<script>
-  import "./morphingDemo";
-</script>

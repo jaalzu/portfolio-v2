@@ -24,27 +24,62 @@
 
 .morph-icon {
   opacity: 0.82;
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px;
+  margin: -10px;
+  border-radius: 8px;
+  /* contenedor fijo pa q no salte entre spinners de distinto ancho */
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.morph-icon:focus-visible {
+  outline: 2px solid var(--color-text-muted);
+  outline-offset: 2px;
+}
+
+.morph-label-viewport {
+  display: grid;
+  place-items: center start;
+  overflow: hidden;
+  height: 1.35em;
+  min-width: 10ch;
 }
 
 .morph-label {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
   white-space: nowrap;
-  min-height: 1.25em;
+  line-height: 1.35em;
+  will-change: transform, opacity;
+  transition:
+    opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.28s ease;
 }
 
 .morph-label--in {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
 }
 
 .morph-label--out {
   opacity: 0;
-  transform: translateY(-6px);
+  transform: translateY(10px);
+  filter: blur(1px);
+}
+
+.morph-label--enter {
+  opacity: 0;
+  transform: translateY(-10px);
+  filter: blur(1px);
 }
 
 /* Footer hint + links — arriba, pegados entre sí */
