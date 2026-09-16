@@ -4,8 +4,11 @@
 <script>
   import { translations } from "../data/translations";
 
-  function getPath(obj: any, path: string): unknown {
-    return path.split(".").reduce((acc, key) => (acc == null ? acc : acc[key]), obj);
+  function getPath(obj: unknown, path: string): unknown {
+    return path.split(".").reduce<unknown>((acc, key) => {
+      if (acc == null || typeof acc !== "object") return undefined;
+      return (acc as Record<string, unknown>)[key];
+    }, obj);
   }
 
   function applyLang(lang: "es" | "en") {
@@ -39,19 +42,32 @@
     });
   }
 
+  function syncFromStorage() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem("lang");
+    const current =
+      stored === "en"
+        ? "en"
+        : stored === "es"
+          ? "es"
+          : root.getAttribute("data-lang") === "en"
+            ? "en"
+            : "es";
+    if (current === "en") root.setAttribute("data-lang", "en");
+    else root.setAttribute("data-lang", "es");
+    applyLang(current as "es" | "en");
+  }
+
   // Si el usuario ya había elegido inglés en una visita anterior,
   // lo aplicamos apenas carga (el HTML se renderiza en español por defecto).
-  const root = document.documentElement;
-  const stored = localStorage.getItem("lang");
-  const current = stored === "en" ? "en" : root.getAttribute("data-lang") === "en" ? "en" : "es";
-
-  if (current === "en") {
-    root.setAttribute("data-lang", "en");
-    applyLang("en");
-  }
+  syncFromStorage();
 
   document.addEventListener("langchange", (event) => {
     const lang = (event as CustomEvent<{ lang: "es" | "en" }>).detail.lang;
     applyLang(lang);
   });
+
+  // Re-aplicar tras navegación con ClientRouter (view transitions)
+  document.addEventListener("astro:page-load", syncFromStorage);
+  document.addEventListener("astro:after-swap", syncFromStorage);
 </script>

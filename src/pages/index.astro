@@ -1,138 +1,89 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Banner from "../components/Banner.astro";
-import Button from "../components/Button.astro";
-import Icon from "../components/Icon.astro";
-import GithubIcon from "../components/GithubIcon.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import TechBadge from "../components/TechBadge.astro";
-import Section from "../components/Section.astro";
-import Footer from "../components/Footer.astro";
-// import ThemeToggle from "../components/ThemeToggle.astro";
-import LanguageToggle from "../components/LanguageToggle.astro";
+import ProjectCard from "../components/home/ProjectCard.astro";
+import SkillItem from "../components/home/SkillItem.astro";
+import Section from "../components/ui/Section.astro";
+import Footer from "../components/home/Footer.astro";
+import Hero from "../components/home/Hero.astro";
+import AboutMe from "../components/home/AboutMe.astro";
+
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
-// El HTML se renderiza en español por defecto (coincide con el estado
-// inicial de data-lang en LanguageToggle). I18nSync.astro se encarga de
-// pasar todo a inglés en el cliente si el usuario ya lo había elegido antes.
 const t = translations.es;
 
 const projects = [
-  {
-    title: "TratoLibre",
-    imageSrc: "/projects/tl.svg",
-    githubUrl: "https://github.com/jaalzu/tratolibre",
-    liveUrl: "https://tratolibre.vercel.app/",
-  },
-  {
-    title: "PickYourColor",
-    imageSrc: "/projects/pyk.svg",
-    githubUrl: "https://github.com/jaalzu/PickYourColory",
-    liveUrl: "https://pick-your-color.vercel.app/?colors=000000-FFFFFF-92b9b9-6420c2-cecece",
-  },
-  {
-    title: "JavaCourses",
-    imageSrc: "/projects/java.svg",
-    githubUrl: "https://github.com/jaalzu/courses-webapp",
-    liveUrl: "https://courses-webapp-delta.vercel.app/login",
-  },
+	{
+		title: "TratoLibre",
+		imageSrc: "/projects/tl.svg",
+		githubUrl: "https://github.com/jaalzu/tratolibre",
+		liveUrl: "https://tratolibre.vercel.app/",
+	},
+	{
+		title: "PickYourColor",
+		imageSrc: "/projects/pyk.svg",
+		githubUrl: "https://github.com/jaalzu/PickYourColory",
+		liveUrl:
+			"https://pick-your-color.vercel.app/?colors=000000-FFFFFF-92b9b9-6420c2-cecece",
+	},
+	{
+		title: "JavaCourses",
+		imageSrc: "/projects/java.svg",
+		githubUrl: "https://github.com/jaalzu/courses-webapp",
+		liveUrl: "https://courses-webapp-delta.vercel.app/login",
+	},
 ];
 
-const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"];
+
 ---
 
 <BaseLayout title="Javier Alzú">
   <I18nSync />
   <main class="page">
     <Section>
-      <div class="top-bar">
-        <LanguageToggle />
-        <!-- <ThemeToggle /> -->
-      </div>
-
-      <Banner
-        name="Javier Alzú"
-        role="Design Engineer"
-        coverSrc="./portft1.webp"
-        avatarSrc="/favicon.png"
-      />
-
-      <div class="about">
-        <p class="about__bio" data-i18n-html="bio1" set:html={t.bio1} />
-
-        <p class="about__bio">
-          <span data-i18n="bio2Before">{t.bio2Before}</span> <br />
-          <span class="about__email-line">
-            <span data-i18n="emailIntro">{t.emailIntro}</span>
-            <a href="mailto:javieralzuu@gmail.com" class="about__email-link">
-              <Icon name="mail-outline" size={16} class="about__at-icon" /><span data-i18n="emailWord">{t.emailWord}</span>
-            </a>
-            <span data-i18n="emailAfter">{(t as any).emailAfter}</span>
-          </span>
-        </p>
-
-        <div class="about__actions">
-          <Button href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/" variant="icon" ariaLabel="LinkedIn" target="_blank" data-tooltip="LinkedIn">
-            <Icon name="linkedin" size={28} />
-          </Button>
-          <Button href="https://github.com/jaalzu" variant="icon" class="tab-btn" ariaLabel="GitHub" target="_blank" data-tooltip="GitHub">
-            <GithubIcon />
-          </Button>
-          <Button
-            href="/CV-ESP.pdf"
-            variant="icon"
-            ariaLabel={t.aria.cv}
-            data-tooltip="CV"
-            data-i18n-attr="aria-label:aria.cv;href:cvHref"
-            data-cv-es="/CV-ESP.pdf"
-            data-cv-en="/CV-ENG.pdf"
-            download="Javier-Alzu-CV.pdf"
-          >
-            <Icon name="document" size={26} />
-          </Button>
-        </div>
-      </div>
+      <Hero t={t} />
     </Section>
 
-    <Section title={t.sections.projects} i18nKey="sections.projects" marked class="projects-section">
+    <Section title={t.sections.projects} i18nKey="sections.projects" marked class="projects-section" index={0}>
       <div class="projects-grid">
         {
           projects.map((project, i) => (
-            <ProjectCard
-              title={project.title}
-              description={t.projects[i]}
-              i18nKey={`projects.${i}`}
-              imageSrc={project.imageSrc}
-              githubUrl={project.githubUrl}
-              liveUrl={project.liveUrl}
-            />
+   <ProjectCard
+      title={project.title}
+      description={t.projects[i]}
+      i18nKey={`projects.${i}`}
+      imageSrc={project.imageSrc}
+      githubUrl={project.githubUrl}
+      liveUrl={project.liveUrl}
+      index={i}
+    />
           ))
         }
       </div>
     </Section>
 
-    <Section title={t.sections.techStack} i18nKey="sections.techStack" marked class="tech-section">
-      <div class="tech-grid">
-        {t.techStack.map((tech, i) => <TechBadge name={tech} i18nKey={`techStack.${i}`} />)}
+    <Section title={t.sections.techStack} i18nKey="sections.techStack" marked class="tech-section" index={1}>
+      <div class="skills-grid">
+        <SkillItem
+          title={t.skillsPromo.title}
+          subtitle={t.skillsPromo.subtitle}
+          href="/skills"
+        />
       </div>
     </Section>
 
-    <Section title={t.sections.journey} i18nKey="sections.journey" marked class="journey-section">
-      <ol class="journey">
-        {
-          journeyYears.map((year, i) => (
-            <li class="journey__item">
-              <span class="journey__year">{year}</span>
-              <p class="journey__text" data-i18n={`journey.${i}`}>{t.journey[i]}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </Section>
+   <Section title={t.sections.aboutMe} i18nKey="sections.aboutMe" marked class="about-section" index={2}>
+<AboutMe texts={t.about} province={t.province} />
+</Section>
 
-    <Footer coverSrc="./portft1.webp" email="javieralzuu@gmail.com" />
   </main>
+  <Footer coverSrc="./portft1.webp" email="javieralzuu@gmail.com" />
+
+  <script>
+    document.addEventListener("astro:page-load", () => {
+      sessionStorage.setItem("home-intro-played", "1");
+    });
+  </script>
 </BaseLayout>
 
 <style>
@@ -142,149 +93,37 @@ const journeyYears = ["2021 - 2022", "2022 - 2024", "2024 - 2026", "2026 - now"]
     padding-inline: var(--space-4);
   }
 
-  .top-bar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-  }
-
-  .about {
-    padding-block: var(--space-8) ;
-
-  }
-
-.about__bio {
-  margin: 0 0 var(--space-6);
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  color: var(--color-text);
-  max-inline-size: 70ch;
-}
-
-
-.about__bio :global(.about__design) {
-  font-family: 'Story Script', cursive, sans-serif;
-  font-weight: 400;
-  font-size: 1.08rem;
-  color: var(--color-surface);
-  display: inline-block;
-  transform: translateY(-1px);
-}
-
-  .about__bio :global(.about__care) {
-    font-weight: 400;
-    font-family: 'Story Script', cursive, sans-serif;
-    font-size: 1.08rem;
-    color: var(--color-surface);
-    display: inline-block;
-    transform: translateY(-1px);
-  }
-
-  .about__bio :global(.about__code) {
-    font-weight: 400;
-    color: var(--color-surface);
-  }
-
-  
-
-  .about__email-line {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.32em;
-    vertical-align: baseline;
-  }
-
-  .about__email-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
-    text-underline-offset: 2px;
-    transition: text-decoration-color var(--transition-fast);
-    line-height: 1;
-  }
-
-  .about__email-link :global(.about__at-icon) {
-    flex-shrink: 0;
-    display: block;
-  }
-
-  .about__email-link:hover {
-    text-decoration-color: currentColor;
-  }
-
-  .about__actions {
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-6);
-    margin-top: var(--space-16);
-  }
-
-  .projects-section {
-    padding-top: var(--space-16);
-  }
-
   .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    column-gap: var(--space-12);
-    row-gap: var(--space-6);
-    margin-bottom: 4rem;
-  }
-
-  .tech-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 2rem;
-  }
-
-  .journey {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--space-3);
   }
 
-  .journey__item {
+  .skills-grid {
     display: flex;
-    align-items: baseline;
-    gap: var(--space-8);
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
   }
 
-  .journey__year {
-    width: 110px;
-    flex-shrink: 0;
-    white-space: nowrap;
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-semibold);
-    font-variant-numeric: tabular-nums;
-    color: var(--color-text);
-  }
-
-.journey__text {
-  margin: 0;
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  color: var(--color-text-muted);
-  text-wrap: pretty;
-}
-
-  @media (max-width: 560px) {
-    .projects-grid {
-      grid-template-columns: 1fr;
+  @media (max-width: 768px) {
+    .page {
+      padding-inline: calc(var(--space-4) + var(--space-1));
     }
 
-    .journey__item {
-      flex-direction: column;
-      gap: var(--space-1);
+    .skills-grid {
+      margin-bottom: var(--space-4);
     }
   }
+
+  :global(.about-section) {
+    padding-bottom: 0 !important;
+    margin-bottom: 0;
+  }
+  :global(.about-section .section__content) {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+
 </style>

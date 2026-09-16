@@ -1,0 +1,80 @@
+---
+// TokenToolbar.astro
+// Pickers de color, sliders continuos, y el tooltip compartido (texto + valor animado).
+import { translations } from "../../../../data/translations";
+import "./token-toolbar.css";
+const t = translations.es;
+---
+
+<div class="tk-demo__toolbar" id="tk-toolbar">
+  <div class="tk-toolbar-group">
+    <label class="tk-picker" data-tooltip="surface-1">
+      <input
+        type="color"
+        class="tk-picker__input"
+        data-token="bg"
+        value="#131415"
+        aria-label={t.skillsPage.tokenDemo.toolbar.surface}
+        data-i18n-attr="aria-label:skillsPage.tokenDemo.toolbar.surface"
+      />
+      <span class="tk-picker__swatch"></span>
+    </label>
+    <label class="tk-picker" data-tooltip="primary">
+      <input
+        type="color"
+        class="tk-picker__input"
+        data-token="primary"
+        value="#e08a5c"
+        aria-label={t.skillsPage.tokenDemo.toolbar.primary}
+        data-i18n-attr="aria-label:skillsPage.tokenDemo.toolbar.primary"
+      />
+      <span class="tk-picker__swatch"></span>
+    </label>
+    <label class="tk-picker" data-tooltip="text-heading">
+      <input
+        type="color"
+        class="tk-picker__input"
+        data-token="text"
+        value="#f7f8f8"
+        aria-label={t.skillsPage.tokenDemo.toolbar.textHeading}
+        data-i18n-attr="aria-label:skillsPage.tokenDemo.toolbar.textHeading"
+      />
+      <span class="tk-picker__swatch"></span>
+    </label>
+  </div>
+
+  <div class="tk-toolbar-group">
+    <input
+      type="range"
+      class="tk-slider tk-slider--a"
+      id="tk-radius-slider"
+      min="0"
+      max="2"
+      step="0.01"
+      value="0.375"
+      aria-label={t.skillsPage.tokenDemo.toolbar.radius}
+      data-i18n-attr="aria-label:skillsPage.tokenDemo.toolbar.radius"
+      data-tooltip-prefix="radius"
+    />
+  </div>
+
+  <div class="tk-toolbar-group">
+    <input
+      type="range"
+      class="tk-slider tk-slider--b"
+      id="tk-fontsize-slider"
+      min="0"
+      max="2"
+      step="0.01"
+      value="1"
+      aria-label={t.skillsPage.tokenDemo.toolbar.fontSize}
+      data-i18n-attr="aria-label:skillsPage.tokenDemo.toolbar.fontSize"
+      data-tooltip-prefix="font"
+    />
+  </div>
+
+  <div class="tk-tooltip" id="tk-tooltip">
+    <span id="tk-tooltip-text"></span>
+    <span class="tk-tooltip__value" id="tk-tooltip-value"></span>
+  </div>
+</div>

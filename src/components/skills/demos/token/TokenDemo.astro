@@ -1,0 +1,80 @@
+---
+// TokenUIDemo.astro
+import TokenCard from "./TokenCard.astro";
+import TokenToolbar from "./TokenToolbar.astro";
+import { translations } from "../../../../data/translations";
+import "./token-demo.css";
+const t = translations.es;
+---
+
+<div class="tk-demo">
+  <div class="tk-demo__stage" id="tk-stage">
+    <button
+      class="tk-info-btn"
+      type="button"
+      id="tk-info-btn"
+      aria-pressed="false"
+      aria-label={t.skillsPage.tokenDemo.infoLabel}
+      data-i18n-attr="aria-label:skillsPage.tokenDemo.infoLabel"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="16"
+        height="16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="9"></circle>
+        <line x1="12" y1="11" x2="12" y2="16"></line>
+        <circle
+          cx="12"
+          cy="7.5"
+          r="0.5"
+          fill="currentColor"
+          stroke="none"
+        ></circle>
+      </svg>
+    </button>
+
+    <!-- MOBILE: leyenda — siempre en el flujo, controlada solo por opacity -->
+    <div class="tk-mobile-legend" id="tk-mobile-legend" aria-hidden="true">
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">1</span>text-heading
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">2</span>text-body
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">3</span>primary-color
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">4</span>surface-1
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">5</span>radius-base
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">6</span>icon-neutral
+      </span>
+      <span class="tk-legend-item">
+        <span class="tk-token-badge tk-legend-dot">7</span>rating
+      </span>
+    </div>
+
+    <TokenCard />
+
+    <!-- DESKTOP: capa de anotaciones con líneas -->
+    <div class="tk-annot-layer" id="tk-annot-layer" aria-hidden="true">
+      <svg class="tk-annot-svg" id="tk-annot-svg"></svg>
+    </div>
+  </div>
+
+  <TokenToolbar />
+</div>
+
+<script>
+  import "./tokenDemo";
+</script>

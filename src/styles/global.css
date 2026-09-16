@@ -3,16 +3,16 @@
 @font-face {
   font-family: "Geist";
   src: url("/fonts/geist-variable.woff2") format("woff2-variations");
-  font-weight: 100 900;
+  font-weight: 300 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Story Script";
-  src: url("/fonts/badscript.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
+  font-family: "Newsreader";
+  src: url("/fonts/newsreader-italic.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -24,16 +24,18 @@
 
 html {
   color-scheme: dark;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
+  padding-inline: 3px;
+  overflow-x: clip;
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-regular);
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface-1);
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
@@ -50,67 +52,52 @@ a {
 
 ::selection {
   background-color: var(--color-primary);
-  color: var(--color-bg);
-}
-
-[data-tooltip] {
-  position: relative;
-}
-
-[data-tooltip]::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  background-color: var(--color-bg);
-  color: var(--color-primary);
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-semibold);
-  white-space: nowrap;
-  padding: 4px 8px;
-  pointer-events: none;
-  opacity: 0;
-  transition:
-    opacity var(--transition-fast),
-    transform var(--transition-fast);
-  z-index: 20;
-}
-
-[data-tooltip]::after {
-  bottom: calc(100% + var(--tooltip-gap, 8px));
-}
-
-.tech[data-tooltip]::after {
-  bottom: auto;
-  top: calc(100% + var(--tooltip-gap, 8px));
-}
-
-[data-tooltip]:hover::after,
-[data-tooltip]:focus-visible::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-@media (hover: none) {
-  [data-tooltip]::after {
-    display: none;
-  }
+  color: var(--color-surface-1);
 }
 
 /* Focus visible consistente en todo el sistema (better-accessibility) */
 :focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+}
+html::view-transition-old(root),
+html::view-transition-new(root) {
+  mix-blend-mode: normal;
+  background: var(--color-surface-1);
+}
+
+.enfasis-text {
+  font-family: "Newsreader", serif;
+  font-weight: 500;
+  display: inline-block;
+  font-size: 1.15em;
+}
+
+/* reveal animation in home page */
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  animation: revealUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 80ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  .reveal {
+    animation: none;
+    opacity: 1;
   }
 }

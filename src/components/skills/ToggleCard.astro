@@ -1,0 +1,170 @@
+---
+import SkillToggle from "./SkillToggle.astro";
+
+export interface Props {
+  id: string;
+  leftLabel?: string;
+  rightLabel?: string;
+  initialMode?: "before" | "after";
+  class?: string;
+  stageClass?: string;
+}
+
+const {
+  id,
+  leftLabel = "before",
+  rightLabel = "after",
+  initialMode = "before",
+  class: className = "",
+  stageClass = "",
+} = Astro.props;
+---
+
+<div
+  class:list={["toggle-card", className]}
+  data-toggle-card={id}
+  data-mode={initialMode}
+>
+  <div class:list={["toggle-card__stage", stageClass]}>
+    <slot />
+  </div>
+
+  <div class="toggle-card__toolbar">
+    <slot name="toolbar">
+      <SkillToggle id={`${id}-toggle`} leftLabel={leftLabel} rightLabel={rightLabel} />
+    </slot>
+  </div>
+</div>
+
+<script is:inline>
+  function initToggleCards() {
+    const cards = document.querySelectorAll("[data-toggle-card]");
+
+    cards.forEach((card) => {
+      if (card.dataset.bound === "1") return;
+      card.dataset.bound = "1";
+
+      const cardId = card.dataset.toggleCard;
+      const btn = cardId ? document.getElementById(`${cardId}-toggle`) : null;
+      const stage = card.querySelector(".toggle-card__stage");
+
+      function lockHeight() {
+        if (!stage) return;
+        const original = card.dataset.mode;
+
+        stage.classList.add("no-transition");
+        stage.style.minHeight = "0px";
+
+        card.dataset.mode = "after";
+        const afterH = stage.scrollHeight;
+
+        card.dataset.mode = "before";
+        const beforeH = stage.scrollHeight;
+
+        card.dataset.mode = original || "before";
+
+        const max = Math.max(afterH, beforeH);
+        stage.style.minHeight = Math.max(max + 36, 260) + "px";
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            stage.classList.remove("no-transition");
+          });
+        });
+      }
+
+      lockHeight();
+
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(lockHeight);
+      }
+
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(lockHeight, 150);
+      });
+
+      let fadeTimer = null;
+
+      function setMode(mode) {
+        if (card.dataset.mode === mode) return;
+
+        if (fadeTimer) clearTimeout(fadeTimer);
+        if (stage) stage.style.opacity = "0.62";
+
+        card.dataset.mode = mode;
+
+        card.dispatchEvent(
+          new CustomEvent("toggle-card:mode-change", {
+            detail: { mode },
+            bubbles: true,
+          })
+        );
+
+        if (stage) {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              stage.style.opacity = "1";
+            });
+          });
+
+          fadeTimer = setTimeout(() => {
+            stage.style.opacity = "";
+          }, 260);
+        }
+      }
+
+      if (btn) {
+        btn.addEventListener("skill-toggle", (e) => {
+          const detail = e.detail;
+          const isAfter = detail
+            ? detail.checked
+            : btn.getAttribute("aria-pressed") === "true" ||
+              btn.getAttribute("aria-checked") === "true";
+          setMode(isAfter ? "after" : "before");
+        });
+      }
+    });
+  }
+
+  initToggleCards();
+  document.addEventListener("astro:page-load", initToggleCards);
+  document.addEventListener("astro:after-swap", initToggleCards);
+</script>
+<style>
+.toggle-card {
+  position: relative;
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  margin: calc(var(--card-inset) * -1);
+  width: calc(100% + var(--card-inset) * 2);
+}
+
+  .toggle-card__stage {
+    width: 100%;
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
+  }
+
+  .toggle-card__stage.no-transition {
+    transition: none !important;
+  }
+
+  .toggle-card__toolbar {
+    width: 100%;
+    padding: var(--space-2);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid var(--color-border-soft);
+    background: var(--color-surface-2);
+  }
+</style>

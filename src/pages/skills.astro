@@ -1,0 +1,222 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import BackLink from "../components/ui/BackLink.astro";
+import GithubIcon from "../components/icons/GithubIcon.astro";
+import CopyCommand from "../components/skills/CopyCommand.astro";
+import SkillSection from "../components/skills/SkillSection.astro";
+import TypographyDemo from "../components/skills/demos/typography/TypographyDemo.astro";
+import AccessibilityDemo from "../components/skills/demos/accesibility/AccessibilityDemo.astro";
+import TokenDemo from "../components/skills/demos/token/TokenDemo.astro";
+import MorphingDemo from "../components/skills/demos/morph/MorphingDemo.astro";
+import I18nSync from "../components/I18nSync.astro";
+import { translations } from "../data/translations";
+
+const t = translations.es;
+---
+
+<BaseLayout title="Skills — Javier Alzú">
+  <I18nSync />
+  <main class="page">
+    <Section>
+      <BackLink />
+
+      <div class="skills-header">
+        <h1 class="skills-header__title">Skills</h1>
+        <p class="skills-header__intro" data-i18n="skillsPage.subtitle">
+          {t.skillsPage.subtitle}
+        </p>
+      </div>
+
+      <CopyCommand
+        command="npx skills add jaalzu/agent-skills"
+        githubUrl="https://github.com/jaalzu/agent-skills"
+      >
+        <GithubIcon slot="github-icon" />
+      </CopyCommand>
+    </Section>
+
+    <Section>
+      <SkillSection
+        id="typography"
+        title={t.skillsPage.typography.title}
+        description={t.skillsPage.typography.description}
+        titleKey="skillsPage.typography.title"
+        descKey="skillsPage.typography.description"
+      >
+        <TypographyDemo />
+      </SkillSection>
+
+      <SkillSection
+        id="accesibility"
+        title={t.skillsPage.accessibility.title}
+        description={t.skillsPage.accessibility.description}
+        titleKey="skillsPage.accessibility.title"
+        descKey="skillsPage.accessibility.description"
+      >
+        <AccessibilityDemo />
+      </SkillSection>
+
+      <SkillSection
+        id="design-tokens"
+        title={t.skillsPage.designTokens.title}
+        description={t.skillsPage.designTokens.description}
+        titleKey="skillsPage.designTokens.title"
+        descKey="skillsPage.designTokens.description"
+      >
+        <TokenDemo />
+      </SkillSection>
+
+      <!-- Morphing icon — reemplaza placeholder vacío -->
+      <div class="skill-block-frame">
+        <div class="toggle-card">
+          <div class="toggle-card__stage morph-card__stage">
+            <MorphingDemo />
+          </div>
+          <div
+            class="toggle-card__toolbar morph-toolbar-spacer"
+            aria-hidden="true"
+          ></div>
+        </div>
+      </div>
+    </Section>
+  </main>
+</BaseLayout>
+
+<style>
+  .page {
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+    overflow: hidden;
+  }
+
+  .skills-header__title {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.03em;
+    color: var(--color-text-heading);
+
+    text-wrap: balance;
+  }
+
+  .skills-header__intro {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: var(--leading-relaxed);
+    text-wrap: pretty;
+  }
+
+  .skill-block--placeholder {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 72px;
+  }
+  .skill-block__icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    object-fit: contain;
+    filter: invert(1) brightness(0.95);
+  }
+  .skill-block__placeholder-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  /* Placeholder upcoming — replica estructura de ToggleCard + SkillSection */
+  .skill-block-frame {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    padding: var(--card-inset);
+    margin-bottom: var(--space-24);
+    overflow: hidden;
+  }
+  .toggle-card {
+    position: relative;
+    border-radius: var(--radius-base);
+    overflow: hidden;
+    margin: calc(var(--card-inset) * -1);
+    width: calc(100% + var(--card-inset) * 2);
+  }
+  .toggle-card__stage {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+  }
+  .toggle-card__toolbar {
+    width: 100%;
+    padding: var(--space-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid var(--color-border-soft);
+    background: var(--color-surface-2);
+  }
+  .upcoming-card__stage {
+    min-height: 320px;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-12) var(--space-6);
+    gap: var(--space-3);
+  }
+  .upcoming-card__title {
+    margin: 0;
+    padding-bottom: 3rem;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-heading);
+    line-height: var(--leading-tight);
+  }
+  .upcoming-card__hint {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    max-width: 36ch;
+    text-wrap: pretty;
+  }
+  .upcoming-card__links {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+  }
+  .upcoming-card__link {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--transition-fast);
+  }
+  .upcoming-card__link:hover,
+  .upcoming-card__link:focus-visible {
+    text-decoration-color: currentColor;
+  }
+  .upcoming-card__toolbar {
+    min-height: 44px;
+  }
+  @media (max-width: 560px) {
+    .upcoming-card__stage {
+      min-height: 280px;
+      padding: var(--space-8) var(--space-4);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page {
+      padding-inline: calc(var(--space-4) + var(--space-1));
+    }
+
+    .skills-header__title {
+      margin-bottom: var(--space-2);
+    }
+  }
+</style>

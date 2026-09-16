@@ -1,0 +1,136 @@
+.typo-demo__stage {
+  padding: 0 6.5rem 1rem;
+}
+
+.demo-label {
+  font-size: 10px;
+  margin: 0 0 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: font-size 140ms ease, letter-spacing 140ms ease;
+}
+
+.demo-heading {
+  margin: 0 0 14px;
+  font-size: clamp(1.25rem, 1rem + 1.6vw, 1.85rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text-heading);
+  text-wrap: balance;
+  transition: letter-spacing 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    line-height 220ms ease, max-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.demo-body {
+  margin: 0;
+  max-width: 40ch;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+  transition: letter-spacing 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    line-height 220ms ease, max-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.demo-live {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+}
+
+.demo-live__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.demo-pair {
+  display: inline-block;
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-text-muted);
+}
+
+.demo-leader {
+  display: none;
+}
+
+.demo-price-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.demo-num {
+  display: inline-block;
+  min-width: 7.5ch;
+  text-align: right;
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-heading);
+  contain: layout style;
+  transition: letter-spacing 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.demo-num.up,
+.demo-delta.up {
+  color: var(--color-green);
+}
+
+.demo-num.down,
+.demo-delta.down {
+  color: var(--color-red);
+}
+
+.demo-delta {
+  min-width: 12px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+[data-toggle-card="typoToggle"][data-mode="before"] .demo-label {
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+[data-toggle-card="typoToggle"][data-mode="before"] .demo-heading {
+  max-width: none;
+  text-wrap: initial;
+  letter-spacing: 0;
+}
+
+[data-toggle-card="typoToggle"][data-mode="before"] .demo-body {
+  max-width: none;
+  text-wrap: initial;
+  line-height: 1.25;
+}
+
+[data-toggle-card="typoToggle"][data-mode="before"] .demo-num {
+  font-variant-numeric: proportional-nums;
+  letter-spacing: 0;
+}
+
+@media (max-width: 560px) {
+  .demo-body {
+    max-width: 30ch;
+  }
+
+  .typo-demo__stage {
+    padding: 0 1rem 1rem;
+  }
+}

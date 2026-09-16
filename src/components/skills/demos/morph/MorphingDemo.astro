@@ -1,0 +1,55 @@
+---
+import "./morphing-demo.css";
+import GithubIcon from "../../../icons/GithubIcon.astro";
+import Icon from "../../../icons/Icon.astro";
+---
+
+<div class="morph-wrap" id="morph-root">
+  <div class="morph-footer">
+    <p class="morph-title" data-i18n="skillsPage.upcoming.title">Trabajando en nuevas skills</p>
+    <p class="morph-hint" data-i18n="skillsPage.upcoming.hint">Seguime para no perdértelo.</p>
+    <div class="morph-links">
+      <a
+        href="https://github.com/jaalzu"
+        class="morph-link morph-link--icon"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+      >
+        <GithubIcon size={22} />
+      </a>
+      <a
+        href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/"
+        class="morph-link morph-link--icon"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+      >
+        <Icon name="linkedin" size={22} />
+      </a>
+    </div>
+  </div>
+
+  <div class="morph-main">
+    <svg
+      id="morph-svg"
+      viewBox="0 0 256 256"
+      width="36"
+      height="36"
+      fill="currentColor"
+      class="morph-icon"
+      aria-hidden="true"
+    >
+      <path id="morph-path" fill-rule="nonzero"></path>
+    </svg>
+    <span
+      id="morph-label"
+      class="morph-label morph-label--in"
+      aria-live="polite"
+    ></span>
+  </div>
+</div>
+
+<script>
+  import "./morphingDemo";
+</script>

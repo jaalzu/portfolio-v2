@@ -1,0 +1,133 @@
+.morph-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+  min-height: 100%;
+}
+
+/* Bloque icono + label — fila, borde left bottom de la card */
+.morph-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-2);
+  align-self: flex-start;
+  margin-top: auto;
+  flex: 0 0 auto;
+  width: auto;
+  padding: 0;
+}
+
+.morph-icon {
+  opacity: 0.82;
+  display: block;
+}
+
+.morph-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  white-space: nowrap;
+  min-height: 1.25em;
+}
+
+.morph-label--in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.morph-label--out {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+/* Footer hint + links — arriba, pegados entre sí */
+.morph-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.morph-title {
+  margin: 0;
+  font-size: var(--text-base);
+  padding-top: 2rem;
+  color: var(--color-text-heading);
+  line-height: var(--leading-tight);
+}
+
+.morph-hint {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: var(--leading-relaxed);
+}
+
+.morph-links {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  margin-bottom: 2.5rem;
+  font-size: var(--text-sm);
+}
+
+.morph-link {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--transition-fast);
+}
+
+.morph-link:hover,
+.morph-link:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.morph-link--icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  text-decoration: none;
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.morph-link--icon:hover,
+.morph-link--icon:focus-visible {
+  color: var(--color-text-heading);
+}
+
+/* Card stage — mantener altura del placeholder */
+.morph-card__stage {
+  min-height: 220px;
+  align-items: stretch;
+  text-align: center;
+  padding: var(--space-6) var(--space-6);
+  justify-content: center;
+}
+
+.morph-toolbar-spacer {
+  min-height: 64px;
+}
+
+@media (max-width: 560px) {
+  .morph-card__stage {
+    min-height: 280px;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .morph-main {
+    padding-top: var(--space-8);
+  }
+}

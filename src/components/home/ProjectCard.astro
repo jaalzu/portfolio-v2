@@ -1,0 +1,205 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  imageSrc: string;
+  githubUrl?: string;
+  liveUrl?: string;
+  i18nKey?: string;
+  index?: number;
+}
+
+const {
+  title,
+  description,
+  imageSrc,
+  liveUrl,
+  i18nKey,
+  index = 0,
+} = Astro.props;
+---
+
+<a href={liveUrl} target="_blank" rel="noopener noreferrer" class="card-frame reveal" style={`--i: ${index}`} aria-label={`Ver ${title} en vivo`}>
+  <article class="card">
+    <div class="card__image">
+      <img src={imageSrc} alt="" loading="lazy" />
+    </div>
+    <div class="card__body">
+      <h3 class="card__title">{title}</h3>
+      <p class="card__description" data-i18n={i18nKey}>
+        {description}
+      </p>
+    </div>
+    <span class="card__arrow" aria-hidden="true">
+      <img src="/skills/arrow.svg" alt="" width="16" height="16" />
+    </span>
+  </article>
+</a>
+
+<style>
+  @keyframes revealUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    animation: revealUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(650ms + var(--i, 0) * 90ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  :global(html.no-home-intro .reveal) {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Marco exterior: crea el efecto "card dentro de otra card" (radio concéntrico) */
+  .card-frame {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    padding: var(--card-inset);
+    transition: border-color var(--transition-base);
+  }
+
+  .card-frame:has(.card:hover) {
+    border-color: var(--color-border);
+  }
+
+  .card {
+    position: relative;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-inner);
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 64px;
+    padding: var(--space-3) 44px var(--space-3) var(--space-2);
+    background: var(--color-surface-1);
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .card:hover {
+    border-color: var(--color-border);
+  }
+
+  .card__image {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card__image img {
+    max-height: 32px;
+    max-width: 32px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: saturate(0);
+    opacity: 0.85;
+    transition: filter var(--transition-base), opacity var(--transition-base);
+  }
+
+  .card:hover .card__image img {
+    filter: saturate(1);
+    opacity: 1;
+  }
+
+  /* Ajustes por logo - más grandes */
+  .card__image img[src*="tl.svg"] {
+    max-height: 42px;
+    max-width: 42px;
+    transform: scale(1);
+  }
+
+  .card__image img[src*="java.svg"] {
+    max-height: 38px;
+    max-width: 38px;
+    transform: scale(1);
+  }
+
+  .card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .card__title {
+    margin: 0;
+    letter-spacing: 0.2px;
+    font-size: var(--text-base);
+    color: var(--color-text-heading);
+  }
+
+  .card__description {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    font-size: var(--text-sm);
+  }
+
+  .card__arrow {
+    position: absolute;
+    right: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%) translateX(-6px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-base), transform var(--transition-base);
+  }
+
+  .card__arrow img {
+    width: 16px;
+    height: 16px;
+    filter: invert(1) brightness(1);
+  }
+
+  .card:hover .card__arrow,
+  .card-frame:focus-visible .card__arrow {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  @media (max-width: 480px) {
+    .card {
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) 36px var(--space-3) var(--space-2);
+    }
+
+    .card__image {
+      align-self: center;
+    }
+
+    .card__description {
+      max-width: none;
+    }
+  }
+</style>

@@ -1,0 +1,134 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  href?: string;
+  variant?: "default" | "arrows";
+}
+
+const { title, subtitle, href = "/skills", variant = "default" } = Astro.props;
+---
+
+<div class="skill-frame">
+  <a
+    href={href}
+    class:list={["skill", variant === "arrows" && "skill--arrows"]}
+  >
+    <div class="skill__text">
+      <p class="skill__title" data-i18n="skillsPromo.title">{title}</p>
+      <p class="skill__subtitle" data-i18n="skillsPromo.subtitle">{subtitle}</p>
+    </div>
+    {variant === "arrows" ? (
+      <span class="skill__arrows" aria-hidden="true">
+        <img
+          src="/skills/arrow.svg"
+          alt=""
+          width="16"
+          height="16"
+          class="skill__arrow"
+        />
+      </span>
+    ) : (
+      <span class="skill__arrow-wrap" aria-hidden="true">
+        <img
+          src="/skills/arrow.svg"
+          alt=""
+          width="16"
+          height="16"
+          class="skill__arrow"
+        />
+      </span>
+    )}
+  </a>
+</div>
+
+<style>
+  .skill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-inline: var(--space-4);
+    border-radius: var(--radius-inner);
+    text-decoration: none;
+    border: 1px solid var(--color-border-softer);
+    padding-block: var(--space-6);
+    box-shadow: var(--shadow-inset-highlight);
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base),
+      background var(--transition-base);
+  }
+
+  .skill__text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .skill__title {
+    margin: 0;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-tight);
+    color: var(--color-text-heading);
+  }
+
+  .skill__subtitle {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-normal);
+    color: var(--color-text-muted);
+  }
+
+  .skill__arrow-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    margin-left: auto;
+    opacity: var(--opacity-faint);
+
+    transform: translateX(0);
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
+  }
+
+  .skill__arrow {
+    width: 17px;
+    height: 17px;
+    filter: invert(1) brightness(1);
+  }
+
+  .skill:hover {
+    background-color: var(--color-surface-3);
+  }
+
+  .skill:hover .skill__arrow-wrap,
+  .skill:focus-visible .skill__arrow-wrap {
+    opacity: var(--opacity-full);
+  }
+
+  .skill__arrows {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    margin-left: auto;
+    opacity: var(--opacity-medium);
+    transition: opacity var(--transition-base);
+  }
+
+  .skill:hover .skill__arrows,
+  .skill:focus-visible .skill__arrows {
+    opacity: var(--opacity-full);
+  }
+
+  .skill--arrows {
+    border: none;
+  }
+</style>

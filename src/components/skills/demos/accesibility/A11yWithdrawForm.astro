@@ -1,0 +1,72 @@
+---
+import { translations } from "../../../../data/translations";
+import "./a11yWithdraw.css";
+
+const t = translations.es;
+---
+
+<form class="wd-form" novalidate>
+  <div class="wd-field">
+    <label
+      class="wd-field__label"
+      for="wd-wallet"
+      data-i18n="skillsPage.a11yDemo.walletLabel"
+    >
+      {t.skillsPage.a11yDemo.walletLabel}
+    </label>
+
+    <input
+      class="wd-field__input"
+      id="wd-wallet"
+      name="wallet"
+      type="text"
+      autocomplete="off"
+      placeholder={t.skillsPage.a11yDemo.walletPlaceholder}
+      data-i18n-attr="placeholder:skillsPage.a11yDemo.walletPlaceholder"
+    />
+
+    <p class="wd-field__error" id="wd-wallet-error"></p>
+  </div>
+
+  <div class="wd-field">
+    <label
+      class="wd-field__label"
+      for="wd-amount"
+      data-i18n="skillsPage.a11yDemo.amountLabel"
+    >
+      {t.skillsPage.a11yDemo.amountLabel}
+    </label>
+
+    <input
+      class="wd-field__input"
+      id="wd-amount"
+      name="amount"
+      type="text"
+      inputmode="decimal"
+      autocomplete="off"
+      placeholder={t.skillsPage.a11yDemo.amountPlaceholder}
+      data-i18n-attr="placeholder:skillsPage.a11yDemo.amountPlaceholder"
+    />
+
+    <p class="wd-field__error" id="wd-amount-error"></p>
+  </div>
+
+  <button
+    class="wd-submit"
+    type="submit"
+    data-i18n="skillsPage.a11yDemo.submit"
+  >
+    {t.skillsPage.a11yDemo.submit}
+  </button>
+</form>
+
+<div class="wd-toast" role="alert" aria-live="assertive">
+  <span class="wd-toast__icon" aria-hidden="true"></span>
+  <span class="wd-toast__text"></span>
+</div>
+
+<script>
+  import { initA11yWithdraw } from "./a11yWithdraw";
+
+  initA11yWithdraw();
+</script>

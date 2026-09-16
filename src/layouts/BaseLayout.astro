@@ -1,25 +1,35 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
-  title: string;
-  description?: string;
+	title: string;
+	description?: string;
 }
 
-const { title, description = "Portfolio personal" } = Astro.props;
+const { title, description = "Portfolio javalzu" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es" data-theme="dark">
+<html lang="es" transition:animate="none">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta property="image" content="/og.png" />
-    <meta property="og:image" content="/og.png" />
-    <title>{title}</title>
-  </head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta property="image" content="/og.png" />
+  <meta property="og:image" content="/og.png" />
+  <title>{title}</title>
+  <ClientRouter />
+
+  <script>
+    document.addEventListener("astro:before-swap", (event) => {
+      if (sessionStorage.getItem("home-intro-played") === "1") {
+        event.newDocument.documentElement.classList.add("no-home-intro");
+      }
+    });
+  </script>
+</head>
   <body>
     <slot />
   </body>

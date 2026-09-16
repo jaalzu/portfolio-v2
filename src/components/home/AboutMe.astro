@@ -1,0 +1,61 @@
+---
+import Gallery from "./Gallery/Gallery.astro";
+import { provinceImages } from "../../data/chaco";
+
+export interface Props {
+  texts: readonly string[];
+  province?: { name: string; alt: string; captions?: readonly string[] };
+}
+const { texts, province } = Astro.props;
+---
+
+<div class="about">
+  <p class="about__text">
+    <span class="about__line" data-i18n="about.0">{texts[0]}</span>{province && (
+      <Gallery
+        label={province.name}
+        images={[...provinceImages]}
+        altBase={province.alt}
+        captions={province.captions ? [...province.captions] : undefined}
+      />
+    )}.{" "}
+    <span class="about__line" data-i18n="about.1">{texts[1]}</span>
+    <span class="about__breakline" data-i18n-html="about.2" set:html={texts[2]}></span>
+  </p>
+</div>
+
+<style>
+
+  
+  .about__line{
+     color: var(--color-text);
+  }
+
+
+
+  .about__breakline{
+    display: block;
+    margin-top: var(--space-4);
+  }
+
+  .about__text{
+    color: var(--color-text);
+  }
+
+  .about__text--extra{
+    margin-top: var(--space-4);
+    color: var(--color-text);
+  }
+
+  .about__link {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--transition-fast);
+  }
+  .about__link:hover,
+  .about__link:focus-visible {
+    text-decoration-color: currentColor;
+  }
+</style>
