@@ -1,26 +1,31 @@
 ---
 import "./morphing-demo.css";
+import GithubIcon from "../../../icons/GithubIcon.astro";
+import Icon from "../../../icons/Icon.astro";
 ---
 
 <div class="morph-wrap" id="morph-root">
   <div class="morph-footer">
-    <p class="morph-hint" data-i18n="skillsPage.upcoming.hint">Seguime en mis redes para enterarte</p>
+    <p class="morph-title" data-i18n="skillsPage.upcoming.title">Trabajando en nuevas skills</p>
+    <p class="morph-hint" data-i18n="skillsPage.upcoming.hint">Seguime para no perdértelo.</p>
     <div class="morph-links">
       <a
         href="https://github.com/jaalzu"
-        class="morph-link"
+        class="morph-link morph-link--icon"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="GitHub"
       >
-        GitHub
+        <GithubIcon size={22} />
       </a>
       <a
         href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/"
-        class="morph-link"
+        class="morph-link morph-link--icon"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="LinkedIn"
       >
-        LinkedIn
+        <Icon name="linkedin" size={22} />
       </a>
     </div>
   </div>
@@ -29,8 +34,8 @@ import "./morphing-demo.css";
     <svg
       id="morph-svg"
       viewBox="0 0 256 256"
-      width="56"
-      height="56"
+      width="36"
+      height="36"
       fill="currentColor"
       class="morph-icon"
       aria-hidden="true"

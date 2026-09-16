@@ -80,7 +80,7 @@ const { size = 24 } = Astro.props;
           .to([whiskerL, whiskerR], { attr: { "stroke-dashoffset": 0 }, duration: 0.3, ease: "power2.out" }, 0);
 
         // dispara con el hover del botón/link que envuelve al ícono
-        const trigger = svg.closest<HTMLElement>(".tab-btn") ?? svg;
+        const trigger = svg.closest<HTMLElement>(".tab-btn, .morph-link--icon, a") ?? svg;
 
         trigger.addEventListener("mouseenter", () => face.play());
         trigger.addEventListener("mouseleave", () => face.reverse());

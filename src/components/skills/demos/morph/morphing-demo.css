@@ -8,21 +8,22 @@
   min-height: 100%;
 }
 
-/* Bloque icono + label — abajo, centrado */
+/* Bloque icono + label — fila, borde left bottom de la card */
 .morph-main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: var(--space-1);
-  flex: 1;
-  width: 100%;
-  padding: var(--space-12) 0 var(--space-4);
+  justify-content: flex-start;
+  gap: var(--space-2);
+  align-self: flex-start;
+  margin-top: auto;
+  flex: 0 0 auto;
+  width: auto;
+  padding: 0;
 }
 
 .morph-icon {
-  color: var(--color-text);
-  opacity: 0.62;
+  opacity: 0.82;
   display: block;
 }
 
@@ -34,7 +35,6 @@
     transform 0.25s ease;
   white-space: nowrap;
   min-height: 1.25em;
-  margin-top: var(--space-1);
 }
 
 .morph-label--in {
@@ -52,22 +52,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
-  padding-top: var(--space-2);
+  gap: 2px;
+}
+
+.morph-title {
+  margin: 0;
+  font-size: var(--text-base);
+  padding-top: 2rem;
+  color: var(--color-text-heading);
+  line-height: var(--leading-tight);
 }
 
 .morph-hint {
   margin: 0;
   font-size: var(--text-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text);
   line-height: var(--leading-relaxed);
-  max-width: 36ch;
-  text-wrap: pretty;
 }
 
 .morph-links {
   display: flex;
-  gap: var(--space-4);
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  margin-bottom: 2.5rem;
   font-size: var(--text-sm);
 }
 
@@ -84,17 +91,34 @@
   text-decoration-color: currentColor;
 }
 
+.morph-link--icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  text-decoration: none;
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.morph-link--icon:hover,
+.morph-link--icon:focus-visible {
+  color: var(--color-text-heading);
+}
+
 /* Card stage — mantener altura del placeholder */
 .morph-card__stage {
-  min-height: 320px;
+  min-height: 220px;
   align-items: stretch;
   text-align: center;
-  padding: var(--space-12) var(--space-6);
+  padding: var(--space-6) var(--space-6);
   justify-content: center;
 }
 
 .morph-toolbar-spacer {
-  min-height: 44px;
+  min-height: 64px;
 }
 
 @media (max-width: 560px) {

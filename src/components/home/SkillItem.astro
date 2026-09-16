@@ -6,7 +6,7 @@ interface Props {
   variant?: "default" | "arrows";
 }
 
-const { title, href = "/skills", variant = "default" } = Astro.props;
+const { title, subtitle, href = "/skills", variant = "default" } = Astro.props;
 ---
 
 <div class="skill-frame">
@@ -15,7 +15,8 @@ const { title, href = "/skills", variant = "default" } = Astro.props;
     class:list={["skill", variant === "arrows" && "skill--arrows"]}
   >
     <div class="skill__text">
-      <p class="skill__title">{title}</p>
+      <p class="skill__title" data-i18n="skillsPromo.title">{title}</p>
+      <p class="skill__subtitle" data-i18n="skillsPromo.subtitle">{subtitle}</p>
     </div>
     {variant === "arrows" ? (
       <span class="skill__arrows" aria-hidden="true">
@@ -47,7 +48,7 @@ const { title, href = "/skills", variant = "default" } = Astro.props;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    padding-inline: var(--space-3);
+    padding-inline: var(--space-4);
     border-radius: var(--radius-inner);
     text-decoration: none;
     border: 1px solid var(--color-border-softer);
@@ -104,7 +105,7 @@ const { title, href = "/skills", variant = "default" } = Astro.props;
   }
 
   .skill:hover {
-    border: 1px solid black;
+    background-color: var(--color-surface-3);
   }
 
   .skill:hover .skill__arrow-wrap,
