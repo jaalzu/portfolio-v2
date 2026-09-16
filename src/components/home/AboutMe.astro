@@ -20,24 +20,18 @@ const { texts, province } = Astro.props;
       />
     )}.{" "}
     <span class="about__line" data-i18n="about.1">{texts[1]}</span>
-    <span class="about__breakline">
-      <span class="about__line" data-i18n="about.2">{texts[2]}</span><a
-        class="about__link"
-        href="https://asciiart-seven.vercel.app/"
-        target="_blank"
-        rel="noopener noreferrer" data-i18n="about.3">{texts[3]}</a
-      ><span class="about__line" data-i18n="about.4">{texts[4] ?? ""}</span>
-    </span>
+    <span class="about__breakline" data-i18n-html="about.2" set:html={texts[2]}></span>
   </p>
-  {texts[5] && <p class="about__text about__text--extra" data-i18n="about.5">{texts[5]}</p>}
 </div>
 
 <style>
 
   
   .about__line{
-    color: var(--color-text);
-}
+     color: var(--color-text);
+  }
+
+
 
   .about__breakline{
     display: block;

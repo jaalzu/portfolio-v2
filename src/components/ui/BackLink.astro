@@ -1,15 +1,31 @@
 ---
 export interface Props {
-	href?: string;
-	label?: string;
+  href?: string;
+  label?: string;
 }
 const { href = "/", label = "Volver" } = Astro.props;
 ---
+
 <a {href} class="back-link" aria-label="Volver al inicio">
-  <svg class="back-link__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <svg
+    class="back-link__arrow"
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M10 12L6 8L10 4"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
   </svg>
-  <span class="back-link__text" data-i18n="skills.back">{label}</span>
+  <span class="back-link__text" data-i18n="skills.back">
+    {label}
+  </span>
 </a>
 
 <style>
@@ -17,6 +33,7 @@ const { href = "/", label = "Volver" } = Astro.props;
     display: inline-flex;
     align-items: center;
     margin-bottom: 4rem;
+    margin-top: 2rem;
     gap: 6px;
     text-decoration: none;
     font-size: var(--text-base);
@@ -25,27 +42,36 @@ const { href = "/", label = "Volver" } = Astro.props;
   }
   .back-link__arrow {
     opacity: 0.38;
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    transition:
+      opacity var(--transition-fast),
+      transform var(--transition-fast);
     flex-shrink: 0;
     margin-top: -3px;
   }
   .back-link__text {
-    font-family: 'Newsreader', serif;
+    font-family: "Newsreader", serif;
     font-style: italic;
     line-height: 1;
     opacity: 1;
     transition: opacity var(--transition-fast);
   }
   .back-link:hover .back-link__arrow,
-  .back-link:focus-visible .back-link__arrow { opacity: 1; }
+  .back-link:focus-visible .back-link__arrow {
+    opacity: 1;
+  }
   .back-link:hover .back-link__text,
-  .back-link:focus-visible .back-link__text { opacity: 0.42; }
+  .back-link:focus-visible .back-link__text {
+    opacity: 0.42;
+  }
   .back-link:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 3px;
     border-radius: 4px;
   }
   @media (max-width: 768px) {
-    .back-link { margin-top: 1.5rem; margin-bottom: calc(var(--space-6) + var(--space-4)); }
+    .back-link {
+      margin-top: 1.5rem;
+      margin-bottom: calc(var(--space-6) + var(--space-4));
+    }
   }
 </style>

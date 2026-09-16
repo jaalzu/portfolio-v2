@@ -94,11 +94,9 @@ const projects = [
   }
 
   .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    column-gap: var(--space-4);
-    row-gap: var(--space-4);
-    margin-bottom: var(--space-16);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
   }
 
   .skills-grid {
@@ -113,18 +111,19 @@ const projects = [
       padding-inline: calc(var(--space-4) + var(--space-1));
     }
 
-    .projects-grid {
-      margin-bottom: var(--space-6);
-    }
-
     .skills-grid {
       margin-bottom: var(--space-4);
     }
   }
 
-  @media (max-width: 560px) {
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
+  :global(.about-section) {
+    padding-bottom: 0 !important;
+    margin-bottom: 0;
   }
+  :global(.about-section .section__content) {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+
 </style>

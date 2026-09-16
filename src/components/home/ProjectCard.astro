@@ -1,13 +1,10 @@
 ---
-import GithubIcon from "../icons/GithubIcon.astro";
-import ExternalLinkIcon from "../icons/ExternalLinkIcon.astro";
-
 interface Props {
   title: string;
   description: string;
   imageSrc: string;
-  githubUrl: string;
-  liveUrl: string;
+  githubUrl?: string;
+  liveUrl?: string;
   i18nKey?: string;
   index?: number;
 }
@@ -16,14 +13,13 @@ const {
   title,
   description,
   imageSrc,
-  githubUrl,
   liveUrl,
   i18nKey,
   index = 0,
 } = Astro.props;
 ---
 
-<div class="card-frame reveal" style={`--i: ${index}`}>
+<a href={liveUrl} target="_blank" rel="noopener noreferrer" class="card-frame reveal" style={`--i: ${index}`} aria-label={`Ver ${title} en vivo`}>
   <article class="card">
     <div class="card__image">
       <img src={imageSrc} alt="" loading="lazy" />
@@ -33,29 +29,12 @@ const {
       <p class="card__description" data-i18n={i18nKey}>
         {description}
       </p>
-      <div class="card__actions">
-        <a
-          class="tab-btn card__icon-link"
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Repositorio de ${title} en GitHub`}
-        >
-          <GithubIcon />
-        </a>
-        <a
-          class="tab-btn card__icon-link"
-          href={liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Ver ${title} en vivo`}
-        >
-          <ExternalLinkIcon />
-        </a>
-      </div>
     </div>
+    <span class="card__arrow" aria-hidden="true">
+      <img src="/skills/arrow.svg" alt="" width="16" height="16" />
+    </span>
   </article>
-</div>
+</a>
 
 <style>
   @keyframes revealUp {
@@ -89,6 +68,9 @@ const {
 
   /* Marco exterior: crea el efecto "card dentro de otra card" (radio concéntrico) */
   .card-frame {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-base);
     padding: var(--card-inset);
@@ -100,12 +82,16 @@ const {
   }
 
   .card {
+    position: relative;
     border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-inner);
     overflow: hidden;
     display: flex;
-    flex-direction: column;
-    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 64px;
+    padding: var(--space-3) 44px var(--space-3) var(--space-2);
     background: var(--color-surface-1);
     transition:
       border-color var(--transition-base),
@@ -117,73 +103,103 @@ const {
   }
 
   .card__image {
-    height: 110px;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .card__image img {
-    max-height: 50px;
+    max-height: 32px;
+    max-width: 32px;
     width: auto;
+    height: auto;
     object-fit: contain;
+    filter: saturate(0);
+    opacity: 0.85;
+    transition: filter var(--transition-base), opacity var(--transition-base);
+  }
+
+  .card:hover .card__image img {
+    filter: saturate(1);
+    opacity: 1;
+  }
+
+  /* Ajustes por logo - más grandes */
+  .card__image img[src*="tl.svg"] {
+    max-height: 42px;
+    max-width: 42px;
+    transform: scale(1);
+  }
+
+  .card__image img[src*="java.svg"] {
+    max-height: 38px;
+    max-width: 38px;
+    transform: scale(1);
   }
 
   .card__body {
-    padding: var(--space-2) var(--space-4) 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    align-items: flex-start;
     flex: 1;
-    background: var(--color-surface-2);
+    min-width: 0;
+    padding: 0;
   }
 
   .card__title {
     margin: 0;
     letter-spacing: 0.2px;
-    font-size: var(--text-sm);
+    font-size: var(--text-base);
+    color: var(--color-text-heading);
   }
 
   .card__description {
     margin: 0;
     color: var(--color-text-muted);
     line-height: var(--leading-normal);
-    flex: 1;
+    font-size: var(--text-sm);
   }
 
-  .card__actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
-    margin-bottom: var(--space-3);
-  }
-
-  .card__icon-link {
+  .card__arrow {
+    position: absolute;
+    right: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%) translateX(-6px);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    color: var(--color-text);
-    opacity: var(--opacity-muted);
-    transition:
-      color var(--transition-fast),
-      opacity var(--transition-fast);
+    opacity: 0;
+    transition: opacity var(--transition-base), transform var(--transition-base);
   }
 
-  .card:hover .card__icon-link {
-    opacity: var(--opacity-strong);
+  .card__arrow img {
+    width: 16px;
+    height: 16px;
+    filter: invert(1) brightness(1);
   }
 
-  .card__icon-link :global(svg) {
-    width: 20px;
-    height: 20px;
+  .card:hover .card__arrow,
+  .card-frame:focus-visible .card__arrow {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
   }
 
-  .card__icon-link:hover,
-  .card__icon-link:focus-visible {
-    color: var(--color-text-heading);
-    opacity: var(--opacity-full);
+  @media (max-width: 480px) {
+    .card {
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) 36px var(--space-3) var(--space-2);
+    }
+
+    .card__image {
+      align-self: center;
+    }
+
+    .card__description {
+      max-width: none;
+    }
   }
 </style>

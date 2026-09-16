@@ -98,13 +98,14 @@ const { t } = Astro.props;
     justify-content: flex-end;
     align-items: center;
     gap: var(--space-2);
-    margin-bottom: var(--space-6);
+    margin-top: 2rem;
+    margin-bottom: var(--space-8);
   }
 
   .hero-identity {
     display: flex;
     align-items: center;
-    padding-bottom: var(--space-8);
+    padding-bottom: calc(var(--space-8) + 1.2rem);
   }
 
   .hero-identity__name {
@@ -130,23 +131,6 @@ const { t } = Astro.props;
     max-inline-size: 59ch;
   }
 
-  .about__bio :global(.about__design) {
-    font-family: "Newsreader", serif;
-    font-style: italic;
-    color: var(--color-text-heading);
-    display: inline-block;
-    font-size: 1.06em;
-  }
-
-  .about__bio :global(.about__code),
-  .about__bio :global(.about__unique) {
-    font-family: "Newsreader", serif;
-    font-style: italic;
-    color: var(--color-text-heading);
-    display: inline-block;
-    font-size: 1.07em;
-  }
-
   .about__text-link {
     display: inline-flex;
     align-items: center;
@@ -164,6 +148,7 @@ const { t } = Astro.props;
 
   .about__links {
     padding-top: var(--space-2);
+    margin-bottom: 32px;
     display: flex;
     gap: var(--space-4);
     font-size: var(--text-sm);
