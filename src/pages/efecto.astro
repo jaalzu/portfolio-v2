@@ -1,0 +1,333 @@
+<div class="page">
+  <div class="card">
+    <nav class="mobile-nav" aria-label="Demo nav">
+      <button class="origin-btn" data-origin-btn>
+        <span class="origin-btn__text">Inicio</span>
+      </button>
+      <button class="origin-btn" data-origin-btn>
+        <span class="origin-btn__text">Proyectos</span>
+      </button>
+      <button class="origin-btn" data-origin-btn>
+        <span class="origin-btn__text">Contacto</span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="card">
+    <p class="section-label">Solo iconos sin bordes</p>
+    <nav class="ghost-group" aria-label="Solo iconos">
+      <button
+        class="origin-btn origin-btn--ghost origin-btn--icon"
+        data-origin-btn
+        aria-label="Code"
+      >
+        <span class="origin-btn__text">
+          <img
+            class="ghost-icon"
+            src="/skills/code.svg"
+            width="20"
+            height="20"
+            alt=""
+            aria-hidden="true"
+          />
+        </span>
+      </button>
+      <button
+        class="origin-btn origin-btn--ghost origin-btn--icon"
+        data-origin-btn
+        aria-label="Brain"
+      >
+        <span class="origin-btn__text">
+          <img
+            class="ghost-icon"
+            src="/skills/brain.svg"
+            width="20"
+            height="20"
+            alt=""
+            aria-hidden="true"
+          />
+        </span>
+      </button>
+      <button
+        class="origin-btn origin-btn--ghost origin-btn--icon"
+        data-origin-btn
+        aria-label="Wrench"
+      >
+        <span class="origin-btn__text">
+          <img
+            class="ghost-icon"
+            src="/skills/wrench.svg"
+            width="20"
+            height="20"
+            alt=""
+            aria-hidden="true"
+          />
+        </span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="card">
+    <p class="section-label">Icono + label — sin bordes</p>
+    <nav class="ghost-group" aria-label="Icono y label">
+      <button
+        class="origin-btn origin-btn--ghost origin-btn--with-icon"
+        data-origin-btn
+      >
+        <span class="origin-btn__text">
+          <img
+            class="ghost-icon ghost-icon--sm"
+            src="/skills/code.svg"
+            width="16"
+            height="16"
+            alt=""
+            aria-hidden="true"
+          />{" "}
+          Code
+        </span>
+      </button>
+      <button
+        class="origin-btn origin-btn--ghost origin-btn--with-icon"
+        data-origin-btn
+      >
+        <span class="origin-btn__text">
+          <img
+            class="ghost-icon ghost-icon--sm"
+            src="/skills/brain.svg"
+            width="16"
+            height="16"
+            alt=""
+            aria-hidden="true"
+          />{" "}
+          Brain
+        </span>
+      </button>
+      <button
+        class="origin-btn origin-btn--ghost origin-btn--with-icon"
+        data-origin-btn
+      >
+        <span class="origin-btn__text">
+          <img
+            class="ghost-icon ghost-icon--sm"
+            src="/skills/wrench.svg"
+            width="16"
+            height="16"
+            alt=""
+            aria-hidden="true"
+          />{" "}
+          Wrench
+        </span>
+      </button>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .page {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    background: #d2cdcd;
+  }
+
+  .card {
+    width: min(420px, 100%);
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 48px 20px;
+    display: grid;
+    place-items: center;
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.04),
+      0 8px 24px rgba(0, 0, 0, 0.04);
+  }
+
+  .mobile-nav {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background: #f2ede8;
+    border-radius: 9999px;
+    border: 1px solid #e8e0d6;
+  }
+
+  .origin-btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 20px;
+    border-radius: 9999px;
+
+    border: none;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    line-height: 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .origin-btn__text {
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Usamos :global() para que Astro no inactive el CSS generado dinámicamente con JS */
+  :global(.origin-btn__fill) {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    background: rgba(0, 0, 0, 0.48);
+    transform: translate(-50%, -50%) scale(0);
+    animation: originReveal 0.6s cubic-bezier(0, 0, 0.5, 1) forwards;
+  }
+  @keyframes originReveal {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.22;
+    }
+    50% {
+      opacity: 0.28;
+    }
+    72% {
+      opacity: 0.24;
+    }
+    88% {
+      opacity: 0.12;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  .section-label {
+    margin-bottom: 0.5rem;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9a9590;
+  }
+
+  .ghost-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .origin-btn--ghost {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .origin-btn--icon {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    font-size: 18px;
+    border-radius: 10px;
+  }
+
+  .origin-btn--icon:nth-child(1) {
+    border-radius: 6px;
+  }
+  .origin-btn--icon:nth-child(2) {
+    border-radius: 999px;
+  }
+
+  .origin-btn--with-icon .origin-btn__text {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .origin-btn--with-icon {
+    padding: 10px 16px;
+  }
+
+  .ghost-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .ghost-icon--sm {
+    width: 16px;
+    height: 16px;
+  }
+
+  :focus-visible {
+    outline: 2px solid #1a1a1a;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 520px) {
+    .card {
+      padding: 36px 16px;
+      border-radius: 16px;
+    }
+    .mobile-nav {
+      gap: 6px;
+      padding: 6px;
+    }
+    .origin-btn {
+      padding: 10px 16px;
+      font-size: 13px;
+    }
+  }
+</style>
+
+<script>
+  const buttons =
+    document.querySelectorAll<HTMLButtonElement>("[data-origin-btn]");
+
+  function createFill(btn: HTMLElement, e: MouseEvent) {
+    const fill = document.createElement("span");
+    fill.classList.add("origin-btn__fill");
+
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    fill.style.left = `${x}px`;
+    fill.style.top = `${y}px`;
+
+    btn.appendChild(fill);
+
+    fill.addEventListener("animationend", (e: AnimationEvent) => {
+      if (e.animationName === "originReveal") {
+        fill.remove();
+      }
+    });
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("mouseenter", (e) => {
+      createFill(btn, e);
+    });
+
+    btn.addEventListener("click", (e) => {
+      createFill(btn, e);
+    });
+  });
+</script>

@@ -1,19 +1,62 @@
 ---
 export interface Props {
-	text: string;
-	label?: string;
+  text: string;
+  label?: string;
 }
 const { text, label = "Copiar" } = Astro.props;
 ---
-<button class="copy-btn" type="button" aria-label={label} data-copy={text} data-i18n-attr="aria-label:skillsPage.copyLabel">
-  <svg class="copy-btn__icon" width="19" height="19" viewBox="0 0 256 256" aria-hidden="true">
-    <rect width="256" height="256" fill="none"/>
-    <polyline points="168 168 216 168 216 40 88 40 88 88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-    <rect x="40" y="88" width="128" height="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+
+<button
+  class="copy-btn"
+  type="button"
+  aria-label={label}
+  data-copy={text}
+  data-i18n-attr="aria-label:skillsPage.copyLabel"
+>
+  <svg
+    class="copy-btn__icon"
+    width="19"
+    height="19"
+    viewBox="0 0 256 256"
+    aria-hidden="true"
+  >
+    <rect width="256" height="256" fill="none" />
+    <polyline
+      points="168 168 216 168 216 40 88 40 88 88"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="16"
+    />
+    <rect
+      x="40"
+      y="88"
+      width="128"
+      height="128"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="16"
+    />
   </svg>
-  <svg class="copy-btn__check" width="19" height="19" viewBox="0 0 256 256" aria-hidden="true">
-    <rect width="256" height="256" fill="none"/>
-    <polyline points="40 144 96 200 224 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+  <svg
+    class="copy-btn__check"
+    width="19"
+    height="19"
+    viewBox="0 0 256 256"
+    aria-hidden="true"
+  >
+    <rect width="256" height="256" fill="none" />
+    <polyline
+      points="40 144 96 200 224 72"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="16"
+    />
   </svg>
 </button>
 
@@ -22,100 +65,126 @@ const { text, label = "Copiar" } = Astro.props;
   // ↑ mismo comentario: ajustá la ruta según dónde viva este componente
 
   function initCopyButtons() {
-    document.querySelectorAll<HTMLButtonElement>('.copy-btn:not([data-bound])').forEach((btn) => {
-      btn.dataset.bound = '1';
-      const icon = btn.querySelector<HTMLElement>('.copy-btn__icon');
-      const check = btn.querySelector<HTMLElement>('.copy-btn__check');
+    document
+      .querySelectorAll<HTMLButtonElement>(".copy-btn:not([data-bound])")
+      .forEach((btn) => {
+        btn.dataset.bound = "1";
+        const icon = btn.querySelector<HTMLElement>(".copy-btn__icon");
+        const check = btn.querySelector<HTMLElement>(".copy-btn__check");
 
-      btn.addEventListener('click', () => {
-        const text = btn.getAttribute('data-copy');
-        if (!text || btn.classList.contains('copied')) return;
+        btn.addEventListener("click", () => {
+          const text = btn.getAttribute("data-copy");
+          if (!text || btn.classList.contains("copied")) return;
 
-        navigator.clipboard.writeText(text).then(() => {
-          btn.classList.add('copied');
-          if (icon && check) {
-            safeAnimate(icon, { opacity: 0, scale: 0.5 }, springs.swap);
-            safeAnimate(check, { opacity: 1, scale: 1 }, { ...springs.swap, delay: swapDelay });
-          }
-          setTimeout(() => {
-            btn.classList.remove('copied');
+          navigator.clipboard.writeText(text).then(() => {
+            btn.classList.add("copied");
             if (icon && check) {
-              safeAnimate(check, { opacity: 0, scale: 0.5 }, springs.swap);
-              safeAnimate(icon, { opacity: 1, scale: 1 }, { ...springs.swap, delay: swapDelay });
+              safeAnimate(icon, { opacity: 0, scale: 0.5 }, springs.swap);
+              safeAnimate(
+                check,
+                { opacity: 1, scale: 1 },
+                { ...springs.swap, delay: swapDelay },
+              );
             }
-          }, 1500);
+            setTimeout(() => {
+              btn.classList.remove("copied");
+              if (icon && check) {
+                safeAnimate(check, { opacity: 0, scale: 0.5 }, springs.swap);
+                safeAnimate(
+                  icon,
+                  { opacity: 1, scale: 1 },
+                  { ...springs.swap, delay: swapDelay },
+                );
+              }
+            }, 1500);
+          });
         });
       });
-    });
   }
 
   initCopyButtons();
-  document.addEventListener('astro:page-load', initCopyButtons);
-  document.addEventListener('astro:after-swap', initCopyButtons);
+  document.addEventListener("astro:page-load", initCopyButtons);
+  document.addEventListener("astro:after-swap", initCopyButtons);
 </script>
 
 <style>
-.copy-btn {
-  position: absolute;
-  right: 6px;
-  top: 50%;
-  transform: translateY(-50%);
-  appearance: none;
-  border: none;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--color-text);
-  width: 30px;
-  height: 30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  flex-shrink: 0;
-  z-index: 2;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  pointer-events: auto;
-  overflow: visible;
-  isolation: isolate;
-  transition: color 220ms ease, background 300ms cubic-bezier(0.22, 1, 0.36, 1), transform 0.15s ease-out;
-}
-
-.copy-btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: currentColor;
-  opacity: 0;
-  filter: blur(2px);
-  transition: opacity 0.15s ease-out;
-  pointer-events: none;
-  z-index: -1;
-}
-
-@media (max-width: 768px) {
   .copy-btn {
-    width: 40px;
-    height: 40px;
-    right: 4px;
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    appearance: none;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--color-text);
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    z-index: 2;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+    overflow: visible;
+    isolation: isolate;
+    transition:
+      color 220ms ease,
+      background 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-}
-.copy-btn:hover { color: var(--color-text-heading); background: transparent; }
-.copy-btn:active {
-  transform: translateY(-50%) scale(0.97);
-}
-.copy-btn:active::before {
-  opacity: 0.12;
-}
-.copy-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
-.copy-btn__icon,
-.copy-btn__check {
-  position: absolute;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  will-change: transform, opacity;
-}
-.copy-btn__check { opacity: 0; color: var(--color-text-heading); }
+  .copy-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0;
+    filter: blur(2px);
+    transition: opacity 0.15s ease-out;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  @media (max-width: 768px) {
+    .copy-btn {
+      width: 40px;
+      height: 40px;
+      right: 4px;
+    }
+  }
+
+  .copy-btn:hover {
+    color: var(--color-text-heading);
+    background: transparent;
+  }
+
+  .copy-btn:active {
+    /* Sin movimiento */
+  }
+
+  .copy-btn:active::before {
+    opacity: 0.12;
+  }
+
+  .copy-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .copy-btn__icon,
+  .copy-btn__check {
+    position: absolute;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+
+  .copy-btn__check {
+    opacity: 0;
+    color: var(--color-text-heading);
+  }
 </style>

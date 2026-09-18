@@ -19,7 +19,14 @@ const {
 } = Astro.props;
 ---
 
-<a href={liveUrl} target="_blank" rel="noopener noreferrer" class="card-frame reveal" style={`--i: ${index}`} aria-label={`Ver ${title} en vivo`}>
+<a
+  href={liveUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="card-frame reveal"
+  style={`--i: ${index}`}
+  aria-label={`Ver ${title} en vivo`}
+>
   <article class="card">
     <div class="card__image">
       <img src={imageSrc} alt="" loading="lazy" />
@@ -66,40 +73,34 @@ const {
     opacity: 1 !important;
   }
 
-  /* Marco exterior: crea el efecto "card dentro de otra card" (radio concéntrico) */
   .card-frame {
     display: block;
     text-decoration: none;
     color: inherit;
-    border: 1px solid var(--color-border-soft);
+    border: 1px solid transparent;
     border-radius: var(--radius-base);
-    padding: var(--card-inset);
+    padding: 0;
     transition: border-color var(--transition-base);
   }
 
+  .card-frame:hover,
+  .card-frame:focus-visible,
   .card-frame:has(.card:hover) {
-    border-color: var(--color-border);
+    border-color: var(--color-border-soft);
   }
 
   .card {
     position: relative;
-    border: 1px solid var(--color-border-soft);
+    border: none;
     border-radius: var(--radius-inner);
     overflow: hidden;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-3);
     min-height: 64px;
-    padding: var(--space-3) 44px var(--space-3) var(--space-2);
-    background: var(--color-surface-1);
-    transition:
-      border-color var(--transition-base),
-      box-shadow var(--transition-base);
-  }
-
-  .card:hover {
-    border-color: var(--color-border);
+    padding: var(--space-3) 44px var(--space-3) 0.5rem;
+    background: transparent;
   }
 
   .card__image {
@@ -119,7 +120,9 @@ const {
     object-fit: contain;
     filter: saturate(0);
     opacity: 0.85;
-    transition: filter var(--transition-base), opacity var(--transition-base);
+    transition:
+      filter var(--transition-base),
+      opacity var(--transition-base);
   }
 
   .card:hover .card__image img {
@@ -172,7 +175,9 @@ const {
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity var(--transition-base), transform var(--transition-base);
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
   }
 
   .card__arrow img {
@@ -191,7 +196,7 @@ const {
     .card {
       align-items: center;
       gap: var(--space-3);
-      padding: var(--space-3) 36px var(--space-3) var(--space-2);
+      padding: var(--space-3) 36px var(--space-3) 0;
     }
 
     .card__image {
