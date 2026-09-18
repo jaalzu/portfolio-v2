@@ -144,7 +144,7 @@ export default function SpinnerCycler() {
         <Component size={20} />
       </div>
       <span className="morph-label-viewport" aria-live="polite" aria-atomic="true">
-        <span className={labelClass}>{phrases[phraseIndex]}</span>
+        <span className={`${labelClass} enfasis-text`}>{phrases[phraseIndex]}</span>
       </span>
     </div>
   );
