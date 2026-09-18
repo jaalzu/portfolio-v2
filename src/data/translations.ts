@@ -5,7 +5,7 @@ export const translations = {
       techStack: "Recursos",
       aboutMe: "Mas sobre mi",
     },
-    bio1: '<span class="enfasis-text">Creando interfaces web</span> en la intersección entre diseño y código, donde la calidad se define por lo bien que funcionan.<br><br>Construyo aplicaciones y sitios web usando principalmente React, Next.js, TypeScript y CSS. Me gusta hacer que las cosas funcionen rápido, sean accesibles para todos y fáciles de mantener, cuidando cada pequeño detalle que hace cada experiencia <span class="enfasis-text">unica.<span>',
+    bio1: '<span class="enfasis-text">Creando interfaces web</span> con ingeniería frontend y sentido del diseño.<br><br>Del prototipo al usuario , desarrollo sistemas de UI y componentes, con foco en la interacción, la accesibilidad, el rendimiento y los pequeños detalles que hacen destacar una experiencia.',
 
     emailWord: "Email",
     // emailAfter: "gratis!",
@@ -28,8 +28,8 @@ export const translations = {
     // es
     about: [
       "Soy de ",
-      "Amo la música. Disfruto los juegos, ya sean digitales o de mesa.",
-      'Soy de tomar acción rápido sobre esas ideas que se me pasan por la cabeza, disfruto crear esa interfaz nueva, refactorizar ese código, probar diferentes animaciones y pulir el resultado hasta que todo funcione un poco mejor.<br><br>Hay tantas cosas por aprender, explorar y construir en la web, y eso es lo que la hace <span style="white-space:nowrap">tan <span class="enfasis-text enfasis-text--lg">emocionante</span>.</span>',
+      "Me gusta la música, los días grises y los viajes largos.",
+      'Soy de tomar acción rápido sobre esas ideas que se me pasan por la cabeza, disfruto crear una interfaz nueva, organizar el código , probar diferentes animaciones y pulir el resultado hasta que todo funcione un poco mejor.<br><br>Hay tantas cosas por aprender, explorar y construir en la web, y eso es lo que la hace <span style="white-space:nowrap">tan <span class="enfasis-text enfasis-text--lg">emocionante</span>.</span>',
     ],
     // es
     province: {
@@ -128,7 +128,7 @@ export const translations = {
       techStack: "Resources",
       aboutMe: "About Me",
     },
-    bio1: '<span class="enfasis-text">Crafting web interfaces</span> at the intersection of design and code, where quality is defined by how well they work.<br><br>I build web applications and websites using React, Next.js, TypeScript, and CSS. I like making things fast, accessible to everyone, and easy to maintain, while paying attention to every small detail that makes an experience feel <span class="enfasis-text">unique</span>.',
+    bio1: '<span class="enfasis-text">Creating web interfaces</span> with frontend engineering and a sense of design.<br><br>From prototype to user, I develop UI systems and components, with a focus on interaction, accessibility, performance, and the small details that make an experience stand out.',
 
     emailWord: "Email",
     githubWord: "GitHub",
@@ -146,7 +146,7 @@ export const translations = {
     // en
     about: [
       "I'm from ",
-      "I love music. I enjoy play games, whether digital or board. ",
+      "I love music, gray days and long trips. ",
       'I tend to act quickly on the ideas that pop into my head. I enjoy creating a new interface, refactoring some code, trying out different animations, or polishing the result until everything works a little better.<br><br>There are so many things to learn, explore and build on the web, and that\'s what makes it <span style="white-space:nowrap">so <span class="enfasis-text enfasis-text--lg">exciting</span>.</span>',
     ],
     // en
