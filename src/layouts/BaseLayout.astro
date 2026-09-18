@@ -20,6 +20,20 @@ const { title, description = "Portfolio javalzu" } = Astro.props;
   <meta property="image" content="/og.png" />
   <meta property="og:image" content="/og.png" />
   <title>{title}</title>
+  <link
+    rel="preload"
+    href="/fonts/geist-variable.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="/fonts/newsreader-italic.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
   <ClientRouter />
 
   <script>

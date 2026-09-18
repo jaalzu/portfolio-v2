@@ -39,8 +39,8 @@
 
   /* ---- Tipografía ---- */
   --font-family-base:
-    "Wotfard", "Geist", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+    "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   --font-family-enfasis: "Newsreader", serif;
 
   --text-xs: 0.675rem; /* 12px — extra small */
