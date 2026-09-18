@@ -9,7 +9,7 @@ export const translations = {
 
     emailWord: "Email",
     // emailAfter: "gratis!",
-    githubIntro: "Podés ver mi código en",
+    githubIntro: "Podés ver más de mi código en",
     githubWord: "GitHub",
     talkIntro: "contactarme por",
     linkedinWord: "LinkedIn",
@@ -131,7 +131,10 @@ export const translations = {
     bio1: '<span class="enfasis-text">Creating web interfaces</span> with frontend engineering and a sense of design.<br><br>From prototype to user, I develop UI systems and components, with a focus on interaction, accessibility, performance, and the small details that make an experience stand out.',
 
     emailWord: "Email",
+    githubIntro: "You can see my code on",
     githubWord: "GitHub",
+    orWord: "or",
+    talkIntro: "reach me out on",
     linkedinWord: "LinkedIn",
     cvWord: "CV",
     aria: {
