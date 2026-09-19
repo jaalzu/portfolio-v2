@@ -12,14 +12,23 @@
 .morph-main {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: center; /* Centra icono y texto en el eje vertical */
   justify-content: flex-start;
-  gap: var(--space-2);
+  gap: var(--space-3);
   align-self: flex-start;
   margin-top: auto;
   flex: 0 0 auto;
   width: auto;
   padding: 0;
+}
+
+/* Centramos el texto dentro de su viewport verticalmente */
+.morph-label-viewport {
+  display: grid;
+  place-items: center start; /* Mantiene inicio a la izquierda pero centrado vertical */
+  overflow: hidden;
+  height: 1.35em;
+  min-width: 10ch;
 }
 
 .morph-icon {
@@ -44,26 +53,18 @@
   outline-offset: 2px;
 }
 
-.morph-label-viewport {
-  display: grid;
-  place-items: center start;
-  overflow: hidden;
-  height: 1.35em;
-  min-width: 10ch;
-}
-
 .morph-label {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   color: var(--color-text-muted);
   white-space: nowrap;
-  line-height: 1.35em;
+  letter-spacing: 0.5px;
+  line-height: 1.6em;
   will-change: transform, opacity;
   transition:
-    opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.28s ease;
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.3s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.2s ease;
 }
-
 .morph-label--in {
   opacity: 1;
   transform: translateY(0);

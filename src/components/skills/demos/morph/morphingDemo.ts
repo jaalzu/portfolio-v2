@@ -80,11 +80,13 @@ export function initMorphingDemo() {
   root.dataset.bound = "1";
 
   // Respect prefers-reduced-motion
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
 
   const samplesPerSubpath = 28;
-  const durationMs = 650;
-  const autoPlayMs = 2200;
+  const durationMs = 850;
+  const autoPlayMs = 4500;
   const viewBox = "0 0 256 256";
 
   svg.setAttribute("viewBox", viewBox);
@@ -101,7 +103,8 @@ export function initMorphingDemo() {
       (!stored && document.documentElement.getAttribute("data-lang") === "en");
     const lang = isEn ? "en" : "es";
     const labels = (translations as any)[lang]?.skillsPage?.morphDemo?.labels;
-    if (Array.isArray(labels) && labels.length === sampled.length) return labels as string[];
+    if (Array.isArray(labels) && labels.length === sampled.length)
+      return labels as string[];
     return sampled.map((s) => s.label);
   }
 
@@ -128,7 +131,10 @@ export function initMorphingDemo() {
     const labels = getLabels();
     if (prefersReduced) {
       index = nextIndex;
-      path.setAttribute("d", buildD(sampled[nextIndex].samples.map((s) => s.pts)));
+      path.setAttribute(
+        "d",
+        buildD(sampled[nextIndex].samples.map((s) => s.pts)),
+      );
       labelEl!.textContent = labels[nextIndex];
       return;
     }
@@ -155,9 +161,13 @@ export function initMorphingDemo() {
         if (fromS && toS) {
           subpaths.push(lerpPts(fromS.pts, toS.pts, et));
         } else if (fromS && !toS) {
-          subpaths.push(lerpPts(fromS.pts, repeat(fromS.centroid, samplesPerSubpath), et));
+          subpaths.push(
+            lerpPts(fromS.pts, repeat(fromS.centroid, samplesPerSubpath), et),
+          );
         } else if (!fromS && toS) {
-          subpaths.push(lerpPts(repeat(toS.centroid, samplesPerSubpath), toS.pts, et));
+          subpaths.push(
+            lerpPts(repeat(toS.centroid, samplesPerSubpath), toS.pts, et),
+          );
         }
       }
       path!.setAttribute("d", buildD(subpaths));
