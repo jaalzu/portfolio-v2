@@ -42,6 +42,10 @@ export const translations = {
       title: "Agentic Skills",
       subtitle: "Una colección de skills para mejorar tus interfaces.",
     },
+    motionPromo: {
+      title: "Motion Design",
+      subtitle: "Animaciones web, principio por principio.",
+    },
     skills: {
       back: "Inicio",
     },
@@ -119,6 +123,28 @@ export const translations = {
           "Maquinando...",
           "Rumiando...",
         ],
+      },
+    },
+    motionPage: {
+      title: "Motion Design",
+      subtitle:
+        "Aprendiendo animación web, un principio a la vez — sin SVG, todo con CSS y algo de Motion para lo interactivo.",
+      principles: {
+        title: "Principios de movimiento",
+        description: "Pasá el mouse por cada tarjeta.",
+      },
+      timing: {
+        title: "Funciones de tiempo",
+        description: "Pasá el mouse por cada pista para comparar curvas.",
+      },
+      links: {
+        title: "Links",
+        description: "Distintas formas de resolver un hover en un link.",
+      },
+      buttons: { title: "Botones", description: "Hover y click, sin vueltas." },
+      copyAction: {
+        title: "Copiar al portapapeles",
+        description: "Tu propio CopyButton, con el swap de ícono animado.",
       },
     },
   },

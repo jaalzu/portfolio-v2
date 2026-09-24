@@ -1,187 +1,186 @@
+.province {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-heading);
+  font-weight: var(--font-weight-regular);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
+  cursor: pointer;
+  transition: text-decoration-color var(--transition-fast);
+}
 
+.province:hover,
+.province:focus-visible {
+  text-decoration-color: currentColor;
+}
 
+.province:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
 
+.province__gallery {
+  position: absolute;
+  bottom: 50%;
+  left: 70%;
+  transform: translateX(-70%);
+  display: flex;
+  padding: var(--space-2) var(--space-2) var(--space-8);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 120ms ease-in,
+    visibility 0s 120ms;
+}
 
-
-
-  .province {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    color: var(--color-text);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
-    cursor: pointer;
-    transition: text-decoration-color var(--transition-fast);
-  }
-
-  .province:hover,
-  .province:focus-visible {
-    text-decoration-color: currentColor;
-  }
-
-  .province:focus-visible {
-    outline: var(--focus-ring-width) solid var(--color-focus);
-    outline-offset: var(--focus-ring-offset);
-  }
-
-  .province__gallery {
-    position: absolute;
-    bottom: 50%;
-    left: 70%;
-    transform: translateX(-70%);
-    display: flex;
-    padding: var(--space-2) var(--space-2) var(--space-8);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 120ms ease-in, visibility 0s 120ms;
-  }
-
-  /* ============================================================
+/* ============================================================
      REVELACIÓN DESKTOP
      ============================================================ */
 
-  @media (hover: hover) and (pointer: fine) {
-    .province:hover .province__gallery,
-    .province:focus-visible .province__gallery,
-    .province:focus-within .province__gallery {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transition: opacity 100ms ease-in, visibility 0s 0s;
-    }
-
-    .province:not(:hover):not(:focus-visible):not(:focus-within)
-      .province__gallery {
-      transition: opacity 60ms ease-out, visibility 0s 60ms;
-    }
+@media (hover: hover) and (pointer: fine) {
+  .province:hover .province__gallery,
+  .province:focus-visible .province__gallery,
+  .province:focus-within .province__gallery {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+      opacity 100ms ease-in,
+      visibility 0s 0s;
   }
 
-  /* Estado abierto controlado por JS */
-  .province--gallery-open .province__gallery {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transition: none !important;
+  .province:not(:hover):not(:focus-visible):not(:focus-within)
+    .province__gallery {
+    transition:
+      opacity 60ms ease-out,
+      visibility 0s 60ms;
   }
+}
 
-  .province--lightbox-open .province__gallery {
+/* Estado abierto controlado por JS */
+.province--gallery-open .province__gallery {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transition: none !important;
+}
+
+.province--lightbox-open .province__gallery {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
   transition: none !important;
 }
 
-  /* ============================================================
+/* ============================================================
      POLAROID
      ============================================================ */
 
-  .province__polaroid {
-    position: relative;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    background: var(--color-text-heading);
-    padding: var(--space-2) var(--space-2) var(--space-2);
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-md);
-    flex-shrink: 0;
-    margin-left: calc(var(--space-6) * -1.5);
-    transition: transform var(--transition-fast);
-    cursor: pointer;
-  }
+.province__polaroid {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-text-heading);
+  padding: var(--space-2) var(--space-2) var(--space-2);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  flex-shrink: 0;
+  margin-left: calc(var(--space-6) * -1.5);
+  transition: transform var(--transition-fast);
+  cursor: pointer;
+}
 
-  .province__polaroid:first-child {
-    margin-left: 0;
-  }
+.province__polaroid:first-child {
+  margin-left: 0;
+}
 
-  .province__photo {
-    display: block;
-    width: 125px;
-    height: 125px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
+.province__photo {
+  display: block;
+  width: 125px;
+  height: 125px;
+  object-fit: cover;
+  border-radius: 4px;
+}
 
-  .province__caption {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 22px;
-    max-width: 104px;
-    overflow: hidden;
-    white-space: nowrap;
-    font-family: "Newsreader", serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 9.5px;
-    letter-spacing: -0.2px;
-    color: #2a2a2a;
-    opacity: var(--opacity-medium);
-    user-select: none;
-    pointer-events: none;
-  }
+.province__caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  max-width: 104px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: "Newsreader", serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 9.5px;
+  letter-spacing: -0.2px;
+  color: #2a2a2a;
+  opacity: var(--opacity-medium);
+  user-select: none;
+  pointer-events: none;
+}
 
-  .province__polaroid[data-index="0"] {
-    transform: rotate(-8deg);
-    z-index: 1;
-  }
+.province__polaroid[data-index="0"] {
+  transform: rotate(-8deg);
+  z-index: 1;
+}
 
-  .province__polaroid[data-index="1"] {
-    transform: translateY(calc(var(--space-1) * -1));
-    z-index: 2;
-  }
+.province__polaroid[data-index="1"] {
+  transform: translateY(calc(var(--space-1) * -1));
+  z-index: 2;
+}
 
-  .province__polaroid[data-index="2"] {
-    transform: rotate(8deg);
-    z-index: 1;
-  }
+.province__polaroid[data-index="2"] {
+  transform: rotate(8deg);
+  z-index: 1;
+}
 
-  .province__polaroid[data-index="0"]:hover {
-    transform: rotate(-8deg) scale(1.08);
-    z-index: 3;
-  }
+.province__polaroid[data-index="0"]:hover {
+  transform: rotate(-8deg) scale(1.08);
+  z-index: 3;
+}
 
-  .province__polaroid[data-index="1"]:hover {
-    transform: translateY(calc(var(--space-1) * -1)) scale(1.08);
-    z-index: 3;
-  }
+.province__polaroid[data-index="1"]:hover {
+  transform: translateY(calc(var(--space-1) * -1)) scale(1.08);
+  z-index: 3;
+}
 
-  .province__polaroid[data-index="2"]:hover {
-    transform: rotate(8deg) scale(1.08);
-    z-index: 3;
-  }
+.province__polaroid[data-index="2"]:hover {
+  transform: rotate(8deg) scale(1.08);
+  z-index: 3;
+}
 
-  /* ============================================================
+/* ============================================================
      MOBILE
      ============================================================ */
 
-  @media (hover: none) {
-    .province__gallery {
-      position: fixed;
-      left: 2%;
-      top: 10%;
-      bottom: auto;
-      transform: none;
-      translate: var(--gallery-x, 0px) var(--gallery-y, 0px);
-    }
-
-    .province__polaroid {
-      margin-left: calc(var(--space-6) * -1.1);
-    }
-
-    .province__photo {
-      width: 91px;
-      height: 91px;
-    }
-
-    .province__caption {
-      height: 18px;
-      max-width: 79px;
-      font-size: 7px;
-    }
-
-  
+@media (hover: none) {
+  .province__gallery {
+    position: fixed;
+    left: 2%;
+    top: 10%;
+    bottom: auto;
+    transform: none;
+    translate: var(--gallery-x, 0px) var(--gallery-y, 0px);
   }
+
+  .province__polaroid {
+    margin-left: calc(var(--space-6) * -1.1);
+  }
+
+  .province__photo {
+    width: 91px;
+    height: 91px;
+  }
+
+  .province__caption {
+    height: 18px;
+    max-width: 79px;
+    font-size: 7px;
+  }
+}

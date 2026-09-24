@@ -1,0 +1,82 @@
+---
+// src/components/motion/LinksDemo.astro
+// Tres variantes de navegación mostrando distintos hovers: subrayado, traslación y traslación+escala.
+const linkGroups = [
+  { title: "Subrayado", variant: "underline" },
+  { title: "Traslación", variant: "translate" },
+  { title: "Traslación + Escala", variant: "translate-scale" },
+];
+
+const navItems = ["Inicio", "Proyectos", "Contacto"];
+---
+
+<div class="links-demo__groups">
+  {linkGroups.map((group) => (
+    <div class="links-demo__group">
+      <h3>{group.title}</h3>
+      <nav class={`links-demo__nav links-demo__nav--${group.variant}`}>
+        {navItems.map((item) => <a href="#">{item}</a>)}
+      </nav>
+    </div>
+  ))}
+</div>
+
+<style>
+  .links-demo__groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .links-demo__group h3 {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-3);
+  }
+
+  .links-demo__nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .links-demo__nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: var(--text-base);
+    width: fit-content;
+    transition:
+      color var(--transition-base),
+      transform var(--transition-base);
+  }
+
+  .links-demo__nav--underline a {
+    background-image: linear-gradient(
+      var(--color-primary),
+      var(--color-primary)
+    );
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    padding-bottom: 2px;
+    transition:
+      background-size var(--transition-base),
+      color var(--transition-base);
+  }
+
+  .links-demo__nav--underline a:hover {
+    background-size: 100% 1px;
+    color: var(--color-text-heading);
+  }
+
+  .links-demo__nav--translate a:hover {
+    transform: translateX(6px);
+    color: var(--color-text-heading);
+  }
+
+  .links-demo__nav--translate-scale a:hover {
+    transform: translateX(6px) scale(1.05);
+    color: var(--color-text-heading);
+  }
+</style>

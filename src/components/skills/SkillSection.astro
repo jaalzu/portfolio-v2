@@ -1,44 +1,62 @@
 ---
 export interface Props {
-	id: string;
-	title: string;
-	description: string;
-	titleKey?: string;
-	descKey?: string;
-	mutedDesc?: boolean;
-	mutedFrame?: boolean;
+  id: string;
+  title?: string;
+  description?: string;
+  titleKey?: string;
+  descKey?: string;
+  mutedDesc?: boolean;
+  mutedFrame?: boolean;
 }
 const {
-	id,
-	title,
-	description,
-	titleKey,
-	descKey,
-	mutedDesc = false,
-	mutedFrame = false,
+  id,
+  title,
+  description,
+  titleKey,
+  descKey,
+  mutedDesc = false,
+  mutedFrame = false,
 } = Astro.props;
 ---
-<div class="skill-meta" {id}>
-  <h2 class="skill-meta__title">
-    <span class="skill-meta__title-text"><span data-i18n={titleKey}>{title}</span></span>
-    <span class="skill-meta__divider" aria-hidden="true"></span>
-  </h2>
-  <p class:list={["skill-meta__desc", { "skill-meta__desc--muted": mutedDesc }]} data-i18n={descKey}>
-    {description}
-  </p>
-</div>
 
-<div class:list={["skill-block-frame", { "skill-block-frame--muted": mutedFrame }]}>
+{title && (
+  <div class="skill-meta" {id}>
+    <h2 class="skill-meta__title">
+      <span class="skill-meta__title-text">
+        <span data-i18n={titleKey}>{title}</span>
+      </span>
+      <span class="skill-meta__divider" aria-hidden="true"></span>
+    </h2>
+    {description && (
+      <p
+        class:list={[
+          "skill-meta__desc",
+          { "skill-meta__desc--muted": mutedDesc },
+        ]}
+        data-i18n={descKey}
+      >
+        {description}
+      </p>
+    )}
+  </div>
+)}
+
+<div
+  class:list={["skill-block-frame", { "skill-block-frame--muted": mutedFrame }]}
+  id={!title ? id : undefined}
+>
   <div class="skill-block">
     <slot />
   </div>
 </div>
 
 <style>
- .skill-meta {
-  margin-bottom: var(--space-6);
-  padding-inline: var(--card-inset); /* iguala el inset de skill-block-frame */
-}
+  .skill-meta {
+    margin-bottom: var(--space-6);
+    padding-inline: var(
+      --card-inset
+    ); /* iguala el inset de skill-block-frame */
+  }
   .skill-meta__title {
     display: flex;
     align-items: center;
@@ -46,17 +64,23 @@ const {
     margin: 0 0 var(--space-6);
     font-size: var(--text-base);
     font-weight: var(--font-weight-semibold);
-       color: var(--color-text-heading);
+    color: var(--color-text-heading);
     line-height: var(--leading-tight);
     text-align: left;
   }
-  .skill-meta__title-text { flex-shrink: 0; }
-  .skill-hash { opacity: 0.6; font-weight: var(--font-weight-regular); margin-right: 0.2em; }
+  .skill-meta__title-text {
+    flex-shrink: 0;
+  }
+  .skill-hash {
+    opacity: 0.6;
+    font-weight: var(--font-weight-regular);
+    margin-right: 0.2em;
+  }
   .skill-meta__divider {
     flex: 1;
     height: 1px;
     background: color-mix(in oklch, var(--color-border-soft) 45%, transparent);
-    margin-left: .8rem;
+    margin-left: 0.8rem;
     min-width: 24px;
   }
   .skill-meta__desc {
@@ -65,28 +89,35 @@ const {
     line-height: var(--leading-relaxed);
     color: var(--color-text);
     max-width: 66ch;
+    font-weight: var(--font-weight-regular);
     text-wrap: pretty;
   }
-  .skill-meta__desc--muted { opacity: 0.9; }
+  .skill-meta__desc--muted {
+    opacity: 0.9;
+  }
 
- /* SkillSection.astro */
-.skill-block-frame {
-  border: 1px solid var(--color-border-soft);
-  border-radius: var(--radius-base);
-  padding: var(--card-inset);
-  margin-bottom: var(--space-24);
-  overflow: hidden;              /* ← se agrega acá */
-}
-.skill-block-frame--muted { opacity: 0.9; }
-.skill-block-frame--muted .skill-block { border-style: dashed; }
+  /* SkillSection.astro */
+  .skill-block-frame {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    padding: var(--card-inset);
+    margin-bottom: var(--space-24);
+    overflow: hidden; /* ← se agrega acá */
+  }
+  .skill-block-frame--muted {
+    opacity: 0.9;
+  }
+  .skill-block-frame--muted .skill-block {
+    border-style: dashed;
+  }
 
-.skill-block {
-  border: none;
-  border-radius: var(--radius-inner);
-  padding: 0;
-}
+  .skill-block {
+    border: none;
+    border-radius: var(--radius-inner);
+    padding: 0;
+  }
 
-.skill-block:has(.skill-block--placeholder) {
-  padding: var(--space-6);
-}
+  .skill-block:has(.skill-block--placeholder) {
+    padding: var(--space-6);
+  }
 </style>

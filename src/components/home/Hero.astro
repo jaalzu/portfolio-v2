@@ -58,7 +58,8 @@ const { t } = Astro.props;
       rel="noopener noreferrer"
     >
       <span data-i18n="linkedinWord">{t.linkedinWord}</span>
-    </a>.
+    </a>
+    .
   </p>
 </div>
 
@@ -131,14 +132,16 @@ const { t } = Astro.props;
     font-size: var(--text-base);
     line-height: var(--leading-relaxed);
     color: var(--color-text);
-    max-inline-size: 68ch;
+    font-weight: var(--font-weight-regular);
+    max-inline-size: 60ch;
   }
 
   .about__text-link {
     display: inline-flex;
     align-items: center;
     gap: 3px;
-    color: var(--color-text);
+
+    color: var(--color-text-heading);
     text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
     text-underline-offset: 3px;
     transition: text-decoration-color var(--transition-fast);
