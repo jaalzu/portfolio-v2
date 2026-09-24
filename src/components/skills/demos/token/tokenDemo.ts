@@ -1,5 +1,27 @@
 type NumRange = { min: number; max: number };
 
+function hexToRgb(hex: string): [number, number, number] {
+  const h = hex.replace("#", "");
+  return [
+    parseInt(h.substring(0, 2), 16),
+    parseInt(h.substring(2, 4), 16),
+    parseInt(h.substring(4, 6), 16),
+  ];
+}
+
+function relativeLuminance(r: number, g: number, b: number): number {
+  const [rs, gs, bs] = [r, g, b].map(function (c) {
+    c = c / 255;
+    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+}
+
+function contrastColor(hexBg: string): string {
+  const [r, g, b] = hexToRgb(hexBg);
+  return relativeLuminance(r, g, b) > 0.179 ? "#000000" : "#ffffff";
+}
+
 interface AnnotationConfig {
   selector: string;
   side: "left" | "right";
@@ -351,6 +373,10 @@ interface BuiltAnnotation {
         input.addEventListener("input", function () {
           swatch.style.background = input.value;
           if (cssVar) card.style.setProperty(cssVar, input.value);
+          if (tokenKey === "bg") {
+            const btn = card.querySelector<HTMLElement>(".tk-card__button");
+            if (btn) btn.style.color = contrastColor(input.value);
+          }
           if (annotationsActive) positionAnnotations();
           showStaticTooltip(picker, label);
         });
@@ -401,6 +427,14 @@ interface BuiltAnnotation {
       slider.addEventListener("pointerleave", hideTooltip);
       slider.addEventListener("focusout", hideTooltip);
     }
+    const initBtn = card.querySelector<HTMLElement>(".tk-card__button");
+    if (initBtn) {
+      const bgInput = demo.querySelector<HTMLInputElement>(
+        '.tk-picker__input[data-token="bg"]',
+      );
+      if (bgInput) initBtn.style.color = contrastColor(bgInput.value);
+    }
+
     requestAnimationFrame(function () {
       positionAnnotations();
     });

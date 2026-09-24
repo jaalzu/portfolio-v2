@@ -13,28 +13,26 @@ import { translations } from "../data/translations";
 const t = translations.es;
 
 const projects = [
-	{
-		title: "TratoLibre",
-		imageSrc: "/projects/tl.svg",
-		githubUrl: "https://github.com/jaalzu/tratolibre",
-		liveUrl: "https://tratolibre.vercel.app/",
-	},
-	{
-		title: "PickYourColor",
-		imageSrc: "/projects/pyk.svg",
-		githubUrl: "https://github.com/jaalzu/PickYourColory",
-		liveUrl:
-			"https://pick-your-color.vercel.app/?colors=000000-FFFFFF-92b9b9-6420c2-cecece",
-	},
-	{
-		title: "JavaCourses",
-		imageSrc: "/projects/java.svg",
-		githubUrl: "https://github.com/jaalzu/courses-webapp",
-		liveUrl: "https://courses-webapp-delta.vercel.app/login",
-	},
+  {
+    title: "TratoLibre",
+    imageSrc: "/projects/tl.svg",
+    githubUrl: "https://github.com/jaalzu/tratolibre",
+    liveUrl: "https://tratolibre.vercel.app/",
+  },
+  {
+    title: "PickYourColor",
+    imageSrc: "/projects/pyk.svg",
+    githubUrl: "https://github.com/jaalzu/PickYourColory",
+    liveUrl:
+      "https://pick-your-color.vercel.app/?colors=000000-FFFFFF-92b9b9-6420c2-cecece",
+  },
+  {
+    title: "JavaCourses",
+    imageSrc: "/projects/java.svg",
+    githubUrl: "https://github.com/jaalzu/courses-webapp",
+    liveUrl: "https://courses-webapp-delta.vercel.app/login",
+  },
 ];
-
-
 ---
 
 <BaseLayout title="Javier Alzú">
@@ -44,38 +42,58 @@ const projects = [
       <Hero t={t} />
     </Section>
 
-    <Section title={t.sections.projects} i18nKey="sections.projects" marked class="projects-section" index={0}>
+    <Section
+      title={t.sections.projects}
+      i18nKey="sections.projects"
+      marked
+      class="projects-section"
+      index={0}
+    >
       <div class="projects-grid">
-        {
-          projects.map((project, i) => (
-   <ProjectCard
-      title={project.title}
-      description={t.projects[i]}
-      i18nKey={`projects.${i}`}
-      imageSrc={project.imageSrc}
-      githubUrl={project.githubUrl}
-      liveUrl={project.liveUrl}
-      index={i}
-    />
-          ))
-        }
+        {projects.map((project, i) => (
+          <ProjectCard
+            title={project.title}
+            description={t.projects[i]}
+            i18nKey={`projects.${i}`}
+            imageSrc={project.imageSrc}
+            githubUrl={project.githubUrl}
+            liveUrl={project.liveUrl}
+            index={i}
+          />
+        ))}
       </div>
     </Section>
 
-    <Section title={t.sections.techStack} i18nKey="sections.techStack" marked class="tech-section" index={1}>
+    <Section
+      title={t.sections.techStack}
+      i18nKey="sections.techStack"
+      marked
+      class="tech-section"
+      index={1}
+    >
       <div class="skills-grid">
         <SkillItem
           title={t.skillsPromo.title}
           subtitle={t.skillsPromo.subtitle}
           href="/skills"
         />
+        <SkillItem
+          title={t.motionPromo.title}
+          subtitle={t.motionPromo.subtitle}
+          href="/motion"
+        />
       </div>
     </Section>
 
-   <Section title={t.sections.aboutMe} i18nKey="sections.aboutMe" marked class="about-section" index={2}>
-<AboutMe texts={t.about} province={t.province} />
-</Section>
-
+    <Section
+      title={t.sections.aboutMe}
+      i18nKey="sections.aboutMe"
+      marked
+      class="about-section"
+      index={2}
+    >
+      <AboutMe texts={t.about} province={t.province} />
+    </Section>
   </main>
   <Footer coverSrc="./portft1.webp" email="javieralzuu@gmail.com" />
 
@@ -90,7 +108,6 @@ const projects = [
   .page {
     max-width: var(--content-max-width);
     margin-inline: auto;
-    padding-inline: var(--space-4);
   }
 
   .projects-grid {
@@ -124,6 +141,4 @@ const projects = [
     margin-bottom: 0;
     padding-bottom: 0;
   }
-
-
 </style>

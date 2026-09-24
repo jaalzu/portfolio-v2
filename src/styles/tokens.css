@@ -54,6 +54,7 @@
 
   --text-display: clamp(1.75rem, 1rem + 3.5vw, 2.75rem); /* 28 → 44px */
 
+  --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;

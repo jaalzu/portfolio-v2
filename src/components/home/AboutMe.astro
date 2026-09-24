@@ -11,39 +11,47 @@ const { texts, province } = Astro.props;
 
 <div class="about">
   <p class="about__text">
-    <span class="about__line" data-i18n="about.0">{texts[0]}</span>{province && (
+    <span class="about__line" data-i18n="about.0">
+      {texts[0]}
+    </span>
+    {province && (
       <Gallery
         label={province.name}
         images={[...provinceImages]}
         altBase={province.alt}
         captions={province.captions ? [...province.captions] : undefined}
       />
-    )}.{" "}
-    <span class="about__line" data-i18n="about.1">{texts[1]}</span>
-    <span class="about__breakline" data-i18n-html="about.2" set:html={texts[2]}></span>
+    )}
+    .{" "}
+    <span class="about__line" data-i18n="about.1">
+      {texts[1]}
+    </span>
+    <span
+      class="about__breakline"
+      data-i18n-html="about.2"
+      set:html={texts[2]}
+    />
   </p>
 </div>
 
 <style>
-
-  
-  .about__line{
-     color: var(--color-text);
+  .about__line {
+    color: var(--color-text);
   }
 
-
-
-  .about__breakline{
+  .about__breakline {
     display: block;
     margin-top: var(--space-4);
   }
 
-  .about__text{
+  .about__text {
+    max-inline-size: 60ch;
     color: var(--color-text);
   }
 
-  .about__text--extra{
+  .about__text--extra {
     margin-top: var(--space-4);
+
     color: var(--color-text);
   }
 

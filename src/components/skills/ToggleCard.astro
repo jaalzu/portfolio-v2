@@ -31,7 +31,11 @@ const {
 
   <div class="toggle-card__toolbar">
     <slot name="toolbar">
-      <SkillToggle id={`${id}-toggle`} leftLabel={leftLabel} rightLabel={rightLabel} />
+      <SkillToggle
+        id={`${id}-toggle`}
+        leftLabel={leftLabel}
+        rightLabel={rightLabel}
+      />
     </slot>
   </div>
 </div>
@@ -99,7 +103,7 @@ const {
           new CustomEvent("toggle-card:mode-change", {
             detail: { mode },
             bubbles: true,
-          })
+          }),
         );
 
         if (stage) {
@@ -133,13 +137,13 @@ const {
   document.addEventListener("astro:after-swap", initToggleCards);
 </script>
 <style>
-.toggle-card {
-  position: relative;
-  border-radius: var(--radius-base);
-  overflow: hidden;
-  margin: calc(var(--card-inset) * -1);
-  width: calc(100% + var(--card-inset) * 2);
-}
+  .toggle-card {
+    position: relative;
+    border-radius: var(--radius-base);
+    overflow: hidden;
+    margin: calc(var(--card-inset) * -1);
+    width: calc(100% + var(--card-inset) * 2);
+  }
 
   .toggle-card__stage {
     width: 100%;
