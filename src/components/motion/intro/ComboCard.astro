@@ -1,0 +1,29 @@
+---
+import type { ComboCard } from "./principles.data";
+
+interface Props {
+  card: ComboCard;
+}
+
+const { card } = Astro.props;
+---
+
+<button type="button" class="principles__card" aria-pressed="false" data-combo-keys={JSON.stringify(card.keys)}>
+  <div class="principles__card-inner">
+    <div class="principles__card-face principles__card-face--front">
+      <div class="principles__stage">
+        <span
+          class="principles__shape"
+          style={`animation: ${card.animation}`}
+        ></span>
+      </div>
+      <h3 data-combo-title>{card.title}</h3>
+    </div>
+    <div class="principles__card-face principles__card-face--back">
+      <span class="principles__code-tag">css</span>
+      <pre class="principles__code"><code>{card.code.map((line) => (
+    <span class="principles__code-line"><span class="principles__code-prop">{line.prop}</span>: <span class="principles__code-value">{line.value}</span></span>
+  ))}</code></pre>
+    </div>
+  </div>
+</button>

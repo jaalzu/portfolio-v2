@@ -1,0 +1,36 @@
+---
+import { translations } from "../../../data/translations";
+const t = translations.es;
+---
+
+<div class="timing-intro">
+  <h2 class="timing-intro__title" data-i18n="motionPage.timingIntro.title">
+    {t.motionPage.timingIntro.title}
+  </h2>
+
+  <p class="timing-intro__description" data-i18n="motionPage.timingIntro.description">
+    {t.motionPage.timingIntro.description}
+  </p>
+</div>
+
+<style>
+  .timing-intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .timing-intro__title {
+    margin: 0;
+    font-weight: var(--font-weight-medium);
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .timing-intro__description {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-light);
+    margin: 0;
+  }
+</style>

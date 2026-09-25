@@ -1,104 +1,22 @@
-@import "./tokens.css";
+/* ==========================================================================
+   GLOBAL — Entry point
+   Ensambla tokens + base + utilidades. Unico import en BaseLayout.astro
+   Estructura:
+     styles/
+     ├── tokens/        → colors, typography (+ .enfasis-text), spacing, radii, elevation, layout, motion
+     │   └── index.css  (barrel)
+     ├── base/          → fonts, reset, document
+     └── utilities/     → a11y, animations
+   ========================================================================== */
 
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/geist-variable.woff2") format("woff2-variations");
-  font-weight: 300 700;
-  font-style: normal;
-  font-display: swap;
-}
+/* ---- Tokens (design system) ---- */
+@import "./tokens/index.css";
 
-@font-face {
-  font-family: "Newsreader";
-  src: url("/fonts/newsreader-italic.woff2") format("woff2");
-  font-weight: 200 800;
-  font-style: italic;
-  font-display: swap;
-}
+/* ---- Base ---- */
+@import "./base/fonts.css";
+@import "./base/reset.css";
+@import "./base/document.css";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  color-scheme: dark;
-  overflow-x: clip;
-}
-
-body {
-  margin: 0;
-  padding-inline: 3px;
-  overflow-x: clip;
-  font-family: var(--font-family-base);
-  font-weight: var(--font-weight-regular);
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  background-color: var(--color-surface-1);
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-a {
-  color: inherit;
-}
-
-::selection {
-  background-color: var(--color-primary);
-  color: var(--color-surface-1);
-}
-
-/* Focus visible consistente en todo el sistema (better-accessibility) */
-:focus-visible {
-  outline: var(--focus-ring-width) solid var(--color-focus);
-  outline-offset: var(--focus-ring-offset);
-}
-
-::view-transition-image-pair(root) {
-  isolation: isolate;
-}
-html::view-transition-old(root),
-html::view-transition-new(root) {
-  mix-blend-mode: normal;
-  background: var(--color-surface-1);
-}
-
-.enfasis-text {
-  font-family: "Newsreader", serif;
-  font-style: italic;
-  font-weight: 500;
-  display: inline-block;
-  font-size: 1.15em;
-}
-
-/* reveal animation in home page */
-@keyframes revealUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.reveal {
-  opacity: 0;
-  animation: revealUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: calc(var(--i, 0) * 80ms);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    animation: none;
-    opacity: 1;
-  }
-}
+/* ---- Utilities ---- */
+@import "./utilities/a11y.css";
+@import "./utilities/animations.css";

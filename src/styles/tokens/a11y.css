@@ -1,0 +1,10 @@
+/* ==========================================================================
+   TOKENS — Accessibility
+   Focus ring. --color-focus vive en colors.css (alias a --color-primary).
+   Consumido por utilities/a11y.css → :focus-visible.
+   ========================================================================== */
+
+:root {
+  --focus-ring-width: 1px;
+  --focus-ring-offset: 1px;
+}

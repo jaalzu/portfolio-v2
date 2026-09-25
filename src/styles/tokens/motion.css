@@ -1,0 +1,12 @@
+/* ==========================================================================
+   TOKENS — Motion (CSS)
+   Solo transiciones CSS. No confundir con lib/motion-tokens.ts que
+   define springs/delays para la librería `motion` (JS/React).
+     - CSS → --transition-* (usado en :hover, borders, etc.)
+     - JS  → springs / pressFeedback / safeAnimate (src/lib/motion-tokens.ts)
+   ========================================================================== */
+
+:root {
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+}

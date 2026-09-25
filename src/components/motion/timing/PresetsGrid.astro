@@ -1,0 +1,51 @@
+---
+// src/components/motion/PresetsGrid.astro
+// Arma el grid de presets (linear, ease, ease-in, ease-out, ease-in-out)
+// usando TimingPreview.astro para cada uno.
+import TimingPreview from "./TimingPreview.astro";
+import { translations } from "../../../data/translations";
+
+const t = translations.es;
+const presets = [
+  { label: "Linear", x1: 0, y1: 0, x2: 1, y2: 1 },
+  { label: "Ease", x1: 0.25, y1: 0.1, x2: 0.25, y2: 1 },
+  { label: "Ease-in", x1: 0.42, y1: 0, x2: 1, y2: 1 },
+  { label: "Ease-out", x1: 0, y1: 0, x2: 0.58, y2: 1 },
+  { label: "Ease-in-out", x1: 0.42, y1: 0, x2: 0.58, y2: 1 },
+];
+---
+
+<div class="presets-grid">
+  {presets.map((preset) => (
+    <TimingPreview
+      label={preset.label}
+      x1={preset.x1}
+      y1={preset.y1}
+      x2={preset.x2}
+      y2={preset.y2}
+    />
+  ))}
+</div>
+
+<p class="presets-grid__note" data-i18n="motionPage.presetsNote">
+  {t.motionPage.presetsNote}
+</p>
+
+<style>
+  .presets-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  /* mobile y tablet: en columna. Calza con --breakpoint-lg (1024px) */
+
+  .presets-grid__note {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-light);
+    line-height: var(--leading-relaxed);
+  }
+</style>

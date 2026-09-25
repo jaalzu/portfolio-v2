@@ -1,0 +1,36 @@
+/* ==========================================================================
+   TOKENS — Colors
+   Paleta, superficies, texto, bordes y acentos
+   ========================================================================== */
+
+:root {
+  /* ---- Surfaces ---- */
+  --color-surface-1: oklch(0.139 0.003 246.3); /* Fondo general */
+  --color-surface-2: oklch(0.191 0.0026 248); /* Superficie secundaria */
+  --color-surface-3: oklch(0.231 0.004 264.5); /* Cards / elementos elevados */
+
+  /* ---- Primary ---- */
+  --color-primary: oklch(0.72 0.13 39.865);
+  --color-primary-soft: oklch(59.867% 0.13428 40.447 / 0.682);
+
+  /* ---- Text ---- */
+  --color-text-heading: oklch(0.961 0 0);
+  --color-text: oklch(0.922 0 0 / 0.89);
+  --color-text-muted: oklch(0.706 0 0);
+  --color-text-disabled: oklch(0.504 0.013 274.7);
+
+  /* ---- Borders ---- */
+  --color-border: oklch(0.33 0 0);
+  --color-border-soft: oklch(0.4 0 0 / 0.52);
+  --color-border-softer: oklch(0.4 0 0 / 0.2);
+
+  /* ---- Accents ---- */
+  --color-blue: oklch(0.65 0.15 250);
+  --color-green: oklch(79.332% 0.23958 143.641);
+  --color-red: oklch(63.157% 0.25397 28.776);
+  --color-red-soft: oklch(67.076% 0.21654 25.176);
+  --color-warning: oklch(0.78 0.16 85);
+
+  /* ---- Focus ---- */
+  --color-focus: var(--color-primary);
+}

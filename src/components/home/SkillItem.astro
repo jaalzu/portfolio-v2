@@ -4,9 +4,18 @@ interface Props {
   subtitle: string;
   href?: string;
   variant?: "default" | "arrows";
+  titleKey?: string;
+  subtitleKey?: string;
 }
 
-const { title, subtitle, href = "/skills", variant = "default" } = Astro.props;
+const {
+  title,
+  subtitle,
+  href = "/skills",
+  variant = "default",
+  titleKey = "skillsPromo.title",
+  subtitleKey = "skillsPromo.subtitle",
+} = Astro.props;
 ---
 
 <div class="skill-frame">
@@ -15,10 +24,10 @@ const { title, subtitle, href = "/skills", variant = "default" } = Astro.props;
     class:list={["skill", variant === "arrows" && "skill--arrows"]}
   >
     <div class="skill__text">
-      <p class="skill__title" data-i18n="skillsPromo.title">
+      <p class="skill__title" data-i18n={titleKey}>
         {title}
       </p>
-      <p class="skill__subtitle" data-i18n="skillsPromo.subtitle">
+      <p class="skill__subtitle" data-i18n={subtitleKey}>
         {subtitle}
       </p>
     </div>
