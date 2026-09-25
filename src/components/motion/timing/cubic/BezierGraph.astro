@@ -1,0 +1,164 @@
+---
+// src/components/motion/cubic/BezierGraph.astro
+// Editor visual de la curva (izquierda): grid, curva, handles arrastrables.
+// Toda la lógica de drag vive en CubicBezier.astro; este componente solo
+// pone el markup y sus estilos.
+---
+
+<div class="bezier__graph-wrap">
+  <svg
+    class="bezier__graph"
+    viewBox="-8 -8 116 116"
+    aria-label="Cubic Bezier editor"
+    role="img"
+  >
+    <!-- Grid -->
+    <g class="bezier__grid">
+      <line x1="0" y1="0" x2="0" y2="100" />
+      <line x1="25" y1="0" x2="25" y2="100" />
+      <line x1="50" y1="0" x2="50" y2="100" />
+      <line x1="75" y1="0" x2="75" y2="100" />
+      <line x1="100" y1="0" x2="100" y2="100" />
+
+      <line x1="0" y1="0" x2="100" y2="0" />
+      <line x1="0" y1="25" x2="100" y2="25" />
+      <line x1="0" y1="50" x2="100" y2="50" />
+      <line x1="0" y1="75" x2="100" y2="75" />
+      <line x1="0" y1="100" x2="100" y2="100" />
+    </g>
+
+    <!-- Linear reference -->
+    <line class="bezier__reference" x1="0" y1="100" x2="100" y2="0" />
+
+    <!-- Handles -->
+    <line
+      class="bezier__handle-line"
+      data-line="1"
+      x1="0"
+      y1="100"
+      x2="25"
+      y2="90"
+    />
+
+    <line
+      class="bezier__handle-line"
+      data-line="2"
+      x1="100"
+      y1="0"
+      x2="25"
+      y2="0"
+    />
+
+    <!-- Curve -->
+    <path class="bezier__curve" data-curve />
+
+    <!-- End points -->
+    <circle class="bezier__endpoint" cx="0" cy="100" r="2" />
+
+    <circle class="bezier__endpoint" cx="100" cy="0" r="2" />
+
+    <!-- Draggable handles -->
+    <circle
+      class="bezier__handle"
+      data-handle="1"
+      cx="25"
+      cy="90"
+      r="4"
+      tabindex="0"
+      role="slider"
+      aria-label="Cubic Bezier handle 1"
+    />
+
+    <circle
+      class="bezier__handle"
+      data-handle="2"
+      cx="25"
+      cy="0"
+      r="4"
+      tabindex="0"
+      role="slider"
+      aria-label="Cubic Bezier handle 2"
+    />
+  </svg>
+</div>
+
+<style>
+  .bezier__graph-wrap {
+    position: relative;
+    flex: 0 0 280px;
+    width: 280px;
+    aspect-ratio: 1;
+  }
+
+  .bezier__graph {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    touch-action: none;
+  }
+
+  .bezier__grid line {
+    stroke: var(--color-border-softer);
+    stroke-width: 0.3;
+  }
+
+  .bezier__reference {
+    stroke: var(--color-border-soft);
+    stroke-width: 0.7;
+    stroke-dasharray: 3 3;
+  }
+
+  .bezier__curve {
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 1;
+    stroke-linecap: round;
+  }
+
+  .bezier__handle-line {
+    stroke: var(--color-border-soft);
+    stroke-width: 0.8;
+  }
+
+  .bezier__endpoint {
+    fill: var(--color-text-muted);
+  }
+
+  .bezier__handle {
+    fill: var(--color-primary);
+    stroke: var(--color-surface-1);
+    stroke-width: 1.5;
+    cursor: grab;
+    transition:
+      r var(--transition-fast),
+      stroke-width var(--transition-fast);
+  }
+
+  .bezier__handle:hover {
+    r: 5;
+  }
+
+  .bezier__handle:active {
+    cursor: grabbing;
+  }
+
+  .bezier__handle:focus-visible {
+    outline: none;
+    stroke: var(--color-focus);
+    stroke-width: 2;
+    r: 5;
+  }
+
+  @media (max-width: 560px) {
+    .bezier__graph-wrap {
+      width: min(68vw, 270px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bezier__handle {
+      transition: none;
+    }
+  }
+</style>

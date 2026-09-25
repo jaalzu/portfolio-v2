@@ -1,0 +1,319 @@
+.principles__container {
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-base);
+  padding-inline: 18px;
+  padding-block: 1rem 1.5rem;
+  background-color: var(--color-surface-2);
+  margin-bottom: 2rem;
+}
+.principles__intro {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0.5rem;
+}
+.principles__title {
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
+}
+
+.principles__description {
+  font-size: var(--text-base);
+  color: var(--color-text);
+  font-weight: var(--font-weight-light);
+  border-radius: var(--radius-base);
+  margin-top: 5px;
+}
+
+.principles__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-4);
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .principles__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .principles__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* La card es solo el "escenario" del flip: sin fondo ni padding propios
+   (eso vive en cada cara), con perspective para que el rotateY se vea en 3D. */
+.principles__card {
+  all: unset;
+  display: block;
+  cursor: pointer;
+  perspective: 800px;
+  border-radius: var(--radius-base);
+  height: 168px; /* alto fijo: ajustalo si querés más/menos aire */
+}
+
+.principles__card:focus-visible {
+  outline: 2px solid var(--color-primary, currentColor);
+  outline-offset: 2px;
+}
+
+.principles__card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.principles__card.is-flipped .principles__card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Las dos caras se superponen exactamente (position: absolute + inset: 0),
+   así el flip rota dos caras coincidentes en vez de "saltar" de tamaño. */
+.principles__card-face {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-surface-3);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-base);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+}
+
+.principles__card-face--back {
+  transform: rotateY(180deg);
+  justify-content: center;
+}
+.principles__code {
+  margin: 0;
+  padding: 0.35rem;
+  font-size: var(--text-sm);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  line-height: 1.5;
+  background-color: var(--color-surface-1, #1e1e1e);
+  border-radius: 4px;
+}
+
+.principles__code-line {
+  display: block;
+  white-space: pre-wrap;
+}
+
+.principles__code-prop {
+  color: #7dd3fc; /* celeste, tipo property */
+}
+
+.principles__code-value {
+  color: #fca5a5; /* rosado, tipo value */
+}
+
+.principles__code-tag {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  opacity: 0.7;
+}
+
+.principles__card-face h3 {
+  font-size: var(--text-base);
+  color: var(--color-text-heading);
+  margin: 0;
+  padding-left: 0.35rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.principles__card-face p {
+  font-size: var(--text-sm);
+  padding-left: 0.35rem;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.principles__stage {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+  overflow: visible;
+  perspective: 300px;
+}
+
+.principles__shape {
+  --color-primary: #aebfd0;
+  --color-blue: #5ee08a;
+  --color-primary-soft: rgba(94, 224, 138, 0.6);
+
+  position: relative;
+  width: 46px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  transform-style: preserve-3d;
+}
+
+.principles__shape::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 60%;
+  width: 20px;
+  height: 13px;
+  transform: translateX(-50%);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background-color: rgba(94, 224, 138, 0.85);
+  box-shadow: inherit;
+}
+
+.principles__card--translation .principles__shape {
+  animation: principle-translate 2s ease-in-out infinite;
+}
+.principles__card--rotation .principles__shape {
+  animation: principle-rotate 2s linear infinite;
+}
+.principles__card--scaling .principles__shape {
+  animation: principle-scale 2s ease-in-out infinite;
+}
+.principles__card--skew .principles__shape {
+  animation: principle-skew 2s ease-in-out infinite;
+}
+.principles__card--opacity .principles__shape {
+  animation: principle-opacity 2s ease-in-out infinite;
+}
+.principles__card--blur .principles__shape {
+  animation: principle-blur 2s ease-in-out infinite;
+}
+.principles__card--glow .principles__shape {
+  animation: principle-glow 2s ease-in-out infinite;
+}
+.principles__card--color .principles__shape {
+  animation: principle-color 2s ease-in-out infinite;
+}
+.principles__card--clip .principles__shape {
+  animation: principle-clip 2s ease-in-out infinite;
+}
+.principles__card--perspective .principles__shape {
+  animation: principle-perspective 2s ease-in-out infinite;
+}
+
+@keyframes principle-translate {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+@keyframes principle-scale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+@keyframes principle-skew {
+  0%,
+  100% {
+    transform: skew(0deg, 0deg);
+  }
+  50% {
+    transform: skew(-14deg, 0deg);
+  }
+}
+@keyframes principle-opacity {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: var(--opacity-faint);
+  }
+}
+@keyframes principle-blur {
+  0%,
+  100% {
+    filter: blur(0);
+  }
+  50% {
+    filter: blur(3px);
+  }
+}
+@keyframes principle-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  50% {
+    box-shadow: 0 0 20px 4px var(--color-primary-soft);
+  }
+}
+@keyframes principle-color {
+  0%,
+  100% {
+    background-color: var(--color-primary);
+  }
+  50% {
+    background-color: var(--color-blue);
+  }
+}
+@keyframes principle-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes principle-clip {
+  0%,
+  100% {
+    clip-path: circle(0% at 50% 50%);
+  }
+  50% {
+    clip-path: circle(75% at 50% 50%);
+  }
+}
+@keyframes principle-perspective {
+  0%,
+  100% {
+    transform: rotateX(0deg) translateZ(0);
+  }
+  50% {
+    transform: rotateX(20deg) translateZ(-50px);
+  }
+}
+@keyframes combo-translate-rotate {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(180deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .principles__shape {
+    animation: none !important;
+  }
+  .principles__card-inner {
+    transition: none;
+  }
+}

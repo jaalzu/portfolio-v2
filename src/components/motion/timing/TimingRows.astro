@@ -1,0 +1,28 @@
+---
+// src/components/motion/TimingRows.astro
+// Orquestador: solo arma el layout y compone la sección de timing
+// (intro, grid de presets y editor de cubic-bezier).
+import TimingIntro from "./TimingIntro.astro";
+import PresetsGrid from "./PresetsGrid.astro";
+import CubicBezier from "./cubic/CubicBezier.astro";
+---
+
+<div class="timing-rows">
+  <TimingIntro />
+  <PresetsGrid />
+  <CubicBezier />
+</div>
+
+<style>
+  .timing-rows {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    padding-inline: 18px;
+    padding-block: 1rem 1.5rem;
+    background: var(--color-surface-2);
+  }
+</style>

@@ -44,7 +44,7 @@ export const translations = {
     },
     motionPromo: {
       title: "Motion Design",
-      subtitle: "Animaciones web, principio por principio.",
+      subtitle: "Principios basicos de animaciones web",
     },
     skills: {
       back: "Inicio",
@@ -126,9 +126,8 @@ export const translations = {
       },
     },
     motionPage: {
-      title: "Motion Design",
-      subtitle:
-        "Aprendiendo animación web, un principio a la vez — sin SVG, todo con CSS y algo de Motion para lo interactivo.",
+      title: "Principios de Animación",
+      subtitle: "Una forma sencilla de aprender animaciónes web.",
       principles: {
         title: "Principios de movimiento",
         description: "Pasá el mouse por cada tarjeta.",
@@ -145,6 +144,42 @@ export const translations = {
       copyAction: {
         title: "Copiar al portapapeles",
         description: "Tu propio CopyButton, con el swap de ícono animado.",
+      },
+      intro: {
+        title: "Intro",
+        description:
+          "Toda animación en la web parte de principios de movimiento. Podés armar casi cualquier cosa que imagines, desde una transición sutil hasta un efecto interactivo complejo. Por más complejo que se vea, es solo una combinacion de estas bases. Tocá una card para ver el código.",
+        combiningTitle: "Combinando",
+        combiningDesc:
+          "Algunas animaciones son simplemente la combinación de 2 o más efectos.",
+      },
+      timingIntro: {
+        title: "Timing Functions",
+        description:
+          "Define cómo progresa la animación en el tiempo: acelerando, desacelerando o siguiendo una curva personalizada.",
+      },
+      presetsNote:
+        "Aunque visualmente parezca que no, todas las animaciones duran lo mismo, lo único que cambia es el recorrido de la velocidad entre el inicio y el final.",
+      cubic: {
+        title: "Cubic Bezier",
+        description: "Ajustá la curva para crear tu propia función de timing.",
+        duration: "Duration",
+        play: "Play",
+        preview: "Preview",
+        copyLabel: "Copiar CSS",
+        note: "<code>cubic-bezier()</code> define cómo progresa una animación entre su inicio y su final. <code>x1</code> y <code>x2</code> determinan cuándo cambia la velocidad, mientras que <code>y1</code> y <code>y2</code> determinan cuánto acelera o desacelera.",
+      },
+      principlesData: {
+        translation: { title: "Traslación", desc: "Moverse de un punto a otro." },
+        rotation: { title: "Rotación", desc: "Girar sobre un eje." },
+        scaling: { title: "Escalado", desc: "Crecer o achicarse." },
+        skew: { title: "Distorsión", desc: "Inclinar la forma." },
+        opacity: { title: "Opacidad", desc: "Aparecer o desvanecerse." },
+        blur: { title: "Desenfoque", desc: "Sumar o quitar foco." },
+        glow: { title: "Resplandor", desc: "Un toque de luz extra." },
+        color: { title: "Color", desc: "Transición de color suave." },
+        clip: { title: "Recorte", desc: "Revelar solo una parte." },
+        perspective: { title: "Perspectiva", desc: "Profundidad en 2D." },
       },
     },
   },
@@ -192,6 +227,10 @@ export const translations = {
     skillsPromo: {
       title: "Agentic Skills",
       subtitle: "A collection of skills to improve your interfaces.",
+    },
+    motionPromo: {
+      title: "Motion Design",
+      subtitle: "Basic principles of web animations",
     },
     skills: {
       back: "Home",
@@ -271,6 +310,63 @@ export const translations = {
           "Contemplating...",
           "Ruminating...",
         ],
+      },
+    },
+    motionPage: {
+      title: "Principles of Motion",
+      subtitle: "An Easy Way to Learn Animations",
+      principles: {
+        title: "Motion principles",
+        description: "Hover over each card.",
+      },
+      timing: {
+        title: "Timing functions",
+        description: "Hover over each track to compare curves.",
+      },
+      links: {
+        title: "Links",
+        description: "Different ways to solve a link hover.",
+      },
+      buttons: { title: "Buttons", description: "Hover and click, no fuss." },
+      copyAction: {
+        title: "Copy to clipboard",
+        description: "Your own CopyButton, with animated icon swap.",
+      },
+      intro: {
+        title: "Intro",
+        description:
+          "Every web animation is built on motion principles. You can create almost anything you imagine, from a subtle transition to a complex interactive effect. No matter how complex it looks, it's just a combination of these basics. Click a card to see the code.",
+        combiningTitle: "Combining",
+        combiningDesc:
+          "Some animations are simply the combination of 2 or more effects.",
+      },
+      timingIntro: {
+        title: "Timing Functions",
+        description:
+          "Defines how the animation progresses over time: speeding up, slowing down, or following a custom curve.",
+      },
+      presetsNote:
+        "Although it may not look like it visually, all animations last the same amount of time — the only thing that changes is how speed evolves between start and end.",
+      cubic: {
+        title: "Cubic Bezier",
+        description: "Adjust the curve to create your own timing function.",
+        duration: "Duration",
+        play: "Play",
+        preview: "Preview",
+        copyLabel: "Copy CSS",
+        note: "<code>cubic-bezier()</code> defines how an animation progresses between its start and end. <code>x1</code> and <code>x2</code> determine when the speed changes, while <code>y1</code> and <code>y2</code> determine how much it accelerates or decelerates.",
+      },
+      principlesData: {
+        translation: { title: "Translation", desc: "Move from one point to another." },
+        rotation: { title: "Rotation", desc: "Rotate around an axis." },
+        scaling: { title: "Scaling", desc: "Grow or shrink." },
+        skew: { title: "Skew", desc: "Tilt the shape." },
+        opacity: { title: "Opacity", desc: "Appear or fade away." },
+        blur: { title: "Blur", desc: "Add or remove focus." },
+        glow: { title: "Glow", desc: "An extra touch of light." },
+        color: { title: "Color", desc: "Smooth color transition." },
+        clip: { title: "Clipping", desc: "Reveal only a part." },
+        perspective: { title: "Perspective", desc: "Depth in 2D." },
       },
     },
   },

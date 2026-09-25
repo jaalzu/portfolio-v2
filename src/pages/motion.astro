@@ -8,8 +8,8 @@ import SkillSection from "../components/skills/SkillSection.astro";
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
 
-import PrinciplesGrid from "../components/motion/PrinciplesGrid.astro";
-import TimingRows from "../components/motion/TimingRows.astro";
+import Principles from "../components/motion/intro/Principles.astro";
+import TimingRows from "../components/motion/timing/TimingRows.astro";
 import LinksDemo from "../components/motion/LinksDemo.astro";
 import ButtonsDemo from "../components/motion/ButtonsDemo.astro";
 import CardFlipDemo from "../components/motion/CardFlipDemo.astro";
@@ -38,14 +38,14 @@ const t = translations.es;
       <!-- Principios: sin header de SkillSection, la descripción vive dentro del mismo
            contenedor que las tarjetas (ver PrinciplesGrid.astro) -->
       <div id="principles">
-        <PrinciplesGrid />
+        <Principles />
       </div>
 
       <div id="timing">
         <TimingRows />
       </div>
 
-      <SkillSection
+      <!-- <SkillSection
         id="buttons"
         title={t.motionPage.buttons.title}
         description={t.motionPage.buttons.description}
@@ -53,12 +53,12 @@ const t = translations.es;
         descKey="motionPage.buttons.description"
       >
         <ButtonsDemo />
-      </SkillSection>
+      </SkillSection> -->
 
       <!-- Card flip: no va dentro de SkillSection en el original, se mantiene igual -->
-      <CardFlipDemo />
+      <!-- <CardFlipDemo /> -->
 
-      <SkillSection
+      <!-- <SkillSection
         id="copy-action"
         title={t.motionPage.copyAction.title}
         description={t.motionPage.copyAction.description}
@@ -66,7 +66,7 @@ const t = translations.es;
         descKey="motionPage.copyAction.description"
       >
         <CopyDemo />
-      </SkillSection>
+      </SkillSection> -->
     </Section>
   </main>
 </BaseLayout>

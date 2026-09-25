@@ -1,0 +1,32 @@
+---
+import type { Principle } from "./principles.data";
+
+interface Props {
+  principle: Principle;
+}
+
+const { principle: p } = Astro.props;
+---
+
+<button
+  type="button"
+  class={`principles__card principles__card--${p.key}`}
+  aria-pressed="false"
+  data-principle-key={p.key}
+>
+  <div class="principles__card-inner">
+    <div class="principles__card-face principles__card-face--front">
+      <div class="principles__stage">
+        <span class="principles__shape"></span>
+      </div>
+      <h3 data-principle-title>{p.title}</h3>
+      <p data-principle-desc>{p.desc}</p>
+    </div>
+    <div class="principles__card-face principles__card-face--back">
+      <span class="principles__code-tag">css</span>
+      <pre class="principles__code"><code>{p.code.map((line) => (
+    <span class="principles__code-line"><span class="principles__code-prop">{line.prop}</span>: <span class="principles__code-value">{line.value}</span></span>
+  ))}</code></pre>
+    </div>
+  </div>
+</button>

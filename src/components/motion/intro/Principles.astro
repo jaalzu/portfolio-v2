@@ -1,0 +1,85 @@
+---
+import "./principles.css";
+import PrincipleCard from "./PrincipleCard.astro";
+import ComboCard from "./ComboCard.astro";
+import { principles, comboCards } from "./principles.data";
+import { translations } from "../../../data/translations";
+
+const t = translations.es;
+---
+
+<div class="principles__container">
+  <div class="principles__intro">
+    <h2 class="principles__title" data-i18n="motionPage.intro.title">
+      {t.motionPage.intro.title}
+    </h2>
+    <p class="principles__description" data-i18n="motionPage.intro.description">
+      {t.motionPage.intro.description}
+    </p>
+  </div>
+
+  <div class="principles__grid">
+    {principles.map((p) => (
+      <PrincipleCard principle={p} />
+    ))}
+  </div>
+
+  <div class="principles__intro">
+    <h2 class="principles__title" data-i18n="motionPage.intro.combiningTitle">
+      {t.motionPage.intro.combiningTitle}
+    </h2>
+    <p class="principles__description" data-i18n="motionPage.intro.combiningDesc">
+      {t.motionPage.intro.combiningDesc}
+    </p>
+  </div>
+
+  <div class="principles__grid">
+    {comboCards.map((card) => (
+      <ComboCard card={card} />
+    ))}
+  </div>
+</div>
+
+<script>
+  import { initPrincipleFlip } from "./principlesFlip";
+  import { translations as translationsSync } from "../../../data/translations";
+  initPrincipleFlip();
+
+  function syncPrinciples(lang: "es" | "en") {
+    const t = translationsSync[lang] ?? translationsSync.es;
+    const data = (t.motionPage as any).principlesData as Record<string, { title: string; desc: string }>;
+    if (!data) return;
+    document.querySelectorAll<HTMLElement>("[data-principle-key]").forEach((el) => {
+      const key = el.getAttribute("data-principle-key");
+      if (!key || !data[key]) return;
+      const titleEl = el.querySelector<HTMLElement>("[data-principle-title]");
+      const descEl = el.querySelector<HTMLElement>("[data-principle-desc]");
+      if (titleEl) titleEl.textContent = data[key].title;
+      if (descEl) descEl.textContent = data[key].desc;
+    });
+    // combo cards: titles are like "Traslación + Rotación" — rebuild from parts
+    document.querySelectorAll<HTMLElement>("[data-combo-keys]").forEach((el) => {
+      const raw = el.getAttribute("data-combo-keys");
+      if (!raw) return;
+      const keys: string[] = JSON.parse(raw);
+      const titleEl = el.querySelector<HTMLElement>("[data-combo-title]");
+      if (titleEl) {
+        titleEl.textContent = keys.map((k) => data[k]?.title ?? k).join(" + ");
+      }
+    });
+  }
+
+  function getLang(): "es" | "en" {
+    const stored = localStorage.getItem("lang");
+    if (stored === "en" || stored === "es") return stored;
+    return document.documentElement.getAttribute("data-lang") === "en" ? "en" : "es";
+  }
+
+  syncPrinciples(getLang());
+  document.addEventListener("langchange", (e) => {
+    const lang = (e as CustomEvent<{ lang: "es" | "en" }>).detail.lang;
+    syncPrinciples(lang);
+  });
+  document.addEventListener("astro:page-load", () => syncPrinciples(getLang()));
+  document.addEventListener("astro:after-swap", () => syncPrinciples(getLang()));
+</script>

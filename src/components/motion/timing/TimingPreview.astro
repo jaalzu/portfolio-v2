@@ -1,0 +1,132 @@
+---
+interface Props {
+  label: string;
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  duration?: number;
+}
+
+const { label, x1, y1, x2, y2, duration = 2.2 } = Astro.props;
+const easing = `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
+---
+
+<div
+  class="timing-preview"
+  data-timing-preview
+  data-easing={easing}
+  data-duration={duration}
+>
+  <div class="timing-preview__track">
+    <div class="timing-preview__line" aria-hidden="true"></div>
+
+    <span class="timing-preview__dot" data-dot></span>
+  </div>
+
+  <span class="timing-preview__label">{label}</span>
+</div>
+
+<script>
+  const previews = document.querySelectorAll<HTMLElement>(
+    "[data-timing-preview]",
+  );
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  previews.forEach((preview) => {
+    const dot = preview.querySelector<HTMLElement>("[data-dot]");
+
+    const easing = preview.dataset.easing;
+    const duration = Number(preview.dataset.duration) || 1.6;
+
+    if (!dot || !easing) return;
+
+    function play() {
+      if (prefersReducedMotion || !dot) return;
+
+      const dotSize = dot.getBoundingClientRect().width || 10;
+
+      dot.getAnimations().forEach((animation) => animation.cancel());
+
+      // Animamos "left" en % del track, no un translate en px calculado
+      // una sola vez: así el dot siempre llega exacto al final, sea cual
+      // sea el ancho real del track en cada pantalla.
+      dot.animate([{ left: "0px" }, { left: `calc(100% - ${dotSize}px)` }], {
+        duration: duration * 1000,
+        easing,
+        direction: "alternate",
+        iterations: Infinity,
+      });
+    }
+
+    if (prefersReducedMotion) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            play();
+          } else {
+            dot.getAnimations().forEach((animation) => animation.pause());
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(preview);
+
+    window.addEventListener("resize", () => {
+      if (dot.getAnimations().length) play();
+    });
+  });
+</script>
+
+<style>
+  /* Layout unificado: el que antes era solo para mobile/tablet ahora aplica siempre */
+  .timing-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    width: 100%;
+  }
+
+  .timing-preview__track {
+    position: relative;
+    width: 100%;
+    max-width: 220px;
+    height: 28px;
+  }
+
+  .timing-preview__line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 12.5px;
+    border-radius: var(--radius-full);
+    background: var(--color-border-soft);
+  }
+
+  .timing-preview__dot {
+    position: absolute;
+    left: 0;
+    top: calc(50% - 7px);
+    width: 12px;
+    height: 12px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+  }
+
+  .timing-preview__label {
+    order: -1;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    text-align: left;
+  }
+</style>
