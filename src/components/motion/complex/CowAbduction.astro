@@ -1,0 +1,295 @@
+---
+// src/components/motion/abduction/CowAbduction.astro
+// Escena interactiva: vaca + nave que la abduce.
+// Toda la lógica de estados vive acá; el CSS solo reacciona a las clases .is-*
+import "./cow-abduction.css";
+---
+
+<div class="abduction" data-abduction>
+  <!-- Suelo: línea sutil que marca dónde "pisa" la vaca.
+       z-index alto en CSS para que NUNCA quede tapado. -->
+  <div class="abduction__ground" aria-hidden="true"></div>
+
+  <!-- Haz de abducción: crece desde la nave hacia el suelo -->
+  <div class="abduction__beam" aria-hidden="true"></div>
+
+  <!-- Estrella blanca que aparece donde la nave se desvanece al final -->
+  <div class="abduction__star" aria-hidden="true"></div>
+
+  <!-- ---------------- VACA ---------------- -->
+  <button
+    type="button"
+    class="abduction__cow"
+    data-abduction-cow
+    aria-label="Abducir la vaca"
+  >
+    <svg
+      viewBox="0 0 160 124"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="ca-cow-body" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fdfaf4" />
+          <stop offset="1" stop-color="#e8e0d2" />
+        </linearGradient>
+      </defs>
+
+      <!-- patas traseras -->
+      <g fill="#ded5c6">
+        <rect x="52" y="76" width="11" height="42" rx="5.5" />
+        <rect x="104" y="76" width="11" height="42" rx="5.5" />
+      </g>
+
+      <!-- cola -->
+      <path
+        d="M134 52 C 150 60, 152 84, 148 100"
+        fill="none"
+        stroke="#ded5c6"
+        stroke-width="5"
+        stroke-linecap="round"
+      />
+      <circle cx="148" cy="102" r="6" fill="#2b2b30" />
+
+      <!-- cuerpo -->
+      <ellipse cx="88" cy="62" rx="48" ry="28" fill="url(#ca-cow-body)" />
+
+      <!-- manchas -->
+      <ellipse
+        cx="104"
+        cy="52"
+        rx="16"
+        ry="11"
+        fill="#2b2b30"
+        transform="rotate(-12 104 52)"
+      />
+      <ellipse
+        cx="74"
+        cy="74"
+        rx="11"
+        ry="8"
+        fill="#2b2b30"
+        transform="rotate(8 74 74)"
+      />
+      <ellipse cx="120" cy="78" rx="7" ry="5" fill="#2b2b30" />
+
+      <!-- patas delanteras -->
+      <g fill="#f2ebdd">
+        <rect x="68" y="76" width="11" height="42" rx="5.5" />
+        <rect x="120" y="76" width="11" height="42" rx="5.5" />
+      </g>
+
+      <!-- pezuñas -->
+      <g fill="#2b2b30">
+        <rect x="52" y="112" width="11" height="7" rx="3" />
+        <rect x="68" y="112" width="11" height="7" rx="3" />
+        <rect x="104" y="112" width="11" height="7" rx="3" />
+        <rect x="120" y="112" width="11" height="7" rx="3" />
+      </g>
+
+      <!-- oreja: pliegue movido más adelante y hacia la izquierda -->
+      <path
+        d="M 44 42 C 42 34, 48 27, 56 28"
+        fill="none"
+        stroke="#c9b9a0"
+        stroke-width="0.9"
+        stroke-linecap="round"
+        opacity="0.7"
+      />
+
+      <!-- manchita blanca sobre la oreja (highlight sutil) -->
+      <ellipse
+        cx="52"
+        cy="33"
+        rx="2.2"
+        ry="1.5"
+        fill="#ffffff"
+        opacity="0.85"
+        transform="rotate(-25 52 33)"
+      />
+
+      <!-- cuernitos: chiquitos, al lado de los ojos, un poquito más adelante -->
+      <path
+        d="M 22 38 Q 20 32 23 28"
+        fill="none"
+        stroke="#d8cdb8"
+        stroke-width="3.5"
+        stroke-linecap="round"
+      />
+      <path
+        d="M 27 40 Q 26 34 29 30"
+        fill="none"
+        stroke="#d8cdb8"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+
+      <!-- cabeza -->
+      <ellipse cx="32" cy="52" rx="22" ry="18" fill="#f7f1e6" />
+
+      <!-- hocico -->
+      <ellipse cx="13" cy="60" rx="12" ry="10" fill="#e9a8ad" />
+      <ellipse cx="9" cy="57" rx="2" ry="2.6" fill="#8f5b60" />
+      <ellipse cx="18" cy="57" rx="2" ry="2.6" fill="#8f5b60" />
+
+      <!-- ojo: esclera blanca (fija) + grupo móvil (pupila + highlight) -->
+      <ellipse cx="30" cy="46" rx="4.2" ry="4.6" fill="#ffffff" />
+
+      <g class="abduction__cow-pupil">
+        <circle cx="30" cy="46" r="2.5" fill="#1a1a1e" />
+        <circle cx="31" cy="45" r="0.8" fill="#ffffff" />
+      </g>
+    </svg>
+  </button>
+
+  <!-- ---------------- NAVE ---------------- -->
+  <div class="abduction__ship" aria-hidden="true">
+    <!-- Trail de luz: SÍ o SÍ tiene que estar adentro de .abduction__ship
+         para que se mueva junto con la nave y quede por detrás. -->
+    <div class="abduction__trail">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="abduction__ship-inner">
+      <svg viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="ca-saucer" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#cfd4dd" />
+            <stop offset="0.45" stop-color="#8d94a3" />
+            <stop offset="1" stop-color="#4a5060" />
+          </linearGradient>
+          <linearGradient id="ca-dome" x1="0.2" y1="0" x2="0.8" y2="1">
+            <stop offset="0" stop-color="#bfe9ff" stop-opacity="0.95" />
+            <stop offset="0.5" stop-color="#6fb6e8" stop-opacity="0.8" />
+            <stop offset="1" stop-color="#2c5f8a" stop-opacity="0.9" />
+          </linearGradient>
+          <radialGradient id="ca-glow" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#8ef5b0" stop-opacity="0.5" />
+            <stop offset="1" stop-color="#8ef5b0" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        <ellipse cx="90" cy="72" rx="70" ry="26" fill="url(#ca-glow)" />
+        <ellipse cx="90" cy="60" rx="78" ry="22" fill="url(#ca-saucer)" />
+        <ellipse
+          cx="90"
+          cy="56"
+          rx="78"
+          ry="20"
+          fill="none"
+          stroke="#e6eaf1"
+          stroke-opacity="0.35"
+          stroke-width="1.5"
+        />
+
+        <path d="M52 52 A 38 34 0 0 1 128 52 Z" fill="url(#ca-dome)" />
+        <ellipse
+          cx="74"
+          cy="34"
+          rx="12"
+          ry="7"
+          fill="#ffffff"
+          opacity="0.5"
+          transform="rotate(-25 74 34)"
+        />
+
+        <g class="abduction__ship-lights" fill="#8ef5b0">
+          <circle cx="42" cy="64" r="4" />
+          <circle cx="66" cy="68" r="4" />
+          <circle cx="90" cy="70" r="4.5" />
+          <circle cx="114" cy="68" r="4" />
+          <circle cx="138" cy="64" r="4" />
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Texto guía -->
+  <p class="abduction__hint">Haz click en la vaca para abducirla</p>
+</div>
+<script>
+  // ============================================================
+  // ORQUESTADOR DE LA SECUENCIA
+  // El JS solo togglea clases. Todo el "cómo se ve" está en el CSS.
+  // ============================================================
+  const scene = document.querySelector<HTMLElement>("[data-abduction]");
+
+  if (scene) {
+    const cow = scene.querySelector<HTMLElement>("[data-abduction-cow]");
+    let busy = false;
+
+    function run() {
+      if (busy) return;
+      busy = true;
+
+      // Limpieza preventiva por si quedó una estrella de un click anterior
+      scene.classList.remove("is-star");
+
+      scene.classList.add("is-running", "is-approaching");
+
+      // 2.6s ─ llegó a destino
+      window.setTimeout(() => scene.classList.add("is-hovering"), 2600);
+
+      // 2.7s ─ se abre el haz
+      window.setTimeout(() => scene.classList.add("is-beaming"), 2700);
+
+      // 3.3s ─ la vaca empieza a subir
+      window.setTimeout(() => scene.classList.add("is-abducting"), 3300);
+
+      // 5.3s ─ HUYE (sin la estrella todavía)
+      window.setTimeout(() => {
+        scene.classList.remove("is-beaming");
+        scene.classList.add("is-leaving");
+      }, 5300);
+
+      // 6.4s ─ la nave YA desapareció → aparece la estrella
+      window.setTimeout(() => {
+        scene.classList.add("is-star");
+      }, 6400);
+
+      // 10.0s ─ la estrella ya cumplió su ciclo
+      //         (0.5s delay + 3s anim = 3.5s desde 6.4s)
+      window.setTimeout(() => {
+        scene.classList.remove("is-star");
+      }, 10000);
+
+      // 10.2s ─ RECIÉN AHORA la nave empieza a reaparecer (fade lento).
+      //         1s antes que antes.
+      window.setTimeout(() => {
+        scene.classList.add("is-resetting");
+        scene.classList.remove(
+          "is-approaching",
+          "is-hovering",
+          "is-beaming",
+          "is-abducting",
+          "is-leaving",
+        );
+      }, 10200);
+
+      // 10.8s ─ fin del lock (ya se puede clickear de nuevo)
+      window.setTimeout(() => {
+        scene.classList.remove("is-resetting", "is-running");
+        busy = false;
+      }, 10800);
+    }
+
+    cow?.addEventListener("click", run);
+
+    document.addEventListener("astro:before-swap", () => {
+      scene.classList.remove(
+        "is-running",
+        "is-approaching",
+        "is-hovering",
+        "is-beaming",
+        "is-abducting",
+        "is-leaving",
+        "is-resetting",
+        "is-star",
+      );
+    });
+  }
+</script>

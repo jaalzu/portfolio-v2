@@ -1,0 +1,47 @@
+---
+import { translations } from "../../../data/translations";
+const t = translations.es;
+---
+
+<div class="triggers-intro">
+  <h2 class="triggers-intro__title" data-i18n="motionPage.triggersIntro.title">
+    {t.motionPage.triggersIntro.title}
+  </h2>
+
+  <p
+    class="triggers-intro__description"
+    data-i18n="motionPage.triggersIntro.description"
+    set:html={t.motionPage.triggersIntro.description}
+  />
+</div>
+
+<style>
+  .triggers-intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .triggers-intro__title {
+    margin: 0;
+    font-weight: var(--font-weight-medium);
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .triggers-intro__description {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-light);
+    margin: 0;
+  }
+
+  .triggers-intro__description :global(code) {
+    font-family: monospace;
+    font-size: 0.9em;
+    color: var(--color-text-heading);
+    background: var(--color-surface-3);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+  }
+</style>

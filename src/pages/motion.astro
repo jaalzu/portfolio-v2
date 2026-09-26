@@ -7,13 +7,10 @@ import BackLink from "../components/ui/BackLink.astro";
 import SkillSection from "../components/skills/SkillSection.astro";
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
-
+import CowAbduction from "../components/motion/complex/CowAbduction.astro";
+import TriggersRows from "../components/motion/triggers/TriggersRows.astro";
 import Principles from "../components/motion/intro/Principles.astro";
 import TimingRows from "../components/motion/timing/TimingRows.astro";
-import LinksDemo from "../components/motion/LinksDemo.astro";
-import ButtonsDemo from "../components/motion/ButtonsDemo.astro";
-import CardFlipDemo from "../components/motion/CardFlipDemo.astro";
-import CopyDemo from "../components/motion/CopyDemo.astro";
 
 const t = translations.es;
 ---
@@ -45,28 +42,12 @@ const t = translations.es;
         <TimingRows />
       </div>
 
-      <!-- <SkillSection
-        id="buttons"
-        title={t.motionPage.buttons.title}
-        description={t.motionPage.buttons.description}
-        titleKey="motionPage.buttons.title"
-        descKey="motionPage.buttons.description"
-      >
-        <ButtonsDemo />
-      </SkillSection> -->
-
-      <!-- Card flip: no va dentro de SkillSection en el original, se mantiene igual -->
-      <!-- <CardFlipDemo /> -->
-
-      <!-- <SkillSection
-        id="copy-action"
-        title={t.motionPage.copyAction.title}
-        description={t.motionPage.copyAction.description}
-        titleKey="motionPage.copyAction.title"
-        descKey="motionPage.copyAction.description"
-      >
-        <CopyDemo />
-      </SkillSection> -->
+      <div id="triggers">
+        <TriggersRows />
+      </div>
+      <div id="cow">
+        <CowAbduction />
+      </div>
     </Section>
   </main>
 </BaseLayout>
