@@ -107,10 +107,13 @@ export interface ComboCard {
 
 export const comboCards: ComboCard[] = [
   {
-    title: `${labelOf("translation")} + ${labelOf("rotation")}`,
-    keys: ["translation", "rotation"],
-    animation: "combo-translate-rotate 2s ease-in-out infinite",
-    code: [{ prop: "transform", value: "translateY(-14px) rotate(180deg);" }],
+    title: `${labelOf("translation")} + ${labelOf("glow")}`,
+    keys: ["translation", "glow"],
+    animation: "combo-translate-glow 2s ease-in-out infinite",
+    code: [
+      { prop: "transform", value: "translateX(14px);" },
+      { prop: "box-shadow", value: "0 0 20px 4px var(--color-primary-soft);" },
+    ],
   },
   {
     title: `${labelOf("scaling")} + ${labelOf("opacity")}`,

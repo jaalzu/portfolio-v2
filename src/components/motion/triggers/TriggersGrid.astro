@@ -1,0 +1,19 @@
+---
+import TriggersHover from "./TriggersHover.astro";
+import TriggersClick from "./TriggersClick.astro";
+import TriggersHoverClick from "./TriggersHoverClick/TriggersHoverClick.astro";
+---
+
+<div class="triggers-grid">
+  <TriggersHover />
+  <TriggersClick />
+  <TriggersHoverClick />
+</div>
+
+<style>
+  .triggers-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+</style>

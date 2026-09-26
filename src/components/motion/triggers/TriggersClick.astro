@@ -1,0 +1,247 @@
+---
+import TriggerCard from "./TriggerCard.astro";
+---
+
+<div class="triggers-group">
+  <h3 class="triggers-group__title">Click</h3>
+  <div class="triggers-group__cards">
+    <TriggerCard label="Toggle">
+      <button
+        class="p27-switch"
+        role="switch"
+        data-on="false"
+        aria-label="Toggle"
+      >
+        <span class="p27-thumb"></span>
+      </button>
+    </TriggerCard>
+
+    <TriggerCard label="Ripple">
+      <button class="demo-ripple" data-toggle="ripple">
+        Click
+        <span class="demo-ripple__layer"></span>
+        <span class="demo-ripple__layer"></span>
+      </button>
+    </TriggerCard>
+
+    <TriggerCard label="Rotation">
+      <button class="demo-chevron" data-toggle="simple" aria-label="Toggle">
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </button>
+    </TriggerCard>
+  </div>
+</div>
+
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>(".p27-switch:not([data-bound])")
+    .forEach((el) => {
+      el.dataset.bound = "true";
+      el.addEventListener("click", () => {
+        const isOn = el.dataset.on === "true";
+        el.classList.add("is-init");
+        el.dataset.on = String(!isOn);
+      });
+    });
+
+  document
+    .querySelectorAll<HTMLElement>('[data-toggle="simple"]:not([data-bound])')
+    .forEach((el) => {
+      el.dataset.bound = "true";
+      el.addEventListener("click", () => el.classList.toggle("is-active"));
+    });
+
+  document
+    .querySelectorAll<HTMLButtonElement>(
+      '[data-toggle="ripple"]:not([data-bound])',
+    )
+    .forEach((btn) => {
+      btn.dataset.bound = "true";
+      const layers = btn.querySelectorAll<HTMLElement>(".demo-ripple__layer");
+      let next = 0;
+
+      btn.addEventListener("click", () => {
+        const layer = layers[next];
+        next = (next + 1) % layers.length;
+
+        layer.classList.remove("is-pop");
+        void layer.offsetWidth;
+        layer.classList.add("is-pop");
+      });
+
+      layers.forEach((layer) => {
+        layer.addEventListener("animationend", () =>
+          layer.classList.remove("is-pop"),
+        );
+      });
+    });
+</script>
+
+<style>
+  .triggers-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-3);
+  }
+
+  .triggers-group__title {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+  }
+
+  .triggers-group__cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start; /* center en Click si no tenían este valor */
+    gap: var(--space-6);
+    padding-left: var(--space-2);
+    overflow: visible;
+  }
+  /* --- Toggle (p27 style) --- */
+  .p27-switch {
+    position: relative;
+    width: 44px;
+    height: 22px;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 122px;
+    background: var(--color-border-soft);
+    -webkit-tap-highlight-color: transparent;
+    transition: background 200ms cubic-bezier(0.34, 1.35, 0.64, 1);
+  }
+
+  .p27-switch[data-on="true"] {
+    background: var(--color-primary);
+  }
+
+  .p27-thumb {
+    position: absolute;
+    left: 3.67px;
+    top: 3.67px;
+    width: 14.67px;
+    height: 14.67px;
+    border-radius: 50%;
+    background: var(--color-text-heading);
+    box-shadow:
+      0 2px 6px oklch(0 0 0 / 0.15),
+      0 4px 12px oklch(0 0 0 / 0.1);
+    translate: 0 0;
+    will-change: translate;
+  }
+
+  .p27-switch[data-on="true"] .p27-thumb {
+    translate: 14.66px 0;
+  }
+
+  .p27-switch.is-init[data-on="true"] .p27-thumb {
+    animation: p27-on 350ms cubic-bezier(0.34, 1.35, 0.64, 1) both;
+  }
+  .p27-switch.is-init[data-on="false"] .p27-thumb {
+    animation: p27-off 350ms cubic-bezier(0.34, 1.35, 0.64, 1) both;
+  }
+
+  @keyframes p27-on {
+    0% {
+      translate: 0 0;
+    }
+    55% {
+      translate: 15.66px 0;
+    }
+    80% {
+      translate: 14.66px 0;
+    }
+    100% {
+      translate: 14.66px 0;
+    }
+  }
+  @keyframes p27-off {
+    0% {
+      translate: 14.66px 0;
+    }
+    55% {
+      translate: -1px 0;
+    }
+    80% {
+      translate: 0px 0;
+    }
+    100% {
+      translate: 0 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .p27-thumb {
+      animation: none !important;
+    }
+  }
+
+  /* --- Ripple --- */
+  .demo-ripple {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-2);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    padding: var(--space-2) var(--space-4);
+    cursor: pointer;
+  }
+  .demo-ripple__layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: oklch(1 0 0 / 0.5);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .demo-ripple__layer.is-pop {
+    animation: ripple-burst 0.5s ease-out;
+  }
+  @keyframes ripple-burst {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0.6;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(14);
+      opacity: 0;
+    }
+  }
+
+  /* --- Rotation --- */
+  .demo-chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-full);
+    background: var(--color-surface-2);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+  .demo-chevron.is-active {
+    transform: rotate(180deg);
+  }
+</style>

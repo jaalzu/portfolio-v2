@@ -299,13 +299,15 @@
     transform: rotateX(20deg) translateZ(-50px);
   }
 }
-@keyframes combo-translate-rotate {
+@keyframes combo-translate-glow {
   0%,
   100% {
-    transform: translateY(0) rotate(0deg);
+    transform: translateX(0);
+    box-shadow: 0 0 0 0 transparent;
   }
   50% {
-    transform: translateY(-14px) rotate(180deg);
+    transform: translateX(14px);
+    box-shadow: 0 0 20px 4px var(--color-primary-soft);
   }
 }
 

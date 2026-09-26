@@ -1,0 +1,171 @@
+---
+import TriggerCard from "./TriggerCard.astro";
+---
+
+<div class="triggers-group">
+  <h3 class="triggers-group__title">Hover</h3>
+  <div class="triggers-group__cards">
+    <TriggerCard label="Lift + Rotate">
+      <button class="demo-iconbtn" aria-label="Bookmark">
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+        </svg>
+      </button>
+    </TriggerCard>
+
+    <TriggerCard label="Status tooltip">
+      <div class="demo-status">
+        <div class="demo-avatar-wrap">
+          <div class="demo-avatar">
+            <img src="/favicon.png" alt="Avatar" class="demo-avatar__img" />
+          </div>
+          <span class="demo-status__dot"></span>
+        </div>
+        <span class="demo-status__tooltip">Offline</span>
+      </div>
+    </TriggerCard>
+
+    <TriggerCard label="Glow">
+      <button class="demo-glow-btn" aria-label="Hover">
+        Hover
+      </button>
+    </TriggerCard>
+  </div>
+</div>
+
+<style>
+  .triggers-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-3);
+    overflow: visible;
+  }
+
+  .triggers-group__title {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+  }
+
+  .triggers-group__cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start; /* center en Click si no tenían este valor */
+    gap: var(--space-6);
+    padding-left: var(--space-2);
+    overflow: visible;
+  }
+
+  /* --- Base compartida: mismo molde para Lift+Rotate y Glow --- */
+  .demo-iconbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-soft);
+    background: var(--color-surface-2);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+
+  .demo-iconbtn:hover {
+    transform: translateY(-5px) rotate(-8deg);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .demo-glow-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0 var(--space-5);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-soft);
+    background: var(--color-surface-2);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+
+  .demo-glow-btn:hover {
+    box-shadow: 0 0 12px 2px var(--color-primary-soft);
+    border-color: var(--color-primary);
+  }
+
+  /* --- Avatar --- */
+  .demo-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--color-border-soft);
+  }
+  .demo-avatar__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .demo-status {
+    position: relative;
+    display: inline-flex;
+    overflow: visible;
+  }
+
+  .demo-avatar-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .demo-status__dot {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--color-text-muted);
+    border: 2px solid var(--color-surface-2);
+    z-index: 1;
+  }
+
+  .demo-status__tooltip {
+    position: absolute;
+    z-index: 10;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translate(-50%, 4px);
+    min-width: max-content;
+    background: var(--color-surface-3);
+    border: 1px solid var(--color-border-soft);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition-base);
+  }
+
+  .demo-status:hover .demo-status__tooltip {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+</style>

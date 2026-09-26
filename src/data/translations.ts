@@ -148,7 +148,7 @@ export const translations = {
       intro: {
         title: "Intro",
         description:
-          "Toda animación en la web parte de principios de movimiento. Podés armar casi cualquier cosa que imagines, desde una transición sutil hasta un efecto interactivo complejo. Por más complejo que se vea, es solo una combinacion de estas bases. Tocá una card para ver el código.",
+          "Toda animación en la web parte de principios de movimiento. Podés armar casi cualquier cosa que imagines, desde una transición sutil hasta un efecto interactivo complejo. Por más complejo que se vea, es solo una combinacion de estas bases. ",
         combiningTitle: "Combinando",
         combiningDesc:
           "Algunas animaciones son simplemente la combinación de 2 o más efectos.",
@@ -157,6 +157,11 @@ export const translations = {
         title: "Timing Functions",
         description:
           "Define cómo progresa la animación en el tiempo: acelerando, desacelerando o siguiendo una curva personalizada.",
+      },
+      triggersIntro: {
+        title: "Triggers",
+        description:
+          "Las animaciones necesitan algo que las dispare. Los más comunes son <code>hover</code>, <code>click</code> y <code>focus</code> — los mismos efectos que ya viste, solo que se activan en distintos momentos.",
       },
       presetsNote:
         "Aunque visualmente parezca que no, todas las animaciones duran lo mismo, lo único que cambia es el recorrido de la velocidad entre el inicio y el final.",
@@ -170,7 +175,10 @@ export const translations = {
         note: "<code>cubic-bezier()</code> define cómo progresa una animación entre su inicio y su final. <code>x1</code> y <code>x2</code> determinan cuándo cambia la velocidad, mientras que <code>y1</code> y <code>y2</code> determinan cuánto acelera o desacelera.",
       },
       principlesData: {
-        translation: { title: "Traslación", desc: "Moverse de un punto a otro." },
+        translation: {
+          title: "Traslación",
+          desc: "Moverse de un punto a otro.",
+        },
         rotation: { title: "Rotación", desc: "Girar sobre un eje." },
         scaling: { title: "Escalado", desc: "Crecer o achicarse." },
         skew: { title: "Distorsión", desc: "Inclinar la forma." },
@@ -335,7 +343,7 @@ export const translations = {
       intro: {
         title: "Intro",
         description:
-          "Every web animation is built on motion principles. You can create almost anything you imagine, from a subtle transition to a complex interactive effect. No matter how complex it looks, it's just a combination of these basics. Click a card to see the code.",
+          "Every web animation is built on motion principles. You can create almost anything you imagine, from a subtle transition to a complex interactive effect. No matter how complex it looks, it's just a combination of these basics.",
         combiningTitle: "Combining",
         combiningDesc:
           "Some animations are simply the combination of 2 or more effects.",
@@ -344,6 +352,11 @@ export const translations = {
         title: "Timing Functions",
         description:
           "Defines how the animation progresses over time: speeding up, slowing down, or following a custom curve.",
+      },
+      triggersIntro: {
+        title: "Triggers",
+        description:
+          "Animations need something to trigger them. The most common ones are hover, click, and focus — same effects you already know, just fired at different moments.",
       },
       presetsNote:
         "Although it may not look like it visually, all animations last the same amount of time — the only thing that changes is how speed evolves between start and end.",
@@ -357,7 +370,10 @@ export const translations = {
         note: "<code>cubic-bezier()</code> defines how an animation progresses between its start and end. <code>x1</code> and <code>x2</code> determine when the speed changes, while <code>y1</code> and <code>y2</code> determine how much it accelerates or decelerates.",
       },
       principlesData: {
-        translation: { title: "Translation", desc: "Move from one point to another." },
+        translation: {
+          title: "Translation",
+          desc: "Move from one point to another.",
+        },
         rotation: { title: "Rotation", desc: "Rotate around an axis." },
         scaling: { title: "Scaling", desc: "Grow or shrink." },
         skew: { title: "Skew", desc: "Tilt the shape." },

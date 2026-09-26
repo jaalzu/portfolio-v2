@@ -1,0 +1,54 @@
+---
+import TriggerCard from "../TriggerCard.astro";
+import SocialExpand from "./SocialExpand.astro";
+import SpotifyPlayer from "./SpotifyPlayer.astro";
+---
+
+<div class="triggers-group">
+  <h3 class="triggers-group__title">Hover + Click</h3>
+
+  <div class="triggers-group__row triggers-group__row--center">
+    <TriggerCard>
+      <SocialExpand />
+    </TriggerCard>
+  </div>
+
+  <div class="triggers-group__player">
+    <TriggerCard>
+      <SpotifyPlayer />
+    </TriggerCard>
+  </div>
+</div>
+
+<style>
+  .triggers-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-5);
+  }
+
+  .triggers-group__title {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+  }
+
+  .triggers-group__row {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: var(--space-2);
+  }
+
+  .triggers-group__row--center {
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  .triggers-group__player {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+</style>

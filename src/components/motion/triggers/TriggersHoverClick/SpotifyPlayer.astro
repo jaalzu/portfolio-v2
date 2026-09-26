@@ -1,0 +1,265 @@
+---
+// src/components/motion/triggers/TriggersHoverClick/SpotifyPlayer.astro
+---
+
+<div class="demo-player" data-player>
+  <div class="demo-player__info">
+    <span class="demo-player__artist">Flume</span>
+    <span class="demo-player__track">Say It</span>
+    <div class="demo-player__bar">
+      <div class="demo-player__fill"></div>
+    </div>
+  </div>
+
+  <div class="demo-player__panel">
+    <div class="demo-player__art">
+      <img
+        src="https://picsum.photos/seed/motioncourse/160/160"
+        alt=""
+        class="demo-player__img"
+      />
+    </div>
+
+    <div class="demo-player__controls">
+      <button class="demo-player__btn" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" />
+        </svg>
+      </button>
+
+      <button class="demo-player__btn" data-toggle="play" aria-label="Play">
+        <svg
+          class="demo-player__icon demo-player__icon--play"
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          fill="currentColor"
+        >
+          <path d="M8 5v14l11-7z" />
+        </svg>
+        <svg
+          class="demo-player__icon demo-player__icon--pause"
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          fill="currentColor"
+        >
+          <rect x="6" y="5" width="4" height="14" />
+          <rect x="14" y="5" width="4" height="14" />
+        </svg>
+      </button>
+
+      <button class="demo-player__btn" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M16 6h2v12h-2zM6 6l8.5 6L6 18z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>('[data-toggle="play"]:not([data-bound])')
+    .forEach((btn) => {
+      btn.dataset.bound = "true";
+      const player = btn.closest<HTMLElement>("[data-player]");
+
+      btn.addEventListener("click", () => {
+        player?.classList.toggle("is-active");
+      });
+    });
+</script>
+
+<style>
+  .demo-player {
+    position: relative;
+    width: 300px;
+    max-width: 100%;
+  }
+
+  /* --- Info bar: aparece deslizándose arriba del panel --- */
+  .demo-player__info {
+    position: absolute;
+    height: 60px;
+    top: 0;
+    left: 10px;
+    right: 10px;
+    opacity: 0;
+    background: var(--color-surface-3);
+    padding: 5px 15px 5px 110px;
+    border-radius: var(--radius-base);
+    transition: var(--transition-base);
+    pointer-events: none;
+  }
+
+  .demo-player.is-active .demo-player__info {
+    top: -60px;
+    opacity: 1;
+  }
+
+  .demo-player__artist {
+    display: block;
+    color: var(--color-text-heading);
+    font-size: var(--text-base);
+    margin-bottom: 4px;
+  }
+
+  .demo-player__track {
+    display: block;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    margin-bottom: 8px;
+  }
+
+  .demo-player__bar {
+    width: 100%;
+    height: 2px;
+    background: var(--color-border-soft);
+    position: relative;
+  }
+
+  .demo-player__fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 10%;
+    background: var(--color-primary);
+    animation: player-progress 6s linear infinite;
+    animation-play-state: paused;
+  }
+
+  .demo-player.is-active .demo-player__fill {
+    animation-play-state: running;
+  }
+
+  @keyframes player-progress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  /* --- Panel de control --- */
+  .demo-player__panel {
+    position: relative;
+    z-index: 5;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    width: 300px;
+    max-width: 100%;
+    height: 80px;
+  }
+
+  .demo-player__art {
+    position: absolute;
+    left: 20px;
+    top: -15px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--color-border-soft);
+    box-shadow: 0 0 0 0 transparent;
+    transform: scale(1);
+    transition: var(--transition-base);
+  }
+
+  .demo-player__art::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    background: var(--color-surface-2);
+    border-radius: 50%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+  }
+
+  .demo-player.is-active .demo-player__art {
+    box-shadow: 0 0 20px 5px oklch(0 0 0 / 0.25);
+    transform: scale(1.2);
+  }
+
+  .demo-player__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .demo-player.is-active .demo-player__img {
+    animation: player-spin 3s linear infinite;
+  }
+
+  @keyframes player-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .demo-player__controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 80px;
+    padding: 0 15px;
+    gap: 2px;
+  }
+
+  .demo-player__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 48px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+
+  .demo-player__btn:hover {
+    background: var(--color-surface-3);
+    color: var(--color-text-heading);
+  }
+
+  .demo-player__btn[data-toggle="play"] {
+    position: relative;
+    color: var(--color-text-heading);
+  }
+
+  .demo-player__icon {
+    position: absolute;
+    transition: var(--transition-base);
+  }
+
+  .demo-player__icon--play {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .demo-player__icon--pause {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  .demo-player.is-active .demo-player__icon--play {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  .demo-player.is-active .demo-player__icon--pause {
+    opacity: 1;
+    transform: scale(1);
+  }
+</style>
