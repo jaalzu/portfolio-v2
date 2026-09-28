@@ -1,0 +1,43 @@
+---
+import { translations } from "../../../data/translations";
+const t = translations.es;
+const n = t.motionPage.keyframesNotes;
+---
+
+<div class="keyframes-notes">
+  <p
+    class="keyframes-notes__text"
+    data-i18n-html="motionPage.keyframesNotes.p1"
+    set:html={n.p1}
+  />
+  <p
+    class="keyframes-notes__text"
+    data-i18n-html="motionPage.keyframesNotes.p2"
+    set:html={n.p2}
+  />
+</div>
+
+<style>
+  .keyframes-notes {
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .keyframes-notes__text {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-light);
+  }
+
+  .keyframes-notes__text :global(code) {
+    font-family: monospace;
+    font-size: 0.9em;
+    color: var(--color-text-heading);
+    background: var(--color-surface-3);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+  }
+</style>

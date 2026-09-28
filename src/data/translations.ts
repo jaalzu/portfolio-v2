@@ -163,6 +163,15 @@ export const translations = {
         description:
           "Las animaciones necesitan algo que las dispare. Los más comunes son <code>hover</code>, <code>click</code> y <code>focus</code> — los mismos efectos que ya viste, solo que se activan en distintos momentos.",
       },
+      keyframesIntro: {
+        title: "Keyframes",
+        description:
+          "Con <code>@keyframes</code> controlás los pasos intermedios de una animación: cada keyframe es un porcentaje del recorrido con los estilos que debe tener en ese punto.",
+      },
+      keyframesNotes: {
+        p1: "El navegador se encarga de animar todo lo que hay entre un keyframe y otro. Para ser válida necesita al menos <code>0%</code> y <code>100%</code> (o <code>from</code> y <code>to</code>). El orden en que los escribas da igual: manda el porcentaje.",
+        p2: "Si una propiedad falta en algún keyframe, se interpola entre los que sí la definen. Y si repetís un porcentaje, gana el último.",
+      },
       presetsNote:
         "Aunque visualmente parezca que no, todas las animaciones duran lo mismo, lo único que cambia es el recorrido de la velocidad entre el inicio y el final.",
       cubic: {
@@ -357,6 +366,15 @@ export const translations = {
         title: "Triggers",
         description:
           "Animations need something to trigger them. The most common ones are hover, click, and focus — same effects you already know, just fired at different moments.",
+      },
+      keyframesIntro: {
+        title: "Keyframes",
+        description:
+          "With <code>@keyframes</code> you control the intermediate steps of an animation: each keyframe is a percentage of the run with the styles it should have at that point.",
+      },
+      keyframesNotes: {
+        p1: "The browser animates everything between one keyframe and the next. To be valid it needs at least <code>0%</code> and <code>100%</code> (or <code>from</code> and <code>to</code>). The order you write them in doesn't matter: the percentage decides.",
+        p2: "If a property is missing from a keyframe, it's interpolated between the ones that do define it. And if you repeat a percentage, the last one wins.",
       },
       presetsNote:
         "Although it may not look like it visually, all animations last the same amount of time — the only thing that changes is how speed evolves between start and end.",

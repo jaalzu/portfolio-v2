@@ -1,0 +1,426 @@
+---
+// Recorrido por las 4 esquinas + código de @keyframes sincronizado.
+// Dos modos: Normal (rápido) y Lento. Botón de pausa (solo icono).
+---
+
+<div class="orbit" data-orbit>
+  <div class="orbit-tabs" role="tablist">
+    <button class="orbit-tab" data-orbit-mode="normal" type="button">
+      Normal
+    </button>
+    <button class="orbit-tab is-active" data-orbit-mode="slow" type="button">
+      Lento
+    </button>
+    <button
+      class="orbit-tab orbit-tab--icon"
+      data-orbit-pause
+      type="button"
+      aria-label="Pausar"
+    >
+      <img
+        src="/motion/pause.svg"
+        alt=""
+        class="orbit-tab__icon orbit-tab__icon--pause"
+      />
+      <img
+        src="/motion/play.svg"
+        alt=""
+        class="orbit-tab__icon orbit-tab__icon--play"
+      />
+    </button>
+  </div>
+
+  <div class="orbit-body">
+    <div class="orbit-code">
+      <span class="orbit-line orbit-line--static">@keyframes orbit {"{"}</span>
+      <span class="orbit-line orbit-line--indent" data-orbit-line>
+        0% {"{"} transform: translate(0, 0); {"}"}
+      </span>
+      <span class="orbit-line orbit-line--indent" data-orbit-line>
+        25% {"{"} transform: translate(<span data-orbit-travel="x">200</span>px,
+        0); {"}"}
+      </span>
+      <span class="orbit-line orbit-line--indent" data-orbit-line>
+        50% {"{"} transform: translate(<span data-orbit-travel="x">200</span>px,{" "}
+        <span data-orbit-travel="y">200</span>px); {"}"}
+      </span>
+      <span class="orbit-line orbit-line--indent" data-orbit-line>
+        75% {"{"} transform: translate(0, <span data-orbit-travel="y">200</span>
+        px); {"}"}
+      </span>
+      <span class="orbit-line orbit-line--indent" data-orbit-line>
+        100% {"{"} transform: translate(0, 0); {"}"}
+      </span>
+      <span class="orbit-line orbit-line--static">{"}"}</span>
+      <span class="orbit-line orbit-line--static orbit-line--gap">
+        .box {"{"}
+      </span>
+      <span class="orbit-line orbit-line--static orbit-line--indent-static">
+        animation: orbit <span data-orbit-dur>14s</span> ease-in-out infinite;
+      </span>
+      <span class="orbit-line orbit-line--static">{"}"}</span>
+    </div>
+
+    <div class="orbit-stage" data-orbit-stage>
+      <div class="orbit-box" data-orbit-box></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const MODES = { normal: 5000, slow: 14000 } as const;
+  // Cuánto tiempo (ms) se marca el 0% al arrancar cada vuelta
+  const HOME_MS = { normal: 350, slow: 900 } as const;
+  // Caja (40px) + margen de 10px a cada lado
+  const BOX_SPACE = 60;
+  type Mode = keyof typeof MODES;
+
+  function init() {
+    const root = document.querySelector<HTMLElement>(
+      "[data-orbit]:not([data-bound])",
+    );
+    if (!root) return;
+    root.dataset.bound = "true";
+
+    const box = root.querySelector<HTMLElement>("[data-orbit-box]")!;
+    const stage = root.querySelector<HTMLElement>("[data-orbit-stage]")!;
+    const lines = root.querySelectorAll<HTMLElement>("[data-orbit-line]");
+    const durLabel = root.querySelector<HTMLElement>("[data-orbit-dur]")!;
+    const travelLabels = root.querySelectorAll<HTMLElement>(
+      "[data-orbit-travel]",
+    );
+    const tabs = root.querySelectorAll<HTMLButtonElement>("[data-orbit-mode]");
+    const pauseBtn =
+      root.querySelector<HTMLButtonElement>("[data-orbit-pause]")!;
+
+    let mode: Mode = "slow";
+    let anim: Animation;
+    let raf = 0;
+    let current = -1;
+    let userPaused = false;
+    let visible = true;
+    let travelX = 0;
+    let travelY = 0;
+
+    function measure() {
+      travelX = Math.max(60, stage.clientWidth - BOX_SPACE);
+      travelY = Math.max(60, stage.clientHeight - BOX_SPACE);
+    }
+
+    function applyPlayState() {
+      if (userPaused || !visible) anim.pause();
+      else anim.play();
+    }
+
+    function build(keepTime = false) {
+      const prevTime = keepTime && anim ? anim.currentTime : null;
+      anim?.cancel();
+
+      measure();
+      const ease = "ease-in-out";
+      anim = box.animate(
+        [
+          { transform: "translate(0, 0)", offset: 0, easing: ease },
+          {
+            transform: `translate(${travelX}px, 0)`,
+            offset: 0.25,
+            easing: ease,
+          },
+          {
+            transform: `translate(${travelX}px, ${travelY}px)`,
+            offset: 0.5,
+            easing: ease,
+          },
+          {
+            transform: `translate(0, ${travelY}px)`,
+            offset: 0.75,
+            easing: ease,
+          },
+          { transform: "translate(0, 0)", offset: 1 },
+        ],
+        { duration: MODES[mode], iterations: Infinity, easing: "linear" },
+      );
+      if (prevTime !== null) anim.currentTime = prevTime;
+
+      durLabel.textContent = `${MODES[mode] / 1000}s`;
+      travelLabels.forEach((el) => {
+        el.textContent = String(
+          el.dataset.orbitTravel === "y" ? travelY : travelX,
+        );
+      });
+      current = -1;
+      applyPlayState();
+    }
+
+    // lit = índice de la línea de código marcada (0..4)
+    function paint(lit: number) {
+      lines.forEach((l, i) => l.classList.toggle("is-active", i === lit));
+    }
+
+    function tick() {
+      if (!root!.isConnected) {
+        io.disconnect();
+        ro.disconnect();
+        return;
+      }
+      const dur = MODES[mode];
+      const t = (Number(anim.currentTime) || 0) % dur;
+      const seg = Math.min(3, Math.floor((t / dur) * 4));
+      // Al arrancar la vuelta se marca el 0%; después, siempre el destino
+      const lit = t < HOME_MS[mode] ? 0 : seg + 1;
+      if (lit !== current) {
+        current = lit;
+        paint(lit);
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        mode = (tab.dataset.orbitMode as Mode) ?? "slow";
+        tabs.forEach((t) => t.classList.toggle("is-active", t === tab));
+        build();
+      });
+    });
+
+    pauseBtn.addEventListener("click", () => {
+      userPaused = !userPaused;
+      pauseBtn.setAttribute("aria-label", userPaused ? "Reanudar" : "Pausar");
+      pauseBtn.classList.toggle("is-paused", userPaused);
+      applyPlayState();
+    });
+
+    // Si cambia el tamaño del stage (rotar el celu, resize), recalcula el recorrido
+    const ro = new ResizeObserver(() => {
+      if (!stage.clientWidth) return;
+      const x = Math.max(60, stage.clientWidth - BOX_SPACE);
+      const y = Math.max(60, stage.clientHeight - BOX_SPACE);
+      if (x !== travelX || y !== travelY) build(true);
+    });
+
+    // Pausa todo (animación + rAF) cuando no está en pantalla
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        cancelAnimationFrame(raf);
+        if (visible) raf = requestAnimationFrame(tick);
+        applyPlayState();
+      },
+      { rootMargin: "200px" },
+    );
+
+    build();
+    ro.observe(stage);
+    io.observe(root);
+  }
+
+  init();
+  document.addEventListener("astro:page-load", init);
+</script>
+
+<style>
+  .orbit {
+    --orbit-size: 262px; /* tamaño máximo del stage y alto del código */
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
+  }
+
+  .orbit-tabs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .orbit-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    padding: 0 var(--space-3);
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+
+  /* hover: borde más potente (más claro), sin primary */
+  .orbit-tab:hover {
+    border-color: var(--color-text-muted);
+    color: var(--color-text-heading);
+  }
+
+  /* active: SOLO los modos Normal / Lento. El botón de pausa no tiene estado. */
+  .orbit-tab.is-active,
+  .orbit-tab.is-active:hover {
+    color: var(--color-text-heading);
+    background: var(--color-surface-3);
+  }
+
+  /* --- Botón de pausa: swap pause <-> play con blur --- */
+  .orbit-tab--icon {
+    position: relative;
+    width: 32px;
+    padding: 0;
+    margin-left: auto;
+  }
+
+  .orbit-tab__icon {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) invert(1);
+    transition:
+      opacity 140ms ease,
+      transform 140ms ease,
+      filter 140ms ease;
+  }
+
+  .orbit-tab__icon--pause {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .orbit-tab__icon--play {
+    opacity: 0;
+    transform: scale(0.5);
+    filter: brightness(0) invert(1) blur(3px);
+    transition-delay: 0ms;
+  }
+
+  .orbit-tab--icon.is-paused .orbit-tab__icon--pause {
+    opacity: 0;
+    transform: scale(0.5);
+    filter: brightness(0) invert(1) blur(3px);
+  }
+
+  .orbit-tab--icon.is-paused .orbit-tab__icon--play {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(0) invert(1) blur(0);
+    transition-delay: 40ms;
+  }
+
+  .orbit-tab--icon:not(.is-paused) .orbit-tab__icon--pause {
+    transition-delay: 40ms;
+  }
+
+  .orbit-body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  /* --- Código (izquierda) --- */
+  .orbit-code {
+    box-sizing: border-box;
+    flex: 1;
+    min-width: min(240px, 100%);
+    height: var(--orbit-size);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: monospace;
+    font-size: var(--text-xs);
+    background: var(--color-surface-3);
+    border: 1px solid var(--color-border-softer);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3);
+    overflow-x: auto;
+  }
+
+  .orbit-line {
+    position: relative;
+    display: block;
+    white-space: pre;
+    padding: 1px var(--space-2);
+    border-radius: 4px;
+    color: var(--color-text-muted);
+    /* apagar es instantáneo: no queda ningún resto de la línea anterior */
+    transition: none;
+  }
+
+  .orbit-line--indent,
+  .orbit-line--indent-static {
+    padding-left: calc(var(--space-2) + 1.5em);
+  }
+
+  .orbit-line--gap {
+    margin-top: var(--space-3);
+  }
+
+  .orbit-line--static {
+    color: var(--color-text);
+  }
+
+  /* dot primary: solo aparece en la línea activa */
+  .orbit-line--indent::before {
+    content: "";
+    position: absolute;
+    left: var(--space-2);
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    transform: translateY(-50%) scale(0);
+  }
+
+  .orbit-line.is-active {
+    color: var(--color-text-heading);
+    background: var(--color-surface-1);
+    /* prender sí se anima */
+    transition:
+      color 150ms ease,
+      background-color 150ms ease;
+  }
+
+  .orbit-line--indent.is-active::before {
+    transform: translateY(-50%) scale(1);
+    transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* --- Stage (derecha): cuadrado, máximo 262px --- */
+  .orbit-stage {
+    box-sizing: border-box;
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: var(--orbit-size);
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--color-border-softer);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-3);
+  }
+
+  .orbit-box {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--color-primary);
+    z-index: 1;
+  }
+
+  /* Mobile: el stage ocupa todo el ancho pero es un rectángulo de alto fijo,
+     y el código se ajusta a su contenido en vez de tener alto fijo */
+  @media (max-width: 560px) {
+    .orbit-stage {
+      max-width: none;
+      aspect-ratio: auto;
+      height: 200px;
+    }
+
+    .orbit-code {
+      height: auto;
+    }
+  }
+</style>

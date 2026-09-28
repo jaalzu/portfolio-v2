@@ -4,8 +4,8 @@
 
 <div class="demo-player" data-player>
   <div class="demo-player__info">
-    <span class="demo-player__artist">Flume</span>
-    <span class="demo-player__track">Say It</span>
+    <span class="demo-player__artist">Let It Happen</span>
+    <span class="demo-player__track">tame impala</span>
     <div class="demo-player__bar">
       <div class="demo-player__fill"></div>
     </div>
@@ -13,46 +13,28 @@
 
   <div class="demo-player__panel">
     <div class="demo-player__art">
-      <img
-        src="https://picsum.photos/seed/motioncourse/160/160"
-        alt=""
-        class="demo-player__img"
-      />
+      <img src="/tame.jpg" alt="" class="demo-player__img" />
     </div>
 
     <div class="demo-player__controls">
       <button class="demo-player__btn" aria-label="Anterior">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-          <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" />
-        </svg>
+        <img src="/motion/skip-back.svg" alt="" class="demo-player__ico" />
       </button>
 
-      <button class="demo-player__btn" data-toggle="play" aria-label="Play">
-        <svg
-          class="demo-player__icon demo-player__icon--play"
-          viewBox="0 0 24 24"
-          width="18"
-          height="18"
-          fill="currentColor"
-        >
-          <path d="M8 5v14l11-7z" />
-        </svg>
-        <svg
-          class="demo-player__icon demo-player__icon--pause"
-          viewBox="0 0 24 24"
-          width="18"
-          height="18"
-          fill="currentColor"
-        >
-          <rect x="6" y="5" width="4" height="14" />
-          <rect x="14" y="5" width="4" height="14" />
-        </svg>
+      <button
+        class="demo-player__btn"
+        data-toggle="play"
+        aria-label="Play / Pause"
+      >
+        <img
+          src="/motion/play-pause.svg"
+          alt=""
+          class="demo-player__ico demo-player__ico--play"
+        />
       </button>
 
       <button class="demo-player__btn" aria-label="Siguiente">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-          <path d="M16 6h2v12h-2zM6 6l8.5 6L6 18z" />
-        </svg>
+        <img src="/motion/skip-forward.svg" alt="" class="demo-player__ico" />
       </button>
     </div>
   </div>
@@ -76,40 +58,43 @@
     position: relative;
     width: 300px;
     max-width: 100%;
+    overflow: visible; /* clave: nada recorta la curva del art ni el panel de info */
   }
 
-  /* --- Info bar: aparece deslizándose arriba del panel --- */
+  /* --- Info bar: más baja, transición lenta y prolija --- */
   .demo-player__info {
     position: absolute;
-    height: 60px;
+    height: 57px;
     top: 0;
     left: 10px;
     right: 10px;
     opacity: 0;
     background: var(--color-surface-3);
-    padding: 5px 15px 5px 110px;
+    padding: 7px 15px 4px 100px;
     border-radius: var(--radius-base);
-    transition: var(--transition-base);
+    transition:
+      top 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.6s ease;
     pointer-events: none;
   }
 
   .demo-player.is-active .demo-player__info {
-    top: -60px;
+    top: -57.5px;
     opacity: 1;
   }
 
   .demo-player__artist {
     display: block;
     color: var(--color-text-heading);
-    font-size: var(--text-base);
-    margin-bottom: 4px;
+    font-size: var(--text-sm);
+    line-height: 1.2;
   }
 
   .demo-player__track {
     display: block;
     color: var(--color-text-muted);
-    font-size: var(--text-sm);
-    margin-bottom: 8px;
+    font-size: var(--text-xs);
+    margin-bottom: 6px;
   }
 
   .demo-player__bar {
@@ -126,7 +111,7 @@
     bottom: 0;
     width: 10%;
     background: var(--color-primary);
-    animation: player-progress 6s linear infinite;
+    animation: player-progress 35s linear infinite;
     animation-play-state: paused;
   }
 
@@ -153,6 +138,8 @@
     width: 300px;
     max-width: 100%;
     height: 80px;
+    overflow: visible;
+    box-shadow: var(--shadow-soft-light);
   }
 
   .demo-player__art {
@@ -166,7 +153,9 @@
     border: 1px solid var(--color-border-soft);
     box-shadow: 0 0 0 0 transparent;
     transform: scale(1);
-    transition: var(--transition-base);
+    transition:
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.6s ease;
   }
 
   .demo-player__art::after {
@@ -225,41 +214,22 @@
     border: none;
     border-radius: var(--radius-sm);
     background: transparent;
-    color: var(--color-text-muted);
     cursor: pointer;
     transition: var(--transition-base);
   }
 
   .demo-player__btn:hover {
     background: var(--color-surface-3);
-    color: var(--color-text-heading);
   }
 
-  .demo-player__btn[data-toggle="play"] {
-    position: relative;
-    color: var(--color-text-heading);
+  .demo-player__ico {
+    width: 22px;
+    height: 22px;
+    display: block;
+    filter: brightness(0) invert(1);
   }
-
-  .demo-player__icon {
-    position: absolute;
-    transition: var(--transition-base);
-  }
-
-  .demo-player__icon--play {
-    opacity: 1;
-    transform: scale(1);
-  }
-  .demo-player__icon--pause {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-
-  .demo-player.is-active .demo-player__icon--play {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-  .demo-player.is-active .demo-player__icon--pause {
-    opacity: 1;
-    transform: scale(1);
+  .demo-player__ico--play {
+    width: 26px;
+    height: 26px;
   }
 </style>
