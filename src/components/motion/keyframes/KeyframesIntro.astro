@@ -3,40 +3,44 @@ import { translations } from "../../../data/translations";
 const t = translations.es;
 ---
 
-<div class="triggers-intro">
-  <h2 class="triggers-intro__title" data-i18n="motionPage.triggersIntro.title">
-    {t.motionPage.triggersIntro.title}
+<div class="keyframes-intro">
+  <h2
+    class="keyframes-intro__title"
+    data-i18n="motionPage.keyframesIntro.title"
+  >
+    {t.motionPage.keyframesIntro.title}
   </h2>
 
   <p
-    class="triggers-intro__description"
-    data-i18n-html="motionPage.triggersIntro.description"
-    set:html={t.motionPage.triggersIntro.description}
+    class="keyframes-intro__description"
+    data-i18n-html="motionPage.keyframesIntro.description"
+    set:html={t.motionPage.keyframesIntro.description}
   />
 </div>
 
 <style>
-  .triggers-intro {
+  .keyframes-intro {
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
+    margin-bottom: 1rem;
   }
 
-  .triggers-intro__title {
+  .keyframes-intro__title {
     margin: 0;
     font-weight: var(--font-weight-medium);
     padding-top: 0.5rem;
     padding-bottom: 0.25rem;
   }
 
-  .triggers-intro__description {
+  .keyframes-intro__description {
     font-size: var(--text-base);
     color: var(--color-text);
     font-weight: var(--font-weight-light);
     margin: 0;
   }
 
-  .triggers-intro__description :global(code) {
+  .keyframes-intro__description :global(code) {
     font-family: monospace;
     font-size: 0.9em;
     color: var(--color-text-heading);
