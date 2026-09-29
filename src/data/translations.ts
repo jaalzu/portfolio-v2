@@ -179,9 +179,11 @@ export const translations = {
       },
 
       svgNotes: {
-        bars: "Cada barra usa el mismo <code>@keyframes</code>, pero con un <code>animation-delay</code> distinto — por eso se prenden en cascada en vez de todas juntas.",
-        heart:
-          "El corazón ya está dibujado: lo que anima es <code>stroke-dashoffset</code>, que va destapando el trazo hasta mostrarlo completo, seguido de un <code>fill-opacity</code> que lo rellena.",
+        follow:
+          "Un elemento puede seguir cualquier trayectoria definida por un <code>&lt;path&gt;</code>, usando su geometría como recorrido.",
+        draw: "Un trazo puede revelarse progresivamente con <code>stroke-dasharray</code> y <code>stroke-dashoffset</code>.",
+        morph:
+          "Los <code>&lt;path&gt;</code> pueden transformarse entre distintas formas para crear efectos de morphing.",
       },
       renderIntro: {
         title: "Rendimiento",
@@ -412,9 +414,11 @@ export const translations = {
           "An SVG also animates with <code>transform</code> and <code>opacity</code>, but it has a property of its own: <code>stroke-dashoffset</code>, which lets you draw its stroke bit by bit.",
       },
       svgNotes: {
-        bars: "Each bar uses the same <code>@keyframes</code>, but with a different <code>animation-delay</code> — that's why they light up in cascade instead of all at once.",
-        heart:
-          "The heart is already drawn: what animates is <code>stroke-dashoffset</code>, which uncovers the stroke until it's fully shown, followed by a <code>fill-opacity</code> that fills it in.",
+        follow:
+          "An element can follow any trajectory defined by a <code>&lt;path&gt;</code>, using its geometry as the route.",
+        draw: "A stroke can be revealed gradually with <code>stroke-dasharray</code> and <code>stroke-dashoffset</code>.",
+        morph:
+          "<code>&lt;path&gt;</code> elements can transform between different shapes to create morphing effects.",
       },
       renderIntro: {
         title: "Performance",
