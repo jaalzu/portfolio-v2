@@ -1,42 +1,39 @@
 ---
+import { translations } from "../../../data/translations";
 import FollowPathExample from "./FollowPathExample.astro";
 import DrawPathExample from "./DrawPathExample.astro";
 import MorphExample from "./MorphExample.astro";
-import CowAbduction from "../complex/CowAbduction.astro";
+
+const t = translations.es;
+const n = t.motionPage.svgNotes;
 ---
 
 <div class="svg-notes">
   <div class="svg-notes__item">
     <FollowPathExample />
-    <p class="svg-notes__text">
-      Un elemento puede seguir cualquier trayectoria definida por un
-      <code>&lt;path&gt;</code>, usando su geometría como recorrido.
-    </p>
+    <p
+      class="svg-notes__text"
+      data-i18n-html="motionPage.svgNotes.follow"
+      set:html={n.follow}
+    />
   </div>
 
   <div class="svg-notes__item">
     <DrawPathExample />
-    <p class="svg-notes__text">
-      Un trazo puede revelarse progresivamente con
-      <code>stroke-dasharray</code> y <code>stroke-dashoffset</code>.
-    </p>
+    <p
+      class="svg-notes__text"
+      data-i18n-html="motionPage.svgNotes.draw"
+      set:html={n.draw}
+    />
   </div>
 
   <div class="svg-notes__item">
     <MorphExample />
-    <p class="svg-notes__text">
-      Los <code>&lt;path&gt;</code> pueden transformarse entre distintas formas
-      para crear efectos de morphing.
-    </p>
-  </div>
-
-  <div class="svg-notes__item">
-    <CowAbduction />
-    <p class="svg-notes__text">
-      Puedes crear cualquier secuencia combinando lo que vimos con
-      transformaciones, opacidad y tiempos. Cada pieza es simple, pero juntas
-      cuentan una escena completa.
-    </p>
+    <p
+      class="svg-notes__text"
+      data-i18n-html="motionPage.svgNotes.morph"
+      set:html={n.morph}
+    />
   </div>
 </div>
 
@@ -62,7 +59,7 @@ import CowAbduction from "../complex/CowAbduction.astro";
     font-weight: var(--font-weight-light);
   }
 
-  .svg-notes__text code {
+  .svg-notes__text :global(code) {
     font-family: monospace;
     font-size: 0.9em;
     color: var(--color-text-heading);
