@@ -86,7 +86,6 @@
   align-items: center;
   background: var(--color-text-heading);
   padding: var(--space-2) var(--space-2) var(--space-2);
-  border-radius: var(--radius-sm);
   box-shadow: var(--shadow-md);
   flex-shrink: 0;
   margin-left: calc(var(--space-6) * -1.5);
@@ -103,7 +102,6 @@
   width: 125px;
   height: 125px;
   object-fit: cover;
-  border-radius: 4px;
 }
 
 .province__caption {

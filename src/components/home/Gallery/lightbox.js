@@ -134,7 +134,6 @@ function openLightbox(img, supportsHover) {
     align-items: center;
     background: #fff;
     padding: var(--space-3) var(--space-3) var(--space-6);
-    border-radius: var(--radius-base);
     box-shadow: var(--shadow-md);
     max-width: min(85vw, 420px);
     width: 100%;
@@ -156,7 +155,6 @@ function openLightbox(img, supportsHover) {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: var(--radius-inner);
     display: block;
     cursor: default;
   `;

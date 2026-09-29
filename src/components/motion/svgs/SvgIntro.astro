@@ -1,0 +1,38 @@
+---
+import { translations } from "../../../data/translations";
+const t = translations.es;
+---
+
+<div class="svg-intro">
+  <h2 class="svg-intro__title" data-i18n="motionPage.svgIntro.title">
+    {t.motionPage.svgIntro.title}
+  </h2>
+
+  <p
+    class="svg-intro__description"
+    data-i18n-html="motionPage.svgIntro.description"
+    set:html={t.motionPage.svgIntro.description}
+  />
+</div>
+
+<style>
+  .svg-intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .svg-intro__title {
+    margin: 0;
+    font-weight: var(--font-weight-medium);
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .svg-intro__description {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-light);
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+import { translations } from "../../../data/translations";
+const t = translations.es;
+const n = t.motionPage.renderNotes;
+---
+
+<div class="render-notes">
+  <div class="render-cols">
+    <div class="render-col render-col--cheap">
+      <span
+        class="render-col__title"
+        data-i18n="motionPage.renderNotes.cheapTitle"
+      >
+        {n.cheapTitle}
+      </span>
+      <p
+        class="render-col__text"
+        data-i18n-html="motionPage.renderNotes.cheap"
+        set:html={n.cheap}
+      />
+    </div>
+
+    <div class="render-col render-col--expensive">
+      <span
+        class="render-col__title"
+        data-i18n="motionPage.renderNotes.expensiveTitle"
+      >
+        {n.expensiveTitle}
+      </span>
+      <p
+        class="render-col__text"
+        data-i18n-html="motionPage.renderNotes.expensive"
+        set:html={n.expensive}
+      />
+    </div>
+  </div>
+
+  <p
+    class="render-line"
+    data-i18n-html="motionPage.renderNotes.caveat"
+    set:html={n.caveat}
+  />
+  <p
+    class="render-line"
+    data-i18n-html="motionPage.renderNotes.visibility"
+    set:html={n.visibility}
+  />
+  <p
+    class="render-line"
+    data-i18n-html="motionPage.renderNotes.reducedMotion"
+    set:html={n.reducedMotion}
+  />
+</div>
+
+<style>
+  .render-notes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .render-cols {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .render-col {
+    flex: 1;
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-3);
+    border-left: 3px solid var(--color-border-soft);
+  }
+
+  .render-col--cheap {
+    border-left-color: var(--color-primary);
+  }
+
+  .render-col__title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-heading);
+  }
+
+  .render-col__text {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text);
+  }
+
+  .render-line {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-light);
+  }
+
+  .render-notes :global(code) {
+    font-family: monospace;
+    font-size: 0.9em;
+    color: var(--color-text-heading);
+    background: var(--color-surface-3);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+  }
+</style>

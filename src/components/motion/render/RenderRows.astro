@@ -1,17 +1,15 @@
 ---
-import KeyframesIntro from "./KeyframesIntro.astro";
-import KeyframesOrbit from "./KeyframesOrbit.astro";
-import KeyframesNotes from "./KeyframesNotes.astro";
+import RenderIntro from "./RenderIntro.astro";
+import RenderNotes from "./RenderNotes.astro";
 ---
 
-<div class="keyframes-rows">
-  <KeyframesIntro />
-  <KeyframesOrbit />
-  <KeyframesNotes />
+<div class="render-rows">
+  <RenderIntro />
+  <RenderNotes />
 </div>
 
 <style>
-  .keyframes-rows {
+  .render-rows {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -19,7 +17,6 @@ import KeyframesNotes from "./KeyframesNotes.astro";
     border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-base);
     padding-inline: 18px;
-    margin-bottom: 2rem;
     padding-block: 1rem 1.5rem;
     background: var(--color-surface-2);
   }
