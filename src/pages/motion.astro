@@ -12,7 +12,8 @@ import CowAbduction from "../components/motion/complex/CowAbduction.astro";
 import TriggersRows from "../components/motion/triggers/TriggersRows.astro";
 import Principles from "../components/motion/intro/Principles.astro";
 import TimingRows from "../components/motion/timing/TimingRows.astro";
-
+import SvgRows from "../components/motion/svgs/SvgRows.astro";
+import RenderRows from "../components/motion/render/RenderRows.astro";
 const t = translations.es;
 ---
 
@@ -50,8 +51,13 @@ const t = translations.es;
       <div id="keyframes">
         <KeyframesRows />
       </div>
-      <div id="cow">
-        <CowAbduction />
+
+      <div id="svg">
+        <SvgRows />
+      </div>
+
+      <div id="render">
+        <RenderRows />
       </div>
     </Section>
   </main>

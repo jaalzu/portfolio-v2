@@ -172,6 +172,36 @@ export const translations = {
         p1: "El navegador se encarga de animar todo lo que hay entre un keyframe y otro. Para ser válida necesita al menos <code>0%</code> y <code>100%</code> (o <code>from</code> y <code>to</code>). El orden en que los escribas da igual: manda el porcentaje.",
         p2: "Si una propiedad falta en algún keyframe, se interpola entre los que sí la definen. Y si repetís un porcentaje, gana el último.",
       },
+      svgIntro: {
+        title: "SVG",
+        description:
+          "Un SVG también se anima con <code>transform</code> y <code>opacity</code>, pero además tiene una propiedad propia: <code>stroke-dashoffset</code>, que permite dibujar su trazo de a poco.",
+      },
+
+      svgNotes: {
+        bars: "Cada barra usa el mismo <code>@keyframes</code>, pero con un <code>animation-delay</code> distinto — por eso se prenden en cascada en vez de todas juntas.",
+        heart:
+          "El corazón ya está dibujado: lo que anima es <code>stroke-dashoffset</code>, que va destapando el trazo hasta mostrarlo completo, seguido de un <code>fill-opacity</code> que lo rellena.",
+      },
+      renderIntro: {
+        title: "Rendimiento",
+        description:
+          "No todas las propiedades cuestan lo mismo animar. Algunas las resuelve la GPU sin esfuerzo, otras obligan al navegador a recalcular el layout en cada frame.",
+      },
+      renderNotes: {
+        cheapTitle: "Baratas",
+        cheap: "<code>transform</code> y <code>opacity</code>",
+        expensiveTitle: "Caras",
+        expensive:
+          "<code>width</code>, <code>top</code>, <code>left</code>, <code>margin</code>",
+        caveat:
+          "<code>box-shadow</code> y <code>filter</code> son caras en un loop con muchos elementos, pero perfectas para un hover puntual.",
+        visibility:
+          "Si una animación en loop no está en pantalla, no hace falta que siga corriendo. Un <code>IntersectionObserver</code> la pausa al salir del viewport y la reanuda al volver.",
+        reducedMotion:
+          "<code>prefers-reduced-motion</code> detecta si la persona pidió menos movimiento en su sistema. Por eso cada ejemplo de este curso lo respeta.",
+      },
+
       presetsNote:
         "Aunque visualmente parezca que no, todas las animaciones duran lo mismo, lo único que cambia es el recorrido de la velocidad entre el inicio y el final.",
       cubic: {
@@ -375,6 +405,34 @@ export const translations = {
       keyframesNotes: {
         p1: "The browser animates everything between one keyframe and the next. To be valid it needs at least <code>0%</code> and <code>100%</code> (or <code>from</code> and <code>to</code>). The order you write them in doesn't matter: the percentage decides.",
         p2: "If a property is missing from a keyframe, it's interpolated between the ones that do define it. And if you repeat a percentage, the last one wins.",
+      },
+      svgIntro: {
+        title: "SVG",
+        description:
+          "An SVG also animates with <code>transform</code> and <code>opacity</code>, but it has a property of its own: <code>stroke-dashoffset</code>, which lets you draw its stroke bit by bit.",
+      },
+      svgNotes: {
+        bars: "Each bar uses the same <code>@keyframes</code>, but with a different <code>animation-delay</code> — that's why they light up in cascade instead of all at once.",
+        heart:
+          "The heart is already drawn: what animates is <code>stroke-dashoffset</code>, which uncovers the stroke until it's fully shown, followed by a <code>fill-opacity</code> that fills it in.",
+      },
+      renderIntro: {
+        title: "Performance",
+        description:
+          "Not every property costs the same to animate. Some are handled by the GPU with no effort, others force the browser to recalculate layout on every frame.",
+      },
+      renderNotes: {
+        cheapTitle: "Cheap",
+        cheap: "<code>transform</code> and <code>opacity</code>",
+        expensiveTitle: "Expensive",
+        expensive:
+          "<code>width</code>, <code>top</code>, <code>left</code>, <code>margin</code>",
+        caveat:
+          "<code>box-shadow</code> and <code>filter</code> are expensive in a loop with many elements, but fine for a one-off hover.",
+        visibility:
+          "If a looping animation isn't on screen, it doesn't need to keep running. An <code>IntersectionObserver</code> pauses it when it leaves the viewport and resumes it when it's back.",
+        reducedMotion:
+          "<code>prefers-reduced-motion</code> detects if the person asked for less motion in their system. That's why every example in this course respects it.",
       },
       presetsNote:
         "Although it may not look like it visually, all animations last the same amount of time — the only thing that changes is how speed evolves between start and end.",

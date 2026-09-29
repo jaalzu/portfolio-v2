@@ -1,0 +1,120 @@
+---
+---
+
+<div class="example">
+  <svg viewBox="0 0 320 90" aria-hidden="true">
+    <defs>
+      <!-- Una sola elipse: se dibuja Y se anima con este mismo path -->
+      <path
+        id="orbit-path"
+        d="M 25 45
+           A 135 12 0 1 1 295 45
+           A 135 12 0 1 1 25 45"
+      />
+
+      <clipPath id="orbit-back">
+        <rect x="0" y="0" width="320" height="45" />
+      </clipPath>
+
+      <clipPath id="orbit-front">
+        <rect x="0" y="45" width="320" height="45" />
+      </clipPath>
+    </defs>
+
+    <!-- Órbita: mitad trasera (queda debajo de la luna) -->
+    <g clip-path="url(#orbit-back)">
+      <use
+        href="#orbit-path"
+        fill="none"
+        stroke="var(--color-border-soft)"
+        stroke-width="1.5"
+      />
+    </g>
+
+    <!-- Satélite: mitad trasera (la luna lo tapa) -->
+    <g clip-path="url(#orbit-back)">
+      <circle r="5" fill="var(--color-primary)">
+        <animateMotion dur="4s" repeatCount="indefinite">
+          <mpath href="#orbit-path" />
+        </animateMotion>
+      </circle>
+    </g>
+
+    <!-- Luna (opaca, tapa lo que pasa por detrás) -->
+    <circle
+      cx="160"
+      cy="45"
+      r="22"
+      fill="var(--color-surface-3)"
+      stroke="var(--color-text-muted)"
+      opacity="0.8"
+      stroke-width="2"
+    />
+
+    <!-- Cráteres -->
+    <circle
+      cx="150"
+      cy="37"
+      r="5"
+      fill="var(--color-text-muted)"
+      opacity="0.25"
+    />
+    <circle
+      cx="168"
+      cy="50"
+      r="4"
+      fill="var(--color-text-muted)"
+      opacity="0.25"
+    />
+    <circle
+      cx="153"
+      cy="55"
+      r="2.5"
+      fill="var(--color-text-muted)"
+      opacity="0.25"
+    />
+    <circle
+      cx="170"
+      cy="34"
+      r="2"
+      fill="var(--color-text-muted)"
+      opacity="0.25"
+    />
+
+    <!-- Órbita: mitad delantera (pasa por encima de la luna) -->
+    <g clip-path="url(#orbit-front)">
+      <use
+        href="#orbit-path"
+        fill="none"
+        stroke="var(--color-border-soft)"
+        stroke-width="1.5"
+      />
+    </g>
+
+    <!-- Satélite: mitad delantera (se ve sobre la luna) -->
+    <g clip-path="url(#orbit-front)">
+      <circle r="5" fill="var(--color-primary)">
+        <animateMotion dur="4s" repeatCount="indefinite">
+          <mpath href="#orbit-path" />
+        </animateMotion>
+      </circle>
+    </g>
+  </svg>
+</div>
+
+<style>
+  .example {
+    width: 100%;
+    max-width: 360px;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-inner);
+    background: var(--color-surface-3);
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+</style>

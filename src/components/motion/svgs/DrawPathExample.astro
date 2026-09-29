@@ -1,0 +1,56 @@
+---
+---
+
+<div class="example">
+  <svg viewBox="0 0 100 100" aria-hidden="true">
+    <!-- Contorno base, muted, estático -->
+    <path
+      fill="none"
+      stroke-width="3"
+      stroke-linejoin="round"
+      style="stroke: var(--color-text-muted, var(--color-border-soft));"
+      d="M50 88 C20 65 8 47 8 30 C8 17 18 10 29 10 C38 10 46 15 50 23 C54 15 62 10 71 10 C82 10 92 17 92 30 C92 47 80 65 50 88 Z"
+    />
+
+    <!-- Contorno que se pinta con primary -->
+    <path
+      fill="none"
+      stroke-width="3"
+      stroke-linejoin="round"
+      pathLength="100"
+      stroke-dasharray="100 100"
+      stroke-dashoffset="100"
+      style="stroke: var(--color-primary);"
+      d="M50 88 C20 65 8 47 8 30 C8 17 18 10 29 10 C38 10 46 15 50 23 C54 15 62 10 71 10 C82 10 92 17 92 30 C92 47 80 65 50 88 Z"
+    >
+      <animate
+        attributeName="stroke-dashoffset"
+        values="100;0;0"
+        keyTimes="0;0.7;1"
+        calcMode="spline"
+        keySplines="0.45 0 0.55 1;0 0 1 1"
+        dur="3s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </svg>
+</div>
+
+<style>
+  .example {
+    width: 100%;
+    max-width: 360px;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-inner);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-surface-3);
+  }
+
+  svg {
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin-inline: auto;
+    overflow: visible;
+  }
+</style>
