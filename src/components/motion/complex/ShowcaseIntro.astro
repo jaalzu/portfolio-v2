@@ -3,33 +3,34 @@ import { translations } from "../../../data/translations";
 const t = translations.es;
 ---
 
-<div class="render-intro">
-  <h2 class="render-intro__title" data-i18n="motionPage.renderIntro.title">
-    {t.motionPage.renderIntro.title}
+<div class="showcase-intro">
+  <h2 class="showcase-intro__title" data-i18n="motionPage.showcaseIntro.title">
+    {t.motionPage.showcaseIntro.title}
   </h2>
 
   <p
-    class="render-intro__description"
-    data-i18n-html="motionPage.renderIntro.description"
-    set:html={t.motionPage.renderIntro.description}
-  />
+    class="showcase-intro__description"
+    data-i18n="motionPage.showcaseIntro.description"
+  >
+    {t.motionPage.showcaseIntro.description}
+  </p>
 </div>
 
 <style>
-  .render-intro {
+  .showcase-intro {
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
   }
 
-  .render-intro__title {
+  .showcase-intro__title {
     margin: 0;
     font-weight: var(--font-weight-medium);
     padding-top: 0.5rem;
     padding-bottom: 0.25rem;
   }
 
-  .render-intro__description {
+  .showcase-intro__description {
     font-size: var(--text-base);
     color: var(--color-text);
     font-weight: var(--font-weight-light);

@@ -1,0 +1,27 @@
+---
+import ShowcaseIntro from "./ShowcaseIntro.astro";
+import RandomGrid from "./random/RandomGrid.astro";
+import ShowcaseDivider from "./ShowcaseDivider.astro";
+import CowAbduction from "./cow/CowAbduction.astro";
+---
+
+<div class="showcase-rows">
+  <ShowcaseIntro />
+  <RandomGrid />
+  <ShowcaseDivider />
+  <CowAbduction />
+</div>
+
+<style>
+  .showcase-rows {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    padding-inline: 18px;
+    padding-block: 1rem 1.5rem;
+    background: var(--color-surface-2);
+  }
+</style>

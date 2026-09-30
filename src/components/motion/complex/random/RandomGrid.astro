@@ -1,0 +1,50 @@
+---
+import SocialExpand from "./SocialExpand.astro";
+import SpotifyPlayer from "./SpotifyPlayer.astro";
+---
+
+<div class="triggers-group">
+  <div class="triggers-group__row triggers-group__row--center">
+    <SocialExpand />
+  </div>
+
+  <div class="triggers-group__player">
+    <SpotifyPlayer />
+  </div>
+</div>
+
+<style>
+  .triggers-group {
+    display: flex;
+    align-items: center;
+    padding: var(--space-16) var(--space-12) var(--space-12);
+    flex-direction: row;
+    width: 100%;
+    gap: var(--space-5);
+  }
+
+  .triggers-group__title {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+  }
+
+  .triggers-group__row {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: var(--space-2);
+  }
+
+  .triggers-group__row--center {
+    justify-content: center;
+    padding-left: var(--space-6);
+    margin-top: var(--space-6);
+  }
+
+  .triggers-group__player {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+</style>

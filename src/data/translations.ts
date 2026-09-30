@@ -185,23 +185,32 @@ export const translations = {
         morph:
           "Los <code>&lt;path&gt;</code> pueden transformarse entre distintas formas para crear efectos de morphing.",
       },
-      renderIntro: {
-        title: "Rendimiento",
+      showcaseIntro: {
+        title: "Ejemplos",
         description:
-          "No todas las propiedades cuestan lo mismo animar. Algunas las resuelve la GPU sin esfuerzo, otras obligan al navegador a recalcular el layout en cada frame.",
+          "Combinando lo que vimos hasta acá podés armar animaciones bastante más complejas.",
       },
-      renderNotes: {
-        cheapTitle: "Baratas",
-        cheap: "<code>transform</code> y <code>opacity</code>",
-        expensiveTitle: "Caras",
-        expensive:
-          "<code>width</code>, <code>top</code>, <code>left</code>, <code>margin</code>",
-        caveat:
-          "<code>box-shadow</code> y <code>filter</code> son caras en un loop con muchos elementos, pero perfectas para un hover puntual.",
-        visibility:
-          "Si una animación en loop no está en pantalla, no hace falta que siga corriendo. Un <code>IntersectionObserver</code> la pausa al salir del viewport y la reanuda al volver.",
-        reducedMotion:
-          "<code>prefers-reduced-motion</code> detecta si la persona pidió menos movimiento en su sistema. Por eso cada ejemplo de este curso lo respeta.",
+      showcaseTransition: {
+        text: "O armar escenas animadas completas.",
+      },
+      summary: {
+        title: "En resumen",
+        description:
+          "Con estas bases ya podés armar prácticamente cualquier animación. Algunas ideas para tener en cuenta antes de llevarlas a un proyecto real:",
+        points: [
+          "Preferí <code>transform</code> y <code>opacity</code> — el navegador las anima sin recalcular el layout, así que rinden mejor que animar <code>width</code>, <code>top</code> o <code>margin</code>.",
+          "Respetá <code>prefers-reduced-motion</code>: hay personas que configuran su sistema para recibir menos movimiento, y tus animaciones deberían adaptarse.",
+          "Si una animación en loop no está en pantalla, pausala con un IntersectionObserver: podés detectar cuándo un elemento entra o sale del viewport, y en base a eso frenar o retomar su animación. Así evitás gastar recursos en algo que la persona no está viendo.",
+          "Menos es más: una animación sutil bien elegida comunica mejor que varias compitiendo por la atención.",
+        ],
+      },
+      likeSection: {
+        title: "¿Te sirvió?",
+        description:
+          "Si te gustó este contenido, dejá tu like para que siga creando más.",
+        button: "Me gusta",
+        buttonActive: "¡Gracias!",
+        total: "likes",
       },
 
       presetsNote:
@@ -420,24 +429,35 @@ export const translations = {
         morph:
           "<code>&lt;path&gt;</code> elements can transform between different shapes to create morphing effects.",
       },
-      renderIntro: {
-        title: "Performance",
+      showcaseIntro: {
+        title: "Examples",
         description:
-          "Not every property costs the same to animate. Some are handled by the GPU with no effort, others force the browser to recalculate layout on every frame.",
+          "Combining what we've seen so far, you can build much more complex animations.",
       },
-      renderNotes: {
-        cheapTitle: "Cheap",
-        cheap: "<code>transform</code> and <code>opacity</code>",
-        expensiveTitle: "Expensive",
-        expensive:
-          "<code>width</code>, <code>top</code>, <code>left</code>, <code>margin</code>",
-        caveat:
-          "<code>box-shadow</code> and <code>filter</code> are expensive in a loop with many elements, but fine for a one-off hover.",
-        visibility:
-          "If a looping animation isn't on screen, it doesn't need to keep running. An <code>IntersectionObserver</code> pauses it when it leaves the viewport and resumes it when it's back.",
-        reducedMotion:
-          "<code>prefers-reduced-motion</code> detects if the person asked for less motion in their system. That's why every example in this course respects it.",
+      showcaseTransition: {
+        text: "Or build entire animated scenes.",
       },
+      summary: {
+        title: "In summary",
+        description:
+          "With these basics you can build pretty much any animation. A few things to keep in mind before taking them to a real project:",
+        points: [
+          "Prefer <code>transform</code> and <code>opacity</code> — the browser animates them without recalculating layout, so they perform better than animating <code>width</code>, <code>top</code> or <code>margin</code>.",
+          "Respect <code>prefers-reduced-motion</code>: some people set their system to reduce motion, and your animations should adapt.",
+          "If a looping animation isn't on screen, pause it with an IntersectionObserver: it lets you detect when an element enters or leaves the viewport, so you can stop or resume its animation accordingly. That way you avoid spending resources on something the person isn't even seeing.",
+          "Less is more: one well-chosen subtle animation communicates better than several competing for attention.",
+        ],
+      },
+
+      likeSection: {
+        title: "Was this helpful?",
+        description:
+          "If you enjoyed this content, leave a like so I can keep making more.",
+        button: "Like",
+        buttonActive: "Thanks!",
+        total: "likes",
+      },
+
       presetsNote:
         "Although it may not look like it visually, all animations last the same amount of time — the only thing that changes is how speed evolves between start and end.",
       cubic: {

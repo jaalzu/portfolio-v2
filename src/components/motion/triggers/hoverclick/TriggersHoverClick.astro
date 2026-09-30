@@ -1,21 +1,18 @@
 ---
 import TriggerCard from "../TriggerCard.astro";
-import SocialExpand from "./SocialExpand.astro";
-import SpotifyPlayer from "./SpotifyPlayer.astro";
+import TabsSliding from "./TabsSliding.astro";
+import DeleteButton from "./DeleteButton.astro";
 ---
 
 <div class="triggers-group">
   <h3 class="triggers-group__title">Hover + Click</h3>
-
-  <div class="triggers-group__row triggers-group__row--center">
-    <TriggerCard>
-      <SocialExpand />
+  <div class="triggers-group__cards">
+    <TriggerCard label="Tabs">
+      <TabsSliding />
     </TriggerCard>
-  </div>
 
-  <div class="triggers-group__player">
-    <TriggerCard>
-      <SpotifyPlayer />
+    <TriggerCard label="Delete">
+      <DeleteButton />
     </TriggerCard>
   </div>
 </div>
@@ -25,7 +22,7 @@ import SpotifyPlayer from "./SpotifyPlayer.astro";
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: var(--space-5);
+    gap: var(--space-3);
   }
 
   .triggers-group__title {
@@ -35,20 +32,12 @@ import SpotifyPlayer from "./SpotifyPlayer.astro";
     color: var(--color-text-muted);
   }
 
-  .triggers-group__row {
+  .triggers-group__cards {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
+    align-items: center;
+    gap: var(--space-12);
     padding-left: var(--space-2);
-  }
-
-  .triggers-group__row--center {
-    justify-content: center;
-    padding-left: 0;
-  }
-
-  .triggers-group__player {
-    width: 100%;
-    display: flex;
-    justify-content: center;
   }
 </style>
