@@ -4,16 +4,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Section from "../components/ui/Section.astro";
 import BackLink from "../components/ui/BackLink.astro";
-import SkillSection from "../components/skills/SkillSection.astro";
 import KeyframesRows from "../components/motion/keyframes/KeyframesRows.astro";
 import I18nSync from "../components/I18nSync.astro";
 import { translations } from "../data/translations";
-import CowAbduction from "../components/motion/complex/CowAbduction.astro";
 import TriggersRows from "../components/motion/triggers/TriggersRows.astro";
 import Principles from "../components/motion/intro/Principles.astro";
 import TimingRows from "../components/motion/timing/TimingRows.astro";
 import SvgRows from "../components/motion/svgs/SvgRows.astro";
-import RenderRows from "../components/motion/render/RenderRows.astro";
+import ShowcaseRows from "../components/motion/complex/ShowcaseRows.astro";
+import SummaryRows from "../components/motion/summary/SummaryRows.astro";
 const t = translations.es;
 ---
 
@@ -54,8 +53,12 @@ const t = translations.es;
         <SvgRows />
       </div>
 
-      <div id="render">
-        <RenderRows />
+      <div id="showcase">
+        <ShowcaseRows />
+      </div>
+
+      <div id="summary">
+        <SummaryRows />
       </div>
     </Section>
   </main>
@@ -66,6 +69,7 @@ const t = translations.es;
     max-width: var(--content-max-width);
     margin-inline: auto;
     overflow: hidden;
+    margin-bottom: 6rem;
   }
 
   .skills-header__title {

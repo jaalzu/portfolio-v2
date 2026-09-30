@@ -36,15 +36,6 @@
   aspect-ratio: 16 / 10;
   min-height: 300px;
   overflow: hidden;
-  border-radius: var(--radius-base);
-  background:
-    radial-gradient(
-      120% 90% at 78% 2%,
-      var(--color-surface-3),
-      transparent 60%
-    ),
-    var(--color-surface-2);
-  box-shadow: var(--shadow-inset-highlight);
   isolation: isolate;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -80,7 +71,7 @@
   padding: 0 var(--space-2);
   font-size: var(--text-xs);
   letter-spacing: 0.03em;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   white-space: nowrap;
   pointer-events: none;
   opacity: 0.78;

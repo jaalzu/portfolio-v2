@@ -1,0 +1,80 @@
+---
+import { translations } from "../../../data/translations";
+const t = translations.es;
+const s = t.motionPage.summary;
+---
+
+<div class="summary-rows">
+  <h2 class="summary-rows__title" data-i18n="motionPage.summary.title">
+    {s.title}
+  </h2>
+
+  <p
+    class="summary-rows__description"
+    data-i18n="motionPage.summary.description"
+  >
+    {s.description}
+  </p>
+
+  <ul class="summary-rows__list">
+    {s.points.map((point, i) => (
+      <li
+        class="summary-rows__item"
+        data-i18n-html={`motionPage.summary.points.${i}`}
+        set:html={point}
+      />
+    ))}
+  </ul>
+</div>
+
+<style>
+  .summary-rows {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-base);
+    padding-inline: 18px;
+    padding-block: 1rem 1.5rem;
+    background: var(--color-surface-2);
+    margin-top: 2rem;
+  }
+
+  .summary-rows__title {
+    margin: 0;
+    font-weight: var(--font-weight-medium);
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .summary-rows__description {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-light);
+  }
+
+  .summary-rows__list {
+    margin: 0;
+    padding-left: 1.1em;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .summary-rows__item {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-light);
+  }
+
+  .summary-rows__item :global(code) {
+    font-family: monospace;
+    font-size: 0.9em;
+    color: var(--color-text-heading);
+    background: var(--color-surface-3);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+  }
+</style>
