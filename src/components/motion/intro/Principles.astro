@@ -19,8 +19,8 @@ const t = translations.es;
   </div>
 
   <div class="principles__grid" data-inview>
-    {comboCards.map((card) => (
-      <ComboCard card={card} />
+    {principles.map((p) => (
+      <PrincipleCard principle={p} />
     ))}
   </div>
 
@@ -36,7 +36,7 @@ const t = translations.es;
     </p>
   </div>
 
-  <div class="principles__grid">
+  <div class="principles__grid" data-inview>
     {comboCards.map((card) => (
       <ComboCard card={card} />
     ))}

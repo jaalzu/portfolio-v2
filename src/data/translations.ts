@@ -126,8 +126,8 @@ export const translations = {
       },
     },
     motionPage: {
-      title: "Principios de Animación",
-      subtitle: "Una forma sencilla de aprender animaciónes web.",
+      title: "Principios de Animación Web",
+      subtitle: "Una guía rápida e interactiva para aprender.",
       principles: {
         title: "Principios de movimiento",
         description: "Pasá el mouse por cada tarjeta.",
@@ -213,11 +213,10 @@ export const translations = {
         total: "likes",
       },
 
-      presetsNote:
-        "Aunque visualmente parezca que no, todas las animaciones duran lo mismo, lo único que cambia es el recorrido de la velocidad entre el inicio y el final.",
+      presetsNote: "Misma duración, más rápido o lento en cada etapa.",
       cubic: {
         title: "Cubic Bezier",
-        description: "Ajustá la curva para crear tu propia función de timing.",
+        description: "Podés ajustar la curva para crear tus propios timings.",
         duration: "Duration",
         play: "Play",
         preview: "Preview",
@@ -371,8 +370,8 @@ export const translations = {
       },
     },
     motionPage: {
-      title: "Principles of Motion",
-      subtitle: "An Easy Way to Learn Animations",
+      title: "Principles of Web Animation",
+      subtitle: "A fast and interactive way to learn.",
       principles: {
         title: "Motion principles",
         description: "Hover over each card.",
@@ -458,11 +457,11 @@ export const translations = {
         total: "likes",
       },
 
-      presetsNote:
-        "Although it may not look like it visually, all animations last the same amount of time — the only thing that changes is how speed evolves between start and end.",
+      presetsNote: "Same duration, faster or slower at different stages.",
       cubic: {
         title: "Cubic Bezier",
-        description: "Adjust the curve to create your own timing function.",
+        description:
+          "You can adjust the curve to create your own timing function.",
         duration: "Duration",
         play: "Play",
         preview: "Preview",

@@ -143,12 +143,12 @@ export const comboCards: ComboCard[] = [
     ],
   },
   {
-    title: `${labelOf("clip")} + ${labelOf("perspective")}`,
-    keys: ["clip", "perspective"],
-    animation: [effectAnim.clip, effectAnim.perspective].join(", "),
+    title: `${labelOf("clip")} + ${labelOf("translation")}`,
+    keys: ["clip", "translation"],
+    animation: [effectAnim.clip, effectAnim.translation].join(", "),
     code: [
       { prop: "clip-path", value: "circle(75% at 50% 50%);" },
-      { prop: "transform", value: "rotateX(20deg) translateZ(-50px);" },
+      { prop: "transform", value: "translateY(-14px);" },
     ],
   },
   {
