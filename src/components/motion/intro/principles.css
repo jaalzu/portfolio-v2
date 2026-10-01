@@ -154,18 +154,19 @@
 }
 
 .principles__shape {
-  --color-primary: #aebfd0;
-  --color-blue: #5ee08a;
-  --color-primary-soft: rgba(94, 224, 138, 0.6);
+  --color-primary: oklch(0.72 0.13 39.865);
+  --color-blue: #4fd3ff;
 
   position: relative;
-  width: 46px;
-  height: 14px;
-  border-radius: 50%;
+  width: 36px;
+  height: 30px;
+  border-radius: 8px; /* ajustalo a gusto */
   background-color: var(--color-primary);
   transform-style: preserve-3d;
 }
 
+/* Borrá todo el bloque .principles__shape::before (era la cúpula) */
+/* 
 .principles__shape::before {
   content: "";
   position: absolute;
@@ -177,7 +178,7 @@
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   background-color: rgba(94, 224, 138, 0.85);
   box-shadow: inherit;
-}
+} */
 
 .principles__card--translation .principles__shape {
   animation: principle-translate 2s ease-in-out infinite;
