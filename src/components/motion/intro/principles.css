@@ -53,7 +53,7 @@
   cursor: pointer;
   perspective: 800px;
   border-radius: var(--radius-base);
-  height: 168px; /* alto fijo: ajustalo si querés más/menos aire */
+  height: 135px; /* alto fijo: ajustalo si querés más/menos aire */
 }
 
 .principles__card:focus-visible {

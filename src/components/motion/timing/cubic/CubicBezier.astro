@@ -473,7 +473,7 @@ const presets = [
     color: var(--color-text);
     font-weight: var(--font-weight-light);
     border-radius: var(--radius-base);
-    margin-top: 5px;
+    margin-top: -3px;
     margin-bottom: 0;
   }
 
@@ -485,27 +485,25 @@ const presets = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-3);
+    gap: var(--space-4);
     width: 100%;
-    border-bottom: 1px solid var(--color-border-softer);
-    padding-bottom: var(--space-3);
-    margin-bottom: var(--space-2);
+    border-bottom: 1px dotted var(--color-border-softer);
+    padding-bottom: var(--space-4);
   }
 
   .bezier__presets {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-1);
+    row-gap: var(--space-3);
+    column-gap: var(--space-2);
   }
 
   .bezier__preset {
     border: none;
     background: var(--color-surface-3);
-
     border: 1px solid var(--color-border-softer);
     padding: 0.35rem 0.45rem;
-
     border-radius: var(--radius-full);
     color: var(--color-text-muted);
     font-size: var(--text-xs);
@@ -669,9 +667,8 @@ const presets = [
   .bezier__note {
     width: 100%;
     margin: var(--space-5) 0 0;
-    color: var(--color-text-muted);
+    color: var(--color-text);
     font-size: var(--text-base);
-    font-weight: var(--font-weight-light);
     line-height: var(--leading-relaxed);
   }
 
