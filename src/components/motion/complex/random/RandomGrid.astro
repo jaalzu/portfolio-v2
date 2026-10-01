@@ -47,4 +47,26 @@ import SpotifyPlayer from "./SpotifyPlayer.astro";
     display: flex;
     justify-content: center;
   }
+
+  /* Mobile: apilados, player arriba y SocialExpand abajo */
+  @media (max-width: 560px) {
+    .triggers-group {
+      flex-direction: column;
+      align-items: stretch;
+      padding: var(--space-12) var(--space-4) var(--space-8);
+      gap: var(--space-12);
+    }
+
+    .triggers-group__player {
+      order: 0;
+    }
+
+    .triggers-group__row--center {
+      order: 1;
+      justify-content: center;
+      padding-left: 0;
+      margin-top: 0;
+      padding-top: var(--space-12);
+    }
+  }
 </style>

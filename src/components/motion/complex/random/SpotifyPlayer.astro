@@ -139,7 +139,7 @@
     background: var(--color-surface-2);
     border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-base);
-    width: 300px;
+    width: 100%;
     max-width: 100%;
     height: 80px;
     overflow: visible;
@@ -235,5 +235,44 @@
   .demo-player__ico--play {
     width: 26px;
     height: 26px;
+  }
+
+  @media (max-width: 560px) {
+    .demo-player {
+      width: 100%;
+      max-width: 230px;
+      margin-inline: auto;
+    }
+
+    .demo-player__art {
+      left: 14px;
+      width: 70px;
+      height: 70px;
+      top: -10px;
+    }
+
+    .demo-player__info {
+      padding-left: 88px;
+    }
+
+    .demo-player__controls {
+      padding: 0 8px;
+      gap: 0;
+    }
+
+    .demo-player__btn {
+      width: 44px;
+      height: 44px;
+    }
+
+    .demo-player__ico {
+      width: 20px;
+      height: 20px;
+    }
+
+    .demo-player__ico--play {
+      width: 24px;
+      height: 24px;
+    }
   }
 </style>

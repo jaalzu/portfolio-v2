@@ -574,3 +574,19 @@
     animation-duration: 0.3s !important;
   }
 }
+
+@media (max-width: 560px) {
+  .abduction {
+    /* Vaca: un poco más a la derecha (antes 4%) */
+    --cow-left: 8%;
+    --cow-w: clamp(72px, 22%, 100px);
+
+    /* Nave en hover: sigue centrada sobre la vaca (cow-left + mitad de cow-w) */
+    --ship-hover-left: calc(var(--cow-left) + 11%);
+    --ship-hover-w: clamp(92px, 30%, 130px);
+
+    /* Nave en reposo: también corrida (antes 78%) */
+    --ship-home-left: 82%;
+    --ship-home-w: clamp(56px, 16%, 84px);
+  }
+}

@@ -163,24 +163,31 @@ export const translations = {
         description:
           "Las animaciones necesitan algo que las dispare. Los más comunes son <code>hover</code>, <code>click</code>, <code>focus</code> y <code>scroll</code> — los mismos efectos que ya viste, solo que se activan en distintos momentos.",
       },
+      scrollTrigger: {
+        title: "Scroll",
+        first: "Scrolleá sobre mí",
+        second: "Un tonto en movimiento vale más que un genio en reposo.",
+        third: "El ejemplo termino.",
+        four: "Podes parar ya.",
+      },
       keyframesIntro: {
-        title: "Keyframes",
+        title: "Transition y Keyframes",
         description:
-          "Con <code>@keyframes</code> controlás los pasos intermedios de una animación: cada keyframe es un porcentaje del recorrido con los estilos que debe tener en ese punto.",
+          "<code>transition</code> anima una propiedad de un estado a otro. <code>@keyframes</code> te permite controlar todo el recorrido definiendo distintos estados en porcentajes.",
       },
       keyframesNotes: {
-        p1: "El navegador se encarga de animar todo lo que hay entre un keyframe y otro. Para ser válida necesita al menos <code>0%</code> y <code>100%</code> (o <code>from</code> y <code>to</code>). El orden en que los escribas da igual: manda el porcentaje.",
-        p2: "Si una propiedad falta en algún keyframe, se interpola entre los que sí la definen. Y si repetís un porcentaje, gana el último.",
+        p1: "<code>transition</code> se ejecuta cuando una propiedad cambia entre dos estados. <code>@keyframes</code> puede ejecutarse por sí sola y repetirse con <code>infinite</code>.",
+        p2: "En <code>@keyframes</code>, <code>0%</code> y <code>100%</code> marcan el inicio y el final. Podés agregar porcentajes intermedios para controlar el recorrido. El orden en que los escribas no importa.",
       },
       svgIntro: {
         title: "SVG",
         description:
-          "Un SVG también se anima con <code>transform</code> y <code>opacity</code>, pero además tiene una propiedad propia: <code>stroke-dashoffset</code>, que permite dibujar su trazo de a poco.",
+          "Un SVG se puede animar con <code>transform</code> y <code>opacity</code>. Sus trazos también pueden animarse con <code>stroke-dasharray</code> y <code>stroke-dashoffset</code> para crear efectos de dibujo.",
       },
 
       svgNotes: {
         follow:
-          "Un elemento puede seguir cualquier trayectoria definida por un <code>&lt;path&gt;</code>, usando su geometría como recorrido.",
+          "Un elemento puede seguir una trayectoria definida por un <code>&lt;path&gt;</code>, usando su geometría como recorrido.",
         draw: "Un trazo puede revelarse progresivamente con <code>stroke-dasharray</code> y <code>stroke-dashoffset</code>.",
         morph:
           "Los <code>&lt;path&gt;</code> pueden transformarse entre distintas formas para crear efectos de morphing.",
@@ -188,19 +195,22 @@ export const translations = {
       showcaseIntro: {
         title: "Ejemplos",
         description:
-          "Combinando lo que vimos hasta acá podés armar animaciones bastante más complejas.",
+          "Combinando lo que vimos hasta acá podés armar animaciones mas completas.",
       },
       showcaseTransition: {
-        text: "O armar escenas animadas completas.",
+        text: "O armar escenas animadas.",
       },
       summary: {
         title: "En resumen",
         description:
           "Con estas bases ya podés armar prácticamente cualquier animación. Algunas ideas para tener en cuenta antes de llevarlas a un proyecto real:",
+        // es → motionPage.summary.points
         points: [
           "Preferí <code>transform</code> y <code>opacity</code> — el navegador las anima sin recalcular el layout, así que rinden mejor que animar <code>width</code>, <code>top</code> o <code>margin</code>.",
           "Respetá <code>prefers-reduced-motion</code>: hay personas que configuran su sistema para recibir menos movimiento, y tus animaciones deberían adaptarse.",
           "Si una animación en loop no está en pantalla, pausala con un IntersectionObserver: podés detectar cuándo un elemento entra o sale del viewport, y en base a eso frenar o retomar su animación. Así evitás gastar recursos en algo que la persona no está viendo.",
+          // es → motionPage.summary.points[3]
+          'Para animaciones más complejas o con mayor control, podés usar JavaScript o herramientas como <a class="summary-tool" href="https://motion.dev" target="_blank" rel="noopener noreferrer"><img src="/motion/motion.png" alt="" /><span>Motion</span></a> y <a class="summary-tool" href="https://gsap.com" target="_blank" rel="noopener noreferrer"><img src="/motion/gsap.ico" alt="" /><span>GSAP</span></a>.',
           "Menos es más: una animación sutil bien elegida comunica mejor que varias compitiendo por la atención.",
         ],
       },
@@ -407,23 +417,29 @@ export const translations = {
         description:
           "Animations need something to trigger them. The most common ones are <code>hover</code>, <code>click</code>, <code>focus</code>, and <code>scroll</code> — same effects you already know, just fired at different moments.",
       },
+      scrollTrigger: {
+        title: "Scroll",
+        first: "Scroll on me",
+        second: "A fool in motion is better than a genius at rest.",
+      },
       keyframesIntro: {
-        title: "Keyframes",
+        title: "Transition and Keyframes",
         description:
-          "With <code>@keyframes</code> you control the intermediate steps of an animation: each keyframe is a percentage of the run with the styles it should have at that point.",
+          "<code>transition</code> animates a property from one state to another. <code>@keyframes</code> lets you control the whole path by defining different states at specific percentages.",
       },
       keyframesNotes: {
-        p1: "The browser animates everything between one keyframe and the next. To be valid it needs at least <code>0%</code> and <code>100%</code> (or <code>from</code> and <code>to</code>). The order you write them in doesn't matter: the percentage decides.",
-        p2: "If a property is missing from a keyframe, it's interpolated between the ones that do define it. And if you repeat a percentage, the last one wins.",
+        p1: "<code>transition</code> runs when a property changes between two states. <code>@keyframes</code> can run by itself and repeat with <code>infinite</code>.",
+        p2: "In <code>@keyframes</code>, <code>0%</code> and <code>100%</code> mark the start and end. You can add intermediate percentages to control the path. The order you write them in doesn't matter.",
       },
       svgIntro: {
         title: "SVG",
         description:
-          "An SVG also animates with <code>transform</code> and <code>opacity</code>, but it has a property of its own: <code>stroke-dashoffset</code>, which lets you draw its stroke bit by bit.",
+          "An SVG can also be animated with <code>transform</code> and <code>opacity</code>. Its strokes can also be animated with <code>stroke-dasharray</code> and <code>stroke-dashoffset</code> to create drawing effects.",
       },
+
       svgNotes: {
         follow:
-          "An element can follow any trajectory defined by a <code>&lt;path&gt;</code>, using its geometry as the route.",
+          "An element can follow a trajectory defined by a <code>&lt;path&gt;</code>, using its geometry as the route.",
         draw: "A stroke can be revealed gradually with <code>stroke-dasharray</code> and <code>stroke-dashoffset</code>.",
         morph:
           "<code>&lt;path&gt;</code> elements can transform between different shapes to create morphing effects.",
@@ -442,9 +458,11 @@ export const translations = {
           "With these basics you can build pretty much any animation. A few things to keep in mind before taking them to a real project:",
         points: [
           "Prefer <code>transform</code> and <code>opacity</code> — the browser animates them without recalculating layout, so they perform better than animating <code>width</code>, <code>top</code> or <code>margin</code>.",
-          "Respect <code>prefers-reduced-motion</code>: some people set their system to reduce motion, and your animations should adapt.",
-          "If a looping animation isn't on screen, pause it with an IntersectionObserver: it lets you detect when an element enters or leaves the viewport, so you can stop or resume its animation accordingly. That way you avoid spending resources on something the person isn't even seeing.",
-          "Less is more: one well-chosen subtle animation communicates better than several competing for attention.",
+          "Respect <code>prefers-reduced-motion</code>: some people configure their system to receive less motion, and your animations should adapt.",
+          "If a looping animation is off-screen, pause it with an IntersectionObserver: you can detect when an element enters or leaves the viewport and stop or resume its animation accordingly. That way you avoid wasting resources on something nobody is looking at.",
+          // en → motionPage.summary.points[3]
+          'For more complex animations or finer control, you can use JavaScript or tools like <a class="summary-tool" href="https://motion.dev" target="_blank" rel="noopener noreferrer"><img src="/motion/motion.png" alt="" /><span>Motion</span></a> and <a class="summary-tool" href="https://gsap.com" target="_blank" rel="noopener noreferrer"><img src="/motion/gsap.ico" alt="" /><span>GSAP</span></a>.',
+          "Less is more: a well-chosen subtle animation communicates better than several competing for attention.",
         ],
       },
 
