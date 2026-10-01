@@ -38,37 +38,42 @@ import TriggerCard from "./TriggerCard.astro";
 </div>
 
 <script>
-  document
-    .querySelectorAll<HTMLElement>('[data-toggle="simple"]:not([data-bound])')
-    .forEach((el) => {
-      el.dataset.bound = "true";
-      el.addEventListener("click", () => el.classList.toggle("is-active"));
-    });
-
-  document
-    .querySelectorAll<HTMLButtonElement>(
-      '[data-toggle="ripple"]:not([data-bound])',
-    )
-    .forEach((btn) => {
-      btn.dataset.bound = "true";
-      const layers = btn.querySelectorAll<HTMLElement>(".demo-ripple__layer");
-      let next = 0;
-
-      btn.addEventListener("click", () => {
-        const layer = layers[next];
-        next = (next + 1) % layers.length;
-
-        layer.classList.remove("is-pop");
-        void layer.offsetWidth;
-        layer.classList.add("is-pop");
+  function init() {
+    document
+      .querySelectorAll<HTMLElement>('[data-toggle="simple"]:not([data-bound])')
+      .forEach((el) => {
+        el.dataset.bound = "true";
+        el.addEventListener("click", () => el.classList.toggle("is-active"));
       });
 
-      layers.forEach((layer) => {
-        layer.addEventListener("animationend", () =>
-          layer.classList.remove("is-pop"),
-        );
+    document
+      .querySelectorAll<HTMLButtonElement>(
+        '[data-toggle="ripple"]:not([data-bound])',
+      )
+      .forEach((btn) => {
+        btn.dataset.bound = "true";
+        const layers = btn.querySelectorAll<HTMLElement>(".demo-ripple__layer");
+        let next = 0;
+
+        btn.addEventListener("click", () => {
+          const layer = layers[next];
+          next = (next + 1) % layers.length;
+
+          layer.classList.remove("is-pop");
+          void layer.offsetWidth;
+          layer.classList.add("is-pop");
+        });
+
+        layers.forEach((layer) => {
+          layer.addEventListener("animationend", () =>
+            layer.classList.remove("is-pop"),
+          );
+        });
       });
-    });
+  }
+
+  init();
+  document.addEventListener("astro:page-load", init);
 </script>
 
 <style>

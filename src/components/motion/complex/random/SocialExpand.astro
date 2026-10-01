@@ -42,34 +42,39 @@
     />
   </button>
 </div>
-
 <script>
-  document
-    .querySelectorAll<HTMLElement>('[data-toggle="group"]')
-    .forEach((el) => {
-      const selector = el.dataset.toggleTarget;
-      const target = selector ? el.closest<HTMLElement>(selector) : el;
+  function init() {
+    document
+      .querySelectorAll<HTMLElement>('[data-toggle="group"]:not([data-bound])')
+      .forEach((el) => {
+        el.dataset.bound = "true";
 
-      if (!target) return;
+        const selector = el.dataset.toggleTarget;
+        const target = selector ? el.closest<HTMLElement>(selector) : el;
+        if (!target) return;
 
-      el.addEventListener("click", () => {
-        const isOpen = target.classList.contains("is-active");
+        el.addEventListener("click", () => {
+          const isOpen = target.classList.contains("is-active");
 
-        if (isOpen) {
-          target.classList.remove("is-active");
-          target.classList.add("is-closing");
-          el.setAttribute("aria-expanded", "false");
+          if (isOpen) {
+            target.classList.remove("is-active");
+            target.classList.add("is-closing");
+            el.setAttribute("aria-expanded", "false");
 
-          window.setTimeout(() => {
+            window.setTimeout(() => {
+              target.classList.remove("is-closing");
+            }, 500);
+          } else {
             target.classList.remove("is-closing");
-          }, 500);
-        } else {
-          target.classList.remove("is-closing");
-          target.classList.add("is-active");
-          el.setAttribute("aria-expanded", "true");
-        }
+            target.classList.add("is-active");
+            el.setAttribute("aria-expanded", "true");
+          }
+        });
       });
-    });
+  }
+
+  init();
+  document.addEventListener("astro:page-load", init);
 </script>
 
 <style>

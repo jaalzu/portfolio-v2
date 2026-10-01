@@ -211,85 +211,85 @@ import "./cow-abduction.css";
   <!-- Texto guía -->
   <p class="abduction__hint">Haz click en la vaca para abducirla</p>
 </div>
+
 <script>
-  // ============================================================
-  // ORQUESTADOR DE LA SECUENCIA
-  // El JS solo togglea clases. Todo el "cómo se ve" está en el CSS.
-  // ============================================================
-  const scene = document.querySelector<HTMLElement>("[data-abduction]");
+  function init() {
+    document
+      .querySelectorAll<HTMLElement>("[data-abduction]")
+      .forEach((scene) => {
+        if (scene.dataset.bound === "1") return;
+        scene.dataset.bound = "1";
 
-  if (scene) {
-    const cow = scene.querySelector<HTMLElement>("[data-abduction-cow]");
-    let busy = false;
+        const cow = scene.querySelector<HTMLElement>("[data-abduction-cow]");
+        let busy = false;
+        const timers: number[] = [];
 
-    function run() {
-      if (busy) return;
-      busy = true;
+        const later = (fn: () => void, ms: number) => {
+          timers.push(window.setTimeout(fn, ms));
+        };
 
-      // Limpieza preventiva por si quedó una estrella de un click anterior
-      scene.classList.remove("is-star");
-
-      scene.classList.add("is-running", "is-approaching");
-
-      // 2.6s ─ llegó a destino
-      window.setTimeout(() => scene.classList.add("is-hovering"), 2600);
-
-      // 2.7s ─ se abre el haz
-      window.setTimeout(() => scene.classList.add("is-beaming"), 2700);
-
-      // 3.3s ─ la vaca empieza a subir
-      window.setTimeout(() => scene.classList.add("is-abducting"), 3300);
-
-      // 5.3s ─ HUYE (sin la estrella todavía)
-      window.setTimeout(() => {
-        scene.classList.remove("is-beaming");
-        scene.classList.add("is-leaving");
-      }, 5300);
-
-      // 6.4s ─ la nave YA desapareció → aparece la estrella
-      window.setTimeout(() => {
-        scene.classList.add("is-star");
-      }, 6400);
-
-      // 10.0s ─ la estrella ya cumplió su ciclo
-      //         (0.5s delay + 3s anim = 3.5s desde 6.4s)
-      window.setTimeout(() => {
-        scene.classList.remove("is-star");
-      }, 10000);
-
-      // 10.2s ─ RECIÉN AHORA la nave empieza a reaparecer (fade lento).
-      //         1s antes que antes.
-      window.setTimeout(() => {
-        scene.classList.add("is-resetting");
-        scene.classList.remove(
+        const ALL = [
+          "is-running",
           "is-approaching",
           "is-hovering",
           "is-beaming",
           "is-abducting",
           "is-leaving",
+          "is-resetting",
+          "is-star",
+        ];
+
+        function run() {
+          if (busy) return;
+          busy = true;
+
+          scene.classList.remove("is-star");
+          scene.classList.add("is-running", "is-approaching");
+
+          later(() => scene.classList.add("is-hovering"), 2600);
+          later(() => scene.classList.add("is-beaming"), 2700);
+          later(() => scene.classList.add("is-abducting"), 3300);
+
+          later(() => {
+            scene.classList.remove("is-beaming");
+            scene.classList.add("is-leaving");
+          }, 5300);
+
+          later(() => scene.classList.add("is-star"), 6100);
+          later(() => scene.classList.remove("is-star"), 9700);
+
+          later(() => {
+            scene.classList.add("is-resetting");
+            scene.classList.remove(
+              "is-approaching",
+              "is-hovering",
+              "is-beaming",
+              "is-abducting",
+              "is-leaving",
+            );
+          }, 10200);
+
+          later(() => {
+            scene.classList.remove("is-resetting", "is-running");
+            busy = false;
+          }, 10800);
+        }
+
+        cow?.addEventListener("click", run);
+
+        // Al salir de la página: cancela timers y limpia estados
+        document.addEventListener(
+          "astro:before-swap",
+          () => {
+            timers.forEach(clearTimeout);
+            scene.classList.remove(...ALL);
+            busy = false;
+          },
+          { once: true },
         );
-      }, 10200);
-
-      // 10.8s ─ fin del lock (ya se puede clickear de nuevo)
-      window.setTimeout(() => {
-        scene.classList.remove("is-resetting", "is-running");
-        busy = false;
-      }, 10800);
-    }
-
-    cow?.addEventListener("click", run);
-
-    document.addEventListener("astro:before-swap", () => {
-      scene.classList.remove(
-        "is-running",
-        "is-approaching",
-        "is-hovering",
-        "is-beaming",
-        "is-abducting",
-        "is-leaving",
-        "is-resetting",
-        "is-star",
-      );
-    });
+      });
   }
+
+  init();
+  document.addEventListener("astro:page-load", init);
 </script>
