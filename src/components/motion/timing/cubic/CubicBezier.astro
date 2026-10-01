@@ -133,305 +133,320 @@ const presets = [
   // separados (BezierGraph / BezierPreview / BezierValues), Astro los
   // renderiza todos dentro del mismo <div data-bezier>, así que este
   // script los sigue encontrando con querySelector normal.
-  const editors = document.querySelectorAll<HTMLElement>("[data-bezier]");
+  function init() {
+    document
+      .querySelectorAll<HTMLElement>("[data-bezier]")
+      .forEach((editor) => {
+        if (editor.dataset.bound === "1") return;
+        editor.dataset.bound = "1";
+        const graph = editor.querySelector<SVGSVGElement>(".bezier__graph");
+        const curve = editor.querySelector<SVGPathElement>("[data-curve]");
 
-  editors.forEach((editor) => {
-    const graph = editor.querySelector<SVGSVGElement>(".bezier__graph");
-    const curve = editor.querySelector<SVGPathElement>("[data-curve]");
+        const handle1 =
+          editor.querySelector<SVGCircleElement>('[data-handle="1"]');
 
-    const handle1 = editor.querySelector<SVGCircleElement>('[data-handle="1"]');
+        const handle2 =
+          editor.querySelector<SVGCircleElement>('[data-handle="2"]');
 
-    const handle2 = editor.querySelector<SVGCircleElement>('[data-handle="2"]');
+        const line1 = editor.querySelector<SVGLineElement>('[data-line="1"]');
 
-    const line1 = editor.querySelector<SVGLineElement>('[data-line="1"]');
+        const line2 = editor.querySelector<SVGLineElement>('[data-line="2"]');
 
-    const line2 = editor.querySelector<SVGLineElement>('[data-line="2"]');
+        const track = editor.querySelector<HTMLElement>(
+          ".bezier__preview-track",
+        );
+        const dot = editor.querySelector<HTMLElement>("[data-dot]");
 
-    const track = editor.querySelector<HTMLElement>(".bezier__preview-track");
-    const dot = editor.querySelector<HTMLElement>("[data-dot]");
+        const play = editor.querySelector<HTMLButtonElement>("[data-play]");
 
-    const play = editor.querySelector<HTMLButtonElement>("[data-play]");
+        const duration =
+          editor.querySelector<HTMLInputElement>("[data-duration]");
 
-    const duration = editor.querySelector<HTMLInputElement>("[data-duration]");
+        const codeOutput =
+          editor.querySelector<HTMLElement>("[data-css-output]");
 
-    const codeOutput = editor.querySelector<HTMLElement>("[data-css-output]");
+        const copyWrapper = editor.querySelector<HTMLElement>(
+          "[data-copy-wrapper]",
+        );
 
-    const copyWrapper = editor.querySelector<HTMLElement>(
-      "[data-copy-wrapper]",
-    );
+        const presetButtons =
+          editor.querySelectorAll<HTMLButtonElement>("[data-preset]");
 
-    const presetButtons =
-      editor.querySelectorAll<HTMLButtonElement>("[data-preset]");
-
-    if (
-      !graph ||
-      !curve ||
-      !handle1 ||
-      !handle2 ||
-      !line1 ||
-      !line2 ||
-      !track ||
-      !dot ||
-      !play ||
-      !duration
-    ) {
-      return;
-    }
-
-    const values = {
-      x1: 0.25,
-      y1: 0.1,
-      x2: 0.25,
-      y2: 1,
-    };
-
-    let activeHandle: "1" | "2" | null = null;
-
-    const inputs = {
-      x1: editor.querySelector<HTMLInputElement>('[data-input="x1"]'),
-      y1: editor.querySelector<HTMLInputElement>('[data-input="y1"]'),
-      x2: editor.querySelector<HTMLInputElement>('[data-input="x2"]'),
-      y2: editor.querySelector<HTMLInputElement>('[data-input="y2"]'),
-    };
-
-    function clamp(value: number, min: number, max: number) {
-      return Math.min(Math.max(value, min), max);
-    }
-
-    function format(value: number) {
-      return Number(value.toFixed(2));
-    }
-
-    function getBezierString() {
-      return `cubic-bezier(${values.x1}, ${values.y1}, ${values.x2}, ${values.y2})`;
-    }
-
-    function buildCssSnippet(seconds: number) {
-      return `.element {\n  transition: transform ${seconds}s cubic-bezier(${format(values.x1)}, ${format(values.y1)}, ${format(values.x2)}, ${format(values.y2)});\n}`;
-    }
-
-    function updateInputs() {
-      Object.entries(inputs).forEach(([key, input]) => {
-        if (!input) return;
-
-        input.value = String(format(values[key as keyof typeof values]));
-      });
-    }
-
-    function updateCodeBlock() {
-      const seconds = clamp(Number(duration.value) || 1.8, 0.1, 10);
-      const snippet = buildCssSnippet(seconds);
-
-      if (codeOutput) {
-        codeOutput.textContent = snippet;
-      }
-
-      if (copyWrapper) {
-        const copyButton =
-          copyWrapper.querySelector<HTMLElement>("[data-copy]");
-
-        if (copyButton) {
-          copyButton.dataset.copy = snippet;
-        }
-      }
-    }
-
-    function updateCurve() {
-      const p1x = values.x1 * 100;
-      const p1y = 100 - values.y1 * 100;
-
-      const p2x = values.x2 * 100;
-      const p2y = 100 - values.y2 * 100;
-
-      curve.setAttribute("d", `M 0 100 C ${p1x} ${p1y}, ${p2x} ${p2y}, 100 0`);
-
-      handle1.setAttribute("cx", String(p1x));
-      handle1.setAttribute("cy", String(p1y));
-
-      handle2.setAttribute("cx", String(p2x));
-      handle2.setAttribute("cy", String(p2y));
-
-      line1.setAttribute("x2", String(p1x));
-      line1.setAttribute("y2", String(p1y));
-
-      line2.setAttribute("x2", String(p2x));
-      line2.setAttribute("y2", String(p2y));
-
-      updateInputs();
-      updateCodeBlock();
-    }
-
-    function pointerToValues(event: PointerEvent) {
-      if (!activeHandle) return;
-
-      const rect = graph.getBoundingClientRect();
-
-      const svgX = ((event.clientX - rect.left) / rect.width) * 116 - 8;
-      const svgY = ((event.clientY - rect.top) / rect.height) * 116 - 8;
-
-      const x = clamp(svgX / 100, 0, 1);
-      const y = 1 - svgY / 100;
-
-      if (activeHandle === "1") {
-        values.x1 = x;
-        values.y1 = y;
-      } else {
-        values.x2 = x;
-        values.y2 = y;
-      }
-
-      updateCurve();
-    }
-
-    function startDrag(handle: SVGCircleElement, event: PointerEvent) {
-      activeHandle = handle.dataset.handle === "1" ? "1" : "2";
-
-      handle.setPointerCapture(event.pointerId);
-
-      event.preventDefault();
-    }
-
-    function stopDrag() {
-      activeHandle = null;
-    }
-
-    handle1.addEventListener("pointerdown", (event) => {
-      startDrag(handle1, event);
-    });
-
-    handle2.addEventListener("pointerdown", (event) => {
-      startDrag(handle2, event);
-    });
-
-    graph.addEventListener("pointermove", pointerToValues);
-    graph.addEventListener("pointerup", stopDrag);
-    graph.addEventListener("pointercancel", stopDrag);
-
-    Object.entries(inputs).forEach(([key, input]) => {
-      if (!input) return;
-
-      input.addEventListener("input", () => {
-        const value = Number(input.value);
-
-        if (!Number.isFinite(value)) return;
-
-        if (key === "x1" || key === "x2") {
-          values[key] = clamp(value, 0, 1);
-        } else {
-          values[key] = value;
+        if (
+          !graph ||
+          !curve ||
+          !handle1 ||
+          !handle2 ||
+          !line1 ||
+          !line2 ||
+          !track ||
+          !dot ||
+          !play ||
+          !duration
+        ) {
+          return;
         }
 
-        updateCurve();
-      });
-    });
+        const values = {
+          x1: 0.25,
+          y1: 0.1,
+          x2: 0.25,
+          y2: 1,
+        };
 
-    duration.addEventListener("input", updateCodeBlock);
+        let activeHandle: "1" | "2" | null = null;
 
-    /*
-     * Presets — ease, ease-in, ease-out, ease-in-out, linear
-     */
+        const inputs = {
+          x1: editor.querySelector<HTMLInputElement>('[data-input="x1"]'),
+          y1: editor.querySelector<HTMLInputElement>('[data-input="y1"]'),
+          x2: editor.querySelector<HTMLInputElement>('[data-input="x2"]'),
+          y2: editor.querySelector<HTMLInputElement>('[data-input="y2"]'),
+        };
 
-    presetButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const raw = button.dataset.preset;
+        function clamp(value: number, min: number, max: number) {
+          return Math.min(Math.max(value, min), max);
+        }
 
-        if (!raw) return;
+        function format(value: number) {
+          return Number(value.toFixed(2));
+        }
 
-        try {
-          const [x1, y1, x2, y2] = JSON.parse(raw) as number[];
+        function getBezierString() {
+          return `cubic-bezier(${values.x1}, ${values.y1}, ${values.x2}, ${values.y2})`;
+        }
 
-          values.x1 = x1;
-          values.y1 = y1;
-          values.x2 = x2;
-          values.y2 = y2;
+        function buildCssSnippet(seconds: number) {
+          return `.element {\n  transition: transform ${seconds}s cubic-bezier(${format(values.x1)}, ${format(values.y1)}, ${format(values.x2)}, ${format(values.y2)});\n}`;
+        }
+
+        function updateInputs() {
+          Object.entries(inputs).forEach(([key, input]) => {
+            if (!input) return;
+
+            input.value = String(format(values[key as keyof typeof values]));
+          });
+        }
+
+        function updateCodeBlock() {
+          const seconds = clamp(Number(duration.value) || 1.8, 0.1, 10);
+          const snippet = buildCssSnippet(seconds);
+
+          if (codeOutput) {
+            codeOutput.textContent = snippet;
+          }
+
+          if (copyWrapper) {
+            const copyButton =
+              copyWrapper.querySelector<HTMLElement>("[data-copy]");
+
+            if (copyButton) {
+              copyButton.dataset.copy = snippet;
+            }
+          }
+        }
+
+        function updateCurve() {
+          const p1x = values.x1 * 100;
+          const p1y = 100 - values.y1 * 100;
+
+          const p2x = values.x2 * 100;
+          const p2y = 100 - values.y2 * 100;
+
+          curve.setAttribute(
+            "d",
+            `M 0 100 C ${p1x} ${p1y}, ${p2x} ${p2y}, 100 0`,
+          );
+
+          handle1.setAttribute("cx", String(p1x));
+          handle1.setAttribute("cy", String(p1y));
+
+          handle2.setAttribute("cx", String(p2x));
+          handle2.setAttribute("cy", String(p2y));
+
+          line1.setAttribute("x2", String(p1x));
+          line1.setAttribute("y2", String(p1y));
+
+          line2.setAttribute("x2", String(p2x));
+          line2.setAttribute("y2", String(p2y));
+
+          updateInputs();
+          updateCodeBlock();
+        }
+
+        function pointerToValues(event: PointerEvent) {
+          if (!activeHandle) return;
+
+          const rect = graph.getBoundingClientRect();
+
+          const svgX = ((event.clientX - rect.left) / rect.width) * 116 - 8;
+          const svgY = ((event.clientY - rect.top) / rect.height) * 116 - 8;
+
+          const x = clamp(svgX / 100, 0, 1);
+          const y = 1 - svgY / 100;
+
+          if (activeHandle === "1") {
+            values.x1 = x;
+            values.y1 = y;
+          } else {
+            values.x2 = x;
+            values.y2 = y;
+          }
 
           updateCurve();
-        } catch {
-          // ignore malformed preset
         }
-      });
-    });
 
-    function keyboardMove(handle: SVGCircleElement, event: KeyboardEvent) {
-      const key = handle.dataset.handle;
+        function startDrag(handle: SVGCircleElement, event: PointerEvent) {
+          activeHandle = handle.dataset.handle === "1" ? "1" : "2";
 
-      if (key !== "1" && key !== "2") return;
+          handle.setPointerCapture(event.pointerId);
 
-      const step = event.shiftKey ? 0.1 : 0.01;
+          event.preventDefault();
+        }
 
-      const xKey = key === "1" ? "x1" : "x2";
-      const yKey = key === "1" ? "y1" : "y2";
+        function stopDrag() {
+          activeHandle = null;
+        }
 
-      let changed = false;
+        handle1.addEventListener("pointerdown", (event) => {
+          startDrag(handle1, event);
+        });
 
-      if (event.key === "ArrowRight") {
-        values[xKey] = clamp(values[xKey] + step, 0, 1);
-        changed = true;
-      }
+        handle2.addEventListener("pointerdown", (event) => {
+          startDrag(handle2, event);
+        });
 
-      if (event.key === "ArrowLeft") {
-        values[xKey] = clamp(values[xKey] - step, 0, 1);
-        changed = true;
-      }
+        graph.addEventListener("pointermove", pointerToValues);
+        graph.addEventListener("pointerup", stopDrag);
+        graph.addEventListener("pointercancel", stopDrag);
 
-      if (event.key === "ArrowUp") {
-        values[yKey] += step;
-        changed = true;
-      }
+        Object.entries(inputs).forEach(([key, input]) => {
+          if (!input) return;
 
-      if (event.key === "ArrowDown") {
-        values[yKey] -= step;
-        changed = true;
-      }
+          input.addEventListener("input", () => {
+            const value = Number(input.value);
 
-      if (changed) {
-        event.preventDefault();
+            if (!Number.isFinite(value)) return;
+
+            if (key === "x1" || key === "x2") {
+              values[key] = clamp(value, 0, 1);
+            } else {
+              values[key] = value;
+            }
+
+            updateCurve();
+          });
+        });
+
+        duration.addEventListener("input", updateCodeBlock);
+
+        /*
+         * Presets — ease, ease-in, ease-out, ease-in-out, linear
+         */
+
+        presetButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const raw = button.dataset.preset;
+
+            if (!raw) return;
+
+            try {
+              const [x1, y1, x2, y2] = JSON.parse(raw) as number[];
+
+              values.x1 = x1;
+              values.y1 = y1;
+              values.x2 = x2;
+              values.y2 = y2;
+
+              updateCurve();
+            } catch {
+              // ignore malformed preset
+            }
+          });
+        });
+
+        function keyboardMove(handle: SVGCircleElement, event: KeyboardEvent) {
+          const key = handle.dataset.handle;
+
+          if (key !== "1" && key !== "2") return;
+
+          const step = event.shiftKey ? 0.1 : 0.01;
+
+          const xKey = key === "1" ? "x1" : "x2";
+          const yKey = key === "1" ? "y1" : "y2";
+
+          let changed = false;
+
+          if (event.key === "ArrowRight") {
+            values[xKey] = clamp(values[xKey] + step, 0, 1);
+            changed = true;
+          }
+
+          if (event.key === "ArrowLeft") {
+            values[xKey] = clamp(values[xKey] - step, 0, 1);
+            changed = true;
+          }
+
+          if (event.key === "ArrowUp") {
+            values[yKey] += step;
+            changed = true;
+          }
+
+          if (event.key === "ArrowDown") {
+            values[yKey] -= step;
+            changed = true;
+          }
+
+          if (changed) {
+            event.preventDefault();
+            updateCurve();
+          }
+        }
+
+        handle1.addEventListener("keydown", (event) => {
+          keyboardMove(handle1, event);
+        });
+
+        handle2.addEventListener("keydown", (event) => {
+          keyboardMove(handle2, event);
+        });
+
+        function playAnimation() {
+          const seconds = clamp(Number(duration.value) || 1.8, 0.1, 10);
+
+          duration.value = String(seconds);
+          updateCodeBlock();
+
+          dot.getAnimations().forEach((animation) => {
+            animation.cancel();
+          });
+
+          const dotRect = dot.getBoundingClientRect();
+          const trackRect = track.getBoundingClientRect();
+          const dotSize = dotRect.width || 16;
+
+          const travelX = Math.max(trackRect.width - dotSize, 0);
+          const travelY = Math.max(trackRect.height - dotSize, 0);
+
+          dot.animate(
+            [
+              { transform: "translate(0, 0)" },
+              { transform: `translate(${travelX}px, -${travelY}px)` },
+            ],
+            {
+              duration: seconds * 1000,
+              easing: getBezierString(),
+              fill: "forwards",
+            },
+          );
+        }
+
+        play.addEventListener("click", playAnimation);
+
         updateCurve();
-      }
-    }
-
-    handle1.addEventListener("keydown", (event) => {
-      keyboardMove(handle1, event);
-    });
-
-    handle2.addEventListener("keydown", (event) => {
-      keyboardMove(handle2, event);
-    });
-
-    function playAnimation() {
-      const seconds = clamp(Number(duration.value) || 1.8, 0.1, 10);
-
-      duration.value = String(seconds);
-      updateCodeBlock();
-
-      dot.getAnimations().forEach((animation) => {
-        animation.cancel();
       });
-
-      const dotRect = dot.getBoundingClientRect();
-      const trackRect = track.getBoundingClientRect();
-      const dotSize = dotRect.width || 16;
-
-      const travelX = Math.max(trackRect.width - dotSize, 0);
-      const travelY = Math.max(trackRect.height - dotSize, 0);
-
-      dot.animate(
-        [
-          { transform: "translate(0, 0)" },
-          { transform: `translate(${travelX}px, -${travelY}px)` },
-        ],
-        {
-          duration: seconds * 1000,
-          easing: getBezierString(),
-          fill: "forwards",
-        },
-      );
-    }
-
-    play.addEventListener("click", playAnimation);
-
-    updateCurve();
-  });
+  }
+  init();
+  document.addEventListener("astro:page-load", init);
 </script>
 
 <style>

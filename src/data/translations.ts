@@ -161,7 +161,7 @@ export const translations = {
       triggersIntro: {
         title: "Triggers",
         description:
-          "Las animaciones necesitan algo que las dispare. Los más comunes son <code>hover</code>, <code>click</code> y <code>focus</code> — los mismos efectos que ya viste, solo que se activan en distintos momentos.",
+          "Las animaciones necesitan algo que las dispare. Los más comunes son <code>hover</code>, <code>click</code>, <code>focus</code> y <code>scroll</code> — los mismos efectos que ya viste, solo que se activan en distintos momentos.",
       },
       keyframesIntro: {
         title: "Keyframes",
@@ -406,7 +406,7 @@ export const translations = {
       triggersIntro: {
         title: "Triggers",
         description:
-          "Animations need something to trigger them. The most common ones are hover, click, and focus — same effects you already know, just fired at different moments.",
+          "Animations need something to trigger them. The most common ones are <code>hover</code>, <code>click</code>, <code>focus</code>, and <code>scroll</code> — same effects you already know, just fired at different moments.",
       },
       keyframesIntro: {
         title: "Keyframes",

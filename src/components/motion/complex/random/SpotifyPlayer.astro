@@ -39,18 +39,22 @@
     </div>
   </div>
 </div>
-
 <script>
-  document
-    .querySelectorAll<HTMLElement>('[data-toggle="play"]:not([data-bound])')
-    .forEach((btn) => {
-      btn.dataset.bound = "true";
-      const player = btn.closest<HTMLElement>("[data-player]");
+  function init() {
+    document
+      .querySelectorAll<HTMLElement>('[data-toggle="play"]:not([data-bound])')
+      .forEach((btn) => {
+        btn.dataset.bound = "true";
+        const player = btn.closest<HTMLElement>("[data-player]");
 
-      btn.addEventListener("click", () => {
-        player?.classList.toggle("is-active");
+        btn.addEventListener("click", () => {
+          player?.classList.toggle("is-active");
+        });
       });
-    });
+  }
+
+  init();
+  document.addEventListener("astro:page-load", init);
 </script>
 
 <style>

@@ -28,61 +28,68 @@ const easing = `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
 </div>
 
 <script>
-  const previews = document.querySelectorAll<HTMLElement>(
-    "[data-timing-preview]",
-  );
+  function init() {
+    const previews = document.querySelectorAll<HTMLElement>(
+      "[data-timing-preview]",
+    );
 
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-
-  previews.forEach((preview) => {
-    const dot = preview.querySelector<HTMLElement>("[data-dot]");
-
-    const easing = preview.dataset.easing;
-    const duration = Number(preview.dataset.duration) || 1.6;
-
-    if (!dot || !easing) return;
-
-    function play() {
-      if (prefersReducedMotion || !dot) return;
-
-      const dotSize = dot.getBoundingClientRect().width || 10;
-
-      dot.getAnimations().forEach((animation) => animation.cancel());
-
-      // Animamos "left" en % del track, no un translate en px calculado
-      // una sola vez: así el dot siempre llega exacto al final, sea cual
-      // sea el ancho real del track en cada pantalla.
-      dot.animate([{ left: "0px" }, { left: `calc(100% - ${dotSize}px)` }], {
-        duration: duration * 1000,
-        easing,
-        direction: "alternate",
-        iterations: Infinity,
-      });
-    }
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     if (prefersReducedMotion) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            play();
-          } else {
-            dot.getAnimations().forEach((animation) => animation.pause());
-          }
+    previews.forEach((preview) => {
+      // evita enganchar dos veces el mismo elemento
+      if (preview.dataset.bound === "1") return;
+      preview.dataset.bound = "1";
+
+      const dot = preview.querySelector<HTMLElement>("[data-dot]");
+      const easing = preview.dataset.easing;
+      const duration = Number(preview.dataset.duration) || 1.6;
+
+      if (!dot || !easing) return;
+
+      function play() {
+        if (!dot) return;
+
+        const dotSize = dot.getBoundingClientRect().width || 10;
+
+        dot.getAnimations().forEach((a) => a.cancel());
+
+        dot.animate([{ left: "0px" }, { left: `calc(100% - ${dotSize}px)` }], {
+          duration: duration * 1000,
+          easing,
+          direction: "alternate",
+          iterations: Infinity,
         });
-      },
-      { threshold: 0.2 },
-    );
+      }
 
-    observer.observe(preview);
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const running = dot.getAnimations();
+              if (running.length) running.forEach((a) => a.play());
+              else play();
+            } else {
+              dot.getAnimations().forEach((a) => a.pause());
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
 
-    window.addEventListener("resize", () => {
-      if (dot.getAnimations().length) play();
+      observer.observe(preview);
+
+      window.addEventListener("resize", () => {
+        if (dot.getAnimations().length) play();
+      });
     });
-  });
+  }
+
+  init();
+  document.addEventListener("astro:page-load", init);
 </script>
 
 <style>

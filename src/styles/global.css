@@ -104,10 +104,44 @@ html::view-transition-new(root) {
   }
 }
 
-.reveal {
-  opacity: 0;
-  animation: revealUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: calc(var(--i, 0) * 80ms);
+/* ---- Utilities: pausar animaciones fuera de pantalla ---- */
+[data-inview]:not([data-in-view]),
+[data-inview]:not([data-in-view]) *,
+[data-inview]:not([data-in-view]) *::before,
+[data-inview]:not([data-in-view]) *::after {
+  animation-play-state: paused !important;
+}
+
+/* ---- Utilities: top fade ---- */
+.top-fade {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 5rem;
+  z-index: 100;
+  pointer-events: none;
+
+  /* oscurecido suave */
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-surface-1) 70%, transparent),
+    transparent
+  );
+
+  /* blur */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  /* hace que el blur se desvanezca hacia abajo */
+  mask-image: linear-gradient(to bottom, #000 20%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 20%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
