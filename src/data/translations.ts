@@ -39,11 +39,11 @@ export const translations = {
     },
 
     skillsPromo: {
-      title: "Agentic Skills",
+      title: "Skills",
       subtitle: "Una colección de skills para mejorar tus interfaces.",
     },
     motionPromo: {
-      title: "Motion Design",
+      title: "Web Motion",
       subtitle: "Principios basicos de animaciones web",
     },
     skills: {
@@ -301,11 +301,11 @@ export const translations = {
     },
 
     skillsPromo: {
-      title: "Agentic Skills",
+      title: "Skills",
       subtitle: "A collection of skills to improve your interfaces.",
     },
     motionPromo: {
-      title: "Motion Design",
+      title: "Web Motion",
       subtitle: "Basic principles of web animations",
     },
     skills: {

@@ -115,11 +115,23 @@ const { x1, y1, x2, y2 } = Astro.props;
 
   @media (max-width: 560px) {
     .bezier__values {
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      max-width: 340px;
+      margin-inline: auto;
+      gap: var(--space-3);
     }
 
     .bezier__field {
-      width: calc(50% - var(--space-2));
+      width: 68px;
+      flex: none;
+      align-items: center;
+    }
+
+    .bezier__field input {
+      text-align: center;
+      padding: 0.3rem 0.25rem;
     }
   }
 </style>

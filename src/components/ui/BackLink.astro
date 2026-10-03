@@ -7,18 +7,14 @@ const { href = "/", label = "Volver" } = Astro.props;
 ---
 
 <a {href} class="back-link" aria-label="Volver al inicio">
-  <svg
-    class="back-link__arrow"
-    width="18"
-    height="18"
-    viewBox="0 0 256 256"
-    fill="currentColor"
+  <img
+    src="/arrow-bend-up-left.svg"
+    alt=""
     aria-hidden="true"
-  >
-    <path
-      d="M232,200a8,8,0,0,1-16,0,88.1,88.1,0,0,0-88-88H51.31l34.35,34.34a8,8,0,0,1-11.32,11.32l-48-48a8,8,0,0,1,0-11.32l48-48A8,8,0,0,1,85.66,61.66L51.31,96H128A104.11,104.11,0,0,1,232,200Z"
-    />
-  </svg>
+    width="16"
+    height="16"
+    class="back-link__arrow"
+  />
   <span class="back-link__text" data-i18n="skills.back">
     {label}
   </span>
@@ -34,7 +30,7 @@ const { href = "/", label = "Volver" } = Astro.props;
     align-items: center;
     margin: 0;
     opacity: 1;
-    gap: 4px;
+    gap: 5px;
     text-decoration: none;
     font-size: var(--text-base);
     color: var(--color-text-heading);
@@ -46,16 +42,17 @@ const { href = "/", label = "Volver" } = Astro.props;
     width: 18px;
     height: 18px;
     opacity: 1;
+    flex-shrink: 0;
+    margin-top: -2px;
+    filter: invert(1) brightness(1);
     transition:
       opacity var(--transition-fast),
       transform var(--transition-fast);
-    flex-shrink: 0;
-    margin-top: -2px;
   }
   .back-link__text {
     font-style: italic;
     line-height: 1;
-    margin-top: -3px;
+    margin-top: -2px;
     opacity: 1;
     transition: opacity var(--transition-fast);
   }
