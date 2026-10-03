@@ -1,0 +1,108 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import I18nSync from "../components/I18nSync.astro";
+import { translations } from "../data/translations";
+
+const t = translations.es;
+---
+
+<BaseLayout title="404 — Página no encontrada">
+  <I18nSync />
+  <main class="not-found">
+    <div class="not-found__code" aria-hidden="true">
+      <span>4</span>
+      <img src="/favicon.png" alt="" />
+      <span>4</span>
+    </div>
+
+    <div class="not-found__body">
+      <h1 class="not-found__title" data-i18n="notFound.title">
+        {t.notFound.title}
+      </h1>
+      <a href="/" class="not-found__back">
+        <svg
+          class="not-found__back-icon"
+          viewBox="0 0 256 256"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,120l80-80,80,80v88H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48Zm96,88H112V160h32Z"
+          />
+        </svg>
+        <span data-i18n="notFound.back">{t.notFound.back}</span>
+      </a>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: 100dvh;
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    padding-inline: var(--space-4);
+  }
+  .not-found__code {
+    display: flex;
+    align-items: center;
+    gap: 0.08em;
+    flex-shrink: 0;
+    font-weight: var(--font-weight-semibold);
+    font-size: clamp(6rem, 18vw, 11rem);
+    line-height: 1;
+    color: var(--color-text-heading);
+  }
+  .not-found__code img {
+    width: 0.72em;
+    height: 0.72em;
+  }
+  .not-found__title {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-family-enfasis);
+    font-style: italic;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-xl);
+    line-height: var(--leading-tight);
+    color: var(--color-text-heading);
+    text-wrap: balance;
+  }
+  .not-found__back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    font-size: var(--text-base);
+    color: var(--color-text-heading);
+    transition: background-color var(--transition-fast);
+  }
+  .not-found__back:hover,
+  .not-found__back:focus-visible {
+    background-color: var(--color-surface-2);
+  }
+  .not-found__back-icon {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+  }
+  @media (max-width: 768px) {
+    .not-found {
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-8);
+      text-align: center;
+    }
+    .not-found__body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
