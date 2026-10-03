@@ -66,9 +66,10 @@ const t = translations.es;
 
 <style>
   .page {
+    position: relative;
     max-width: var(--content-max-width);
     margin-inline: auto;
-    overflow: hidden;
+    overflow: visible;
     margin-bottom: 6rem;
   }
 
@@ -99,6 +100,12 @@ const t = translations.es;
     }
     .skills-header__title {
       margin-bottom: var(--space-2);
+    }
+  }
+  /* Compensa el BackLink fijo (fuera del flujo) en desktop */
+  @media (min-width: 1101px) {
+    .page {
+      padding-top: 6rem;
     }
   }
 </style>

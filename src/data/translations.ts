@@ -49,6 +49,11 @@ export const translations = {
     skills: {
       back: "Inicio",
     },
+    notFound: {
+      title: "Página no encontrada",
+      desc: "Parece que esta ruta no existe o fue movida.",
+      back: "Volver al inicio",
+    },
     skillsPage: {
       subtitle: "Una colección de skills para mejorar tus interfaces.",
       installTitle: "Instalación",
@@ -305,6 +310,11 @@ export const translations = {
     },
     skills: {
       back: "Home",
+    },
+    notFound: {
+      title: "Page not found",
+      desc: "Looks like this route doesn't exist or was moved.",
+      back: "Back to home",
     },
     skillsPage: {
       subtitle:

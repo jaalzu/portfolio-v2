@@ -9,18 +9,14 @@ const { href = "/", label = "Volver" } = Astro.props;
 <a {href} class="back-link" aria-label="Volver al inicio">
   <svg
     class="back-link__arrow"
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
+    width="18"
+    height="18"
+    viewBox="0 0 256 256"
+    fill="currentColor"
     aria-hidden="true"
   >
     <path
-      d="M10 12L6 8L10 4"
-      stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      d="M232,200a8,8,0,0,1-16,0,88.1,88.1,0,0,0-88-88H51.31l34.35,34.34a8,8,0,0,1-11.32,11.32l-48-48a8,8,0,0,1,0-11.32l48-48A8,8,0,0,1,85.66,61.66L51.31,96H128A104.11,104.11,0,0,1,232,200Z"
     />
   </svg>
   <span class="back-link__text" data-i18n="skills.back">
@@ -30,43 +26,57 @@ const { href = "/", label = "Volver" } = Astro.props;
 
 <style>
   .back-link {
+    position: fixed;
+    top: calc(6rem + var(--space-10) + 0.4rem);
+    left: max(1rem, calc((100vw - var(--content-max-width)) / 2 - 210px));
+    z-index: 5;
     display: inline-flex;
     align-items: center;
-    margin-bottom: 4rem;
-    margin-top: 2rem;
-    gap: 6px;
+    margin: 0;
+    opacity: 1;
+    gap: 4px;
     text-decoration: none;
     font-size: var(--text-base);
     color: var(--color-text-heading);
-    transition: color var(--transition-fast);
+    transition:
+      opacity 400ms ease,
+      color var(--transition-fast);
   }
   .back-link__arrow {
-    opacity: 0.38;
+    width: 18px;
+    height: 18px;
+    opacity: 1;
     transition:
       opacity var(--transition-fast),
       transform var(--transition-fast);
     flex-shrink: 0;
-    margin-top: -3px;
+    margin-top: -2px;
   }
   .back-link__text {
-    font-family: "Newsreader", serif;
     font-style: italic;
     line-height: 1;
+    margin-top: -3px;
     opacity: 1;
     transition: opacity var(--transition-fast);
-  }
-  .back-link:hover .back-link__arrow,
-  .back-link:focus-visible .back-link__arrow {
-    opacity: 1;
-  }
-  .back-link:hover .back-link__text,
-  .back-link:focus-visible .back-link__text {
-    opacity: 0.42;
   }
   .back-link:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 3px;
     border-radius: 4px;
+  }
+  .back-link.is-scrolled {
+    opacity: 0.55;
+  }
+  .back-link.is-scrolled:hover,
+  .back-link.is-scrolled:focus-visible {
+    opacity: 1;
+  }
+  @media (max-width: 1100px) {
+    .back-link {
+      position: static;
+      margin-top: 2rem;
+      margin-bottom: 4rem;
+    }
   }
   @media (max-width: 768px) {
     .back-link {
@@ -75,3 +85,19 @@ const { href = "/", label = "Volver" } = Astro.props;
     }
   }
 </style>
+
+<script>
+  if (!(window as any).__backLinkScrollInit) {
+    (window as any).__backLinkScrollInit = true;
+    const update = () => {
+      document
+        .querySelectorAll(".back-link")
+        .forEach((el) =>
+          el.classList.toggle("is-scrolled", window.scrollY > 24),
+        );
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    document.addEventListener("astro:page-load", update);
+    update();
+  }
+</script>
