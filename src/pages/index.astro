@@ -15,20 +15,17 @@ const t = translations.es;
 const projects = [
   {
     title: "TratoLibre",
-    imageSrc: "/projects/tl.svg",
     githubUrl: "https://github.com/jaalzu/tratolibre",
     liveUrl: "https://tratolibre.vercel.app/",
   },
   {
     title: "PickYourColor",
-    imageSrc: "/projects/pyk.svg",
     githubUrl: "https://github.com/jaalzu/PickYourColory",
     liveUrl:
       "https://pick-your-color.vercel.app/?colors=000000-FFFFFF-92b9b9-6420c2-cecece",
   },
   {
     title: "JavaCourses",
-    imageSrc: "/projects/java.svg",
     githubUrl: "https://github.com/jaalzu/courses-webapp",
     liveUrl: "https://courses-webapp-delta.vercel.app/login",
   },
@@ -50,42 +47,32 @@ const projects = [
       index={0}
     >
       <div class="projects-grid">
-        {projects.map((project, i) => (
-          <ProjectCard
-            title={project.title}
-            description={t.projects[i]}
-            i18nKey={`projects.${i}`}
-            imageSrc={project.imageSrc}
-            githubUrl={project.githubUrl}
-            liveUrl={project.liveUrl}
-            index={i}
-          />
-        ))}
-      </div>
-    </Section>
-
-    <Section
-      title={t.sections.techStack}
-      i18nKey="sections.techStack"
-      marked
-      class="tech-section"
-      index={1}
-    >
-      <div class="skills-grid">
-        <SkillItem
-          title={t.skillsPromo.title}
-          subtitle={t.skillsPromo.subtitle}
-          titleKey="skillsPromo.title"
-          subtitleKey="skillsPromo.subtitle"
-          href="/skills"
-        />
         <SkillItem
           title={t.motionPromo.title}
           subtitle={t.motionPromo.subtitle}
           titleKey="motionPromo.title"
           subtitleKey="motionPromo.subtitle"
           href="/motion"
+          index={0}
         />
+        <SkillItem
+          title={t.skillsPromo.title}
+          subtitle={t.skillsPromo.subtitle}
+          titleKey="skillsPromo.title"
+          subtitleKey="skillsPromo.subtitle"
+          href="/skills"
+          index={1}
+        />
+        {projects.map((project, i) => (
+          <ProjectCard
+            title={project.title}
+            description={t.projects[i]}
+            i18nKey={`projects.${i}`}
+            githubUrl={project.githubUrl}
+            liveUrl={project.liveUrl}
+            index={i + 2}
+          />
+        ))}
       </div>
     </Section>
 
@@ -94,7 +81,7 @@ const projects = [
       i18nKey="sections.aboutMe"
       marked
       class="about-section"
-      index={2}
+      index={1}
     >
       <AboutMe texts={t.about} province={t.province} />
     </Section>
@@ -118,12 +105,7 @@ const projects = [
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-  }
-
-  .skills-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+    margin-top: var(--space-4);
     margin-bottom: var(--space-8);
   }
 
@@ -132,7 +114,7 @@ const projects = [
       padding-inline: calc(var(--space-4) + var(--space-1));
     }
 
-    .skills-grid {
+    .projects-grid {
       margin-bottom: var(--space-4);
     }
   }

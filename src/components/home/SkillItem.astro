@@ -6,6 +6,7 @@ interface Props {
   variant?: "default" | "arrows";
   titleKey?: string;
   subtitleKey?: string;
+  index?: number;
 }
 
 const {
@@ -15,18 +16,22 @@ const {
   variant = "default",
   titleKey = "skillsPromo.title",
   subtitleKey = "skillsPromo.subtitle",
+  index = 0,
 } = Astro.props;
 ---
 
-<div class="skill-frame">
+<div class="skill-frame reveal" style={`--i: ${index}`}>
   <a
     href={href}
     class:list={["skill", variant === "arrows" && "skill--arrows"]}
   >
     <div class="skill__text">
-      <p class="skill__title" data-i18n={titleKey}>
-        {title}
-      </p>
+      <span class="skill__head">
+        <p class="skill__title" data-i18n={titleKey}>
+          {title}
+        </p>
+        <span class="skill__sep" aria-hidden="true">/</span>
+      </span>
       <p class="skill__subtitle" data-i18n={subtitleKey}>
         {subtitle}
       </p>
@@ -56,6 +61,35 @@ const {
 </div>
 
 <style>
+  @keyframes revealUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    animation: revealUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(650ms + var(--i, 0) * 90ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  :global(html.no-home-intro .reveal) {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
   .skill-frame {
     display: block;
     border: none;
@@ -68,7 +102,7 @@ const {
     flex-direction: row;
     align-items: center;
     gap: var(--space-4);
-    min-height: 64px;
+    min-height: 65px;
     padding: var(--space-4) 44px var(--space-4) var(--space-4);
     background: var(--color-surface-2);
     border: 1px solid transparent;
@@ -85,11 +119,18 @@ const {
 
   .skill__text {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--space-2);
     flex: 1;
     min-width: 0;
+  }
+
+  .skill__head {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    flex-shrink: 0;
   }
 
   .skill__title {
@@ -99,6 +140,18 @@ const {
     font-weight: var(--font-weight-regular);
     line-height: var(--leading-tight);
     color: var(--color-text-heading);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .skill__sep {
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+    opacity: 0.6;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-regular);
+    line-height: 1;
+    transform: translateY(1px);
   }
 
   .skill__subtitle {
@@ -107,6 +160,11 @@ const {
     font-weight: var(--font-weight-regular);
     line-height: var(--leading-normal);
     color: var(--color-text-muted);
+    opacity: 0.8;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .skill__arrow {
@@ -146,6 +204,29 @@ const {
   @media (max-width: 480px) {
     .skill {
       padding: var(--space-3) 36px var(--space-3) var(--space-4);
+      min-height: 72px;
+    }
+
+    .skill__text {
+      gap: var(--space-2);
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+
+    .skill__head {
+      align-items: center;
+    }
+
+    .skill__sep {
+      transform: none;
+    }
+
+    .skill__subtitle {
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+      flex: 1;
+      min-width: 0;
     }
   }
 </style>
