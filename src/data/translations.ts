@@ -201,26 +201,30 @@ export const translations = {
         text: "O armar escenas animadas.",
       },
       summary: {
-        title: "En resumen",
-        description:
-          "Con estas bases ya podés armar prácticamente cualquier animación. Algunas ideas para tener en cuenta antes de llevarlas a un proyecto real:",
-        // es → motionPage.summary.points
+        title: "Buenas prácticas a seguir",
+
         points: [
-          "Preferí <code>transform</code> y <code>opacity</code> — el navegador las anima sin recalcular el layout, así que rinden mejor que animar <code>width</code>, <code>top</code> o <code>margin</code>.",
-          "Respetá <code>prefers-reduced-motion</code>: hay personas que configuran su sistema para recibir menos movimiento, y tus animaciones deberían adaptarse.",
-          "Si una animación en loop no está en pantalla, pausala con un IntersectionObserver: podés detectar cuándo un elemento entra o sale del viewport, y en base a eso frenar o retomar su animación. Así evitás gastar recursos en algo que la persona no está viendo.",
-          // es → motionPage.summary.points[3]
-          'Para animaciones más complejas o con mayor control, podés usar JavaScript o herramientas como <a class="summary-tool" href="https://motion.dev" target="_blank" rel="noopener noreferrer"><img src="/motion/motion.png" alt="" /><span>Motion</span></a> y <a class="summary-tool" href="https://gsap.com" target="_blank" rel="noopener noreferrer"><img src="/motion/gsap.ico" alt="" /><span>GSAP</span></a>.',
-          "Menos es más: una animación sutil bien elegida comunica mejor que varias compitiendo por la atención.",
+          "Usá `prefers-reduced-motion` para respetar las preferencias de movimiento del usuario.",
+          // es
+          "Pausá las animaciones que están fuera del viewport con `IntersectionObserver` para ahorrar recursos.",
+          "Las animaciones más eficientes son las que no recalculan el layout ni repintan, como `transform` y `opacity`.",
         ],
-      },
-      likeSection: {
-        title: "¿Te sirvió?",
-        description:
-          "Si te gustó este contenido, dejá tu like para que siga creando más.",
-        button: "Me gusta",
-        buttonActive: "¡Gracias!",
-        total: "likes",
+
+        cssLimit:
+          "A veces CSS no es suficiente. Para animaciones más complejas o con mayor control, podés usar JavaScript o herramientas como {motion} y {gsap}.",
+        less: "Menos es más: una animación bien elegida comunica mejor que varias compitiendo por la atención.",
+
+        outro:
+          "Si te quedaste con hambre de más, te recomiendo seguir a {emil} y a {josh}. Son referentes en cuanto a calidad y motion.",
+
+        likeSection: {
+          title: "¿Te sirvió?",
+          description:
+            "Si te gustó este contenido, dejá tu like para que siga creando más.",
+          button: "Me gusta",
+          buttonActive: "¡Gracias!",
+          total: "likes",
+        },
       },
 
       presetsNote: "Misma duración, más rápido o lento en cada etapa.",
@@ -453,26 +457,30 @@ export const translations = {
         text: "Or build entire animated scenes.",
       },
       summary: {
-        title: "In summary",
-        description:
-          "With these basics you can build pretty much any animation. A few things to keep in mind before taking them to a real project:",
-        points: [
-          "Prefer <code>transform</code> and <code>opacity</code> — the browser animates them without recalculating layout, so they perform better than animating <code>width</code>, <code>top</code> or <code>margin</code>.",
-          "Respect <code>prefers-reduced-motion</code>: some people configure their system to receive less motion, and your animations should adapt.",
-          "If a looping animation is off-screen, pause it with an IntersectionObserver: you can detect when an element enters or leaves the viewport and stop or resume its animation accordingly. That way you avoid wasting resources on something nobody is looking at.",
-          // en → motionPage.summary.points[3]
-          'For more complex animations or finer control, you can use JavaScript or tools like <a class="summary-tool" href="https://motion.dev" target="_blank" rel="noopener noreferrer"><img src="/motion/motion.png" alt="" /><span>Motion</span></a> and <a class="summary-tool" href="https://gsap.com" target="_blank" rel="noopener noreferrer"><img src="/motion/gsap.ico" alt="" /><span>GSAP</span></a>.',
-          "Less is more: a well-chosen subtle animation communicates better than several competing for attention.",
-        ],
-      },
+        title: "Best practices to follow",
 
-      likeSection: {
-        title: "Was this helpful?",
-        description:
-          "If you enjoyed this content, leave a like so I can keep making more.",
-        button: "Like",
-        buttonActive: "Thanks!",
-        total: "likes",
+        points: [
+          "Use `prefers-reduced-motion` to respect user motion preferences.",
+          "The most efficient animations are the ones that don't trigger layout or repaint, like `transform` and `opacity`.",
+          "Pause off-screen animations with `IntersectionObserver` to save resources.",
+        ],
+
+        cssLimit:
+          "Sometimes CSS isn’t enough. For more complex animations or finer control, you can use JavaScript or tools like {motion} and {gsap}.",
+
+        less: "Less is more: a well-chosen animation communicates better than several competing for attention.",
+
+        outro:
+          "If you’re still hungry for more, I recommend checking out {emil} and {josh}. They’re at the top when it comes to quality and motion.",
+
+        likeSection: {
+          title: "Was this helpful?",
+          description:
+            "If you enjoyed this content, leave a like so I can keep making more.",
+          button: "Like",
+          buttonActive: "Thanks!",
+          total: "likes",
+        },
       },
 
       presetsNote: "Same duration, faster or slower at different stages.",

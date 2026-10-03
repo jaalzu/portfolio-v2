@@ -1,7 +1,48 @@
 ---
 import { translations } from "../../../data/translations";
+
 const t = translations.es;
 const s = t.motionPage.summary;
+
+const tools: Record<string, { url: string; image: string; name: string }> = {
+  motion: {
+    url: "https://motion.dev",
+    image: "/motion/motion.png",
+    name: "Motion",
+  },
+  gsap: { url: "https://gsap.com", image: "/motion/gsap.ico", name: "GSAP" },
+  emil: {
+    url: "https://emilkowal.ski",
+    image: "/motion/emil.ico",
+    name: "Emil Kowalski",
+  },
+  josh: {
+    url: "https://www.joshwcomeau.com",
+    image: "/motion/josh.png",
+    name: "Josh W. Comeau",
+  },
+};
+
+const chip = (key: string) => {
+  const x = tools[key];
+  return `<a class="summary-tool" href="${x.url}" target="_blank" rel="noopener noreferrer"><img src="${x.image}" alt="" /><span>${x.name}</span></a>`;
+};
+
+// `code` -> <code>code</code>, {motion} -> chip con logo y link
+const fmt = (text: string) =>
+  text
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\{(\w+)\}/g, (m, k) => (tools[k] ? chip(k) : m));
+
+const langs = ["es", "en"] as const;
+const content = langs.map((lang) => {
+  const sm = translations[lang].motionPage.summary;
+  return {
+    lang,
+    items: [...sm.points, sm.cssLimit, sm.less].map(fmt),
+    outro: fmt(sm.outro),
+  };
+});
 ---
 
 <div class="summary-rows">
@@ -9,22 +50,17 @@ const s = t.motionPage.summary;
     {s.title}
   </h2>
 
-  <p
-    class="summary-rows__description"
-    data-i18n="motionPage.summary.description"
-  >
-    {s.description}
-  </p>
-
   <ul class="summary-rows__list">
-    {s.points.map((point, i) => (
-      <li
-        class="summary-rows__item"
-        data-i18n-html={`motionPage.summary.points.${i}`}
-        set:html={point}
-      />
-    ))}
+    {content.map(({ lang, items }) =>
+      items.map((html) => (
+        <li class={`summary-rows__item lang-${lang}`} set:html={html} />
+      )),
+    )}
   </ul>
+
+  {content.map(({ lang, outro }) => (
+    <p class={`summary-rows__outro lang-${lang}`} set:html={outro} />
+  ))}
 </div>
 
 <style>
@@ -41,51 +77,25 @@ const s = t.motionPage.summary;
     margin-top: 2rem;
   }
 
-  .summary-rows__item :global(.summary-tool) {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35em;
-    white-space: nowrap;
-    vertical-align: middle;
-    line-height: 1;
-    font-size: 0.92em;
-    color: var(--color-text-heading);
-    text-decoration: underline;
-    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
-    text-underline-offset: 3px;
-    transition: text-decoration-color var(--transition-fast);
-  }
-
-  .summary-rows__item :global(.summary-tool:hover),
-  .summary-rows__item :global(.summary-tool:focus-visible) {
-    text-decoration-color: currentColor;
-  }
-
-  .summary-rows__item :global(.summary-tool span) {
-    text-decoration: inherit;
-    text-decoration-color: inherit;
-    text-underline-offset: inherit;
-  }
-
-  .summary-rows__item :global(.summary-tool img) {
-    width: 1.25em;
-    height: 1.25em;
-    object-fit: contain;
-    display: block;
+  /* Solo se muestra el idioma activo */
+  :global(:root[data-lang="en"]) .summary-rows .lang-es,
+  :global(:root:not([data-lang="en"])) .summary-rows .lang-en {
+    display: none;
   }
 
   .summary-rows__title {
     margin: 0;
+    font-family: var(--font-family-enfasis);
+    font-style: italic;
     font-weight: var(--font-weight-medium);
+    letter-spacing: normal;
     padding-top: 0.5rem;
-    padding-bottom: 0.25rem;
   }
 
   .summary-rows__description {
     margin: 0;
     font-size: var(--text-base);
     color: var(--color-text);
-    font-weight: var(--font-weight-light);
   }
 
   .summary-rows__list {
@@ -102,12 +112,48 @@ const s = t.motionPage.summary;
     font-weight: var(--font-weight-light);
   }
 
-  .summary-rows__item :global(code) {
+  .summary-rows__item::marker {
+    color: var(--color-primary);
+  }
+
+  .summary-rows__outro {
+    margin: 0;
+    padding-top: 1rem;
+    font-size: var(--text-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-light);
+  }
+
+  .summary-rows :global(code) {
     font-family: monospace;
     font-size: 0.9em;
     color: var(--color-text-heading);
     background: var(--color-surface-3);
     padding: 0.1em 0.4em;
     border-radius: 4px;
+  }
+
+  .summary-rows :global(.summary-tool) {
+    display: inline;
+    white-space: nowrap;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--transition-fast);
+  }
+
+  .summary-rows :global(.summary-tool:hover),
+  .summary-rows :global(.summary-tool:focus-visible) {
+    text-decoration-color: currentColor;
+  }
+
+  .summary-rows :global(.summary-tool img) {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    object-fit: contain;
+    vertical-align: -0.2em;
+    margin-right: 0.3em;
+    margin-left: 0.1em;
   }
 </style>
