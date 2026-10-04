@@ -2,12 +2,10 @@
 // Copy lives here (default lang: Spanish).
 const copy = {
   es: {
-    title: "Ejemplos",
     description:
       "Combinando lo que vimos hasta acá podés armar animaciones más pulidas.",
   },
   en: {
-    title: "Examples",
     description:
       "Combining what we've seen so far, you can create more polished animations.",
   },
@@ -15,11 +13,6 @@ const copy = {
 ---
 
 <div class="showcase-intro">
-  <h2 class="showcase-intro__title">
-    <span class="lang-es">{copy.es.title}</span>
-    <span class="lang-en">{copy.en.title}</span>
-  </h2>
-
   <p class="showcase-intro__description lang-es">{copy.es.description}</p>
   <p class="showcase-intro__description lang-en">{copy.en.description}</p>
 </div>
@@ -29,16 +22,6 @@ const copy = {
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-  }
-
-  .showcase-intro__title {
-    margin: 0;
-    font-family: var(--font-family-enfasis);
-    font-style: italic;
-    font-weight: var(--font-weight-medium);
-    letter-spacing: normal;
-    padding-top: 0.5rem;
-    padding-bottom: 0.25rem;
   }
 
   .showcase-intro__description {

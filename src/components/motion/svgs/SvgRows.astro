@@ -1,26 +1,12 @@
 ---
+import MotionBlock from "../../ui/MotionBlock.astro";
 import SvgIntro from "./SvgIntro.astro";
 import SvgNotes from "./SvgNotes.astro";
 ---
 
-<div class="svg-rows">
+<MotionBlock id="svg" titleEs="SVG" titleEn="SVG">
   <SvgIntro />
   <div data-inview>
     <SvgNotes />
   </div>
-</div>
-
-<style>
-  .svg-rows {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    border: 1px solid var(--color-border-soft);
-    border-radius: var(--radius-base);
-    padding-inline: 18px;
-    padding-block: 1rem 1.5rem;
-    margin-bottom: 2rem;
-    background: var(--color-surface-2);
-  }
-</style>
+</MotionBlock>

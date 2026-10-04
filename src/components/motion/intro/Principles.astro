@@ -2,6 +2,8 @@
 import "./principles.css";
 import PrincipleCard from "./PrincipleCard.astro";
 import ComboCard from "./ComboCard.astro";
+import MotionBlock from "../../ui/MotionBlock.astro";
+import MotionTitle from "../../ui/MotionTitle.astro";
 import { principles, comboCards } from "./principles.data";
 
 // Copy lives here (default lang: Spanish).
@@ -25,33 +27,37 @@ const copy = {
 } as const;
 ---
 
-<div class="principles__container">
-  <div class="principles__intro">
-    <h2 class="principles__title lang-es">{copy.es.title}</h2>
-    <h2 class="principles__title lang-en">{copy.en.title}</h2>
-    <p class="principles__description lang-es">{copy.es.description}</p>
-    <p class="principles__description lang-en">{copy.en.description}</p>
-  </div>
+<MotionBlock id="principles" titleEs={copy.es.title} titleEn={copy.en.title}>
+  <div class="principles__container">
+    <div class="principles__intro">
+      <p class="motion-desc lang-es">{copy.es.description}</p>
+      <p class="motion-desc lang-en">{copy.en.description}</p>
+    </div>
 
-  <div class="principles__grid" data-inview>
-    {principles.map((p) => (
-      <PrincipleCard principle={p} />
-    ))}
-  </div>
+    <div class="principles__grid" data-inview>
+      {principles.map((p) => (
+        <PrincipleCard principle={p} />
+      ))}
+    </div>
 
-  <div class="principles__intro">
-    <h2 class="principles__title lang-es">{copy.es.combiningTitle}</h2>
-    <h2 class="principles__title lang-en">{copy.en.combiningTitle}</h2>
-    <p class="principles__description lang-es">{copy.es.combiningDesc}</p>
-    <p class="principles__description lang-en">{copy.en.combiningDesc}</p>
-  </div>
+    <div class="principles__intro">
+      <MotionTitle
+        level={3}
+        id="combining"
+        titleEs={copy.es.combiningTitle}
+        titleEn={copy.en.combiningTitle}
+      />
+      <p class="motion-desc lang-es">{copy.es.combiningDesc}</p>
+      <p class="motion-desc lang-en">{copy.en.combiningDesc}</p>
+    </div>
 
-  <div class="principles__grid" data-inview>
-    {comboCards.map((card) => (
-      <ComboCard card={card} />
-    ))}
+    <div class="principles__grid" data-inview>
+      {comboCards.map((card) => (
+        <ComboCard card={card} />
+      ))}
+    </div>
   </div>
-</div>
+</MotionBlock>
 
 <script>
   import { initPrincipleFlip } from "./principlesFlip";

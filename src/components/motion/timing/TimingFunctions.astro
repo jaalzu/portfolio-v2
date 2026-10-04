@@ -1,4 +1,5 @@
 ---
+import MotionBlock from "../../ui/MotionBlock.astro";
 import TimingPreview from "./TimingPreview.astro";
 import CubicBezier from "./cubic/CubicBezier.astro";
 
@@ -25,29 +26,26 @@ const presets = [
 ];
 ---
 
-<section class="timing" data-timing>
-  <div class="timing__header">
-    <h2 class="timing__title lang-es">{copy.es.title}</h2>
-    <h2 class="timing__title lang-en">{copy.en.title}</h2>
-
+<MotionBlock id="timing" titleEs={copy.es.title} titleEn={copy.en.title}>
+  <section class="timing" data-timing>
     <p class="timing__description lang-es">{copy.es.description}</p>
     <p class="timing__description lang-en">{copy.en.description}</p>
-  </div>
 
-  <div class="timing__presets">
-    {presets.map((preset) => (
-      <TimingPreview
-        label={preset.label}
-        x1={preset.x1}
-        y1={preset.y1}
-        x2={preset.x2}
-        y2={preset.y2}
-      />
-    ))}
-  </div>
+    <div class="timing__presets">
+      {presets.map((preset) => (
+        <TimingPreview
+          label={preset.label}
+          x1={preset.x1}
+          y1={preset.y1}
+          x2={preset.x2}
+          y2={preset.y2}
+        />
+      ))}
+    </div>
 
-  <CubicBezier />
-</section>
+    <CubicBezier />
+  </section>
+</MotionBlock>
 
 <style>
   .timing {
@@ -55,24 +53,6 @@ const presets = [
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
-    border: 1px solid var(--color-border-soft);
-    border-radius: var(--radius-base);
-    padding-inline: 18px;
-    padding-block: 1rem 1.5rem;
-    background: var(--color-surface-2);
-  }
-
-  .timing__header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .timing__title {
-    margin: 0;
-    font-weight: var(--font-weight-medium);
-    padding-top: 0.5rem;
-    padding-bottom: 0.25rem;
   }
 
   .timing__description {

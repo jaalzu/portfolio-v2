@@ -1,4 +1,6 @@
 ---
+import CopyButton from "./CopyButton.astro";
+
 interface Props {
   title?: string;
   marked?: boolean;
@@ -18,13 +20,11 @@ const {
   titleEn,
 } = Astro.props;
 
-// Co-located copy: if titleEs/titleEn provided, render dual DOM.
-// Otherwise fall back to legacy title + data-i18n (skills/motion pages).
 const hasLocalCopy = titleEs !== undefined || titleEn !== undefined;
 ---
 
 <section class:list={["section", className]}>
-  {titleEs ?? titleEn ?? title ? (
+  {(titleEs ?? titleEn ?? title) ? (
     <h2 class="section__title reveal" style={`--i: ${index}`}>
       {hasLocalCopy ? (
         <>
@@ -37,6 +37,7 @@ const hasLocalCopy = titleEs !== undefined || titleEn !== undefined;
         </span>
       )}
       <span class="section__title-divider" aria-hidden="true"></span>
+      <CopyButton anchor inline />
     </h2>
   ) : null}
   <div class="section__content">

@@ -1,4 +1,7 @@
 ---
+import CopyButton from "../ui/CopyButton.astro";
+// ↑ ajustá la ruta según dónde viva CopyButton
+
 export interface Props {
   id: string;
   title?: string;
@@ -29,8 +32,7 @@ const {
 // Co-located copy: if titleEs/titleEn provided, render dual DOM.
 // Otherwise fall back to legacy title + data-i18n (motion pages).
 const hasLocalTitle = titleEs !== undefined || titleEn !== undefined;
-const hasLocalDesc =
-  descriptionEs !== undefined || descriptionEn !== undefined;
+const hasLocalDesc = descriptionEs !== undefined || descriptionEn !== undefined;
 const hasTitleText = (title ?? titleEs ?? titleEn) !== undefined;
 ---
 
@@ -48,6 +50,7 @@ const hasTitleText = (title ?? titleEs ?? titleEn) !== undefined;
         )}
       </span>
       <span class="skill-meta__divider" aria-hidden="true"></span>
+      <CopyButton anchor={id} inline />
     </h2>
     {(description ?? descriptionEs ?? descriptionEn) &&
       (hasLocalDesc ? (
@@ -100,6 +103,9 @@ const hasTitleText = (title ?? titleEs ?? titleEn) !== undefined;
     padding-inline: var(
       --card-inset
     ); /* iguala el inset de skill-block-frame */
+    scroll-margin-top: var(
+      --space-6
+    ); /* el título no queda pegado arriba al abrir el link */
   }
   .skill-meta__title {
     display: flex;
@@ -149,7 +155,7 @@ const hasTitleText = (title ?? titleEs ?? titleEn) !== undefined;
     border-radius: var(--radius-base);
     padding: var(--card-inset);
     margin-bottom: var(--space-24);
-    overflow: hidden; /* ← se agrega acá */
+    overflow: hidden;
   }
   .skill-block-frame--muted {
     opacity: 0.9;

@@ -3,7 +3,7 @@ import CopyButton from "../../../ui/CopyButton.astro";
 import BezierGraph from "./BezierGraph.astro";
 import BezierPreview from "./BezierPreview.astro";
 import BezierValues from "./BezierValues.astro";
-
+import MotionTitle from "../../../ui/MotionTitle.astro";
 // Copy lives here (default lang: Spanish).
 const copy = {
   es: {
@@ -16,8 +16,7 @@ const copy = {
   },
   en: {
     title: "Cubic Bezier",
-    description:
-      "You can adjust the curve to create your own timing function.",
+    description: "You can adjust the curve to create your own timing function.",
     duration: "Duration",
     play: "Play",
     copyLabel: "Copy CSS",
@@ -40,11 +39,14 @@ const presets = [
 
 <div class="bezier" data-bezier>
   <div class="bezier__header">
-    <h3 class="bezier__title lang-es">{copy.es.title}</h3>
-    <h3 class="bezier__title lang-en">{copy.en.title}</h3>
-
-    <p class="bezier__description lang-es">{copy.es.description}</p>
-    <p class="bezier__description lang-en">{copy.en.description}</p>
+    <MotionTitle
+      level={3}
+      id="cubic-bezier"
+      titleEs={copy.es.title}
+      titleEn={copy.en.title}
+    />
+    <p class="motion-desc lang-es">{copy.es.description}</p>
+    <p class="motion-desc lang-en">{copy.en.description}</p>
   </div>
 
   <!-- ============================================================
@@ -167,8 +169,9 @@ const presets = [
     document
       .querySelectorAll<HTMLElement>("[data-copy-wrapper]")
       .forEach((wrapper) => {
-        const label =
-          wrapper.getAttribute(lang === "en" ? "data-copy-label-en" : "data-copy-label-es");
+        const label = wrapper.getAttribute(
+          lang === "en" ? "data-copy-label-en" : "data-copy-label-es",
+        );
         if (!label) return;
         const btn = wrapper.querySelector<HTMLElement>("[data-copy]");
         if (btn) btn.setAttribute("aria-label", label);
@@ -516,6 +519,7 @@ const presets = [
   .bezier {
     width: 100%;
     padding-top: var(--space-5);
+    scroll-margin-top: var(--space-6);
   }
 
   .bezier__header {
@@ -523,24 +527,6 @@ const presets = [
     flex-direction: column;
     gap: var(--space-1);
     margin-bottom: var(--space-5);
-  }
-
-  .bezier__title {
-    margin: 0;
-    font-family: var(--font-family-enfasis);
-    font-style: italic;
-    font-weight: var(--font-weight-medium);
-    letter-spacing: normal;
-    padding-top: 0.5rem;
-  }
-
-  .bezier__description {
-    font-size: var(--text-base);
-    color: var(--color-text);
-    font-weight: var(--font-weight-light);
-    border-radius: var(--radius-base);
-    margin-top: -3px;
-    margin-bottom: 0;
   }
 
   /* ================================================================

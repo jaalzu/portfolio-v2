@@ -218,7 +218,6 @@ import "./cow-abduction.css";
     </svg>
   </div>
 </div>
-
 <script>
   function init() {
     document
@@ -226,6 +225,13 @@ import "./cow-abduction.css";
       .forEach((scene) => {
         if (scene.dataset.bound === "1") return;
         scene.dataset.bound = "1";
+
+        // Si ya hizo click alguna vez, el hint no aparece
+        try {
+          if (localStorage.getItem("cow-hint-done")) {
+            scene.classList.add("is-done");
+          }
+        } catch {}
 
         const cow = scene.querySelector<HTMLElement>("[data-abduction-cow]");
         let busy = false;
@@ -235,6 +241,7 @@ import "./cow-abduction.css";
           timers.push(window.setTimeout(fn, ms));
         };
 
+        // OJO: "is-done" NO va acá, así el hint no vuelve nunca
         const ALL = [
           "is-running",
           "is-approaching",
@@ -250,6 +257,12 @@ import "./cow-abduction.css";
           if (busy) return;
           busy = true;
 
+          // El hint no vuelve más (ni en esta visita ni en las siguientes)
+          scene.classList.add("is-done");
+          try {
+            localStorage.setItem("cow-hint-done", "1");
+          } catch {}
+
           scene.classList.remove("is-star");
           scene.classList.add("is-running", "is-approaching");
 
@@ -262,8 +275,8 @@ import "./cow-abduction.css";
             scene.classList.add("is-leaving");
           }, 5300);
 
-          later(() => scene.classList.add("is-star"), 6100);
-          later(() => scene.classList.remove("is-star"), 9700);
+          later(() => scene.classList.add("is-star"), 6600);
+          later(() => scene.classList.remove("is-star"), 10200);
 
           later(() => {
             scene.classList.add("is-resetting");
@@ -274,12 +287,12 @@ import "./cow-abduction.css";
               "is-abducting",
               "is-leaving",
             );
-          }, 10200);
+          }, 10700);
 
           later(() => {
             scene.classList.remove("is-resetting", "is-running");
             busy = false;
-          }, 10800);
+          }, 11300);
         }
 
         cow?.addEventListener("click", run);

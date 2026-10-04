@@ -41,25 +41,22 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ---------- Suelo ---------- */
-/* ---------- Suelo ----------
-   z-index 4 lo mantiene SIEMPRE visible, por arriba del haz (z=2),
-   la vaca (z=1) y el trail (que va dentro de la nave, z=3). */
 .abduction__ground {
   position: absolute;
   left: 6%;
   right: 6%;
   bottom: var(--ground);
-  height: 1px;
+  height: 2px;
   background: linear-gradient(
     90deg,
     transparent,
-    var(--color-border-soft) 22%,
-    var(--color-border-soft) 78%,
+    color-mix(in oklch, var(--color-text) 28%, transparent) 22%,
+    color-mix(in oklch, var(--color-text) 28%, transparent) 78%,
     transparent
   );
   z-index: 4;
 }
+
 .abduction__hint {
   --hint-x: 27%; /* más a la derecha, sobre el lomo de la vaca */
   --hint-y: 42%;
@@ -106,53 +103,45 @@
   opacity: 0;
 }
 
+.abduction.is-done .abduction__hint {
+  display: none;
+}
 @keyframes hint-draw {
   0% {
-    stroke-dashoffset: 1;
+    stroke-dashoffset: 1; /* invisible */
   }
-  35%,
-  85% {
-    stroke-dashoffset: 0;
+  18%,
+  38% {
+    stroke-dashoffset: 0; /* dibujada */
   }
+  56%,
   100% {
-    stroke-dashoffset: 1;
+    stroke-dashoffset: -1; /* borrada desde el origen */
   }
 }
 
 @keyframes hint-head {
   0%,
-  30% {
+  14% {
     opacity: 0;
   }
-  40%,
-  85% {
+  20%,
+  50% {
     opacity: 1;
   }
+  56%,
   100% {
     opacity: 0;
-  }
-}
-
-@keyframes hint-wiggle {
-  0%,
-  100% {
-    transform: rotate(-6deg);
-  }
-  50% {
-    transform: rotate(-3deg) translateY(-2px);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .abduction__hint-line {
     stroke-dasharray: 1;
-    animation: hint-draw 3.6s ease-in-out infinite;
+    animation: hint-draw 5s ease-in-out infinite;
   }
   .abduction__hint-head {
-    animation: hint-head 3.6s ease-in-out infinite;
-  }
-  .abduction__hint-text {
-    animation: hint-wiggle 1.8s ease-in-out infinite;
+    animation: hint-head 5s ease-in-out infinite;
   }
 }
 
@@ -388,7 +377,7 @@
 }
 
 .abduction.is-leaving .abduction__trail span {
-  animation: abduction-trail 0.95s cubic-bezier(0.15, 0.5, 0.3, 1) forwards;
+  animation: abduction-trail 1.4s cubic-bezier(0.15, 0.5, 0.3, 1) forwards;
 }
 .abduction.is-leaving .abduction__trail span:nth-child(1) {
   animation-delay: 0s;
@@ -474,11 +463,11 @@
   transform: translate(-50%, -50%) scale(0.85) rotate(6deg);
   opacity: 0;
   transition:
-    left 1s var(--ease-leave),
-    top 1s var(--ease-leave),
-    width 1s var(--ease-leave),
-    transform 1s var(--ease-leave),
-    opacity 1s ease-in;
+    left 1.5s var(--ease-leave),
+    top 1.5s var(--ease-leave),
+    width 1.5s var(--ease-leave),
+    transform 1.5s var(--ease-leave),
+    opacity 1.5s ease-in;
 }
 
 /* El haz se cierra rapidísimo al huir */

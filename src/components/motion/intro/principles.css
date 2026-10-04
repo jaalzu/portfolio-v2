@@ -1,34 +1,14 @@
 .principles__container {
-  border: 1px solid var(--color-border-soft);
-  border-radius: var(--radius-base);
-  padding-inline: 18px;
-  padding-block: 1rem 1.5rem;
-  background-color: var(--color-surface-2);
-  margin-bottom: 2rem;
+  width: 100%;
 }
 .principles__intro {
   display: flex;
   flex-direction: column;
   padding-bottom: 0.5rem;
 }
-.principles__title {
-  margin: 0;
-  font-family: var(--font-family-enfasis);
-  font-style: italic;
-  font-weight: var(--font-weight-medium);
-  letter-spacing: normal;
-  padding-top: 0.5rem;
-  padding-bottom: 0.25rem;
+.motion-desc {
+  margin-bottom: 0.7rem !important;
 }
-
-.principles__description {
-  font-size: var(--text-base);
-  color: var(--color-text);
-  font-weight: var(--font-weight-light);
-  border-radius: var(--radius-base);
-  margin-top: 5px;
-}
-
 .principles__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -167,21 +147,6 @@
   background-color: var(--color-primary);
   transform-style: preserve-3d;
 }
-
-/* Borrá todo el bloque .principles__shape::before (era la cúpula) */
-/* 
-.principles__shape::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 60%;
-  width: 20px;
-  height: 13px;
-  transform: translateX(-50%);
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  background-color: rgba(94, 224, 138, 0.85);
-  box-shadow: inherit;
-} */
 
 .principles__card--translation .principles__shape {
   animation: principle-translate 2s ease-in-out infinite;

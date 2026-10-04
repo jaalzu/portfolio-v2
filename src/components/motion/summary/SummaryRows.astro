@@ -1,8 +1,6 @@
 ---
 import { translations } from "../../../data/translations";
-
-const t = translations.es;
-const s = t.motionPage.summary;
+import MotionBlock from "../../ui/MotionBlock.astro";
 
 const tools: Record<string, { url: string; image: string; name: string }> = {
   motion: {
@@ -43,13 +41,12 @@ const content = langs.map((lang) => {
     outro: fmt(sm.outro),
   };
 });
+
+const titleEs = translations.es.motionPage.summary.title;
+const titleEn = translations.en.motionPage.summary.title;
 ---
 
-<div class="summary-rows">
-  <h2 class="summary-rows__title" data-i18n="motionPage.summary.title">
-    {s.title}
-  </h2>
-
+<MotionBlock id="summary" titleEs={titleEs} titleEn={titleEn}>
   <ul class="summary-rows__list">
     {content.map(({ lang, items }) =>
       items.map((html) => (
@@ -61,43 +58,9 @@ const content = langs.map((lang) => {
   {content.map(({ lang, outro }) => (
     <p class={`summary-rows__outro lang-${lang}`} set:html={outro} />
   ))}
-</div>
+</MotionBlock>
 
 <style>
-  .summary-rows {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    border: 1px solid var(--color-border-soft);
-    border-radius: var(--radius-base);
-    padding-inline: 18px;
-    padding-block: 1rem 1.5rem;
-    background: var(--color-surface-2);
-    margin-top: 2rem;
-  }
-
-  /* Solo se muestra el idioma activo */
-  :global(:root[data-lang="en"]) .summary-rows .lang-es,
-  :global(:root:not([data-lang="en"])) .summary-rows .lang-en {
-    display: none;
-  }
-
-  .summary-rows__title {
-    margin: 0;
-    font-family: var(--font-family-enfasis);
-    font-style: italic;
-    font-weight: var(--font-weight-medium);
-    letter-spacing: normal;
-    padding-top: 0.5rem;
-  }
-
-  .summary-rows__description {
-    margin: 0;
-    font-size: var(--text-base);
-    color: var(--color-text);
-  }
-
   .summary-rows__list {
     margin: 0;
     padding-left: 1.1em;
@@ -124,7 +87,7 @@ const content = langs.map((lang) => {
     font-weight: var(--font-weight-light);
   }
 
-  .summary-rows :global(code) {
+  .summary-rows__list :global(code) {
     font-family: monospace;
     font-size: 0.9em;
     color: var(--color-text-heading);
@@ -133,7 +96,8 @@ const content = langs.map((lang) => {
     border-radius: 4px;
   }
 
-  .summary-rows :global(.summary-tool) {
+  .summary-rows__list :global(.summary-tool),
+  .summary-rows__outro :global(.summary-tool) {
     display: inline;
     white-space: nowrap;
     text-decoration: underline;
@@ -142,12 +106,15 @@ const content = langs.map((lang) => {
     transition: text-decoration-color var(--transition-fast);
   }
 
-  .summary-rows :global(.summary-tool:hover),
-  .summary-rows :global(.summary-tool:focus-visible) {
+  .summary-rows__list :global(.summary-tool:hover),
+  .summary-rows__list :global(.summary-tool:focus-visible),
+  .summary-rows__outro :global(.summary-tool:hover),
+  .summary-rows__outro :global(.summary-tool:focus-visible) {
     text-decoration-color: currentColor;
   }
 
-  .summary-rows :global(.summary-tool img) {
+  .summary-rows__list :global(.summary-tool img),
+  .summary-rows__outro :global(.summary-tool img) {
     display: inline-block;
     width: 1em;
     height: 1em;

@@ -2,12 +2,10 @@
 // Copy lives here (default lang: Spanish).
 const copy = {
   es: {
-    title: "Triggers",
     description:
       "Las animaciones necesitan algo que las dispare. Algunos de los más comunes son <code>hover</code>, <code>click</code>, <code>focus</code> y <code>scroll</code>.",
   },
   en: {
-    title: "Triggers",
     description:
       "Animations need something to trigger them. Some of the most common ones are <code>hover</code>, <code>click</code>, <code>focus</code>, and <code>scroll</code>.",
   },
@@ -15,9 +13,6 @@ const copy = {
 ---
 
 <div class="triggers-intro">
-  <h2 class="triggers-intro__title lang-es">{copy.es.title}</h2>
-  <h2 class="triggers-intro__title lang-en">{copy.en.title}</h2>
-
   <p
     class="triggers-intro__description lang-es"
     set:html={copy.es.description}
@@ -33,16 +28,6 @@ const copy = {
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-  }
-
-  .triggers-intro__title {
-    margin: 0;
-    font-family: var(--font-family-enfasis);
-    font-style: italic;
-    font-weight: var(--font-weight-medium);
-    letter-spacing: normal;
-    padding-top: 0.5rem;
-    padding-bottom: 0.25rem;
   }
 
   .triggers-intro__description {
