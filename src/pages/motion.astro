@@ -13,15 +13,14 @@ import SvgRows from "../components/motion/svgs/SvgRows.astro";
 import ShowcaseRows from "../components/motion/complex/ShowcaseRows.astro";
 import SummaryRows from "../components/motion/summary/SummaryRows.astro";
 
-// Copy lives here (default lang: Spanish). Taken from translations.ts motionPage.
 const copy = {
   es: {
     title: "Principios de Animación Web",
-    subtitle: "Una guía rápida e interactiva para aprender.",
+    subtitle: "Cómo hacer que un sitio web se sienta vivo.",
   },
   en: {
     title: "Principles of Web Animation",
-    subtitle: "A fast and interactive way to learn.",
+    subtitle: "How to make websites feel alive.",
   },
 } as const;
 ---
@@ -81,11 +80,9 @@ const copy = {
 
   .skills-header__intro {
     margin: 0;
-    font-size: var(--text-base);
+    font-size: var(--text-md);
     font-weight: var(--font-weight-light);
     color: var(--color-text);
-    line-height: var(--leading-relaxed);
-    text-wrap: pretty;
   }
 
   @media (max-width: 768px) {
