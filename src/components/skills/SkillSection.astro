@@ -1,10 +1,17 @@
 ---
+import CopyButton from "../ui/CopyButton.astro";
+// ↑ ajustá la ruta según dónde viva CopyButton
+
 export interface Props {
   id: string;
   title?: string;
   description?: string;
   titleKey?: string;
   descKey?: string;
+  titleEs?: string;
+  titleEn?: string;
+  descriptionEs?: string;
+  descriptionEn?: string;
   mutedDesc?: boolean;
   mutedFrame?: boolean;
 }
@@ -14,36 +21,76 @@ const {
   description,
   titleKey,
   descKey,
+  titleEs,
+  titleEn,
+  descriptionEs,
+  descriptionEn,
   mutedDesc = false,
   mutedFrame = false,
 } = Astro.props;
+
+// Co-located copy: if titleEs/titleEn provided, render dual DOM.
+// Otherwise fall back to legacy title + data-i18n (motion pages).
+const hasLocalTitle = titleEs !== undefined || titleEn !== undefined;
+const hasLocalDesc = descriptionEs !== undefined || descriptionEn !== undefined;
+const hasTitleText = (title ?? titleEs ?? titleEn) !== undefined;
 ---
 
-{title && (
+{hasTitleText && (
   <div class="skill-meta" {id}>
     <h2 class="skill-meta__title">
       <span class="skill-meta__title-text">
-        <span data-i18n={titleKey}>{title}</span>
+        {hasLocalTitle ? (
+          <>
+            <span class="lang-es">{titleEs ?? title}</span>
+            <span class="lang-en">{titleEn ?? title}</span>
+          </>
+        ) : (
+          <span data-i18n={titleKey}>{title}</span>
+        )}
       </span>
       <span class="skill-meta__divider" aria-hidden="true"></span>
+      <CopyButton anchor={id} inline />
     </h2>
-    {description && (
-      <p
-        class:list={[
-          "skill-meta__desc",
-          { "skill-meta__desc--muted": mutedDesc },
-        ]}
-        data-i18n={descKey}
-      >
-        {description}
-      </p>
-    )}
+    {(description ?? descriptionEs ?? descriptionEn) &&
+      (hasLocalDesc ? (
+        <>
+          <p
+            class:list={[
+              "skill-meta__desc",
+              "lang-es",
+              { "skill-meta__desc--muted": mutedDesc },
+            ]}
+          >
+            {descriptionEs ?? description}
+          </p>
+          <p
+            class:list={[
+              "skill-meta__desc",
+              "lang-en",
+              { "skill-meta__desc--muted": mutedDesc },
+            ]}
+          >
+            {descriptionEn ?? description}
+          </p>
+        </>
+      ) : (
+        <p
+          class:list={[
+            "skill-meta__desc",
+            { "skill-meta__desc--muted": mutedDesc },
+          ]}
+          data-i18n={descKey}
+        >
+          {description}
+        </p>
+      ))}
   </div>
 )}
 
 <div
   class:list={["skill-block-frame", { "skill-block-frame--muted": mutedFrame }]}
-  id={!title ? id : undefined}
+  id={!hasTitleText ? id : undefined}
 >
   <div class="skill-block">
     <slot />
@@ -56,6 +103,9 @@ const {
     padding-inline: var(
       --card-inset
     ); /* iguala el inset de skill-block-frame */
+    scroll-margin-top: var(
+      --space-6
+    ); /* el título no queda pegado arriba al abrir el link */
   }
   .skill-meta__title {
     display: flex;
@@ -105,7 +155,7 @@ const {
     border-radius: var(--radius-base);
     padding: var(--card-inset);
     margin-bottom: var(--space-24);
-    overflow: hidden; /* ← se agrega acá */
+    overflow: hidden;
   }
   .skill-block-frame--muted {
     opacity: 0.9;

@@ -1,24 +1,45 @@
 ---
+import CopyButton from "./CopyButton.astro";
+
 interface Props {
   title?: string;
   marked?: boolean;
   class?: string;
   i18nKey?: string;
   index?: number;
+  titleEs?: string;
+  titleEn?: string;
 }
 
-const { title, class: className = "", i18nKey, index = 0 } = Astro.props;
+const {
+  title,
+  class: className = "",
+  i18nKey,
+  index = 0,
+  titleEs,
+  titleEn,
+} = Astro.props;
+
+const hasLocalCopy = titleEs !== undefined || titleEn !== undefined;
 ---
 
 <section class:list={["section", className]}>
-  {title && (
+  {(titleEs ?? titleEn ?? title) ? (
     <h2 class="section__title reveal" style={`--i: ${index}`}>
-      <span class="section__title-text" data-i18n={i18nKey}>
-        {title}
-      </span>
+      {hasLocalCopy ? (
+        <>
+          <span class="section__title-text lang-es">{titleEs ?? title}</span>
+          <span class="section__title-text lang-en">{titleEn ?? title}</span>
+        </>
+      ) : (
+        <span class="section__title-text" data-i18n={i18nKey}>
+          {title}
+        </span>
+      )}
       <span class="section__title-divider" aria-hidden="true"></span>
+      <CopyButton anchor inline />
     </h2>
-  )}
+  ) : null}
   <div class="section__content">
     <slot />
   </div>

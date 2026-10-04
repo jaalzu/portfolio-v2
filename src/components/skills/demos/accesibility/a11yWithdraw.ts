@@ -1,5 +1,5 @@
 import { safeAnimate, springs } from "../../../../lib/motion-tokens";
-import { translations } from "../../../../data/translations";
+import { resolveLang, rootLang } from "../../../../lib/lang";
 
 const CHECK_ICON = `
   <svg
@@ -29,17 +29,58 @@ type Field = {
   get fullError(): string;
 };
 
-function getLang(): Lang {
-  return document.documentElement.getAttribute("data-lang") === "en"
-    ? "en"
-    : "es";
+function currentLang(): Lang {
+  try {
+    const stored = localStorage.getItem("lang");
+    if (stored === "en" || stored === "es") return stored;
+  } catch {
+    // private mode — fall through to root/browser detection
+  }
+  if (document.documentElement.hasAttribute("data-lang")) return rootLang();
+  return resolveLang();
 }
 
-function getTranslations() {
-  return translations[getLang()].skillsPage.a11yDemo;
+// Dynamic strings live as data-attributes on the form (co-located copy
+// in A11yWithdrawForm.astro). No import from translations.
+function formString(
+  form: HTMLFormElement | null | undefined,
+  key: string,
+  lang: Lang,
+): string {
+  if (!form) return "";
+  return (
+    form.getAttribute(`data-${key}-${lang}`) ??
+    form.getAttribute(`data-${key}-es`) ??
+    ""
+  );
 }
 
-function createFields(): Field[] {
+function getError(
+  form: HTMLFormElement | null,
+  field: "wallet" | "amount",
+  lang: Lang,
+): string {
+  return formString(form, `err-${field}`, lang);
+}
+
+function getToast(
+  form: HTMLFormElement | null,
+  kind: "invalid" | "success",
+  lang: Lang,
+): string {
+  return formString(form, `toast-${kind}`, lang);
+}
+
+function syncPlaceholders(stage: HTMLElement, lang: Lang) {
+  const isEn = lang === "en";
+  stage.querySelectorAll<HTMLInputElement>("input[data-ph-es]").forEach((input) => {
+    const value =
+      input.getAttribute(isEn ? "data-ph-en" : "data-ph-es") ?? "";
+    if (value) input.setAttribute("placeholder", value);
+  });
+}
+
+function createFields(form: HTMLFormElement | null): Field[] {
   return [
     {
       input: "#wd-wallet",
@@ -50,7 +91,7 @@ function createFields(): Field[] {
       },
 
       get fullError() {
-        return getTranslations().errors.wallet;
+        return getError(form, "wallet", currentLang());
       },
     },
 
@@ -67,7 +108,7 @@ function createFields(): Field[] {
       },
 
       get fullError() {
-        return getTranslations().errors.amount;
+        return getError(form, "amount", currentLang());
       },
     },
   ];
@@ -84,7 +125,9 @@ function initStage(stage: HTMLElement) {
 
   if (!form) return;
 
-  const fields = createFields();
+  const fields = createFields(form);
+
+  syncPlaceholders(stage, currentLang());
 
   let toastTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -222,7 +265,7 @@ function initStage(stage: HTMLElement) {
         });
       } else {
         showToast(
-          getTranslations().toasts.invalid,
+          getToast(form, "invalid", currentLang()),
           "error"
         );
       }
@@ -231,7 +274,7 @@ function initStage(stage: HTMLElement) {
     }
 
     showToast(
-      getTranslations().toasts.success,
+      getToast(form, "success", currentLang()),
       "success"
     );
 
@@ -260,7 +303,11 @@ function initStage(stage: HTMLElement) {
     }
   );
 
-  const onLangChange = () => {
+  const onLangChange = (e?: Event) => {
+    const lang =
+      (e as CustomEvent<{ lang: Lang }> | undefined)?.detail?.lang ??
+      currentLang();
+    syncPlaceholders(stage, lang);
     fields.forEach((field) => {
       const error =
         stage.querySelector<HTMLElement>(field.error);
@@ -282,9 +329,11 @@ function initStage(stage: HTMLElement) {
       const isSuccess =
         toast.classList.contains("wd-toast--success");
 
-      visibleToast.textContent = isSuccess
-        ? getTranslations().toasts.success
-        : getTranslations().toasts.invalid;
+      visibleToast.textContent = getToast(
+        form,
+        isSuccess ? "success" : "invalid",
+        lang,
+      );
     }
   };
 

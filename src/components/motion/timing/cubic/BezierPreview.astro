@@ -1,10 +1,14 @@
 ---
-import { translations } from "../../../../data/translations";
-const t = translations.es;
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: { preview: "Preview" },
+  en: { preview: "Preview" },
+} as const;
 ---
 
 <div class="bezier__right">
-  <span class="bezier__preview-label" data-i18n="motionPage.cubic.preview">{t.motionPage.cubic.preview}</span>
+  <span class="bezier__preview-label lang-es">{copy.es.preview}</span>
+  <span class="bezier__preview-label lang-en">{copy.en.preview}</span>
 
   <div class="bezier__preview-track">
     <svg

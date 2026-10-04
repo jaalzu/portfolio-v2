@@ -224,8 +224,7 @@ export const translations = {
 
         likeSection: {
           title: "¿Te sirvió?",
-          description:
-            "Si te gustó este contenido, dejá tu like para que siga creando más.",
+          description: "¡Puedes dejar tu like si te sirvió!",
           button: "Me gusta",
           buttonActive: "¡Gracias!",
           total: "likes",
@@ -485,8 +484,7 @@ export const translations = {
 
         likeSection: {
           title: "Was this helpful?",
-          description:
-            "If you enjoyed this content, leave a like so I can keep making more.",
+          description: "You can leave a like if you find this content helpful!",
           button: "Like",
           buttonActive: "Thanks!",
           total: "likes",

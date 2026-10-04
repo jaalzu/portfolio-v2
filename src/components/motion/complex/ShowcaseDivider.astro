@@ -1,11 +1,12 @@
 ---
-import { translations } from "../../../data/translations";
-const t = translations.es;
+const copy = {
+  es: { text: "O armar escenas animadas." },
+  en: { text: "Or build entire animated scenes." },
+} as const;
 ---
 
-<p class="showcase-transition" data-i18n="motionPage.showcaseTransition.text">
-  {t.motionPage.showcaseTransition.text}
-</p>
+<p class="showcase-transition lang-es">{copy.es.text}</p>
+<p class="showcase-transition lang-en">{copy.en.text}</p>
 
 <style>
   .showcase-transition {

@@ -2,11 +2,29 @@
 export interface Props {
   href?: string;
   label?: string;
+  labelEs?: string;
+  labelEn?: string;
 }
-const { href = "/", label = "Volver" } = Astro.props;
+
+// Copy lives here (default lang: Spanish). Taken from translations.ts skills.back.
+const copy = {
+  es: { label: "Inicio", aria: "Volver al inicio" },
+  en: { label: "Home", aria: "Back to home" },
+} as const;
+
+const { href = "/", label, labelEs, labelEn } = Astro.props;
+
+const textEs = labelEs ?? label ?? copy.es.label;
+const textEn = labelEn ?? label ?? copy.en.label;
 ---
 
-<a {href} class="back-link" aria-label="Volver al inicio">
+<a
+  {href}
+  class="back-link"
+  aria-label={copy.es.aria}
+  data-aria-es={copy.es.aria}
+  data-aria-en={copy.en.aria}
+>
   <img
     src="/arrow-bend-up-left.svg"
     alt=""
@@ -15,8 +33,11 @@ const { href = "/", label = "Volver" } = Astro.props;
     height="16"
     class="back-link__arrow"
   />
-  <span class="back-link__text" data-i18n="skills.back">
-    {label}
+  <span class="back-link__text lang-es">
+    {textEs}
+  </span>
+  <span class="back-link__text lang-en">
+    {textEn}
   </span>
 </a>
 
@@ -97,4 +118,41 @@ const { href = "/", label = "Volver" } = Astro.props;
     document.addEventListener("astro:page-load", update);
     update();
   }
+</script>
+
+<script>
+  import { resolveLang, rootLang } from "../../lib/lang";
+
+  function syncBackLinkLang(lang: "es" | "en") {
+    const isEn = lang === "en";
+    document.querySelectorAll(".back-link").forEach((el) => {
+      const aria =
+        el.getAttribute(isEn ? "data-aria-en" : "data-aria-es") ?? "";
+      if (aria) el.setAttribute("aria-label", aria);
+    });
+  }
+
+  function currentLang(): "es" | "en" {
+    try {
+      const stored = localStorage.getItem("lang");
+      if (stored === "en" || stored === "es") return stored;
+    } catch {
+      // private mode — fall through to root/browser detection
+    }
+    if (document.documentElement.hasAttribute("data-lang")) return rootLang();
+    return resolveLang();
+  }
+
+  syncBackLinkLang(currentLang());
+
+  document.addEventListener("langchange", (e) => {
+    const lang = (e as CustomEvent<{ lang: "es" | "en" }>).detail.lang;
+    syncBackLinkLang(lang);
+  });
+  document.addEventListener("astro:page-load", () => {
+    syncBackLinkLang(currentLang());
+  });
+  document.addEventListener("astro:after-swap", () => {
+    syncBackLinkLang(currentLang());
+  });
 </script>

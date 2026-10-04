@@ -1,11 +1,14 @@
 ---
 import type { ComboCard } from "./principles.data";
+import { titleOf } from "./principles.data";
 
 interface Props {
   card: ComboCard;
 }
 
 const { card } = Astro.props;
+const titleEs = card.keys.map((k) => titleOf(k, "es")).join(" + ");
+const titleEn = card.keys.map((k) => titleOf(k, "en")).join(" + ");
 ---
 
 <button type="button" class="principles__card" aria-pressed="false" data-combo-keys={JSON.stringify(card.keys)}>
@@ -17,7 +20,8 @@ const { card } = Astro.props;
           style={`animation: ${card.animation}`}
         ></span>
       </div>
-      <h3 data-combo-title>{card.title}</h3>
+      <h3 class="lang-es">{titleEs}</h3>
+      <h3 class="lang-en">{titleEn}</h3>
     </div>
     <div class="principles__card-face principles__card-face--back">
       <span class="principles__code-tag">css</span>

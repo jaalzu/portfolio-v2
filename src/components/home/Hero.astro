@@ -1,19 +1,26 @@
 ---
 // src/components/home/Hero.astro
+// Copy lives here (default lang: Spanish). No props needed.
 import LanguageToggle from "../ui/LanguageToggle.astro";
 
-export interface Props {
-  t: {
-    bio1: string;
-    githubIntro: string;
-    githubWord: string;
-    orWord: string;
-    talkIntro: string;
-    linkedinWord: string;
-    emailWord?: string;
-  };
-}
-const { t } = Astro.props;
+const copy = {
+  es: {
+    bio: '<span class="enfasis-text">Creando interfaces web</span> con ingeniería frontend y sentido del diseño.<br><br>Del prototipo al usuario , desarrollo sistemas de UI y componentes, con foco en la interacción, la accesibilidad, el rendimiento y los pequeños detalles que hacen destacar una experiencia.',
+    githubIntro: "Podés ver más de mi código en",
+    githubWord: "GitHub",
+    orWord: "o",
+    talkIntro: "contactarme por",
+    linkedinWord: "LinkedIn",
+  },
+  en: {
+    bio: '<span class="enfasis-text">Creating web interfaces</span> with frontend engineering and a sense of design.<br><br>From prototype to user, I develop UI systems and components, with a focus on interaction, accessibility, performance, and the small details that make an experience stand out.',
+    githubIntro: "You can see my code on",
+    githubWord: "GitHub",
+    orWord: "or",
+    talkIntro: "reach me out on",
+    linkedinWord: "LinkedIn",
+  },
+} as const;
 ---
 
 <div class="top-bar reveal reveal--after" style="--i: 0">
@@ -32,32 +39,35 @@ const { t } = Astro.props;
 </div>
 
 <div class="about">
-  <p
-    class="about__bio reveal reveal--after"
-    style="--i: 2"
-    data-i18n-html="bio1"
-    set:html={t.bio1}
-  />
+  <!-- reveal lives on the wrapper so toggling .lang-es/.lang-en
+       (display:none) never restarts the entrance animation -->
+  <div class="reveal reveal--after" style="--i: 2">
+    <p class="about__bio lang-es" set:html={copy.es.bio} />
+    <p class="about__bio lang-en" set:html={copy.en.bio} />
+  </div>
 
   <p class="about__links reveal reveal--after" style="--i: 3">
-    <span data-i18n="githubIntro">{t.githubIntro}</span>{" "}
+    <span class="lang-es">{copy.es.githubIntro}</span>
+    <span class="lang-en">{copy.en.githubIntro}</span>{" "}
     <a
       href="https://github.com/jaalzu"
       class="about__text-link"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <span data-i18n="githubWord">{t.githubWord}</span>
+      <span>GitHub</span>
     </a>{" "}
-    <span data-i18n="orWord">{t.orWord}</span>{" "}
-    <span data-i18n="talkIntro">{t.talkIntro}</span>{" "}
+    <span class="lang-es">{copy.es.orWord}</span>
+    <span class="lang-en">{copy.en.orWord}</span>{" "}
+    <span class="lang-es">{copy.es.talkIntro}</span>
+    <span class="lang-en">{copy.en.talkIntro}</span>{" "}
     <a
       href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/"
       class="about__text-link"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <span data-i18n="linkedinWord">{t.linkedinWord}</span>
+      <span>LinkedIn</span>
     </a>
     .
   </p>

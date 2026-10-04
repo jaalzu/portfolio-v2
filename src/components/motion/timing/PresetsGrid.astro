@@ -1,11 +1,16 @@
 ---
-// src/components/motion/PresetsGrid.astro
-// Arma el grid de presets (linear, ease, ease-in, ease-out, ease-in-out)
-// usando TimingPreview.astro para cada uno.
 import TimingPreview from "./TimingPreview.astro";
-import { translations } from "../../../data/translations";
 
-const t = translations.es;
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: {
+    note: "Misma duración, más rápido o lento en cada etapa.",
+  },
+  en: {
+    note: "Same duration, faster or slower at different stages.",
+  },
+} as const;
+
 const presets = [
   { label: "Linear", x1: 0, y1: 0, x2: 1, y2: 1 },
   { label: "Ease", x1: 0.25, y1: 0.1, x2: 0.25, y2: 1 },
@@ -27,9 +32,8 @@ const presets = [
   ))}
 </div>
 
-<p class="presets-grid__note" data-i18n="motionPage.presetsNote">
-  {t.motionPage.presetsNote}
-</p>
+<p class="presets-grid__note lang-es">{copy.es.note}</p>
+<p class="presets-grid__note lang-en">{copy.en.note}</p>
 
 <style>
   .presets-grid {

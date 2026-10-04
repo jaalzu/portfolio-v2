@@ -1,17 +1,39 @@
 ---
 export interface Props {
-  text: string;
+  /** Texto a copiar (modo comando). Ignorado si usás `anchor`. */
+  text?: string;
   label?: string;
+  labelEn?: string;
+  /** true → copia la URL con el id del ancestro [id] más cercano. string → usa ese id. */
+  anchor?: boolean | string;
+  /** En el flujo (títulos) en vez de absolute (CopyCommand). */
+  inline?: boolean;
 }
-const { text, label = "Copiar" } = Astro.props;
+
+const {
+  text = "",
+  anchor,
+  inline = false,
+  label = anchor !== undefined && anchor !== false
+    ? "Copiar enlace"
+    : "Copiar comando",
+  labelEn = anchor !== undefined && anchor !== false
+    ? "Copy link"
+    : "Copy command",
+} = Astro.props;
+
+const isAnchor = anchor !== undefined && anchor !== false;
+const anchorAttr = !isAnchor ? undefined : anchor === true ? "" : anchor;
 ---
 
 <button
-  class="copy-btn"
+  class:list={["copy-btn", { "copy-btn--inline": inline }]}
   type="button"
   aria-label={label}
   data-copy={text}
-  data-i18n-attr="aria-label:skillsPage.copyLabel"
+  data-anchor={anchorAttr}
+  data-aria-es={label}
+  data-aria-en={labelEn}
 >
   <svg
     class="copy-btn__icon"
@@ -21,25 +43,34 @@ const { text, label = "Copiar" } = Astro.props;
     aria-hidden="true"
   >
     <rect width="256" height="256" fill="none" />
-    <polyline
-      points="168 168 216 168 216 40 88 40 88 88"
-      fill="none"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
-    />
-    <rect
-      x="40"
-      y="88"
-      width="128"
-      height="128"
-      fill="none"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
-    />
+    {isAnchor ? (
+      <path
+        fill="currentColor"
+        d="M137.54,186.36a8,8,0,0,1,0,11.31l-9.94,10A56,56,0,0,1,48.38,128.4L72.5,104.28A56,56,0,0,1,149.31,102a8,8,0,1,1-10.64,12,40,40,0,0,0-54.85,1.63L59.7,139.72a40,40,0,0,0,56.58,56.58l9.94-9.94A8,8,0,0,1,137.54,186.36Zm70.08-138a56.08,56.08,0,0,0-79.22,0l-9.94,9.95a8,8,0,0,0,11.32,11.31l9.94-9.94a40,40,0,0,1,56.58,56.58L172.18,140.4A40,40,0,0,1,117.33,142,8,8,0,1,0,106.69,154a56,56,0,0,0,76.81-2.26l24.12-24.12A56.08,56.08,0,0,0,207.62,48.38Z"
+      />
+    ) : (
+      <>
+        <polyline
+          points="168 168 216 168 216 40 88 40 88 88"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="16"
+        />
+        <rect
+          x="40"
+          y="88"
+          width="128"
+          height="128"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="16"
+        />
+      </>
+    )}
   </svg>
   <svg
     class="copy-btn__check"
@@ -63,17 +94,54 @@ const { text, label = "Copiar" } = Astro.props;
 <script>
   import { safeAnimate, springs, swapDelay } from "../../lib/motion-tokens";
   // ↑ mismo comentario: ajustá la ruta según dónde viva este componente
+  import { resolveLang, rootLang } from "../../lib/lang";
+
+  function currentLang(): "es" | "en" {
+    try {
+      const stored = localStorage.getItem("lang");
+      if (stored === "en" || stored === "es") return stored;
+    } catch {
+      // private mode — fall through to root/browser detection
+    }
+    if (document.documentElement.hasAttribute("data-lang")) return rootLang();
+    return resolveLang();
+  }
+
+  function syncCopyButtonLang(lang: "es" | "en") {
+    const isEn = lang === "en";
+    document.querySelectorAll<HTMLButtonElement>(".copy-btn").forEach((btn) => {
+      const value =
+        btn.getAttribute(isEn ? "data-aria-en" : "data-aria-es") ?? "";
+      if (value) btn.setAttribute("aria-label", value);
+    });
+  }
+
+  // Modo comando → data-copy. Modo anchor → URL actual + #id.
+  function resolveText(btn: HTMLButtonElement): string {
+    if (!btn.hasAttribute("data-anchor")) {
+      return btn.getAttribute("data-copy") ?? "";
+    }
+    const id = btn.dataset.anchor || btn.closest<HTMLElement>("[id]")?.id;
+    return id ? `${location.origin}${location.pathname}#${id}` : "";
+  }
 
   function initCopyButtons() {
     document
       .querySelectorAll<HTMLButtonElement>(".copy-btn:not([data-bound])")
       .forEach((btn) => {
         btn.dataset.bound = "1";
+
+        // anchor sin id disponible → se oculta (no aparece donde no corresponde)
+        if (!resolveText(btn)) {
+          btn.hidden = true;
+          return;
+        }
+
         const icon = btn.querySelector<HTMLElement>(".copy-btn__icon");
         const check = btn.querySelector<HTMLElement>(".copy-btn__check");
 
         btn.addEventListener("click", () => {
-          const text = btn.getAttribute("data-copy");
+          const text = resolveText(btn);
           if (!text || btn.classList.contains("copied")) return;
 
           navigator.clipboard.writeText(text).then(() => {
@@ -103,8 +171,18 @@ const { text, label = "Copiar" } = Astro.props;
   }
 
   initCopyButtons();
+  syncCopyButtonLang(currentLang());
   document.addEventListener("astro:page-load", initCopyButtons);
   document.addEventListener("astro:after-swap", initCopyButtons);
+  document.addEventListener("langchange", (e) => {
+    syncCopyButtonLang((e as CustomEvent<{ lang: "es" | "en" }>).detail.lang);
+  });
+  document.addEventListener("astro:page-load", () => {
+    syncCopyButtonLang(currentLang());
+  });
+  document.addEventListener("astro:after-swap", () => {
+    syncCopyButtonLang(currentLang());
+  });
 </script>
 
 <style>
@@ -134,6 +212,10 @@ const { text, label = "Copiar" } = Astro.props;
     transition:
       color 220ms ease,
       background 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .copy-btn[hidden] {
+    display: none;
   }
 
   .copy-btn::before {
@@ -186,5 +268,39 @@ const { text, label = "Copiar" } = Astro.props;
   .copy-btn__check {
     opacity: 0;
     color: var(--color-text-heading);
+  }
+
+  /* ---- Variante inline (títulos de sección) ---- */
+  .copy-btn--inline {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin-left: var(--space-2);
+    color: var(--color-text-muted);
+    z-index: auto;
+  }
+
+  /* Blanquito muy leve por encima del bg, también en hover */
+  .copy-btn--inline::before {
+    background: oklch(1 0 0 / 0.07);
+    filter: none;
+  }
+
+  .copy-btn--inline:hover::before {
+    opacity: 1;
+  }
+
+  .copy-btn--inline:active::before {
+    background: oklch(1 0 0 / 0.12);
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .copy-btn--inline {
+      width: 36px;
+      height: 36px;
+      right: auto;
+    }
   }
 </style>

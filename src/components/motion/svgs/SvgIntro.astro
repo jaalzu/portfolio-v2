@@ -1,18 +1,19 @@
 ---
-import { translations } from "../../../data/translations";
-const t = translations.es;
+const copy = {
+  es: {
+    description:
+      "Los SVG permiten crear y animar gráficos directamente en el navegador. Podés animar propiedades como <code>transform</code> y <code>opacity</code>, modificar sus trazos y transformar sus formas para crear distintos tipos de efectos.",
+  },
+  en: {
+    description:
+      "SVG can be created and animated directly in the browser. You can animate properties like <code>transform</code> and <code>opacity</code>, modify their strokes, and transform their shapes to create different effects.",
+  },
+} as const;
 ---
 
 <div class="svg-intro">
-  <h2 class="svg-intro__title" data-i18n="motionPage.svgIntro.title">
-    {t.motionPage.svgIntro.title}
-  </h2>
-
-  <p
-    class="svg-intro__description"
-    data-i18n-html="motionPage.svgIntro.description"
-    set:html={t.motionPage.svgIntro.description}
-  />
+  <p class="svg-intro__description lang-es" set:html={copy.es.description} />
+  <p class="svg-intro__description lang-en" set:html={copy.en.description} />
 </div>
 
 <style>
@@ -20,16 +21,6 @@ const t = translations.es;
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-  }
-
-  .svg-intro__title {
-    margin: 0;
-    font-family: var(--font-family-enfasis);
-    font-style: italic;
-    font-weight: var(--font-weight-medium);
-    letter-spacing: normal;
-    padding-top: 0.5rem;
-    padding-bottom: 0.25rem;
   }
 
   .svg-intro__description {

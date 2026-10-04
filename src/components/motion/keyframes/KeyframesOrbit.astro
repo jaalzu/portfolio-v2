@@ -2,6 +2,11 @@
 // Recorrido por las 4 esquinas + código de @keyframes sincronizado.
 // Dos tipos: Keyframes y Transition. Dos modos: Normal (rápido) y Lento.
 // Botón de pausa (solo icono, solo en Keyframes).
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: { normal: "Normal", slow: "Lento", pause: "Pausar" },
+  en: { normal: "Normal", slow: "Slow", pause: "Pause" },
+} as const;
 ---
 
 <div class="orbit" data-orbit data-kind="keyframes">
@@ -24,8 +29,10 @@
         class="orbit-tab orbit-tab--icon"
         data-orbit-mode="normal"
         type="button"
-        aria-label="Normal"
-        title="Normal"
+        aria-label={copy.es.normal}
+        title={copy.es.normal}
+        data-label-es={copy.es.normal}
+        data-label-en={copy.en.normal}
       >
         <img src="/motion/lightning.svg" alt="" class="orbit-tab__img" />
       </button>
@@ -33,8 +40,10 @@
         class="orbit-tab orbit-tab--icon is-active"
         data-orbit-mode="slow"
         type="button"
-        aria-label="Lento"
-        title="Lento"
+        aria-label={copy.es.slow}
+        title={copy.es.slow}
+        data-label-es={copy.es.slow}
+        data-label-en={copy.en.slow}
       >
         <img src="/motion/hourglass.svg" alt="" class="orbit-tab__img" />
       </button>
@@ -42,7 +51,9 @@
         class="orbit-tab orbit-tab--icon"
         data-orbit-pause
         type="button"
-        aria-label="Pausar"
+        aria-label={copy.es.pause}
+        data-label-es={copy.es.pause}
+        data-label-en={copy.en.pause}
       >
         <img
           src="/motion/pause.svg"
@@ -121,9 +132,48 @@
 
 <script>
   import { initOrbit } from "./keyframesOrbit";
+  import { resolveLang, rootLang } from "../../../lib/lang";
 
   initOrbit();
   document.addEventListener("astro:page-load", initOrbit);
+
+  function currentLang(): "es" | "en" {
+    try {
+      const stored = localStorage.getItem("lang");
+      if (stored === "en" || stored === "es") return stored;
+    } catch {
+      // private mode — fall through to root/browser detection
+    }
+    if (document.documentElement.hasAttribute("data-lang")) return rootLang();
+    return resolveLang();
+  }
+
+  // Sync icon-only buttons (aria-label + title) from co-located data attributes.
+  function syncOrbitLang(lang: "es" | "en") {
+    const isEn = lang === "en";
+    document
+      .querySelectorAll<HTMLElement>("[data-orbit-mode], [data-orbit-pause]")
+      .forEach((btn) => {
+        const label =
+          btn.getAttribute(isEn ? "data-label-en" : "data-label-es") ?? "";
+        if (label) {
+          btn.setAttribute("aria-label", label);
+          if (btn.hasAttribute("title")) btn.setAttribute("title", label);
+        }
+      });
+  }
+
+  syncOrbitLang(currentLang());
+
+  document.addEventListener("langchange", (e) => {
+    syncOrbitLang((e as CustomEvent<{ lang: "es" | "en" }>).detail.lang);
+  });
+  document.addEventListener("astro:page-load", () => {
+    syncOrbitLang(currentLang());
+  });
+  document.addEventListener("astro:after-swap", () => {
+    syncOrbitLang(currentLang());
+  });
 </script>
 
 <style>

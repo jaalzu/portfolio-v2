@@ -1,16 +1,37 @@
 ---
 import ToggleCard from "../../ToggleCard.astro";
-import { translations } from "../../../../data/translations";
 import "./typography-demo.css";
-const t = translations.es;
+
+// Copy lives here (default lang: Spanish). No import from translations.
+const copy = {
+  es: {
+    label: "DATOS DE MERCADO EN VIVO",
+    heading: "Datos en tiempo real sin ruido visual",
+    body: "Los precios se actualizan en vivo. Una buena tipografía mantiene la jerarquía clara y los números estables.",
+  },
+  en: {
+    label: "LIVE MARKET DATA",
+    heading: "Real-time data without the visual noise",
+    body: "Prices update live. Good typography keeps the hierarchy clear and numbers steady.",
+  },
+} as const;
 ---
 
 <ToggleCard id="typoToggle" stageClass="typo-demo__stage">
-  <p class="demo-label" data-i18n="skillsPage.typographyDemo.label">{t.skillsPage.typographyDemo.label}</p>
+  <p class="demo-label">
+    <span class="lang-es">{copy.es.label}</span>
+    <span class="lang-en">{copy.en.label}</span>
+  </p>
 
-  <h3 class="demo-heading" data-i18n="skillsPage.typographyDemo.heading">{t.skillsPage.typographyDemo.heading}</h3>
+  <h3 class="demo-heading">
+    <span class="lang-es">{copy.es.heading}</span>
+    <span class="lang-en">{copy.en.heading}</span>
+  </h3>
 
-  <p class="demo-body" data-i18n="skillsPage.typographyDemo.body">{t.skillsPage.typographyDemo.body}</p>
+  <p class="demo-body">
+    <span class="lang-es">{copy.es.body}</span>
+    <span class="lang-en">{copy.en.body}</span>
+  </p>
 
   <div class="demo-live" aria-live="polite">
     <div class="demo-live__row">

@@ -1,19 +1,20 @@
 ---
-import { translations } from "../../../data/translations";
-const t = translations.es;
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: {
+    description:
+      "Combinando lo que vimos hasta acá podés armar animaciones más pulidas.",
+  },
+  en: {
+    description:
+      "Combining what we've seen so far, you can create more polished animations.",
+  },
+} as const;
 ---
 
 <div class="showcase-intro">
-  <h2 class="showcase-intro__title" data-i18n="motionPage.showcaseIntro.title">
-    {t.motionPage.showcaseIntro.title}
-  </h2>
-
-  <p
-    class="showcase-intro__description"
-    data-i18n="motionPage.showcaseIntro.description"
-  >
-    {t.motionPage.showcaseIntro.description}
-  </p>
+  <p class="showcase-intro__description lang-es">{copy.es.description}</p>
+  <p class="showcase-intro__description lang-en">{copy.en.description}</p>
 </div>
 
 <style>
@@ -21,16 +22,6 @@ const t = translations.es;
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-  }
-
-  .showcase-intro__title {
-    margin: 0;
-    font-family: var(--font-family-enfasis);
-    font-style: italic;
-    font-weight: var(--font-weight-medium);
-    letter-spacing: normal;
-    padding-top: 0.5rem;
-    padding-bottom: 0.25rem;
   }
 
   .showcase-intro__description {

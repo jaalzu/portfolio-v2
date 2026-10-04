@@ -36,6 +36,27 @@ const { title, description = "Portfolio javalzu" } = Astro.props;
     />
     <ClientRouter />
 
+    <!-- Early lang init: manual choice wins, else follow browser, default es.
+         Never writes to localStorage — only the toggle button persists. -->
+    <script is:inline>
+      (function () {
+        try {
+          const stored = localStorage.getItem("lang");
+          const nav = navigator.language || "es";
+          const lang =
+            stored === "en" || stored === "es"
+              ? stored
+              : nav.toLowerCase().indexOf("en") === 0
+                ? "en"
+                : "es";
+          document.documentElement.setAttribute("data-lang", lang);
+          document.documentElement.lang = lang;
+        } catch {
+          // private mode etc. — keep Spanish default
+        }
+      })();
+    </script>
+
     <script>
       document.addEventListener("astro:before-swap", (event) => {
         if (sessionStorage.getItem("home-intro-played") === "1") {

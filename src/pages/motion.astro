@@ -6,14 +6,24 @@ import Section from "../components/ui/Section.astro";
 import BackLink from "../components/ui/BackLink.astro";
 import KeyframesRows from "../components/motion/keyframes/KeyframesRows.astro";
 import I18nSync from "../components/I18nSync.astro";
-import { translations } from "../data/translations";
 import TriggersRows from "../components/motion/triggers/TriggersRows.astro";
 import Principles from "../components/motion/intro/Principles.astro";
 import TimingRows from "../components/motion/timing/TimingRows.astro";
 import SvgRows from "../components/motion/svgs/SvgRows.astro";
 import ShowcaseRows from "../components/motion/complex/ShowcaseRows.astro";
 import SummaryRows from "../components/motion/summary/SummaryRows.astro";
-const t = translations.es;
+
+// Copy lives here (default lang: Spanish). Taken from translations.ts motionPage.
+const copy = {
+  es: {
+    title: "Principios de Animación Web",
+    subtitle: "Una guía rápida e interactiva para aprender.",
+  },
+  en: {
+    title: "Principles of Web Animation",
+    subtitle: "A fast and interactive way to learn.",
+  },
+} as const;
 ---
 
 <BaseLayout title="Motion Design — Javier Alzú">
@@ -23,43 +33,25 @@ const t = translations.es;
       <BackLink />
 
       <div class="skills-header">
-        <h1 class="skills-header__title" data-i18n="motionPage.title">
-          {t.motionPage.title}
+        <h1 class="skills-header__title">
+          <span class="lang-es">{copy.es.title}</span>
+          <span class="lang-en">{copy.en.title}</span>
         </h1>
-        <p class="skills-header__intro" data-i18n="motionPage.subtitle">
-          {t.motionPage.subtitle}
+        <p class="skills-header__intro">
+          <span class="lang-es">{copy.es.subtitle}</span>
+          <span class="lang-en">{copy.en.subtitle}</span>
         </p>
       </div>
     </Section>
 
     <Section>
-      <div id="principles" data-reveal>
-        <Principles />
-      </div>
-
-      <div id="timing" data-reveal>
-        <TimingRows />
-      </div>
-
-      <div id="triggers" data-reveal>
-        <TriggersRows />
-      </div>
-
-      <div id="keyframes" data-reveal>
-        <KeyframesRows />
-      </div>
-
-      <div id="svg" data-reveal>
-        <SvgRows />
-      </div>
-
-      <div id="showcase" data-reveal>
-        <ShowcaseRows />
-      </div>
-
-      <div id="summary" data-reveal>
-        <SummaryRows />
-      </div>
+      <Principles />
+      <TimingRows />
+      <TriggersRows />
+      <KeyframesRows />
+      <SvgRows />
+      <ShowcaseRows />
+      <SummaryRows />
     </Section>
   </main>
 </BaseLayout>
@@ -72,7 +64,9 @@ const t = translations.es;
     overflow: visible;
     margin-bottom: 6rem;
   }
-
+  [data-reveal] {
+    scroll-margin-top: var(--space-6);
+  }
   .skills-header__title {
     margin: 0 0 var(--space-2);
     font-family: var(--font-family-enfasis);

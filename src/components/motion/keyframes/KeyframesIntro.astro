@@ -1,20 +1,25 @@
 ---
-import { translations } from "../../../data/translations";
-const t = translations.es;
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: {
+    description:
+      "<code>transition</code> anima una propiedad de un estado a otro. <code>@keyframes</code> te permite controlar todo el recorrido definiendo distintos estados en porcentajes.",
+  },
+  en: {
+    description:
+      "<code>transition</code> animates a property from one state to another. <code>@keyframes</code> lets you control the whole path by defining different states at specific percentages.",
+  },
+} as const;
 ---
 
 <div class="keyframes-intro">
-  <h2
-    class="keyframes-intro__title"
-    data-i18n="motionPage.keyframesIntro.title"
-  >
-    {t.motionPage.keyframesIntro.title}
-  </h2>
-
   <p
-    class="keyframes-intro__description"
-    data-i18n-html="motionPage.keyframesIntro.description"
-    set:html={t.motionPage.keyframesIntro.description}
+    class="keyframes-intro__description lang-es"
+    set:html={copy.es.description}
+  />
+  <p
+    class="keyframes-intro__description lang-en"
+    set:html={copy.en.description}
   />
 </div>
 
@@ -24,16 +29,6 @@ const t = translations.es;
     flex-direction: column;
     gap: var(--space-1);
     margin-bottom: 1rem;
-  }
-
-  .keyframes-intro__title {
-    margin: 0;
-    font-family: var(--font-family-enfasis);
-    font-style: italic;
-    font-weight: var(--font-weight-medium);
-    letter-spacing: normal;
-    padding-top: 0.5rem;
-    padding-bottom: 0.25rem;
   }
 
   .keyframes-intro__description {

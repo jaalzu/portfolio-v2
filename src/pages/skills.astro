@@ -10,9 +10,47 @@ import AccessibilityDemo from "../components/skills/demos/accesibility/Accessibi
 import TokenDemo from "../components/skills/demos/token/TokenDemo.astro";
 import MorphingDemo from "../components/skills/demos/morph/MorphingDemo.astro";
 import I18nSync from "../components/I18nSync.astro";
-import { translations } from "../data/translations";
 
-const t = translations.es;
+// Copy lives here (default lang: Spanish). Taken from translations.ts skillsPage.
+const copy = {
+  es: {
+    subtitle: "Una colección de skills para mejorar tus interfaces.",
+    typography: {
+      title: "Fundamentos de Tipografía — UI y Calidad",
+      description:
+        "El texto es el corazón de cada interfaz. Construye o audita tu tipografía para fortalecer la legibilidad, la jerarquía, la accesibilidad y la consistencia visual, ofreciendo así mejores experiencias de usuario.",
+    },
+    accessibility: {
+      title: "Accesibilidad — Foco y Feedback",
+      description:
+        "Tu web tiene que ser accesible para todos, sin excepciones. Construí o auditá el foco visible, los errores anunciados a tiempo y el feedback en vivo de tu interfaz.",
+    },
+    designTokens: {
+      title: "Fundamentos de Tokens — Consistencia Real",
+      description:
+        "Un diseño no es consistente porque se vea bien una vez, sino porque todo viene de la misma fuente. Tocá un token y mirá cómo cambian varios componentes a la vez.",
+    },
+  },
+  en: {
+    subtitle:
+      "Two practical agent skills for making interfaces easier to use and read.",
+    typography: {
+      title: "Typography Foundation — UI & Quality",
+      description:
+        "Text is at the heart of every interface. Build or audit your typography to strengthen legibility, hierarchy, accessibility and visual consistency for better user experiences.",
+    },
+    accessibility: {
+      title: "Accessibility — Focus & Feedback",
+      description:
+        "Your site needs to be accessible to everyone, no exceptions. Build or audit visible focus states, timely error announcements, and live feedback across your interface.",
+    },
+    designTokens: {
+      title: "Design Tokens Foundation — Real Consistency",
+      description:
+        "A design isn't consistent because it looks good once — it's consistent because everything comes from the same source. Change one token and watch several components update at once.",
+    },
+  },
+} as const;
 ---
 
 <BaseLayout title="Skills — Javier Alzú">
@@ -23,8 +61,9 @@ const t = translations.es;
 
       <div class="skills-header">
         <h1 class="skills-header__title">Skills</h1>
-        <p class="skills-header__intro" data-i18n="skillsPage.subtitle">
-          {t.skillsPage.subtitle}
+        <p class="skills-header__intro">
+          <span class="lang-es">{copy.es.subtitle}</span>
+          <span class="lang-en">{copy.en.subtitle}</span>
         </p>
       </div>
 
@@ -39,30 +78,30 @@ const t = translations.es;
     <Section>
       <SkillSection
         id="typography"
-        title={t.skillsPage.typography.title}
-        description={t.skillsPage.typography.description}
-        titleKey="skillsPage.typography.title"
-        descKey="skillsPage.typography.description"
+        titleEs={copy.es.typography.title}
+        titleEn={copy.en.typography.title}
+        descriptionEs={copy.es.typography.description}
+        descriptionEn={copy.en.typography.description}
       >
         <TypographyDemo />
       </SkillSection>
 
       <SkillSection
         id="accesibility"
-        title={t.skillsPage.accessibility.title}
-        description={t.skillsPage.accessibility.description}
-        titleKey="skillsPage.accessibility.title"
-        descKey="skillsPage.accessibility.description"
+        titleEs={copy.es.accessibility.title}
+        titleEn={copy.en.accessibility.title}
+        descriptionEs={copy.es.accessibility.description}
+        descriptionEn={copy.en.accessibility.description}
       >
         <AccessibilityDemo />
       </SkillSection>
 
       <SkillSection
         id="design-tokens"
-        title={t.skillsPage.designTokens.title}
-        description={t.skillsPage.designTokens.description}
-        titleKey="skillsPage.designTokens.title"
-        descKey="skillsPage.designTokens.description"
+        titleEs={copy.es.designTokens.title}
+        titleEn={copy.en.designTokens.title}
+        descriptionEs={copy.es.designTokens.description}
+        descriptionEn={copy.en.designTokens.description}
       >
         <TokenDemo />
       </SkillSection>

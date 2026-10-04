@@ -1,11 +1,13 @@
 ---
 interface Props {
   title: string;
-  description: string;
+  description?: string;
   githubUrl?: string;
   liveUrl?: string;
   i18nKey?: string;
   index?: number;
+  descriptionEs?: string;
+  descriptionEn?: string;
 }
 
 const {
@@ -14,7 +16,11 @@ const {
   liveUrl,
   i18nKey,
   index = 0,
+  descriptionEs,
+  descriptionEn,
 } = Astro.props;
+
+const hasLocalCopy = descriptionEs !== undefined || descriptionEn !== undefined;
 ---
 
 <a
@@ -31,9 +37,16 @@ const {
         <h3 class="card__title">{title}</h3>
         <span class="card__sep" aria-hidden="true">/</span>
       </span>
-      <p class="card__description" data-i18n={i18nKey}>
-        {description}
-      </p>
+      {hasLocalCopy ? (
+        <>
+          <p class="card__description lang-es">{descriptionEs ?? description}</p>
+          <p class="card__description lang-en">{descriptionEn ?? description}</p>
+        </>
+      ) : (
+        <p class="card__description" data-i18n={i18nKey}>
+          {description}
+        </p>
+      )}
     </div>
     <span class="card__arrow" aria-hidden="true">
       <img src="/skills/arrow.svg" alt="" width="16" height="16" />
