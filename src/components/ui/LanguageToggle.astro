@@ -72,16 +72,18 @@
 </style>
 
 <script>
+  import { rootLang, applyLangToRoot, persistLang } from "../../lib/lang";
+
   function initLangToggle() {
     const toggle = document.getElementById("lang-toggle");
-    const root = document.documentElement;
     if (!toggle || toggle.dataset.bound === "1") return;
     toggle.dataset.bound = "1";
     toggle.addEventListener("click", () => {
-      const current = root.getAttribute("data-lang") ?? "es";
-      const next = current === "es" ? "en" : "es";
-      root.setAttribute("data-lang", next);
-      localStorage.setItem("lang", next);
+      // Single place allowed to persist: explicit user choice wins
+      // over future browser-language changes.
+      const next = rootLang() === "es" ? "en" : "es";
+      applyLangToRoot(next);
+      persistLang(next);
       document.dispatchEvent(new CustomEvent("langchange", { detail: { lang: next } }));
     });
   }

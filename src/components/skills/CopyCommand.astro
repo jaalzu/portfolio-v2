@@ -9,12 +9,18 @@ export interface Props {
 const { command, githubUrl, skillsUrl = "https://skills.sh" } = Astro.props;
 const [cmdBin, ...cmdRest] = command.split(" ");
 const cmdArgs = cmdRest.join(" ");
+
+// Copy lives here (default lang: Spanish). No import from translations.
+const copy = {
+  es: { copyLabel: "Copiar comando" },
+  en: { copyLabel: "Copy command" },
+} as const;
 ---
 <div class="install-block">
   <div class="install-block__head">
     <code class="install-block__cmd" data-cmd={command}>
       <span class="cmd-npx">{cmdBin}</span> <span class="cmd-args">{cmdArgs}</span>
-      <CopyButton text={command} label="Copiar comando" />
+      <CopyButton text={command} label={copy.es.copyLabel} labelEn={copy.en.copyLabel} />
     </code>
   </div>
 

@@ -1,39 +1,44 @@
 ---
-import { translations } from "../../../data/translations";
 import FollowPathExample from "./FollowPathExample.astro";
 import DrawPathExample from "./DrawPathExample.astro";
 import MorphExample from "./MorphExample.astro";
 
-const t = translations.es;
-const n = t.motionPage.svgNotes;
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: {
+    follow:
+      "Un elemento puede seguir una trayectoria definida por un <code>&lt;path&gt;</code>, utilizando su geometría como recorrido.",
+    draw: "Podés controlar qué parte de un trazo es visible con <code>stroke-dasharray</code> y <code>stroke-dashoffset</code>, creando el efecto de que una línea se dibuja progresivamente.",
+    morph:
+      "Un <code>&lt;path&gt;</code> puede transformarse entre distintas formas, permitiendo crear animaciones de morphing.",
+  },
+  en: {
+    follow:
+      "An element can follow a trajectory defined by a <code>&lt;path&gt;</code>, using its geometry as the route.",
+    draw: "You can control which part of a stroke is visible with <code>stroke-dasharray</code> and <code>stroke-dashoffset</code>, creating the effect of a line being drawn progressively.",
+    morph:
+      "A <code>&lt;path&gt;</code> can transform between different shapes, allowing you to create morphing animations.",
+  },
+} as const;
 ---
 
 <div class="svg-notes">
   <div class="svg-notes__item">
     <FollowPathExample />
-    <p
-      class="svg-notes__text"
-      data-i18n-html="motionPage.svgNotes.follow"
-      set:html={n.follow}
-    />
+    <p class="svg-notes__text lang-es" set:html={copy.es.follow} />
+    <p class="svg-notes__text lang-en" set:html={copy.en.follow} />
   </div>
 
   <div class="svg-notes__item">
     <DrawPathExample />
-    <p
-      class="svg-notes__text"
-      data-i18n-html="motionPage.svgNotes.draw"
-      set:html={n.draw}
-    />
+    <p class="svg-notes__text lang-es" set:html={copy.es.draw} />
+    <p class="svg-notes__text lang-en" set:html={copy.en.draw} />
   </div>
 
   <div class="svg-notes__item">
     <MorphExample />
-    <p
-      class="svg-notes__text"
-      data-i18n-html="motionPage.svgNotes.morph"
-      set:html={n.morph}
-    />
+    <p class="svg-notes__text lang-es" set:html={copy.es.morph} />
+    <p class="svg-notes__text lang-en" set:html={copy.en.morph} />
   </div>
 </div>
 
@@ -41,7 +46,7 @@ const n = t.motionPage.svgNotes;
   .svg-notes {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-8);
   }
 
   .svg-notes__item {

@@ -1,18 +1,59 @@
 ---
-import { translations } from "../../../../data/translations";
 import "./a11yWithdraw.css";
 
-const t = translations.es;
+// Copy lives here (default lang: Spanish). No import from translations.
+// Dynamic strings (errors/toasts) travel as data-attributes on the form
+// so a11yWithdraw.ts reads them without importing translations.
+const copy = {
+  es: {
+    walletLabel: "Wallet",
+    amountLabel: "Monto (BTC)",
+    walletPlaceholder: "wallet01",
+    amountPlaceholder: "0",
+    submit: "Confirmar retiro",
+    errors: {
+      wallet: "La wallet debe tener al menos 6 caracteres.",
+      amount: "Ingresá un monto válido mayor a 0.",
+    },
+    toasts: {
+      invalid: "Datos inválidos, intente nuevamente.",
+      success: "Retiro enviado con éxito.",
+    },
+  },
+  en: {
+    walletLabel: "Wallet",
+    amountLabel: "Amount (BTC)",
+    walletPlaceholder: "wallet01",
+    amountPlaceholder: "0",
+    submit: "Confirm withdrawal",
+    errors: {
+      wallet: "Wallet must be at least 6 characters.",
+      amount: "Enter a valid amount greater than 0.",
+    },
+    toasts: {
+      invalid: "Invalid data, please try again.",
+      success: "Withdrawal sent successfully.",
+    },
+  },
+} as const;
 ---
 
-<form class="wd-form" novalidate>
+<form
+  class="wd-form"
+  novalidate
+  data-err-wallet-es={copy.es.errors.wallet}
+  data-err-wallet-en={copy.en.errors.wallet}
+  data-err-amount-es={copy.es.errors.amount}
+  data-err-amount-en={copy.en.errors.amount}
+  data-toast-invalid-es={copy.es.toasts.invalid}
+  data-toast-invalid-en={copy.en.toasts.invalid}
+  data-toast-success-es={copy.es.toasts.success}
+  data-toast-success-en={copy.en.toasts.success}
+>
   <div class="wd-field">
-    <label
-      class="wd-field__label"
-      for="wd-wallet"
-      data-i18n="skillsPage.a11yDemo.walletLabel"
-    >
-      {t.skillsPage.a11yDemo.walletLabel}
+    <label class="wd-field__label" for="wd-wallet">
+      <span class="lang-es">{copy.es.walletLabel}</span>
+      <span class="lang-en">{copy.en.walletLabel}</span>
     </label>
 
     <input
@@ -21,20 +62,18 @@ const t = translations.es;
       name="wallet"
       type="text"
       autocomplete="off"
-      placeholder={t.skillsPage.a11yDemo.walletPlaceholder}
-      data-i18n-attr="placeholder:skillsPage.a11yDemo.walletPlaceholder"
+      placeholder={copy.es.walletPlaceholder}
+      data-ph-es={copy.es.walletPlaceholder}
+      data-ph-en={copy.en.walletPlaceholder}
     />
 
     <p class="wd-field__error" id="wd-wallet-error"></p>
   </div>
 
   <div class="wd-field">
-    <label
-      class="wd-field__label"
-      for="wd-amount"
-      data-i18n="skillsPage.a11yDemo.amountLabel"
-    >
-      {t.skillsPage.a11yDemo.amountLabel}
+    <label class="wd-field__label" for="wd-amount">
+      <span class="lang-es">{copy.es.amountLabel}</span>
+      <span class="lang-en">{copy.en.amountLabel}</span>
     </label>
 
     <input
@@ -44,19 +83,17 @@ const t = translations.es;
       type="text"
       inputmode="decimal"
       autocomplete="off"
-      placeholder={t.skillsPage.a11yDemo.amountPlaceholder}
-      data-i18n-attr="placeholder:skillsPage.a11yDemo.amountPlaceholder"
+      placeholder={copy.es.amountPlaceholder}
+      data-ph-es={copy.es.amountPlaceholder}
+      data-ph-en={copy.en.amountPlaceholder}
     />
 
     <p class="wd-field__error" id="wd-amount-error"></p>
   </div>
 
-  <button
-    class="wd-submit"
-    type="submit"
-    data-i18n="skillsPage.a11yDemo.submit"
-  >
-    {t.skillsPage.a11yDemo.submit}
+  <button class="wd-submit" type="submit">
+    <span class="lang-es">{copy.es.submit}</span>
+    <span class="lang-en">{copy.en.submit}</span>
   </button>
 </form>
 

@@ -1,7 +1,4 @@
 ---
-// src/components/motion/abduction/CowAbduction.astro
-// Escena interactiva: vaca + nave que la abduce.
-// Toda la lógica de estados vive acá; el CSS solo reacciona a las clases .is-*
 import "./cow-abduction.css";
 ---
 
@@ -209,7 +206,17 @@ import "./cow-abduction.css";
   </div>
 
   <!-- Texto guía -->
-  <p class="abduction__hint">Haz click en la vaca para abducirla</p>
+  <div class="abduction__hint" aria-hidden="true">
+    <span class="abduction__hint-text">Click!</span>
+    <svg viewBox="0 0 70 60" xmlns="http://www.w3.org/2000/svg">
+      <path
+        class="abduction__hint-line"
+        pathLength="1"
+        d="M8 4 C 6 30, 30 44, 56 50"
+      />
+      <path class="abduction__hint-head" d="M46 40 L 57 50 L 43 56" />
+    </svg>
+  </div>
 </div>
 
 <script>

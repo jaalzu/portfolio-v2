@@ -60,6 +60,14 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* ---- Utilities: i18n (default lang is Spanish) ---- */
+:root:not([data-lang="en"]) .lang-en {
+  display: none !important;
+}
+:root[data-lang="en"] .lang-es {
+  display: none !important;
+}
+
 /* ---- Utilities: a11y ---- */
 ::selection {
   background-color: var(--color-primary);

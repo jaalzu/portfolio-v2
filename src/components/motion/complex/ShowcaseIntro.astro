@@ -1,19 +1,27 @@
 ---
-import { translations } from "../../../data/translations";
-const t = translations.es;
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: {
+    title: "Ejemplos",
+    description:
+      "Combinando lo que vimos hasta acá podés armar animaciones más pulidas.",
+  },
+  en: {
+    title: "Examples",
+    description:
+      "Combining what we've seen so far, you can create more polished animations.",
+  },
+} as const;
 ---
 
 <div class="showcase-intro">
-  <h2 class="showcase-intro__title" data-i18n="motionPage.showcaseIntro.title">
-    {t.motionPage.showcaseIntro.title}
+  <h2 class="showcase-intro__title">
+    <span class="lang-es">{copy.es.title}</span>
+    <span class="lang-en">{copy.en.title}</span>
   </h2>
 
-  <p
-    class="showcase-intro__description"
-    data-i18n="motionPage.showcaseIntro.description"
-  >
-    {t.motionPage.showcaseIntro.description}
-  </p>
+  <p class="showcase-intro__description lang-es">{copy.es.description}</p>
+  <p class="showcase-intro__description lang-en">{copy.en.description}</p>
 </div>
 
 <style>

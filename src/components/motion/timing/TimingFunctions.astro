@@ -2,6 +2,20 @@
 import TimingPreview from "./TimingPreview.astro";
 import CubicBezier from "./cubic/CubicBezier.astro";
 
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: {
+    title: "Timing Functions",
+    description:
+      "Define cómo progresa la animación en el tiempo: acelerando, desacelerando o siguiendo una curva personalizada.",
+  },
+  en: {
+    title: "Timing Functions",
+    description:
+      "Defines how the animation progresses over time: speeding up, slowing down, or following a custom curve.",
+  },
+} as const;
+
 const presets = [
   { label: "Linear", x1: 0, y1: 0, x2: 1, y2: 1 },
   { label: "Ease", x1: 0.25, y1: 0.1, x2: 0.25, y2: 1 },
@@ -13,12 +27,11 @@ const presets = [
 
 <section class="timing" data-timing>
   <div class="timing__header">
-    <h2 class="timing__title">Timing Functions</h2>
+    <h2 class="timing__title lang-es">{copy.es.title}</h2>
+    <h2 class="timing__title lang-en">{copy.en.title}</h2>
 
-    <p class="timing__description">
-      Define cómo progresa la animación en el tiempo: acelerando, desacelerando
-      o siguiendo una curva personalizada.
-    </p>
+    <p class="timing__description lang-es">{copy.es.description}</p>
+    <p class="timing__description lang-en">{copy.en.description}</p>
   </div>
 
   <div class="timing__presets">

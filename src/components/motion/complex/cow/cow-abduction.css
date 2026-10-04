@@ -60,27 +60,100 @@
   );
   z-index: 4;
 }
-
-/* ---------- Texto guía debajo del suelo ---------- */
 .abduction__hint {
+  --hint-x: 27%; /* más a la derecha, sobre el lomo de la vaca */
+  --hint-y: 42%;
+
   position: absolute;
-  left: 50%;
-  bottom: calc(var(--ground) / 2 - 0.55em);
-  transform: translateX(-50%);
-  margin: 0;
-  padding: 0 var(--space-2);
-  font-size: var(--text-xs);
-  letter-spacing: 0.03em;
-  color: var(--color-text);
-  white-space: nowrap;
+  left: var(--hint-x);
+  top: var(--hint-y);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   pointer-events: none;
-  opacity: 0.78;
-  transition: opacity 0.4s ease;
+  color: var(--color-text-muted);
+  transition: opacity 0.3s ease;
 }
 
-/* El texto se atenúa mientras corre la secuencia */
+.abduction__hint-text {
+  font-family: var(--font-family-enfasis);
+  font-style: italic;
+  font-size: var(--text-lg, 1.25rem);
+  transform: rotate(-6deg);
+  transform-origin: left bottom;
+  margin-left: 2.5rem; /* ← subí o bajá este valor */
+}
+
+.abduction__hint svg {
+  width: 56px;
+  height: auto;
+  margin-left: 0.5rem;
+  overflow: visible;
+  transform: scaleX(-1); /* invierte la flecha en su propio eje */
+}
+
+.abduction__hint-line,
+.abduction__hint-head {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Se oculta apenas empieza la abducción */
 .abduction.is-running .abduction__hint {
-  opacity: 0.25;
+  opacity: 0;
+}
+
+@keyframes hint-draw {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  35%,
+  85% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes hint-head {
+  0%,
+  30% {
+    opacity: 0;
+  }
+  40%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes hint-wiggle {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(-3deg) translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .abduction__hint-line {
+    stroke-dasharray: 1;
+    animation: hint-draw 3.6s ease-in-out infinite;
+  }
+  .abduction__hint-head {
+    animation: hint-head 3.6s ease-in-out infinite;
+  }
+  .abduction__hint-text {
+    animation: hint-wiggle 1.8s ease-in-out infinite;
+  }
 }
 
 /* ---------- Vaca ---------- */

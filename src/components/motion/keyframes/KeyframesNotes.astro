@@ -1,20 +1,22 @@
 ---
-import { translations } from "../../../data/translations";
-const t = translations.es;
-const n = t.motionPage.keyframesNotes;
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: {
+    p1: "<code>transition</code> se ejecuta cuando una propiedad cambia de un estado a otro. Permite definir cómo se realiza ese cambio y cuánto tiempo dura.",
+    p2: "En <code>@keyframes</code>, <code>0%</code> y <code>100%</code> marcan el inicio y el final. Podés agregar porcentajes intermedios para controlar el recorrido y repetir la animación con <code>infinite</code>.",
+  },
+  en: {
+    p1: "<code>transition</code> runs when a property changes from one state to another. It lets you define how that change happens and how long it takes.",
+    p2: "In <code>@keyframes</code>, <code>0%</code> and <code>100%</code> mark the start and end. You can add intermediate percentages to control the path and repeat the animation with <code>infinite</code>.",
+  },
+} as const;
 ---
 
 <div class="keyframes-notes">
-  <p
-    class="keyframes-notes__text"
-    data-i18n-html="motionPage.keyframesNotes.p1"
-    set:html={n.p1}
-  />
-  <p
-    class="keyframes-notes__text"
-    data-i18n-html="motionPage.keyframesNotes.p2"
-    set:html={n.p2}
-  />
+  <p class="keyframes-notes__text lang-es" set:html={copy.es.p1} />
+  <p class="keyframes-notes__text lang-en" set:html={copy.en.p1} />
+  <p class="keyframes-notes__text lang-es" set:html={copy.es.p2} />
+  <p class="keyframes-notes__text lang-en" set:html={copy.en.p2} />
 </div>
 
 <style>

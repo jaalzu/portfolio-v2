@@ -5,52 +5,68 @@ export interface CodeLine {
 
 export interface Principle {
   key: string;
-  title: string;
-  desc: string;
+  titleEs: string;
+  titleEn: string;
+  descEs: string;
+  descEn: string;
   code: CodeLine[];
 }
 
 export const principles: Principle[] = [
   {
     key: "translation",
-    title: "Traslación",
-    desc: "Moverse de un punto a otro.",
+    titleEs: "Traslación",
+    titleEn: "Translation",
+    descEs: "Moverse de un punto a otro.",
+    descEn: "Move from one point to another.",
     code: [{ prop: "transform", value: "translateY(-14px);" }],
   },
   {
     key: "rotation",
-    title: "Rotación",
-    desc: "Girar sobre un eje.",
+    titleEs: "Rotación",
+    titleEn: "Rotation",
+    descEs: "Girar sobre un eje.",
+    descEn: "Rotate around an axis.",
     code: [{ prop: "transform", value: "rotate(360deg);" }],
   },
   {
     key: "scaling",
-    title: "Escalado",
-    desc: "Crecer o achicarse.",
+    titleEs: "Escalado",
+    titleEn: "Scaling",
+    descEs: "Crecer o achicarse.",
+    descEn: "Grow or shrink.",
     code: [{ prop: "transform", value: "scale(1.25);" }],
   },
   {
     key: "skew",
-    title: "Distorsión",
-    desc: "Inclinar la forma.",
+    titleEs: "Distorsión",
+    titleEn: "Skew",
+    descEs: "Inclinar la forma.",
+    descEn: "Tilt the shape.",
     code: [{ prop: "transform", value: "skew(-14deg);" }],
   },
   {
     key: "opacity",
-    title: "Opacidad",
-    desc: "Aparecer o desvanecerse.",
+    titleEs: "Opacidad",
+    titleEn: "Opacity",
+    descEs: "Aparecer o desvanecerse.",
+    descEn: "Appear or fade away.",
     code: [{ prop: "opacity", value: "0.4;" }],
   },
   {
     key: "blur",
-    title: "Desenfoque",
-    desc: "Sumar o quitar foco.",
+    titleEs: "Desenfoque",
+    titleEn: "Blur",
+    descEs: "Sumar o quitar foco.",
+    descEn: "Add or remove focus.",
     code: [{ prop: "filter", value: "blur(3px);" }],
   },
   {
     key: "glow",
-    title: "Resplandor",
-    desc: "Un toque de luz extra.",
+    titleEs: "Resplandor",
+    titleEn: "Glow",
+    descEs: "Un toque de luz extra.",
+    descEn: "An extra touch of light.",
     code: [
       {
         prop: "box-shadow",
@@ -60,20 +76,26 @@ export const principles: Principle[] = [
   },
   {
     key: "color",
-    title: "Color",
-    desc: "Transición de color suave.",
+    titleEs: "Color",
+    titleEn: "Color",
+    descEs: "Transición de color suave.",
+    descEn: "Smooth color transition.",
     code: [{ prop: "background-color", value: "var(--color-blue);" }],
   },
   {
     key: "clip",
-    title: "Recorte",
-    desc: "Revelar solo una parte.",
+    titleEs: "Recorte",
+    titleEn: "Clipping",
+    descEs: "Revelar solo una parte.",
+    descEn: "Reveal only a part.",
     code: [{ prop: "clip-path", value: "circle(75% at 50% 50%);" }],
   },
   {
     key: "perspective",
-    title: "Perspectiva",
-    desc: "Profundidad en 2D.",
+    titleEs: "Perspectiva",
+    titleEn: "Perspective",
+    descEs: "Profundidad en 2D.",
+    descEn: "Depth in 2D.",
     code: [{ prop: "transform", value: "rotateX(20deg) translateZ(-50px);" }],
   },
 ];
@@ -95,11 +117,16 @@ export const effectAnim = {
 
 export type EffectKey = keyof typeof effectAnim;
 
-export const labelOf = (k: EffectKey) =>
-  principles.find((p) => p.key === k)!.title;
+export function titleOf(k: string, lang: "es" | "en"): string {
+  const p = principles.find((p) => p.key === k);
+  if (!p) return k;
+  return lang === "en" ? p.titleEn : p.titleEs;
+}
+
+/** @deprecated Usa titleOf(key, lang) con dual DOM. */
+export const labelOf = (k: EffectKey) => titleOf(k, "es");
 
 export interface ComboCard {
-  title: string;
   keys: string[];
   animation: string;
   code: CodeLine[];
@@ -107,7 +134,6 @@ export interface ComboCard {
 
 export const comboCards: ComboCard[] = [
   {
-    title: `${labelOf("translation")} + ${labelOf("glow")}`,
     keys: ["translation", "glow"],
     animation: "combo-translate-glow 2s ease-in-out infinite",
     code: [
@@ -116,7 +142,6 @@ export const comboCards: ComboCard[] = [
     ],
   },
   {
-    title: `${labelOf("scaling")} + ${labelOf("opacity")}`,
     keys: ["scaling", "opacity"],
     animation: [effectAnim.scaling, effectAnim.opacity].join(", "),
     code: [
@@ -125,7 +150,6 @@ export const comboCards: ComboCard[] = [
     ],
   },
   {
-    title: `${labelOf("skew")} + ${labelOf("color")}`,
     keys: ["skew", "color"],
     animation: [effectAnim.skew, effectAnim.color].join(", "),
     code: [
@@ -134,7 +158,6 @@ export const comboCards: ComboCard[] = [
     ],
   },
   {
-    title: `${labelOf("blur")} + ${labelOf("opacity")}`,
     keys: ["blur", "opacity"],
     animation: [effectAnim.blur, effectAnim.opacity].join(", "),
     code: [
@@ -143,7 +166,6 @@ export const comboCards: ComboCard[] = [
     ],
   },
   {
-    title: `${labelOf("clip")} + ${labelOf("translation")}`,
     keys: ["clip", "translation"],
     animation: [effectAnim.clip, effectAnim.translation].join(", "),
     code: [
@@ -152,7 +174,6 @@ export const comboCards: ComboCard[] = [
     ],
   },
   {
-    title: `${labelOf("rotation")} + ${labelOf("color")}`,
     keys: ["rotation", "color"],
     animation: [effectAnim.rotation, effectAnim.color].join(", "),
     code: [
@@ -161,7 +182,6 @@ export const comboCards: ComboCard[] = [
     ],
   },
   {
-    title: `${labelOf("blur")} + ${labelOf("opacity")} + ${labelOf("perspective")}`,
     keys: ["blur", "opacity", "perspective"],
     animation: [
       effectAnim.blur,

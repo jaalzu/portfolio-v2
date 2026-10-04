@@ -2,8 +2,9 @@
 export interface Props {
   text: string;
   label?: string;
+  labelEn?: string;
 }
-const { text, label = "Copiar" } = Astro.props;
+const { text, label = "Copiar comando", labelEn = "Copy command" } = Astro.props;
 ---
 
 <button
@@ -11,7 +12,8 @@ const { text, label = "Copiar" } = Astro.props;
   type="button"
   aria-label={label}
   data-copy={text}
-  data-i18n-attr="aria-label:skillsPage.copyLabel"
+  data-aria-es={label}
+  data-aria-en={labelEn}
 >
   <svg
     class="copy-btn__icon"
@@ -63,6 +65,29 @@ const { text, label = "Copiar" } = Astro.props;
 <script>
   import { safeAnimate, springs, swapDelay } from "../../lib/motion-tokens";
   // ↑ mismo comentario: ajustá la ruta según dónde viva este componente
+  import { resolveLang, rootLang } from "../../lib/lang";
+
+  function currentLang(): "es" | "en" {
+    try {
+      const stored = localStorage.getItem("lang");
+      if (stored === "en" || stored === "es") return stored;
+    } catch {
+      // private mode — fall through to root/browser detection
+    }
+    if (document.documentElement.hasAttribute("data-lang")) return rootLang();
+    return resolveLang();
+  }
+
+  function syncCopyButtonLang(lang: "es" | "en") {
+    const isEn = lang === "en";
+    document
+      .querySelectorAll<HTMLButtonElement>(".copy-btn")
+      .forEach((btn) => {
+        const value =
+          btn.getAttribute(isEn ? "data-aria-en" : "data-aria-es") ?? "";
+        if (value) btn.setAttribute("aria-label", value);
+      });
+  }
 
   function initCopyButtons() {
     document
@@ -103,8 +128,18 @@ const { text, label = "Copiar" } = Astro.props;
   }
 
   initCopyButtons();
+  syncCopyButtonLang(currentLang());
   document.addEventListener("astro:page-load", initCopyButtons);
   document.addEventListener("astro:after-swap", initCopyButtons);
+  document.addEventListener("langchange", (e) => {
+    syncCopyButtonLang((e as CustomEvent<{ lang: "es" | "en" }>).detail.lang);
+  });
+  document.addEventListener("astro:page-load", () => {
+    syncCopyButtonLang(currentLang());
+  });
+  document.addEventListener("astro:after-swap", () => {
+    syncCopyButtonLang(currentLang());
+  });
 </script>
 
 <style>

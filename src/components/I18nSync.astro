@@ -3,6 +3,7 @@
 
 <script>
   import { translations } from "../data/translations";
+  import { resolveLang, applyLangToRoot } from "../lib/lang";
 
   function getPath(obj: unknown, path: string): unknown {
     return path.split(".").reduce<unknown>((acc, key) => {
@@ -43,23 +44,15 @@
   }
 
   function syncFromStorage() {
-    const root = document.documentElement;
-    const stored = localStorage.getItem("lang");
-    const current =
-      stored === "en"
-        ? "en"
-        : stored === "es"
-          ? "es"
-          : root.getAttribute("data-lang") === "en"
-            ? "en"
-            : "es";
-    if (current === "en") root.setAttribute("data-lang", "en");
-    else root.setAttribute("data-lang", "es");
-    applyLang(current as "es" | "en");
+    // Manual choice (localStorage) wins; otherwise follow browser.
+    // Never persists detection — only the toggle button writes.
+    const current = resolveLang();
+    applyLangToRoot(current);
+    applyLang(current);
   }
 
-  // Si el usuario ya había elegido inglés en una visita anterior,
-  // lo aplicamos apenas carga (el HTML se renderiza en español por defecto).
+  // HTML renders in Spanish by default; the head inline script in
+  // BaseLayout already set data-lang before paint when possible.
   syncFromStorage();
 
   document.addEventListener("langchange", (event) => {

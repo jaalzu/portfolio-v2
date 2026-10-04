@@ -1,9 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import I18nSync from "../components/I18nSync.astro";
-import { translations } from "../data/translations";
 
-const t = translations.es;
+// Copy lives here (default lang: Spanish). Taken from translations.ts notFound.
+const copy = {
+  es: {
+    title: "Página no encontrada",
+    back: "Volver al inicio",
+  },
+  en: {
+    title: "Page not found",
+    back: "Back to home",
+  },
+} as const;
 ---
 
 <BaseLayout title="404 — Página no encontrada">
@@ -16,8 +25,9 @@ const t = translations.es;
     </div>
 
     <div class="not-found__body">
-      <h1 class="not-found__title" data-i18n="notFound.title">
-        {t.notFound.title}
+      <h1 class="not-found__title">
+        <span class="lang-es">{copy.es.title}</span>
+        <span class="lang-en">{copy.en.title}</span>
       </h1>
       <a href="/" class="not-found__back">
         <svg
@@ -30,7 +40,8 @@ const t = translations.es;
             d="M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,120l80-80,80,80v88H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48Zm96,88H112V160h32Z"
           />
         </svg>
-        <span data-i18n="notFound.back">{t.notFound.back}</span>
+        <span class="lang-es">{copy.es.back}</span>
+        <span class="lang-en">{copy.en.back}</span>
       </a>
     </div>
   </main>

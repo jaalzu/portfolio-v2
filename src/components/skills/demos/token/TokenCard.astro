@@ -3,9 +3,29 @@
 // Markup de la card + carrusel + badges numerados de mobile.
 // Los data-token="..." son los anchors que usa el script de TokenUIDemo.astro
 // para posicionar las líneas de desktop.
-import { translations } from "../../../../data/translations";
 import "./token-card.css";
-const t = translations.es;
+
+// Copy lives here (default lang: Spanish). No import from translations.
+const copy = {
+  es: {
+    cardTitle: "Diseño consistente",
+    cardText:
+      "Cambiá los tokens de abajo y mirá cómo reacciona toda la card a la vez.",
+    button: "Reservar",
+    ratingLabel: "5 de 5 estrellas",
+    prevLabel: "Foto anterior",
+    nextLabel: "Foto siguiente",
+  },
+  en: {
+    cardTitle: "Consistent design",
+    cardText:
+      "Change the tokens below and watch the whole card react at once.",
+    button: "Reserve",
+    ratingLabel: "5 out of 5 stars",
+    prevLabel: "Previous photo",
+    nextLabel: "Next photo",
+  },
+} as const;
 ---
 
 <div class="tk-card" id="tk-card">
@@ -35,8 +55,9 @@ const t = translations.es;
       class="tk-card__arrow tk-card__arrow--prev"
       type="button"
       id="tk-prev"
-      aria-label={t.skillsPage.tokenDemo.prevLabel}
-      data-i18n-attr="aria-label:skillsPage.tokenDemo.prevLabel"
+      aria-label={copy.es.prevLabel}
+      data-aria-es={copy.es.prevLabel}
+      data-aria-en={copy.en.prevLabel}
     >
       <svg
         viewBox="0 0 24 24"
@@ -56,8 +77,9 @@ const t = translations.es;
       type="button"
       id="tk-next"
       data-token="arrow"
-      aria-label={t.skillsPage.tokenDemo.nextLabel}
-      data-i18n-attr="aria-label:skillsPage.tokenDemo.nextLabel"
+      aria-label={copy.es.nextLabel}
+      data-aria-es={copy.es.nextLabel}
+      data-aria-en={copy.en.nextLabel}
     >
       <svg
         class="tk-card__arrow-icon"
@@ -82,18 +104,17 @@ const t = translations.es;
 
     <h3 class="tk-card__title" data-token="title">
       <span class="tk-token-badge tk-token-badge--title">1</span>
-      <span
-        class="tk-card__title-text"
-        data-i18n="skillsPage.tokenDemo.cardTitle"
-      >
-        {t.skillsPage.tokenDemo.cardTitle}
+      <span class="tk-card__title-text">
+        <span class="lang-es">{copy.es.cardTitle}</span>
+        <span class="lang-en">{copy.en.cardTitle}</span>
       </span>
     </h3>
 
     <p class="tk-card__text" data-token="text-body">
       <span class="tk-token-badge tk-token-badge--textbody">2</span>
-      <span data-i18n="skillsPage.tokenDemo.cardText">
-        {t.skillsPage.tokenDemo.cardText}
+      <span>
+        <span class="lang-es">{copy.es.cardText}</span>
+        <span class="lang-en">{copy.en.cardText}</span>
       </span>
     </p>
 
@@ -109,8 +130,9 @@ const t = translations.es;
             <span
               class="tk-card__rating"
               data-token="stars"
-              aria-label={t.skillsPage.tokenDemo.ratingLabel}
-              data-i18n-attr="aria-label:skillsPage.tokenDemo.ratingLabel"
+              aria-label={copy.es.ratingLabel}
+              data-aria-es={copy.es.ratingLabel}
+              data-aria-en={copy.en.ratingLabel}
             >
               <svg viewBox="0 0 20 20" width="12" height="12">
                 <path
@@ -149,10 +171,49 @@ const t = translations.es;
 
       <button class="tk-card__button" type="button" data-token="button">
         <span class="tk-token-badge tk-token-badge--button">5</span>
-        <span data-i18n="skillsPage.tokenDemo.button">
-          {t.skillsPage.tokenDemo.button}
+        <span>
+          <span class="lang-es">{copy.es.button}</span>
+          <span class="lang-en">{copy.en.button}</span>
         </span>
       </button>
     </div>
   </div>
 </div>
+
+<script>
+  import { resolveLang, rootLang } from "../../../../lib/lang";
+
+  function currentTkCardLang(): "es" | "en" {
+    try {
+      const stored = localStorage.getItem("lang");
+      if (stored === "en" || stored === "es") return stored;
+    } catch {
+      // private mode — fall through to root/browser detection
+    }
+    if (document.documentElement.hasAttribute("data-lang")) return rootLang();
+    return resolveLang();
+  }
+
+  function syncTkCardLang(lang: "es" | "en") {
+    const isEn = lang === "en";
+    document
+      .querySelectorAll(".tk-card [data-aria-es]")
+      .forEach((el) => {
+        const value =
+          el.getAttribute(isEn ? "data-aria-en" : "data-aria-es") ?? "";
+        if (value) el.setAttribute("aria-label", value);
+      });
+  }
+
+  syncTkCardLang(currentTkCardLang());
+
+  document.addEventListener("langchange", (e) => {
+    syncTkCardLang((e as CustomEvent<{ lang: "es" | "en" }>).detail.lang);
+  });
+  document.addEventListener("astro:page-load", () => {
+    syncTkCardLang(currentTkCardLang());
+  });
+  document.addEventListener("astro:after-swap", () => {
+    syncTkCardLang(currentTkCardLang());
+  });
+</script>

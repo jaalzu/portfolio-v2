@@ -19,8 +19,10 @@ const { principle: p } = Astro.props;
       <div class="principles__stage">
         <span class="principles__shape"></span>
       </div>
-      <h3 data-principle-title>{p.title}</h3>
-      <p data-principle-desc>{p.desc}</p>
+      <h3 class="lang-es">{p.titleEs}</h3>
+      <h3 class="lang-en">{p.titleEn}</h3>
+      <p class="lang-es">{p.descEs}</p>
+      <p class="lang-en">{p.descEn}</p>
     </div>
     <div class="principles__card-face principles__card-face--back">
       <span class="principles__code-tag">css</span>

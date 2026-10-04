@@ -44,6 +44,15 @@
 </div>
 <script>
   function init() {
+    // Links demo deshabilitados: no navegan ni scrollean al top.
+    document
+      .querySelectorAll<HTMLAnchorElement>(".demo-social__item:not([data-bound])")
+      .forEach((link) => {
+        link.dataset.bound = "true";
+        link.setAttribute("aria-disabled", "true");
+        link.addEventListener("click", (e) => e.preventDefault());
+      });
+
     document
       .querySelectorAll<HTMLElement>('[data-toggle="group"]:not([data-bound])')
       .forEach((el) => {
@@ -199,7 +208,8 @@
       opacity 120ms ease,
       border-color 120ms ease,
       background-color 120ms ease,
-      box-shadow 120ms ease;
+      box-shadow 120ms ease,
+      scale 120ms ease;
     pointer-events: none;
   }
 
@@ -207,6 +217,11 @@
     border-color: var(--color-border);
     background: color-mix(in oklch, var(--color-surface-2) 85%, white 05%);
     box-shadow: var(--shadow-md);
+  }
+
+  /* Click demo: solo un press sutil, sin romper el translate del abanico */
+  .demo-social__item:active {
+    scale: 0.99;
   }
 
   .demo-social__icon {

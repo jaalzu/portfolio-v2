@@ -1,19 +1,25 @@
 ---
-import { translations } from "../../../data/translations";
-const t = translations.es;
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: {
+    title: "Timing Functions",
+    description:
+      "Define cómo progresa la animación en el tiempo: acelerando, desacelerando o siguiendo una curva personalizada.",
+  },
+  en: {
+    title: "Timing Functions",
+    description:
+      "Defines how the animation progresses over time: speeding up, slowing down, or following a custom curve.",
+  },
+} as const;
 ---
 
 <div class="timing-intro">
-  <h2 class="timing-intro__title" data-i18n="motionPage.timingIntro.title">
-    {t.motionPage.timingIntro.title}
-  </h2>
+  <h2 class="timing-intro__title lang-es">{copy.es.title}</h2>
+  <h2 class="timing-intro__title lang-en">{copy.en.title}</h2>
 
-  <p
-    class="timing-intro__description"
-    data-i18n="motionPage.timingIntro.description"
-  >
-    {t.motionPage.timingIntro.description}
-  </p>
+  <p class="timing-intro__description lang-es">{copy.es.description}</p>
+  <p class="timing-intro__description lang-en">{copy.en.description}</p>
 </div>
 
 <style>

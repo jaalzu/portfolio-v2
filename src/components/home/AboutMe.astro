@@ -2,34 +2,44 @@
 import Gallery from "./Gallery/Gallery.astro";
 import { provinceImages } from "../../data/chaco";
 
-export interface Props {
-  texts: readonly string[];
-  province?: { name: string; alt: string; captions?: readonly string[] };
-}
-const { texts, province } = Astro.props;
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: {
+    lead: "Soy de ",
+    line: "Me gusta la música, los días grises y los viajes largos.",
+    body: 'Soy de tomar acción rápido sobre esas ideas que se me pasan por la cabeza, disfruto crear una interfaz nueva, organizar el código , probar diferentes animaciones y pulir el resultado hasta que todo funcione un poco mejor.<br><br>Hay tantas cosas por aprender, explorar y construir en la web, y eso es lo que la hace <span style="white-space:nowrap">tan <span class="enfasis-text enfasis-text--lg">emocionante</span>.</span>',
+  },
+  en: {
+    lead: "I'm from ",
+    line: "I love music, gray days and long trips. ",
+    body: 'I tend to act quickly on the ideas that pop into my head. I enjoy creating a new interface, refactoring some code, trying out different animations, or polishing the result until everything works a little better.<br><br>There are so many things to learn, explore and build on the web, and that\'s what makes it <span style="white-space:nowrap">so <span class="enfasis-text enfasis-text--lg">exciting</span>.</span>',
+  },
+} as const;
 ---
 
 <div class="about">
   <p class="about__text">
-    <span class="about__line" data-i18n="about.0">
-      {texts[0]}
+    <span class="about__line lang-es">
+      {copy.es.lead}
     </span>
-    {province && (
-      <Gallery
-        label={province.name}
-        images={[...provinceImages]}
-        altBase={province.alt}
-        captions={province.captions ? [...province.captions] : undefined}
-      />
-    )}
+    <span class="about__line lang-en">
+      {copy.en.lead}
+    </span>
+    <Gallery images={[...provinceImages]} />
     .{" "}
-    <span class="about__line" data-i18n="about.1">
-      {texts[1]}
+    <span class="about__line lang-es">
+      {copy.es.line}
+    </span>
+    <span class="about__line lang-en">
+      {copy.en.line}
     </span>
     <span
-      class="about__breakline"
-      data-i18n-html="about.2"
-      set:html={texts[2]}
+      class="about__breakline lang-es"
+      set:html={copy.es.body}
+    />
+    <span
+      class="about__breakline lang-en"
+      set:html={copy.en.body}
     />
   </p>
 </div>

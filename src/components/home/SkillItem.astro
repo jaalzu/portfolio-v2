@@ -1,12 +1,16 @@
 ---
 interface Props {
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
   href?: string;
   variant?: "default" | "arrows";
   titleKey?: string;
   subtitleKey?: string;
   index?: number;
+  titleEs?: string;
+  titleEn?: string;
+  subtitleEs?: string;
+  subtitleEn?: string;
 }
 
 const {
@@ -17,7 +21,14 @@ const {
   titleKey = "skillsPromo.title",
   subtitleKey = "skillsPromo.subtitle",
   index = 0,
+  titleEs,
+  titleEn,
+  subtitleEs,
+  subtitleEn,
 } = Astro.props;
+
+const hasLocalTitle = titleEs !== undefined || titleEn !== undefined;
+const hasLocalSubtitle = subtitleEs !== undefined || subtitleEn !== undefined;
 ---
 
 <div class="skill-frame reveal" style={`--i: ${index}`}>
@@ -27,14 +38,28 @@ const {
   >
     <div class="skill__text">
       <span class="skill__head">
-        <p class="skill__title" data-i18n={titleKey}>
-          {title}
-        </p>
+        {hasLocalTitle ? (
+          <>
+            <p class="skill__title lang-es">{titleEs ?? title}</p>
+            <p class="skill__title lang-en">{titleEn ?? title}</p>
+          </>
+        ) : (
+          <p class="skill__title" data-i18n={titleKey}>
+            {title}
+          </p>
+        )}
         <span class="skill__sep" aria-hidden="true">/</span>
       </span>
-      <p class="skill__subtitle" data-i18n={subtitleKey}>
-        {subtitle}
-      </p>
+      {hasLocalSubtitle ? (
+        <>
+          <p class="skill__subtitle lang-es">{subtitleEs ?? subtitle}</p>
+          <p class="skill__subtitle lang-en">{subtitleEn ?? subtitle}</p>
+        </>
+      ) : (
+        <p class="skill__subtitle" data-i18n={subtitleKey}>
+          {subtitle}
+        </p>
+      )}
     </div>
     {variant === "arrows" ? (
       <span class="skill__arrows" aria-hidden="true">

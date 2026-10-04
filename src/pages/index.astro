@@ -8,9 +8,38 @@ import Hero from "../components/home/Hero.astro";
 import AboutMe from "../components/home/AboutMe.astro";
 
 import I18nSync from "../components/I18nSync.astro";
-import { translations } from "../data/translations";
 
-const t = translations.es;
+// Page-level copy (default lang: Spanish).
+// Section / card copy will move into those components next;
+// Hero + AboutMe already own their copy.
+const copy = {
+  es: {
+    projectsTitle: "Proyectos",
+    aboutTitle: "Mas sobre mi",
+    motionTitle: "Web Motion",
+    motionSub: "Principios basicos de animaciones web",
+    skillsTitle: "Skills",
+    skillsSub: "Una colección de skills para mejorar tus interfaces.",
+    projects: [
+      "Marketplace para comprar y vender artículos nuevos y usados.",
+      "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
+      "Plataforma privada para la gestión de cursos, alumnos y contenidos.",
+    ],
+  },
+  en: {
+    projectsTitle: "Projects",
+    aboutTitle: "About Me",
+    motionTitle: "Web Motion",
+    motionSub: "Basic principles of web animations",
+    skillsTitle: "Skills",
+    skillsSub: "A collection of skills to improve your interfaces.",
+    projects: [
+      "Modern marketplace for buying and selling new and second-hand items.",
+      "An interactive way to pick your colors and fonts in real time.",
+      "Private platform to manage courses, students, and content.",
+    ],
+  },
+} as const;
 
 const projects = [
   {
@@ -36,38 +65,38 @@ const projects = [
   <I18nSync />
   <main class="page">
     <Section>
-      <Hero t={t} />
+      <Hero />
     </Section>
 
     <Section
-      title={t.sections.projects}
-      i18nKey="sections.projects"
+      titleEs={copy.es.projectsTitle}
+      titleEn={copy.en.projectsTitle}
       marked
       class="projects-section"
       index={0}
     >
       <div class="projects-grid">
         <SkillItem
-          title={t.motionPromo.title}
-          subtitle={t.motionPromo.subtitle}
-          titleKey="motionPromo.title"
-          subtitleKey="motionPromo.subtitle"
+          titleEs={copy.es.motionTitle}
+          titleEn={copy.en.motionTitle}
+          subtitleEs={copy.es.motionSub}
+          subtitleEn={copy.en.motionSub}
           href="/motion"
           index={0}
         />
         <SkillItem
-          title={t.skillsPromo.title}
-          subtitle={t.skillsPromo.subtitle}
-          titleKey="skillsPromo.title"
-          subtitleKey="skillsPromo.subtitle"
+          titleEs={copy.es.skillsTitle}
+          titleEn={copy.en.skillsTitle}
+          subtitleEs={copy.es.skillsSub}
+          subtitleEn={copy.en.skillsSub}
           href="/skills"
           index={1}
         />
         {projects.map((project, i) => (
           <ProjectCard
             title={project.title}
-            description={t.projects[i]}
-            i18nKey={`projects.${i}`}
+            descriptionEs={copy.es.projects[i]}
+            descriptionEn={copy.en.projects[i]}
             githubUrl={project.githubUrl}
             liveUrl={project.liveUrl}
             index={i + 2}
@@ -77,13 +106,13 @@ const projects = [
     </Section>
 
     <Section
-      title={t.sections.aboutMe}
-      i18nKey="sections.aboutMe"
+      titleEs={copy.es.aboutTitle}
+      titleEn={copy.en.aboutTitle}
       marked
       class="about-section"
       index={1}
     >
-      <AboutMe texts={t.about} province={t.province} />
+      <AboutMe />
     </Section>
   </main>
   <Footer coverSrc="./portft1.webp" email="javieralzuu@gmail.com" />

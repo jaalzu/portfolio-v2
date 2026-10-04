@@ -1,12 +1,29 @@
 ---
-// src/components/motion/cubic/CubicBezier.astro
 import CopyButton from "../../../ui/CopyButton.astro";
 import BezierGraph from "./BezierGraph.astro";
 import BezierPreview from "./BezierPreview.astro";
 import BezierValues from "./BezierValues.astro";
-import { translations } from "../../../../data/translations";
 
-const t = translations.es;
+// Copy lives here (default lang: Spanish).
+const copy = {
+  es: {
+    title: "Cubic Bezier",
+    description: "Podés ajustar la curva para crear tus propios timings.",
+    duration: "Duration",
+    play: "Play",
+    copyLabel: "Copiar CSS",
+    note: "<code>cubic-bezier()</code> define cómo progresa una animación entre su inicio y su final. <code>x1</code> y <code>x2</code> determinan cuándo cambia la velocidad, mientras que <code>y1</code> y <code>y2</code> determinan cuánto acelera o desacelera.",
+  },
+  en: {
+    title: "Cubic Bezier",
+    description:
+      "You can adjust the curve to create your own timing function.",
+    duration: "Duration",
+    play: "Play",
+    copyLabel: "Copy CSS",
+    note: "<code>cubic-bezier()</code> defines how an animation progresses between its start and end. <code>x1</code> and <code>x2</code> determine when the speed changes, while <code>y1</code> and <code>y2</code> determine how much it accelerates or decelerates.",
+  },
+} as const;
 
 const initialValues = { x1: 0.25, y1: 0.1, x2: 0.25, y2: 1 };
 const initialDuration = 1.8;
@@ -23,13 +40,11 @@ const presets = [
 
 <div class="bezier" data-bezier>
   <div class="bezier__header">
-    <h3 class="bezier__title" data-i18n="motionPage.cubic.title">
-      {t.motionPage.cubic.title}
-    </h3>
+    <h3 class="bezier__title lang-es">{copy.es.title}</h3>
+    <h3 class="bezier__title lang-en">{copy.en.title}</h3>
 
-    <p class="bezier__description" data-i18n="motionPage.cubic.description">
-      {t.motionPage.cubic.description}
-    </p>
+    <p class="bezier__description lang-es">{copy.es.description}</p>
+    <p class="bezier__description lang-en">{copy.en.description}</p>
   </div>
 
   <!-- ============================================================
@@ -56,12 +71,8 @@ const presets = [
 
     <div class="bezier__toolbar-right">
       <label class="bezier__duration">
-        <span
-          class="bezier__duration-label"
-          data-i18n="motionPage.cubic.duration"
-        >
-          {t.motionPage.cubic.duration}
-        </span>
+        <span class="bezier__duration-label lang-es">{copy.es.duration}</span>
+        <span class="bezier__duration-label lang-en">{copy.en.duration}</span>
 
         <img
           src="/motion/clock.svg"
@@ -95,7 +106,8 @@ const presets = [
         <svg viewBox="0 0 256 256" aria-hidden="true">
           <path d="M232.4 114.49 88.32 26.35a16 16 0 0 0-16.2-.3A15.86 15.86 0 0 0 64 39.87v176.26A15.94 15.94 0 0 0 80 232a16.07 16.07 0 0 0 8.36-2.35l144.04-88.14a15.81 15.81 0 0 0 0-27.02ZM80 215.94V40l143.83 88Z" />
         </svg>
-        <span data-i18n="motionPage.cubic.play">{t.motionPage.cubic.play}</span>
+        <span class="lang-es">{copy.es.play}</span>
+        <span class="lang-en">{copy.en.play}</span>
       </button>
     </div>
   </div>
@@ -120,8 +132,13 @@ const presets = [
     <div class="bezier__code-header">
       <span class="bezier__code-title">css</span>
 
-      <div class="bezier__code-copy" data-copy-wrapper>
-        <CopyButton text={initialCss} label={t.motionPage.cubic.copyLabel} />
+      <div
+        class="bezier__code-copy"
+        data-copy-wrapper
+        data-copy-label-es={copy.es.copyLabel}
+        data-copy-label-en={copy.en.copyLabel}
+      >
+        <CopyButton text={initialCss} label={copy.es.copyLabel} />
       </div>
     </div>
 
@@ -132,12 +149,8 @@ const presets = [
        EXPLANATION
        ============================================================ -->
 
-  <p class="bezier__note" data-i18n-html="motionPage.cubic.note">
-    <code>cubic-bezier()</code> define cómo progresa una animación entre su
-    inicio y su final. <code>x1</code> y <code>x2</code> determinan cuándo
-    cambia la velocidad, mientras que <code>y1</code> y <code>y2</code>
-    determinan cuánto acelera o desacelera.
-  </p>
+  <p class="bezier__note lang-es" set:html={copy.es.note} />
+  <p class="bezier__note lang-en" set:html={copy.en.note} />
 </div>
 
 <script>
@@ -145,7 +158,36 @@ const presets = [
   // separados (BezierGraph / BezierPreview / BezierValues), Astro los
   // renderiza todos dentro del mismo <div data-bezier>, así que este
   // script los sigue encontrando con querySelector normal.
+  import { resolveLang, rootLang } from "../../../../lib/lang";
+
+  function syncBezierCopyLabel(lang: "es" | "en") {
+    // CopyButton trae data-i18n-attr global (skillsPage.copyLabel); acá el
+    // label correcto es el co-locado (Copiar CSS / Copy CSS), así que se
+    // re-aplica después del sync global.
+    document
+      .querySelectorAll<HTMLElement>("[data-copy-wrapper]")
+      .forEach((wrapper) => {
+        const label =
+          wrapper.getAttribute(lang === "en" ? "data-copy-label-en" : "data-copy-label-es");
+        if (!label) return;
+        const btn = wrapper.querySelector<HTMLElement>("[data-copy]");
+        if (btn) btn.setAttribute("aria-label", label);
+      });
+  }
+
+  function currentLang(): "es" | "en" {
+    try {
+      const stored = localStorage.getItem("lang");
+      if (stored === "en" || stored === "es") return stored;
+    } catch {
+      // private mode — fall through to root/browser detection
+    }
+    if (document.documentElement.hasAttribute("data-lang")) return rootLang();
+    return resolveLang();
+  }
+
   function init() {
+    syncBezierCopyLabel(currentLang());
     document
       .querySelectorAll<HTMLElement>("[data-bezier]")
       .forEach((editor) => {
@@ -459,6 +501,15 @@ const presets = [
   }
   init();
   document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:after-swap", () =>
+    syncBezierCopyLabel(currentLang()),
+  );
+  document.addEventListener("langchange", (e) => {
+    syncBezierCopyLabel((e as CustomEvent<{ lang: "es" | "en" }>).detail.lang);
+  });
+  document.addEventListener("astro:page-load", () =>
+    syncBezierCopyLabel(currentLang()),
+  );
 </script>
 
 <style>
