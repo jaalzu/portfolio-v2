@@ -93,10 +93,9 @@ html::view-transition-new(root) {
 /* ---- Utilities: typography ---- */
 .enfasis-text {
   font-family: var(--font-family-enfasis);
-  font-style: italic;
   font-weight: var(--font-weight-medium);
   display: inline-block;
-  font-size: 1.15em;
+  font-size: 1.2em;
 }
 
 /* ---- Utilities: animations (reveal) ---- */

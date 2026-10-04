@@ -1,11 +1,9 @@
 ---
-// src/components/home/Hero.astro
-// Copy lives here (default lang: Spanish). No props needed.
 import LanguageToggle from "../ui/LanguageToggle.astro";
 
 const copy = {
   es: {
-    bio: '<span class="enfasis-text">Creando interfaces web</span> con ingeniería frontend y sentido del diseño.<br><br>Del prototipo al usuario , desarrollo sistemas de UI y componentes, con foco en la interacción, la accesibilidad, el rendimiento y los pequeños detalles que hacen destacar una experiencia.',
+    bio: '<span class="enfasis-text">Creando interfaces web</span> con ingeniería frontend y sentido del diseño.<br><br>Del prototipo al usuario, convierto ideas en código real, construyendo soluciones frontend escalables y sistemas de UI utilizando tecnologías modernas, con especial atención a la calidad y la experiencia de usuario.',
     githubIntro: "Podés ver más de mi código en",
     githubWord: "GitHub",
     orWord: "o",
@@ -13,11 +11,11 @@ const copy = {
     linkedinWord: "LinkedIn",
   },
   en: {
-    bio: '<span class="enfasis-text">Creating web interfaces</span> with frontend engineering and a sense of design.<br><br>From prototype to user, I develop UI systems and components, with a focus on interaction, accessibility, performance, and the small details that make an experience stand out.',
+    bio: '<span class="enfasis-text">Creating web interfaces</span> with frontend engineering and a sense of design.<br><br>From prototype to user, I turn ideas into real code, building scalable frontend solutions and UI systems using modern technologies, with a strong focus on quality and user experience.',
     githubIntro: "You can see my code on",
     githubWord: "GitHub",
     orWord: "or",
-    talkIntro: "reach me out on",
+    talkIntro: "reach me on",
     linkedinWord: "LinkedIn",
   },
 } as const;
@@ -26,7 +24,6 @@ const copy = {
 <div class="top-bar reveal reveal--after" style="--i: 0">
   <LanguageToggle />
 </div>
-
 <div class="hero-identity">
   <div class="hero-identity__text">
     <p class="hero-identity__name reveal" style="--i: 0">
@@ -37,7 +34,6 @@ const copy = {
     </p>
   </div>
 </div>
-
 <div class="about">
   <!-- reveal lives on the wrapper so toggling .lang-es/.lang-en
        (display:none) never restarts the entrance animation -->
@@ -72,7 +68,6 @@ const copy = {
     .
   </p>
 </div>
-
 <style>
   @keyframes revealUp {
     from {
