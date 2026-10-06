@@ -94,8 +94,17 @@
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
-  stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* La línea usa butt: con round + dasharray el punto redondo queda
+   marcado al final del ciclo (se ve gris en mobile). */
+.abduction__hint-line {
+  stroke-linecap: butt;
+}
+
+.abduction__hint-head {
+  stroke-linecap: round;
 }
 
 /* Se oculta apenas empieza la abducción */

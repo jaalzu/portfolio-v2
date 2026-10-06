@@ -10,8 +10,11 @@ export function initInView() {
   );
 
   document
-    .querySelectorAll("[data-inview]")
-    .forEach((el) => observer.observe(el));
+    .querySelectorAll("[data-inview]:not([data-inview-bound])")
+    .forEach((el) => {
+      (el as HTMLElement).dataset.inviewBound = "1";
+      observer.observe(el);
+    });
 }
 
 // Para JS: llama a cb(true/false) cuando el elemento entra o sale

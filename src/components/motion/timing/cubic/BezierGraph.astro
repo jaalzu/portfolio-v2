@@ -95,7 +95,9 @@
     width: 100%;
     height: 100%;
     overflow: visible;
-    touch-action: none;
+    /* pan-y: la página sigue scrolleando en mobile al arrastrar fuera
+       de los handles; los handles bloquean el scroll a propósito. */
+    touch-action: pan-y;
   }
 
   .bezier__grid line {
@@ -130,6 +132,7 @@
     stroke: var(--color-surface-1);
     stroke-width: 1.5;
     cursor: grab;
+    touch-action: none;
     transition:
       r var(--transition-fast),
       stroke-width var(--transition-fast);

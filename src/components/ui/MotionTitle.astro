@@ -31,13 +31,21 @@ const Tag = level === 2 ? "h2" : "h3";
 
   .motion-title__text {
     margin: 0;
+    min-width: 0;
+    flex: 0 1 auto;
     font-family: var(--font-family-enfasis);
     font-style: italic;
     font-weight: var(--font-weight-medium);
     letter-spacing: normal;
+    line-height: var(--leading-tight);
     color: var(--color-text-heading);
-    padding-top: 0.5rem;
-    padding-bottom: 0.25rem;
+    padding-block: 0.25rem;
+    text-wrap: balance;
+  }
+
+  .motion-title :global(.copy-btn--inline) {
+    flex-shrink: 0;
+    align-self: center;
   }
 
   .motion-title__text--h2 {
@@ -45,6 +53,6 @@ const Tag = level === 2 ? "h2" : "h3";
   }
 
   .motion-title__text--h3 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 </style>
