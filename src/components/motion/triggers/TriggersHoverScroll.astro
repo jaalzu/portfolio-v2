@@ -22,11 +22,11 @@ const copy = {
   <h3 class="triggers-group__title lang-es">{copy.es.title}</h3>
   <h3 class="triggers-group__title lang-en">{copy.en.title}</h3>
 
-  <div class="scroll-zone">
+  <div class="scroll-zone" data-scroll-zone>
     {copy.es.phrases.map((phraseEs, slide) => {
       const phraseEn = copy.en.phrases[slide] ?? phraseEs;
       return (
-        <div class="scroll-zone__slide">
+        <div class:list={["scroll-zone__slide", slide === 0 && "is-in"]}>
           <span class="scroll-zone__text lang-es">
             {phraseEs.split(" ").map((word, i) => (
               <span class="scroll-zone__word" style={`--i:${i}`}>
@@ -98,44 +98,60 @@ const copy = {
   .scroll-zone__word {
     display: inline-block;
     margin-right: 0.3em;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s ease;
+    transition-delay: calc(var(--i, 0) * 35ms);
   }
 
-  /* Aparición progresiva: cada palabra entra con un pequeño delay */
-  @supports (animation-timeline: view()) {
-    .scroll-zone__word {
-      opacity: 0;
-      animation: word-in 1ms linear both;
-      animation-timeline: view(block);
-      animation-range: entry 10% entry 90%;
-    }
-    /* El stagger se aplica al rango, no a un delay en segundos */
-    .scroll-zone__word {
-      animation-range: entry calc(10% + var(--i) * 3%) entry
-        calc(40% + var(--i) * 3%);
-    }
+  /* Solo se oculta cuando el JS ya enganchó el observer.
+     Sin JS (o con reduced-motion) todo queda visible: nunca desaparece. */
+  .scroll-zone.is-js .scroll-zone__slide:not(.is-in) .scroll-zone__word {
+    opacity: 0;
+    transform: translateY(0.4em);
   }
 
-  @keyframes word-in {
-    from {
-      opacity: 0;
-      transform: translateY(0.4em);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Sin soporte de scroll-timeline o con reduced-motion: todo visible */
-  @supports not (animation-timeline: view()) {
-    .scroll-zone__word {
-      opacity: 1;
-    }
-  }
   @media (prefers-reduced-motion: reduce) {
     .scroll-zone__word {
-      opacity: 1;
-      animation: none;
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none;
     }
   }
 </style>
+
+<script>
+  function initScrollZones() {
+    document
+      .querySelectorAll<HTMLElement>("[data-scroll-zone]:not([data-bound])")
+      .forEach((zone) => {
+        (zone as HTMLElement).dataset.bound = "1";
+        zone.classList.add("is-js");
+        const slides = Array.from(
+          zone.querySelectorAll<HTMLElement>(".scroll-zone__slide"),
+        );
+        if (!slides.length) return;
+        // El primero arranca visible para evitar FOUC; el observer corrige.
+        slides[0].classList.add("is-in");
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              (entry.target as HTMLElement).classList.toggle(
+                "is-in",
+                entry.isIntersecting,
+              );
+            });
+          },
+          { root: zone, threshold: 0.6 },
+        );
+        slides.forEach((slide) => io.observe(slide));
+      });
+  }
+
+  initScrollZones();
+  document.addEventListener("astro:page-load", initScrollZones);
+  document.addEventListener("astro:after-swap", initScrollZones);
+</script>
