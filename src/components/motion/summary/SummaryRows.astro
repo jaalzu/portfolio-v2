@@ -15,7 +15,7 @@ const tools: Record<string, { url: string; image: string; name: string }> = {
     name: "Emil Kowalski",
   },
   josh: {
-    url: "https://www.joshwcomeau.com",
+    url: "https://www.joshwcomeau.com/animation/",
     image: "/motion/josh.png",
     name: "Josh W. Comeau",
   },
@@ -23,7 +23,7 @@ const tools: Record<string, { url: string; image: string; name: string }> = {
 
 const chip = (key: string) => {
   const x = tools[key];
-  return `<a class="summary-tool" href="${x.url}" target="_blank" rel="noopener noreferrer"><img src="${x.image}" alt="" /><span>${x.name}</span></a>`;
+  return `<a class="summary-tool link" href="${x.url}" target="_blank" rel="noopener noreferrer"><img src="${x.image}" alt="" /><span>${x.name}</span></a>`;
 };
 
 // `code` -> <code>code</code>, {motion} -> chip con logo y link
@@ -100,17 +100,6 @@ const titleEn = translations.en.motionPage.summary.title;
   .summary-rows__outro :global(.summary-tool) {
     display: inline;
     white-space: nowrap;
-    text-decoration: underline;
-    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
-    text-underline-offset: 3px;
-    transition: text-decoration-color var(--transition-fast);
-  }
-
-  .summary-rows__list :global(.summary-tool:hover),
-  .summary-rows__list :global(.summary-tool:focus-visible),
-  .summary-rows__outro :global(.summary-tool:hover),
-  .summary-rows__outro :global(.summary-tool:focus-visible) {
-    text-decoration-color: currentColor;
   }
 
   .summary-rows__list :global(.summary-tool img),

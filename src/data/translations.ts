@@ -21,7 +21,7 @@ export const translations = {
     },
     cvHref: "/CV-ESP.pdf",
     projects: [
-      "Marketplace para comprar y vender artículos nuevos y usados.",
+      "Marketplace de artículos nuevos y usados",
       "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
       "Plataforma privada para la gestión de cursos, alumnos y contenidos.",
     ],
@@ -212,7 +212,7 @@ export const translations = {
           "Usá `prefers-reduced-motion` para respetar las preferencias de movimiento del usuario.",
           // es
           "Pausá las animaciones que están fuera del viewport con `IntersectionObserver` para ahorrar recursos.",
-          "Las animaciones más eficientes son las que no recalculan el layout ni repintan, como `transform` y `opacity`.",
+          "Priorizá animar `transform` y `opacity` cuando sea posible, ya que el navegador suele manejarlas de forma más eficiente que las propiedades que afectan el layout.",
         ],
 
         cssLimit:
@@ -469,7 +469,7 @@ export const translations = {
 
         points: [
           "Use `prefers-reduced-motion` to respect user motion preferences.",
-          "The most efficient animations are the ones that don't trigger layout or repaint, like `transform` and `opacity`.",
+          "Prefer animating `transform` and `opacity` when possible, since they can often be handled more efficiently by the browser than layout-affecting properties.",
           "Pause off-screen animations with `IntersectionObserver` to save resources.",
         ],
 

@@ -6,12 +6,8 @@ import Section from "../components/ui/Section.astro";
 import Footer from "../components/home/Footer.astro";
 import Hero from "../components/home/Hero.astro";
 import AboutMe from "../components/home/AboutMe.astro";
-
 import I18nSync from "../components/I18nSync.astro";
 
-// Page-level copy (default lang: Spanish).
-// Section / card copy will move into those components next;
-// Hero + AboutMe already own their copy.
 const copy = {
   es: {
     projectsTitle: "Proyectos",
@@ -19,11 +15,11 @@ const copy = {
     motionTitle: "Web Motion",
     motionSub: "Principios de animaciones web",
     skillsTitle: "Agentic Skills",
-    skillsSub: "Una colección de skills para mejorar tus interfaces.",
+    skillsSub: "Una colección de skills para tus interfaces.",
     projects: [
-      "Marketplace para comprar y vender artículos nuevos y usados.",
-      "Una forma interactiva de elegir tus colores y fuentes en tiempo real.",
-      "Plataforma privada para la gestión de cursos, alumnos y contenidos.",
+      "Marketplace de artículos nuevos y usados.",
+      "Elegí colores y fuentes en tiempo real.",
+      "Plataforma privada para la gestión de cursos.",
     ],
   },
   en: {
@@ -31,12 +27,12 @@ const copy = {
     aboutTitle: "About Me",
     motionTitle: "Web Motion",
     motionSub: "Principles of web animations",
-    skillsTitle: "Skills",
+    skillsTitle: "Agentic Skills",
     skillsSub: "A collection of skills to improve your interfaces.",
     projects: [
-      "Modern marketplace for buying and selling new and second-hand items.",
-      "An interactive way to pick your colors and fonts in real time.",
-      "Private platform to manage courses, students, and content.",
+      "Marketplace for new and second-hand items.",
+      "Pick your colors and fonts in real time.",
+      "Private platform for course management.",
     ],
   },
 } as const;

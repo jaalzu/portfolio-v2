@@ -8,7 +8,8 @@ import MotionTitle from "../../../ui/MotionTitle.astro";
 const copy = {
   es: {
     title: "Cubic Bezier",
-    description: "Podés ajustar la curva para crear tus propios timings.",
+    description:
+      'Podés ajustar la curva para crear <span class="sans-italic-text">tus propios timings</span>.',
     duration: "Duration",
     play: "Play",
     copyLabel: "Copiar CSS",
@@ -16,7 +17,8 @@ const copy = {
   },
   en: {
     title: "Cubic Bezier",
-    description: "You can adjust the curve to create your own timing function.",
+    description:
+      'You can adjust the curve to create your <span class="sans-italic-text">own timing function</span>.',
     duration: "Duration",
     play: "Play",
     copyLabel: "Copy CSS",
@@ -40,13 +42,12 @@ const presets = [
 <div class="bezier" data-bezier>
   <div class="bezier__header">
     <MotionTitle
-      level={3}
       id="cubic-bezier"
       titleEs={copy.es.title}
       titleEn={copy.en.title}
     />
-    <p class="motion-desc lang-es">{copy.es.description}</p>
-    <p class="motion-desc lang-en">{copy.en.description}</p>
+    <p class="motion-desc lang-es" set:html={copy.es.description} />
+    <p class="motion-desc lang-en" set:html={copy.en.description} />
   </div>
 
   <!-- ============================================================

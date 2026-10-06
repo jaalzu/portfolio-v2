@@ -3,7 +3,10 @@ import LanguageToggle from "../ui/LanguageToggle.astro";
 
 const copy = {
   es: {
-    bio: '<span class="enfasis-text">Creando interfaces</span> con ingeniería frontend y sentido del diseño.<br><br>Del prototipo al usuario, materializo ideas en experiencias web con personalidad para que se sientan especiales y no simplemente funcionales.',
+    bioLead:
+      '<span class="enfasis-text">Creando interfaces</span> con ingeniería frontend y sentido del diseño.',
+    bioBody:
+      "Del prototipo al usuario, materializo ideas en experiencias web con personalidad para que se sientan especiales y no simplemente funcionales.",
     githubIntro: "Podés ver más de mi código en",
     githubWord: "GitHub",
     orWord: "o",
@@ -11,7 +14,10 @@ const copy = {
     linkedinWord: "LinkedIn",
   },
   en: {
-    bio: '<span class="enfasis-text">Crafting interfaces</span> with frontend engineering and a sense of design.<br><br>From prototype to user, I turn ideas into distinctive web experiences that feel special rather than simply functional.',
+    bioLead:
+      '<span class="enfasis-text">Crafting interfaces</span> with frontend engineering and a sense of design.',
+    bioBody:
+      "From prototype to user, I turn ideas into distinctive web experiences that feel special rather than simply functional.",
     githubIntro: "You can see my code on",
     githubWord: "GitHub",
     orWord: "or",
@@ -38,8 +44,10 @@ const copy = {
   <!-- reveal lives on the wrapper so toggling .lang-es/.lang-en
        (display:none) never restarts the entrance animation -->
   <div class="reveal reveal--after" style="--i: 2">
-    <p class="about__bio lang-es" set:html={copy.es.bio} />
-    <p class="about__bio lang-en" set:html={copy.en.bio} />
+    <p class="about__bio about__bio--lead lang-es" set:html={copy.es.bioLead} />
+    <p class="about__bio about__bio--lead lang-en" set:html={copy.en.bioLead} />
+    <p class="about__bio about__bio--body lang-es" set:html={copy.es.bioBody} />
+    <p class="about__bio about__bio--body lang-en" set:html={copy.en.bioBody} />
   </div>
 
   <p class="about__links reveal reveal--after" style="--i: 3">
@@ -47,7 +55,7 @@ const copy = {
     <span class="lang-en">{copy.en.githubIntro}</span>{" "}
     <a
       href="https://github.com/jaalzu"
-      class="about__text-link"
+      class="about__text-link link link--flex"
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -59,7 +67,7 @@ const copy = {
     <span class="lang-en">{copy.en.talkIntro}</span>{" "}
     <a
       href="https://www.linkedin.com/in/javier-alz%C3%BA-332ab2261/"
-      class="about__text-link"
+      class="about__text-link link link--flex"
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -108,7 +116,7 @@ const copy = {
     align-items: center;
     gap: var(--space-2);
     margin-top: 2rem;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-12);
   }
 
   .hero-identity {
@@ -133,7 +141,7 @@ const copy = {
   }
 
   .about__bio {
-    margin: 0 0 var(--space-6);
+    margin: 0;
     font-size: var(--text-base);
     line-height: var(--leading-relaxed);
     color: var(--color-text);
@@ -141,24 +149,15 @@ const copy = {
     max-inline-size: 60ch;
   }
 
-  .about__text-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-
-    color: var(--color-text-heading);
-    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
-    text-underline-offset: 3px;
-    transition: text-decoration-color var(--transition-fast);
+  .about__bio--body {
+    margin-top: var(--space-2);
   }
 
-  .about__text-link:hover,
-  .about__text-link:focus-visible {
-    text-decoration-color: currentColor;
+  .about__text-link {
+    color: var(--color-text-heading);
   }
 
   .about__links {
-    padding-top: var(--space-2);
     font-size: var(--text-base);
     color: var(--color-text);
     line-height: var(--leading-relaxed);
@@ -171,6 +170,9 @@ const copy = {
     .about {
       padding-block: var(--space-1);
       margin-bottom: var(--space-2);
+    }
+    .about__bio--body {
+      margin-top: var(--space-5);
     }
   }
 </style>

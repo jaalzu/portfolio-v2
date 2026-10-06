@@ -227,23 +227,6 @@ const copy = {
     max-width: 36ch;
     text-wrap: pretty;
   }
-  .upcoming-card__links {
-    display: flex;
-    gap: var(--space-4);
-    margin-top: var(--space-2);
-    font-size: var(--text-sm);
-  }
-  .upcoming-card__link {
-    color: var(--color-text);
-    text-decoration: underline;
-    text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
-    text-underline-offset: 3px;
-    transition: text-decoration-color var(--transition-fast);
-  }
-  .upcoming-card__link:hover,
-  .upcoming-card__link:focus-visible {
-    text-decoration-color: currentColor;
-  }
   .upcoming-card__toolbar {
     min-height: 44px;
   }

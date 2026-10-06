@@ -11,7 +11,9 @@ const copy = {
   es: {
     title: "Introducción",
     description:
-      "Toda animación en la web parte de principios de movimiento. Podés armar casi cualquier cosa que imagines, desde una transición sutil hasta un efecto interactivo complejo. Por más complejo que se vea, es solo una combinación de estos principios.",
+      "Toda animación en la web puede construirse a partir de unas pocas propiedades y principios visuales.",
+    description2:
+      'Podés crear <span class="sans-italic-text">casi cualquier cosa que imagines</span>, desde una transición sutil hasta un efecto interactivo complejo. Por más sofisticado que parezca, generalmente es una combinación de estos recursos.',
     combiningTitle: "Combinando",
     combiningDesc:
       "También podés combinarlos para crear efectos más interesantes.",
@@ -19,7 +21,9 @@ const copy = {
   en: {
     title: "Introduction",
     description:
-      "Every web animation is built on motion principles. You can create almost anything you imagine, from a subtle transition to a complex interactive effect. No matter how complex it looks, it all comes down to a combination of these principles.",
+      "Every web animation can be built from a few properties and visual principles.",
+    description2:
+      'You can create almost <span class="sans-italic-text">anything you imagine</span>, from a subtle transition to a complex interactive effect. No matter how sophisticated it looks, it\'s usually a combination of these building blocks.',
     combiningTitle: "Combining",
     combiningDesc:
       "You can even mix and match them to create more interesting effects.",
@@ -32,6 +36,8 @@ const copy = {
     <div class="principles__intro">
       <p class="motion-desc lang-es">{copy.es.description}</p>
       <p class="motion-desc lang-en">{copy.en.description}</p>
+      <p class="motion-desc lang-es" set:html={copy.es.description2} />
+      <p class="motion-desc lang-en" set:html={copy.en.description2} />
     </div>
 
     <div class="principles__grid" data-inview>
@@ -42,7 +48,6 @@ const copy = {
 
     <div class="principles__intro">
       <MotionTitle
-        level={3}
         id="combining"
         titleEs={copy.es.combiningTitle}
         titleEn={copy.en.combiningTitle}
