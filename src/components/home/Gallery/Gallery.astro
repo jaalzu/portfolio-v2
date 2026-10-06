@@ -35,8 +35,8 @@ const copy = {
   data-label-es={copy.es.name}
   data-label-en={copy.en.name}
 >
-  <span class="lang-es">{copy.es.name}</span>
-  <span class="lang-en">{copy.en.name}</span>
+  <span class="province-text lang-es">{copy.es.name}</span>
+  <span class="province-text lang-en">{copy.en.name}</span>
 
   <span
     class="province__gallery"
@@ -122,8 +122,9 @@ const copy = {
     // Update data-caption + alt from per-element co-located attributes.
     // Lightbox reads these at open time, so it picks up the right lang.
     document.querySelectorAll(".province__photo").forEach((img) => {
-      const caption =
-        img.getAttribute(isEn ? "data-caption-en" : "data-caption-es");
+      const caption = img.getAttribute(
+        isEn ? "data-caption-en" : "data-caption-es",
+      );
       if (caption) img.setAttribute("data-caption", caption);
       const alt = img.getAttribute(isEn ? "data-alt-en" : "data-alt-es");
       if (alt) img.setAttribute("alt", alt);

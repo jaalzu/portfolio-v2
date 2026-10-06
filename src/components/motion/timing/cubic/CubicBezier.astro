@@ -12,7 +12,7 @@ const copy = {
     duration: "Duration",
     play: "Play",
     copyLabel: "Copiar CSS",
-    note: "<code>cubic-bezier()</code> define cómo progresa una animación entre su inicio y su final. <code>x1</code> y <code>x2</code> determinan cuándo cambia la velocidad, mientras que <code>y1</code> y <code>y2</code> determinan cuánto acelera o desacelera.",
+    note: '<code>cubic-bezier()</code> define cómo progresa una animación entre su inicio y su final. <code>x1</code> y <code>x2</code> determinan <span class="sans-italic-text">cuándo cambia la velocidad</span>, mientras que <code>y1</code> y <code>y2</code> determinan <span class="sans-italic-text">cuánto acelera o desacelera</span>.',
   },
   en: {
     title: "Cubic Bezier",
@@ -20,7 +20,7 @@ const copy = {
     duration: "Duration",
     play: "Play",
     copyLabel: "Copy CSS",
-    note: "<code>cubic-bezier()</code> defines how an animation progresses between its start and end. <code>x1</code> and <code>x2</code> determine when the speed changes, while <code>y1</code> and <code>y2</code> determine how much it accelerates or decelerates.",
+    note: '<code>cubic-bezier()</code> defines how an animation progresses between its start and end. <code>x1</code> and <code>x2</code> determine <span class="sans-italic-text">when the speed changes</span>, while <code>y1</code> and <code>y2</code> determine <span class="sans-italic-text">how much it accelerates or decelerates</span>.',
   },
 } as const;
 
@@ -590,8 +590,12 @@ const presets = [
     letter-spacing: 0.1px;
   }
 
-  .bezier__duration-icon {
+  .bezier__duration-label {
     display: none;
+  }
+
+  .bezier__duration-icon {
+    display: block;
     width: 14px;
     height: 14px;
     flex-shrink: 0;
@@ -626,10 +630,11 @@ const presets = [
   .bezier__play {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-1);
+    gap: 0.45rem;
     border: 1px solid var(--color-border-softer);
     border-radius: var(--radius-sm);
-    padding: 0.35rem 0.7rem;
+    padding: 0.4rem 0.725rem;
+    letter-spacing: 0.02em;
     background: var(--color-surface-3);
     color: var(--color-text-heading);
     font: inherit;
@@ -758,14 +763,6 @@ const presets = [
       justify-content: flex-end;
       margin-left: auto;
       margin-top: 2px;
-    }
-
-    .bezier__duration-label {
-      display: none;
-    }
-
-    .bezier__duration-icon {
-      display: block;
     }
 
     .bezier__workspace {

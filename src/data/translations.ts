@@ -61,7 +61,7 @@ export const translations = {
       github: "GitHub",
       viewLive: "Ver en vivo",
       typography: {
-        title: "Fundamentos de Tipografía — UI y Calidad",
+        title: "Fundamentos de Tipografía",
         description:
           "El texto es el corazón de cada interfaz. Construye o audita tu tipografía para fortalecer la legibilidad, la jerarquía, la accesibilidad y la consistencia visual, ofreciendo así mejores experiencias de usuario.",
       },
@@ -71,7 +71,7 @@ export const translations = {
           "Tu web tiene que ser accesible para todos, sin excepciones. Construí o auditá el foco visible, los errores anunciados a tiempo y el feedback en vivo de tu interfaz.",
       },
       designTokens: {
-        title: "Fundamentos de Tokens — Consistencia Real",
+        title: "Fundamentos de Tokens",
         description:
           "Un diseño no es consistente porque se vea bien una vez, sino porque todo viene de la misma fuente. Tocá un token y mirá cómo cambian varios componentes a la vez.",
       },
@@ -316,14 +316,13 @@ export const translations = {
       back: "Back to home",
     },
     skillsPage: {
-      subtitle:
-        "Two practical agent skills for making interfaces easier to use and read.",
+      subtitle: "Practical skills for better interfaces.",
       installTitle: "Installation",
       installHint: "Copy the command and install the skill you need.",
       github: "GitHub",
       viewLive: "View live",
       typography: {
-        title: "Typography Foundation — UI & Quality",
+        title: "Typography Foundation",
         description:
           "Text is at the heart of every interface. Build or audit your typography to strengthen legibility, hierarchy, accessibility and visual consistency for better user experiences.",
       },
@@ -333,7 +332,7 @@ export const translations = {
           "Your site needs to be accessible to everyone, no exceptions. Build or audit visible focus states, timely error announcements, and live feedback across your interface.",
       },
       designTokens: {
-        title: "Design Tokens Foundation — Real Consistency",
+        title: "Design Tokens Foundation",
         description:
           "A design isn't consistent because it looks good once — it's consistent because everything comes from the same source. Change one token and watch several components update at once.",
       },

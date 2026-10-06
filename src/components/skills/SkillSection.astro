@@ -122,7 +122,14 @@ const hasTitleText = (title ?? titleEs ?? titleEn) !== undefined;
     text-align: left;
   }
   .skill-meta__title-text {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+  .skill-meta__title :global(.copy-btn--inline) {
     flex-shrink: 0;
+    align-self: center;
   }
   .skill-hash {
     opacity: 0.6;
@@ -130,11 +137,16 @@ const hasTitleText = (title ?? titleEs ?? titleEn) !== undefined;
     margin-right: 0.2em;
   }
   .skill-meta__divider {
-    flex: 1;
+    flex: 1 1 24px;
     height: 1px;
     background: color-mix(in oklch, var(--color-border-soft) 45%, transparent);
     margin-left: 0.8rem;
     min-width: 24px;
+  }
+  @media (max-width: 560px) {
+    .skill-meta__divider {
+      min-width: 12px;
+    }
   }
   .skill-meta__desc {
     margin: var(--space-4) 0 0;

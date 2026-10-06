@@ -95,7 +95,15 @@ html::view-transition-new(root) {
   font-family: var(--font-family-enfasis);
   font-weight: var(--font-weight-medium);
   display: inline-block;
-  font-size: 1.2em;
+  font-size: 1.18em;
+}
+
+/* Tercer tipo: la base (sans) en itálica. Geist no trae archivo itálico,
+   así que el navegador la sintetiza (oblicua). Solo define familia +
+   estilo; tamaño/peso/color los pone cada contexto. */
+.sans-italic-text {
+  font-family: var(--font-family-base);
+  font-style: italic;
 }
 
 /* ---- Utilities: animations (reveal) ---- */
