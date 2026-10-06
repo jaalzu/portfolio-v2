@@ -90,6 +90,29 @@ html::view-transition-new(root) {
   background: var(--color-surface-1);
 }
 
+/* ---- Utilities: links ----
+   Uso: <a class="link"> para links de texto inline.
+   Solo define el subrayado; color/display los pone cada contexto.
+   No usar en cards, botones o pills (tienen su propio estilo). */
+.link {
+  text-decoration: underline;
+  text-decoration-color: var(--link-underline-color);
+  text-underline-offset: var(--link-underline-offset);
+  transition: text-decoration-color var(--transition-fast);
+}
+
+.link:hover,
+.link:focus-visible {
+  text-decoration-color: var(--link-underline-color-hover);
+}
+
+/* Variante para links de texto con icono (GitHub, LinkedIn...). */
+.link--flex {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
 /* ---- Utilities: typography ---- */
 .enfasis-text {
   font-family: var(--font-family-enfasis);

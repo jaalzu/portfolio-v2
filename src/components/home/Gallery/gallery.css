@@ -4,16 +4,7 @@
   align-items: center;
   color: var(--color-text-heading);
   font-weight: var(--font-weight-regular);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
   cursor: pointer;
-  transition: text-decoration-color var(--transition-fast);
-}
-
-.province:hover,
-.province:focus-visible {
-  text-decoration-color: currentColor;
 }
 
 .province:focus-visible {

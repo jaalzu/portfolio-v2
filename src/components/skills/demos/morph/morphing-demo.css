@@ -114,25 +114,15 @@
   font-size: var(--text-sm);
 }
 
-.morph-link {
-  color: var(--color-text);
-  text-decoration: underline;
-  text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
-  text-underline-offset: 3px;
-  transition: text-decoration-color var(--transition-fast);
-}
-
-.morph-link:hover,
-.morph-link:focus-visible {
-  text-decoration-color: currentColor;
-}
-
+/* Nota: los links de texto usan la utilidad global `.link`.
+   Aquí solo queda la variante icono, sin subrayado. */
 .morph-link--icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
+  color: var(--color-text);
   text-decoration: none;
   transition:
     color var(--transition-fast),

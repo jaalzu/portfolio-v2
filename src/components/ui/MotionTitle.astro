@@ -4,19 +4,17 @@ import CopyButton from "./CopyButton.astro";
 interface Props {
   titleEs: string;
   titleEn: string;
-  level?: 2 | 3;
-  /** Si lo pasás, el título es linkeable por su cuenta (subtítulos). */
+
   id?: string;
 }
-const { titleEs, titleEn, level = 2, id } = Astro.props;
-const Tag = level === 2 ? "h2" : "h3";
+const { titleEs, titleEn, id } = Astro.props;
 ---
 
 <div class="motion-title" id={id}>
-  <Tag class:list={["motion-title__text", `motion-title__text--h${level}`]}>
+  <h2 class="motion-title__text">
     <span class="lang-es">{titleEs}</span>
     <span class="lang-en">{titleEn}</span>
-  </Tag>
+  </h2>
   <CopyButton anchor={id ?? true} inline />
 </div>
 
@@ -34,25 +32,16 @@ const Tag = level === 2 ? "h2" : "h3";
     min-width: 0;
     flex: 0 1 auto;
     font-family: var(--font-family-enfasis);
-    font-style: italic;
+    font-size: var(--text-title);
     font-weight: var(--font-weight-medium);
     letter-spacing: normal;
-    line-height: var(--leading-tight);
     color: var(--color-text-heading);
-    padding-block: 0.25rem;
     text-wrap: balance;
   }
 
   .motion-title :global(.copy-btn--inline) {
     flex-shrink: 0;
     align-self: center;
-  }
-
-  .motion-title__text--h2 {
-    font-size: 1.5rem;
-  }
-
-  .motion-title__text--h3 {
-    font-size: 1.5rem;
+    transform: translateY(-3px);
   }
 </style>
