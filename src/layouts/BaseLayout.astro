@@ -36,6 +36,12 @@ const { title, description = "Portfolio javalzu" } = Astro.props;
     />
     <ClientRouter />
 
+    <script
+      is:inline
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="0bc7277c-a5a1-4bfb-992c-7592f80b5dce"
+    ></script>
     <!-- Early lang init: manual choice wins, else follow browser, default es.
          Never writes to localStorage — only the toggle button persists. -->
     <script is:inline>
@@ -56,7 +62,6 @@ const { title, description = "Portfolio javalzu" } = Astro.props;
         }
       })();
     </script>
-
     <script>
       document.addEventListener("astro:before-swap", (event) => {
         if (sessionStorage.getItem("home-intro-played") === "1") {
